@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 const SearchRealtor = styled.div`
-    width: 90rem;
-    height: 30rem;
+    width: 60vw;
+    height: 30vh;
     display: flex;
     margin: auto;
-    margin-top: 10rem;
+    margin-top: 15vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
