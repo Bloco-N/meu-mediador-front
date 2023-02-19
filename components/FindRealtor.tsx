@@ -9,9 +9,10 @@ const SearchRealtor = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(78, 47, 39, 0.5);
+    background-color: rgba(78, 47, 39, 0.6);
     box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(4px);
+    border-radius: 1rem;
     .search-row {
         display: flex;
         flex-direction: row;
