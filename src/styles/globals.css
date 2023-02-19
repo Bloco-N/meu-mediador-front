@@ -36,12 +36,23 @@ h4 {
 
 h2 {
   font-weight: normal;
-  font-size: 3rem;
+  font-size: 3.5rem;
 }
 
 h4 {
   font-weight: normal;
   font-size: 2rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(78, 47, 39, 0.6);
+  box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  border-radius: 1rem;
 }
 
 .input-realtor,
@@ -80,12 +91,12 @@ h4 {
 
 .input-name {
   width: 12vw;
-  height: 6vh;
+  height: 7vh;
   font-size: 1.5rem;
 }
 
 .input-sign-up {
   width: 25vw;
-  height: 6vh;
+  height: 7vh;
   font-size: 1.5rem;
 }
