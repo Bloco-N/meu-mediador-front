@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SignUp = styled.div`
+const SignUpContainer = styled.div`
     width: 30vw;
     height: 75vh;
     display: flex;
@@ -31,7 +31,7 @@ const SignUp = styled.div`
 
 const SignUpClient = () => {
     return (
-        <SignUp>
+        <SignUpContainer>
 
             <h2>Cadastro</h2>
 
@@ -45,7 +45,7 @@ const SignUpClient = () => {
             <input className="input-sign-up" type="password" placeholder="Confirmar Senha" />
 
             <button className="signUpButton">Cadastrar</button>
-        </SignUp>
+        </SignUpContainer>
     );
 };
 
