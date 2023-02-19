@@ -28,9 +28,15 @@ body {
 }
 
 h1,
+h2,
 h4 {
   font-family: 'Poppins';
   color: var(--surface);
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 3rem;
 }
 
 h4 {
@@ -39,10 +45,12 @@ h4 {
 }
 
 .input-realtor,
-.input-city-cep {
+.input-city-cep,
+.input-sign-up,
+.input-name {
   font-family: 'Poppins';
   color: var(--base);
-  font-size: 2.2rem;
+  font-size: 2rem;
   background: var(--surface);
   text-align: left;
   padding: 2rem;
@@ -57,14 +65,27 @@ h4 {
   width: 25vw;
 }
 
-.searchButton {
+.searchButton,
+.signUpButton {
   font-family: 'Poppins';
   color: var(--text);
-  font-size: 2.2rem;
+  font-size: 2rem;
   background: var(--surface-2);
   text-align: center;
   border-radius: 1rem;
   border: 1rem solid var(--surface-2);
   width: 10vw;
   height: 8vh;
+}
+
+.input-name {
+  width: 12vw;
+  height: 6vh;
+  font-size: 1.5rem;
+}
+
+.input-sign-up {
+  width: 25vw;
+  height: 6vh;
+  font-size: 1.5rem;
 }
