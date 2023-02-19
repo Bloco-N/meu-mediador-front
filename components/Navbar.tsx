@@ -1,7 +1,7 @@
 import Image from "next/image";
 import styled from 'styled-components';
 
-const Container = styled.div`
+const Nav = styled.div`
     width: 100vw;
     display: flex;
     flex-direction: row;
@@ -12,10 +12,10 @@ const Container = styled.div`
 
 const Navbar = () => {
     return (
-        <Container>
+        <Nav>
             <h1>Meu mediador</h1>
             <Image src={'/profile.svg'} alt={'Profile'} width={60} height={60}></Image>
-        </Container>
+        </Nav>
     );
 };
 
