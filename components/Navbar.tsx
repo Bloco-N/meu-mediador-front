@@ -9,12 +9,17 @@ const Nav = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 4.5rem 8rem;
+    a {
+        text-decoration: none;
+    }
 `
 
 const Navbar = () => {
     return (
         <Nav>
-            <h1>Meu mediador</h1>
+            <Link href="/">
+                <h1>Meu mediador</h1>
+            </Link>
             <Link href="/sign-in">
                 <Image src={'/profile.svg'} alt={'Profile'} width={60} height={60}></Image>
             </Link>
