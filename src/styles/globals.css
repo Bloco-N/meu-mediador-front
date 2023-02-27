@@ -6,6 +6,12 @@
   padding: 0;
 }
 
+a {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
 :root {
   font-size: 62.5%;
   --surface: #FFEFDA;
@@ -29,7 +35,8 @@ body {
 
 h1,
 h2,
-h4 {
+h4,
+h5 {
   font-family: 'Poppins';
   color: var(--surface);
 }
@@ -42,6 +49,11 @@ h2 {
 h4 {
   font-weight: normal;
   font-size: 2rem;
+}
+
+h5 {
+  font-weight: normal;
+  font-size: 1.6rem;
 }
 
 .card {
@@ -58,7 +70,8 @@ h4 {
 .input-realtor,
 .input-city-cep,
 .input-sign-up,
-.input-name {
+.input-name,
+.input-forgot-password {
   font-family: 'Poppins';
   color: var(--base);
   font-size: 2rem;
@@ -72,12 +85,16 @@ h4 {
   outline: none;
 }
 
-.input-realtor {
+.input-realtor,
+.input-forgot-password {
   width: 25vw;
 }
 
 .searchButton,
-.signUpButton {
+.signUpButton,
+.signInButton,
+.profileButton,
+.forgotPasswordButto {
   font-family: 'Poppins';
   color: var(--text);
   font-size: 2rem;
@@ -87,6 +104,7 @@ h4 {
   border: 1rem solid var(--surface-2);
   width: 10vw;
   height: 8vh;
+  cursor: pointer;
 }
 
 .input-name {
@@ -99,4 +117,36 @@ h4 {
   width: 25vw;
   height: 7vh;
   font-size: 1.5rem;
+}
+
+.forgot-password,
+.create-account {
+  text-decoration: none;
+  font-family: 'Poppins';
+  color: var(--surface);
+  font-size: 1.6rem;
+}
+
+/* SIGN UP PROFILE */
+
+.view-profile {
+  pointer-events: none;
+}
+
+.view-profile>.link {
+  pointer-events: auto;
+  transition: 1s ease-in-out;
+}
+
+.view-profile:hover>.link:hover {
+  transform: scale(1.15);
+  transition: 0.6s ease-in-out;
+}
+
+.view-profile:hover>.link:not(:hover) {
+  filter: blur(4px);
+}
+
+.choose-profile .choose-profile-client:hover .description-client-profile {
+  display: block;
 }
