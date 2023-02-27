@@ -31,7 +31,7 @@ const SignIn = () => {
                 <input className="input-sign-up" type="email" placeholder="E-mail" />
                 <input className="input-sign-up" type="password" placeholder="Senha" />
 
-                <Link className="forgot-password" href="/">Esqueci minha senha</Link>
+                <Link className="forgot-password" href="/forgot-password">Esqueci minha senha</Link>
 
                 <button className="signInButton">Entrar</button>
 
