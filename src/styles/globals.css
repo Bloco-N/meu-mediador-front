@@ -70,7 +70,8 @@ h5 {
 .input-realtor,
 .input-city-cep,
 .input-sign-up,
-.input-name {
+.input-name,
+.input-forgot-password {
   font-family: 'Poppins';
   color: var(--base);
   font-size: 2rem;
@@ -84,14 +85,16 @@ h5 {
   outline: none;
 }
 
-.input-realtor {
+.input-realtor,
+.input-forgot-password {
   width: 25vw;
 }
 
 .searchButton,
 .signUpButton,
 .signInButton,
-.profileButton {
+.profileButton,
+.forgotPasswordButto {
   font-family: 'Poppins';
   color: var(--text);
   font-size: 2rem;
@@ -101,6 +104,7 @@ h5 {
   border: 1rem solid var(--surface-2);
   width: 10vw;
   height: 8vh;
+  cursor: pointer;
 }
 
 .input-name {
@@ -125,28 +129,24 @@ h5 {
 
 /* SIGN UP PROFILE */
 
-.choose-profile {
+.view-profile {
   pointer-events: none;
 }
 
-.choose-profile>.link {
+.view-profile>.link {
   pointer-events: auto;
   transition: 1s ease-in-out;
 }
 
-.choose-profile:hover>.link:hover {
+.view-profile:hover>.link:hover {
   transform: scale(1.15);
   transition: 0.6s ease-in-out;
 }
 
-.choose-profile:hover>.link:not(:hover) {
+.view-profile:hover>.link:not(:hover) {
   filter: blur(4px);
 }
 
-/* .choose-profile a {
-  pointer-events: none;
+.choose-profile .choose-profile-client:hover .description-client-profile {
+  display: block;
 }
-
-a:hover {
-  pointer-events: auto;
-} */
