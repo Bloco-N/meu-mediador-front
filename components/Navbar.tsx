@@ -8,7 +8,7 @@ const Nav = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 4.5rem 8rem;
+    padding: 3rem;
     a {
         text-decoration: none;
     }
