@@ -1,46 +1,44 @@
-import Layout from "components/Layout";
 import Link from "next/link";
 import styled from "styled-components";
 
 const SignInContainer = styled.div`
-    width: 28vw;
-    height: 60vh;
-    margin: auto;
-    gap: 2.5rem;
-    h2 {
-        padding-bottom: 2vh;
-        margin-top: -5vh;
-    }
-    h5 {
-        margin-top: 3vh;
-        margin-bottom: -5vh;
-    }
-    .signInButton {
-        margin-top: 3vh;
-    }
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  form{
+    text-align: center;
+    width: 30%;
+    height: 45rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
+  }
 `
 
 const SignIn = () => {
     return (
-        <Layout>
+      <SignInContainer>
 
-            <SignInContainer className="card">
+        <form className="card" action="">
 
-                <h2>Login</h2>
+          <h2>Login</h2>
 
-                <input className="input-sign-up" type="email" placeholder="E-mail" />
-                <input className="input-sign-up" type="password" placeholder="Senha" />
+          <input className="input-sign-up" type="email" placeholder="E-mail" />
+          <input className="input-sign-up" type="password" placeholder="Senha" />
 
-                <Link className="forgot-password" href="/forgot-password">Esqueci minha senha</Link>
+          {/* <Link className="forgot-password" href="/forgot-password">Esqueci minha senha</Link> */}
 
-                <button className="signInButton">Entrar</button>
+          <button>Entrar</button>
 
-                <h5>Ainda não tem uma conta? Cadastre-se<Link className="create-account" href="/sign-up/profile"> aqui</Link></h5>
+          <h5>Ainda não tem uma conta? <Link className="create-account" href="/sign-up/profile">Cadastre-se aqui</Link></h5>
+        </form>
 
-            </SignInContainer>
 
+      </SignInContainer>
 
-        </Layout>
     );
 };
 

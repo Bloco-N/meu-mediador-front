@@ -1,51 +1,46 @@
-import Layout from "components/Layout";
 import styled from "styled-components";
 
 const SignUpContainer = styled.div`
-    width: 30vw;
-    height: 75vh;
+  width: 100%;
+  form{
+    width: 30%;
+    height: 55rem;
     margin: auto;
     padding: 3rem 3.5rem;
     gap: 2.5rem;
-    h2 {
-        padding-bottom: 2vh;
-        margin-top: -10vh;
+
+    .full-name{
+      display: flex;
+      gap: 2rem;
     }
-    .fullName {
-        display: flex;
-        flex-direction: row;
-        gap: 1vw;
-    }
-    .signUpButton {
-        margin-top: 6vh;
-        margin-bottom: -10vh;
-    }
+
+  }
 `
 
 const SignUp = () => {
     return (
-        <>
-            <Layout>
 
-                <SignUpContainer className="card">
+      <SignUpContainer>
 
-                    <h2>Cadastro</h2>
+        <form className="card" action="">
 
-                    <div className="fullName">
-                        <input className="input-name" placeholder="Nome" />
-                        <input className="input-name" placeholder="Sobrenome" />
-                    </div>
+          <h2>Cadastro</h2>
 
-                    <input className="input-sign-up" type="email" placeholder="E-mail" />
-                    <input className="input-sign-up" type="password" placeholder="Senha" />
-                    <input className="input-sign-up" type="password" placeholder="Confirmar Senha" />
+          <div className="full-name">
+              <input className="input-name" placeholder="Nome" />
+              <input className="input-name" placeholder="Sobrenome" />
+          </div>
 
-                    <button className="signUpButton">Cadastrar</button>
-                </SignUpContainer>
+          <input className="input-sign-up" type="email" placeholder="E-mail" />
+          <input className="input-sign-up" type="password" placeholder="Senha" />
+          <input className="input-sign-up" type="password" placeholder="Confirmar Senha" />
 
-            </Layout>
+          <button>Cadastrar</button>
 
-        </>
+        </form>
+
+      </SignUpContainer>
+
     );
 };
 

@@ -1,49 +1,65 @@
-import Layout from "components/Layout";
 import Link from "next/link";
 import styled from "styled-components";
-import { useState } from "react";
 
-const ChooseProfileTitle = styled.div`
-    text-align: center;
-    margin: auto;
-    background-color: var(--surface-2);
-    width: 35vw;
-    border-radius: 1rem;
+const Container = styled.div`
+  
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
 `
 
+const ChooseProfileTitle = styled.div`
+  font-weight: normal;
+  padding: 2rem;
+  h1{
+    
+    font-weight: normal;
+  }
+  `
+
 const ViewProfile = styled.div`
-    width: 80vw;
+    width: 80rem;
     display: flex;
     flex-direction: row;
-    margin: auto;
-    margin-top: 10vh;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 5rem;
 `
 
 const NameProfile = styled.div`
-    width: 20vw;
-    height: 20vw;
+    width: 20rem;
+    height: 10rem;
+    background-color: var(--base);
 `
 
 const DescriptionProfile = styled.div`
-    width: 65vw;
-    height: 8vh;
+    width: 65rem; 
     margin: auto;
-    margin-top: 10vh;
     display: none;
     text-align: center;
     align-items: center;
-    padding-top: 2vh;
+    padding: 2rem;
+    h3{
+      font-weight: normal;
+    }
 `
 
 const ChooseProfile = styled.div`
+    height: 25rem;
+    gap: 2rem;
     display: flex;
+    align-items: center;
+    background-color: var(--text);
     flex-direction: column;
+    padding: 4rem;
+    border-radius: 2rem;
+    background-color: rgba(78, 47, 39, 0.6);
+    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.25);
 `
 
 const Profile = () => {
 
-    // Client Description
+  // Client Description
     function showClientDescription() {
         if (typeof window !== 'undefined') {
 
@@ -98,61 +114,60 @@ const Profile = () => {
     }
 
     return (
+      <Container>
+        <ChooseProfileTitle className="card">
+            <h1>Selecione o tipo de perfil que deseja criar</h1>
+        </ChooseProfileTitle>
 
-        <Layout>
+        <ChooseProfile className="choose-profile">
 
-            <ChooseProfileTitle>
-                <h1>Selecione o tipo de perfil que deseja criar</h1>
-            </ChooseProfileTitle>
+            <ViewProfile className="view-profile">
 
-            <ChooseProfile className="choose-profile">
+                <Link className="link choose-profile-client" href="/sign-up" // const sign up default
+                    onMouseEnter={showClientDescription}
+                    onMouseLeave={hideClientDescription}>
 
-                <ViewProfile className="view-profile">
+                    <NameProfile className="card choose-profile-client">
+                        Cliente
+                    </NameProfile>
 
-                    <Link className="link choose-profile-client" href="/sign-up" // const sign up default
-                        onMouseEnter={showClientDescription}
-                        onMouseLeave={hideClientDescription}>
+                </Link>
 
-                        <NameProfile className="card choose-profile-client">
-                            <button className="profileButton">Cliente</button>
-                        </NameProfile>
+                <Link className="link choose-profile-realtor" href="/sign-up" // const sign up default
+                    onMouseEnter={showRealtorDescription}
+                    onMouseLeave={hideRealtorDescription}>
+                    <NameProfile className="card choose-profile-realtor">
+                        Consultor
+                    </NameProfile>
+                </Link>
 
-                    </Link>
+                <Link className="link choose-profile-agency" href="/sign-up" // const sign up agency
+                    onMouseEnter={showAgencyDescription}
+                    onMouseLeave={hideAgencyDescription}>
+                    <NameProfile className="card choose-profile-agency">
+                        Agência
+                    </NameProfile>
+                </Link>
 
-                    <Link className="link choose-profile-realtor" href="/sign-up" // const sign up default
-                        onMouseEnter={showRealtorDescription}
-                        onMouseLeave={hideRealtorDescription}>
-                        <NameProfile className="card choose-profile-realtor">
-                            <button className="profileButton">Consultor</button>
-                        </NameProfile>
-                    </Link>
+            </ViewProfile>
 
-                    <Link className="link choose-profile-agency" href="/sign-up" // const sign up agency
-                        onMouseEnter={showAgencyDescription}
-                        onMouseLeave={hideAgencyDescription}>
-                        <NameProfile className="card choose-profile-agency">
-                            <button className="profileButton">Agência</button>
-                        </NameProfile>
-                    </Link>
+            <DescriptionProfile className="description-client-profile">
+                <h3>Está em busca de um consultor para conquistar seu próximo imóvel?</h3>
+            </DescriptionProfile>
 
-                </ViewProfile>
+            <DescriptionProfile className="description-realtor-profile">
+                <h3>Divulgue suas vendas, atraia clientes e se associe a sua empresa</h3>
+            </DescriptionProfile>
 
-                <DescriptionProfile className="card description-client-profile">
-                    <h3>Está em busca de um consultor para conquistar seu próximo imóvel?</h3>
-                </DescriptionProfile>
+            <DescriptionProfile className="description-agency-profile">
+                <h3>Cadastre sua empresa para associar seus consultores e divulgar seus imóveis a venda</h3>
+            </DescriptionProfile>
 
-                <DescriptionProfile className="card description-realtor-profile">
-                    <h3>Divulgue suas vendas, atraia clientes e se associe a sua empresa</h3>
-                </DescriptionProfile>
-
-                <DescriptionProfile className="card description-agency-profile">
-                    <h3>Cadastre sua empresa para associar seus consultores e divulgar seus imóveis a venda</h3>
-                </DescriptionProfile>
-
-            </ChooseProfile>
+        </ChooseProfile>
+      </Container>
 
 
-        </Layout>
+
     );
 };
 
