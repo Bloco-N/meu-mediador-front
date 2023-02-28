@@ -1,40 +1,32 @@
-import Layout from "components/Layout";
 import styled from "styled-components";
 
 const ForgotPasswordContainer = styled.div`
-    width: 30vw;
-    height: 50vh;
-    margin: auto;
-    margin-top: 15vh;
-    padding: 3rem 3.5rem;
-    gap: 2.5rem;
-    h2 {
-        margin-top: -8vh;
-        padding-bottom: 5vh;
-    }
-    button {
-        margin-bottom: -10vh;
-        margin-top: 2vh;
-    }
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 2rem;
+  h4{
+    font-size: 1.3rem;
+  }
+  h2{
+    margin-bottom: 2rem;
+  }
+  padding: 2rem 3rem;
 `
 
 const ForgotPassword = () => {
     return (
-        <Layout>
+      <ForgotPasswordContainer className="card">
 
-            <ForgotPasswordContainer className="card">
+          <h2>Recuperar Senha</h2>
 
-                <h2>Recuperar Senha</h2>
+          <input className="input-forgot-password" type="email" placeholder="E-mail" />
+          <h4>Informe um email para recuperar sua senha</h4>
 
-                <h4>Informe um email para recuperar sua senha</h4>
+          <button className="forgotPasswordButton">Enviar</button>
 
-                <input className="input-forgot-password" type="email" placeholder="E-mail" />
-
-                <button className="forgotPasswordButton">Enviar</button>
-
-            </ForgotPasswordContainer>
-
-        </Layout>
+      </ForgotPasswordContainer>
     );
 };
 
