@@ -63,7 +63,7 @@ const Profile = () => {
     function showClientDescription() {
         if (typeof window !== 'undefined') {
 
-            const showClientDescription = document.querySelector(".description-client-profile");
+            const showClientDescription = document.querySelector(".description-client-profile") as HTMLElement;
             showClientDescription.style.display = "block";
 
         }
@@ -72,7 +72,7 @@ const Profile = () => {
     function hideClientDescription() {
         if (typeof window !== 'undefined') {
 
-            const hideClientDescription = document.querySelector(".description-client-profile");
+            const hideClientDescription = document.querySelector(".description-client-profile") as HTMLElement;
             hideClientDescription.style.display = "none";
         }
     }
@@ -81,7 +81,7 @@ const Profile = () => {
     function showRealtorDescription() {
         if (typeof window !== 'undefined') {
 
-            const showRealtorDescription = document.querySelector(".description-realtor-profile");
+            const showRealtorDescription = document.querySelector(".description-realtor-profile") as HTMLElement;
             showRealtorDescription.style.display = "block";
 
         }
@@ -90,7 +90,7 @@ const Profile = () => {
     function hideRealtorDescription() {
         if (typeof window !== 'undefined') {
 
-            const hideRealtorDescription = document.querySelector(".description-realtor-profile");
+            const hideRealtorDescription = document.querySelector(".description-realtor-profile") as HTMLElement;
             hideRealtorDescription.style.display = "none";
         }
     }
@@ -99,7 +99,7 @@ const Profile = () => {
     function showAgencyDescription() {
         if (typeof window !== 'undefined') {
 
-            const showAgencyDescription = document.querySelector(".description-agency-profile");
+            const showAgencyDescription = document.querySelector(".description-agency-profile") as HTMLElement;
             showAgencyDescription.style.display = "block";
 
         }
@@ -108,7 +108,7 @@ const Profile = () => {
     function hideAgencyDescription() {
         if (typeof window !== 'undefined') {
 
-            const hideAgencyDescription = document.querySelector(".description-agency-profile");
+            const hideAgencyDescription = document.querySelector(".description-agency-profile") as HTMLElement;
             hideAgencyDescription.style.display = "none";
         }
     }
@@ -123,7 +123,7 @@ const Profile = () => {
 
             <ViewProfile className="view-profile">
 
-                <Link className="link choose-profile-client" href="/sign-up" // const sign up default
+                <Link className="link choose-profile-client" href="/sign-up/client" // const sign up default
                     onMouseEnter={showClientDescription}
                     onMouseLeave={hideClientDescription}>
 
@@ -133,7 +133,7 @@ const Profile = () => {
 
                 </Link>
 
-                <Link className="link choose-profile-realtor" href="/sign-up" // const sign up default
+                <Link className="link choose-profile-realtor" href="/sign-up/realtor" // const sign up default
                     onMouseEnter={showRealtorDescription}
                     onMouseLeave={hideRealtorDescription}>
                     <NameProfile className="card choose-profile-realtor">
@@ -141,7 +141,7 @@ const Profile = () => {
                     </NameProfile>
                 </Link>
 
-                <Link className="link choose-profile-agency" href="/sign-up" // const sign up agency
+                <Link className="link choose-profile-agency" href="/sign-up/agency" // const sign up agency
                     onMouseEnter={showAgencyDescription}
                     onMouseLeave={hideAgencyDescription}>
                     <NameProfile className="card choose-profile-agency">
