@@ -1,5 +1,5 @@
 export type SignInForm = {
-  email:string
+  email: string
   password: string
   accountType: string
 }
