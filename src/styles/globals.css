@@ -12,6 +12,25 @@ a {
   cursor: pointer;
 }
 
+.special-link:hover {
+  background-position: 0;
+ }
+ 
+ .special-link:hover::after{
+   width: 100%;
+ }
+
+ .special-link::after{
+  content: '';
+  background: var(--surface);
+  display: block;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0.2rem;
+  transition: all 0.5s ease-in-out;
+}
+
 :root {
   font-size: 62.5%;
   --surface: #FFEFDA;
@@ -97,7 +116,8 @@ button {
   text-align: center;
   border-radius: 1rem;
   cursor: pointer;
-  padding: 2rem;
+  padding: 1.5rem;
+  min-width: 10rem;
 }
 
 .input-name {
@@ -143,3 +163,20 @@ button {
 .choose-profile .choose-profile-client:hover .description-client-profile {
   display: block;
 }
+
+select{
+
+  font-weight: bold;
+  font-family: 'Poppins';
+  cursor: pointer;
+  display: grid;
+  box-sizing: border-box;
+  outline: none;
+  width: 60%;
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: var(--surface);
+  color: var(--base);
+  
+}
+

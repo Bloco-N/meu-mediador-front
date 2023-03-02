@@ -1,4 +1,3 @@
-import Layout from 'components/Layout';
 import styled from "styled-components";
 
 const SearchRealtor = styled.div`
