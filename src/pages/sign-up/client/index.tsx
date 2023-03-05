@@ -4,7 +4,11 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
 const SignUpContainer = styled.div`
+  height: 100%;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   form{
     width: 30%;
     height: 55rem;

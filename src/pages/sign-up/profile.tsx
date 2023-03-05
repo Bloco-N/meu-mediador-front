@@ -5,11 +5,15 @@ const Container = styled.div`
   
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
   gap: 2rem;
 
 `
 
 const ChooseProfileTitle = styled.div`
+  width: 100%;
   font-weight: normal;
   padding: 2rem;
   h1{
