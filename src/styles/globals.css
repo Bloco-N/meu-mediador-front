@@ -14,13 +14,13 @@ a {
 
 .special-link:hover {
   background-position: 0;
- }
- 
- .special-link:hover::after{
-   width: 100%;
- }
+}
 
- .special-link::after{
+.special-link:hover::after {
+  width: 100%;
+}
+
+.special-link::after {
   content: '';
   background: var(--surface);
   display: block;
@@ -48,6 +48,8 @@ html {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: fixed;
+  overflow-x: hidden;
 }
 
 body {
@@ -97,8 +99,8 @@ input {
   padding: 2rem;
   border-radius: 1rem;
   border: 1rem solid var(--surface);
-  width: 15vw;
-  height: 8vh;
+  width: 22.5rem;
+  height: 6rem;
   outline: none;
 }
 
@@ -121,14 +123,12 @@ button {
 }
 
 .input-name {
-  width: 12vw;
-  height: 7vh;
+  width: 17.6rem;
   font-size: 1.5rem;
 }
 
 .input-sign-up {
-  width: 25vw;
-  height: 7vh;
+  width: 37.2rem;
   font-size: 1.5rem;
 }
 
@@ -164,7 +164,7 @@ button {
   display: block;
 }
 
-select{
+select {
 
   font-weight: bold;
   font-family: 'Poppins';
@@ -177,6 +177,28 @@ select{
   padding: 1rem;
   background-color: var(--surface);
   color: var(--base);
-  
+
 }
 
+/* Valores baseados no agency profile */
+
+.my-profile {
+  width: 75%;
+  height: 85rem;
+  margin: auto;
+  gap: 2.5rem;
+}
+
+.my-profile-row {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 64.4rem;
+}
+
+.my-profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding-bottom: 2rem;
+}
