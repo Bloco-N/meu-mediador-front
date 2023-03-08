@@ -1,5 +1,9 @@
 import '@/styles/globals.css'
+import { UserCard } from '@/types/UserCard'
+import { UserList } from '@/types/UserList'
 import Layout from 'components/Layout'
+import SearchContext from 'context/SearchContext'
+import SearchResultContext from 'context/SearchResultContext'
 import UserContext from 'context/UserContext'
 import type { AppProps } from 'next/app'
 import { useEffect, useState } from 'react'
@@ -11,6 +15,14 @@ export default function App({ Component, pageProps }: AppProps) {
     token:''
   })
 
+  const [search, setSearch] = useState('')
+
+  const [searchResult, setSearchResult] = useState<UserList>({
+    list: [] as UserCard [],
+    currentPage: 0,
+    totalOfPages: 0
+  })
+
   useEffect(() => {
     setUser({
       token: localStorage.getItem('token') as string
@@ -18,10 +30,14 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [])
 
   return (
-    <UserContext.Provider value = {{user, setUser}}>      
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </UserContext.Provider>
+    <SearchContext.Provider value = {{search, setSearch}}>
+      <SearchResultContext.Provider value = {{ searchResult, setSearchResult}}>
+        <UserContext.Provider value = {{user, setUser}}>      
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </UserContext.Provider>
+      </SearchResultContext.Provider>
+    </SearchContext.Provider>
     ) 
 }
