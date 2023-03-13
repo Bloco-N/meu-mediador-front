@@ -15,13 +15,14 @@ const Container = styled.div`
   top: 10rem;
   right: 5rem;
   text-align: center;
+  z-index: 2;
   p{
     padding: 2rem;
     width: 100%;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
     :hover{
-      background-color: rgba(78, 47, 39, 0.9);
+      background-color: var(--surface);
     }
   }
   .out{

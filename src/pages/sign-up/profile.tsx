@@ -57,7 +57,7 @@ const ChooseProfile = styled.div`
     flex-direction: column;
     padding: 4rem;
     border-radius: 2rem;
-    background-color: rgba(78, 47, 39, 0.6);
+    background-color: var(--base-70);
     box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.25);
 `
 
