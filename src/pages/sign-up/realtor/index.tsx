@@ -11,7 +11,7 @@ const SignUpContainer = styled.div`
   justify-content: center;
   form{
     width: 30%;
-    height: 70%;
+    height: 55rem;
     margin: auto;
     padding: 3rem 3.5rem;
     gap: 2.5rem;
@@ -42,7 +42,7 @@ const SignUp = () => {
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
 
-      if(response.ok) router.push('/sign-in')
+      if(response.ok) router.push('/sign-in/realtor')
 
     }
 

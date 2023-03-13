@@ -1,8 +1,11 @@
 import { SignInForm } from "@/types/SignInForm";
+import UserContext from "context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { UserContextType } from "types/UserContextType";
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -23,38 +26,29 @@ const SignInContainer = styled.div`
     display: flex;
     gap: 0.5rem;
   }
-  .login-as{
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    p{
-      font-size: 1.3rem;
-    }
-  }
 `
 
 const SignIn = () => {
 
     const { register, handleSubmit } = useForm<SignInForm>()
 
+    const { setUser } = useContext(UserContext) as UserContextType
+
     const router = useRouter()
 
     const onSubmit = async (data:SignInForm) => {
 
       const fetchData = async () => {
-
-        const { accountType, ...body } = data
         
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/' + accountType + '/sign-in', {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency' + '/sign-in', {
           method: 'POST',
-          body: JSON.stringify(body),
+          body: JSON.stringify(data),
           headers: {"Content-type": "application/json; charset=UTF-8"}
         })
 
         const token = await response.text()
         localStorage.setItem('token', token)
+        setUser({token})
         router.push('/')
 
       }
@@ -73,15 +67,6 @@ const SignIn = () => {
           {...register('email', {required: true})} />
           <input className="input-sign-up" type="password" placeholder="Senha" 
           {...register('password', {required: true})}/>
-          <div className="login-as">
-            <p>Entrando como:</p>
-            <select id="account-type"
-            {...register('accountType', {required: true})}>
-              <option value="client">Cliente</option>
-              <option value="realtor">Consultor</option>
-              <option value="agency">Agência</option>
-            </select>
-          </div>
 
           {/* <Link className="forgot-password" href="/forgot-password">Esqueci minha senha</Link> */}
 
