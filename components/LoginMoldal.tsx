@@ -13,6 +13,7 @@ const Container = styled.div`
   text-align: center;
   gap: 1.5rem;
   animation: apear 2s forwards;
+  z-index: 2;
 
   a{
     display: flex;
@@ -20,7 +21,7 @@ const Container = styled.div`
     gap: 1rem;
     padding: 1rem;
     :hover{
-      background-color: rgba(78, 47, 39, 0.9);
+      background-color: var(--surface);
     }
     img{
       height: 2rem;

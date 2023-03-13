@@ -30,13 +30,14 @@ const Nav = styled.div`
       top: 3rem;
       right: 6rem;
       transition: all .5s;
-      background-color: rgba(78, 47, 39, 0.6);
+      background-color: var(--base);
       width: 15rem;
       text-align: center;
       border-radius: 1rem;
       padding-top: 1rem;
       padding-bottom: 1rem;
       transition: all .5s;
+      z-index: 2;
     }
     .profile{
       cursor: pointer;
