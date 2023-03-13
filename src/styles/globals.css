@@ -33,17 +33,22 @@ a {
 
 :root {
   font-size: 62.5%;
-  --surface: #FFEFDA;
-  --surface-2: #B6604B;
-  --base: #4E2F27;
-  --text: #D9D9D9;
+  --surface: #a5bccd;
+  --surface-2: #7885c6;
+  --base: #1f2a34;
+  --base-70: #1f2a34b3;
+  --text: white;
   font-family: 'Poppins';
-  color: var(--surface);
+  color: var(--text);
 }
 
 html {
   width: 100vw;
   height: 100vh;
+  background: #758aa0;
+}
+
+.home{
   background-image: url('/bg.jpg');
   background-size: cover;
   background-repeat: no-repeat;
@@ -52,14 +57,6 @@ html {
 
 body {
   font-size: 1.5rem;
-}
-
-h1,
-h2,
-h4,
-h5 {
-  font-family: 'Poppins';
-  color: var(--surface);
 }
 
 h2 {
@@ -82,7 +79,7 @@ h5 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(78, 47, 39, 0.6);
+  background-color: var(--base-70);
   box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(4px);
   border-radius: 1rem;
@@ -100,6 +97,11 @@ input {
   width: 15vw;
   height: 8vh;
   outline: none;
+}
+
+input::placeholder{
+  color: var(--base);
+  opacity: 0.7;
 }
 
 .input-realtor,
