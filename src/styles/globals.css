@@ -38,6 +38,7 @@ a {
   --base: #1f2a34;
   --base-70: #1f2a34b3;
   --text: white;
+  --star: #e7d27e;
   font-family: 'Poppins';
   color: var(--text);
 }
@@ -45,7 +46,8 @@ a {
 html {
   width: 100vw;
   height: 100vh;
-  background: #758aa0;
+  background: var(--background-gradient);
+  --background-gradient: linear-gradient(180deg, rgba(136,160,188,1) 27%, rgb(88, 104, 140) 100%);
 }
 
 .home{
@@ -190,4 +192,23 @@ select{
     opacity: 1;
   }
 }
+.elipses{
+  width: 30rem;
+  max-height: 10rem;
+  display: block; 
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--surface);
+}
 
+.edit-main{
+  position: absolute;
+  height: 2rem;
+  width: 2rem;
+  bottom: 2rem;
+  right: 2rem;
+  cursor: pointer;
+}
