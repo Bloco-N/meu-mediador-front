@@ -1,41 +1,68 @@
 import '@/styles/globals.css'
-import { UserCard } from '@/types/UserCard'
-import { UserList } from '@/types/UserList'
+import { RealtorList } from '@/types/RealtorList'
 import Layout from 'components/Layout'
 import SearchContext from 'context/SearchContext'
 import SearchResultContext from 'context/SearchResultContext'
 import UserContext from 'context/UserContext'
 import type { AppProps } from 'next/app'
 import { useEffect, useState } from 'react'
-import { User } from 'types/User'
+import { RealtorProfile } from '@/types/RealtorProfile'
+import { User } from '@/types/User'
+import ProfilePictureMoldal from 'components/ProfilePictureModal'
+import { PictureModalData } from '@/types/PictureModalData'
+import PictureModalContext from 'context/PictureModalContext'
+import MainInfoProfileEditModal from 'components/MainInfoProfileEditModal'
+import MainInfoProfileEditModalContext from 'context/MainInfoProfileEditModalContext'
+import AddPropertyModal from 'components/AddPropertyModal'
+import AddPropertyModalContext from 'context/AddPropertyModalContext'
 
 export default function App({ Component, pageProps }: AppProps) {
 
+  const [dataPictureModal, setDataPictureModal] = useState<PictureModalData>({
+    open: false,
+    realtor: null
+  })
+
+  const [openAddPropertyModal, setOpenAddPropertyModal] = useState(false)
+
+  const [openMainInfoModal, setOpenMainInfoModal] = useState(false)
+
   const [user, setUser] = useState<User>({
+    id: null,
     token:''
   })
 
   const [search, setSearch] = useState('')
 
-  const [searchResult, setSearchResult] = useState<UserList>({
-    list: [] as UserCard [],
+  const [searchResult, setSearchResult] = useState<RealtorList>({
+    list: [] as RealtorProfile [],
     currentPage: 0,
     totalOfPages: 0
   })
 
   useEffect(() => {
     setUser({
-      token: localStorage.getItem('token') as string
+      token: localStorage.getItem('token') as string,
+      id: null
     })
   }, [])
 
   return (
     <SearchContext.Provider value = {{search, setSearch}}>
       <SearchResultContext.Provider value = {{ searchResult, setSearchResult}}>
-        <UserContext.Provider value = {{user, setUser}}>      
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+        <UserContext.Provider value = {{user, setUser}}>
+          <PictureModalContext.Provider value = {{data: dataPictureModal, setData: setDataPictureModal}}>
+            <MainInfoProfileEditModalContext.Provider value= {{open:openMainInfoModal, setOpen:setOpenMainInfoModal}}>
+                <AddPropertyModalContext.Provider value={{open: openAddPropertyModal, setOpen: setOpenAddPropertyModal}}>
+                  <ProfilePictureMoldal data={dataPictureModal} setData={setDataPictureModal}/>    
+                  <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal}/>
+                  <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal}/>
+                  <Layout>
+                    <Component {...pageProps} />
+                  </Layout>
+                </AddPropertyModalContext.Provider>
+            </MainInfoProfileEditModalContext.Provider>
+          </PictureModalContext.Provider>
         </UserContext.Provider>
       </SearchResultContext.Provider>
     </SearchContext.Provider>
