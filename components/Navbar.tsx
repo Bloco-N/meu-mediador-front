@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { useContext, useEffect, useState } from "react";
 import LoginMoldal from "./LoginMoldal";
 import UserContext from "context/UserContext";
-import { UserContextType } from "types/UserContextType";
 import ProfileMoldal from "./ProfileMoldal";
+import { UserContextType } from "@/types/UserContextType";
 
 const Nav = styled.div`
     width: 100vw;
@@ -14,6 +14,7 @@ const Nav = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 3rem 6rem;
+    position: relative;
     a {
         text-decoration: none;
     }
