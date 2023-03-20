@@ -12,6 +12,8 @@ const Container = styled.div`
   flex-direction: row;
   padding: 1rem;
   gap: 2rem;
+  position: fixed;
+  bottom: 1rem;
 
   p{
     cursor: pointer;
@@ -59,20 +61,11 @@ const Pagination = ({ currentPage, totalOfPages}: PaginationProps) => {
       method:'GET'
     })
     const json = await response.json()
-    const searchList = [] as UserCard []
-    for(const item of json.list){
-      searchList.push({
-        id: item.id,
-        firstName: item.firstName,
-        lastName: item.lastName
-      })
-    }
     setSearchResult({
-      list: searchList,
+      list: json.list,
       currentPage: json.currentPage,
       totalOfPages: json.totalOfPages
     })
-    console.log(json)
     router.push('/search-result')
   }
   const handlePageClick = async (e:MouseEvent) => {

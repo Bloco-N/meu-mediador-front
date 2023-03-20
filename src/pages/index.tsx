@@ -54,19 +54,7 @@ export default function Home() {
         method:'GET'
       })
       const json = await response.json()
-      const searchList = [] as UserCard []
-      for(const item of json.list){
-        searchList.push({
-          id: item.id,
-          firstName: item.firstName,
-          lastName: item.lastName
-        })
-      }
-      setSearchResult({
-        list: searchList,
-        currentPage: json.currentPage,
-        totalOfPages: json.totalOfPages
-      })
+      setSearchResult(json)
       router.push('/search-result')
     }
     await fetchData()

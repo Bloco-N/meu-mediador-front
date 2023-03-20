@@ -2,12 +2,12 @@ import { SearchResultContextType } from "@/types/SearchResultContextType"
 import SearchContext from "context/SearchResultContext"
 import { useContext } from "react"
 import styled from "styled-components"
-import profileIcon from '@/../public/profile.svg'
-import Image from "next/image"
 import Pagination from "components/Pagination"
+import Link from "next/link"
+import MainInfo from "components/MainInfo"
 
 const Container = styled.div`
-  height: 100%;
+  height: 80%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -16,14 +16,19 @@ const Container = styled.div`
   .list{
     height: 80%;
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    padding: 4rem;
-    gap: 2rem;
-    .card{
-      display: flex;
-      gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 4rem;
+    a{
+      width: 90%;
+      .card{
+        height: 100%;
+        width: 100%;
+        padding: 2rem;
+        flex-direction: row;
+        justify-content: space-between;
+      }
     }
   }
 `
@@ -32,19 +37,14 @@ export default function SearchResult(){
 
   const { searchResult } = useContext(SearchContext) as SearchResultContextType
 
-  console.log(searchResult)
-
   return (
     <Container>
 
       <div className="list">
         {searchResult.list.map(item => (
-          <div className="card" key={item.id }>
-            <Image src={profileIcon} alt='profile icon'/>
-            <p>{item.firstName} {item.lastName}</p>
-            
-            
-          </div>
+          <Link href={'/profile/realtor/' + item.id} key={item.id }>
+            <MainInfo realtor={item} isProfile={false}/>
+          </Link>
         ))}
       </div>
         <Pagination currentPage={searchResult.currentPage} totalOfPages={searchResult.totalOfPages}/>
