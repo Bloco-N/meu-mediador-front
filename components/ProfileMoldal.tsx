@@ -1,7 +1,8 @@
+import { UserContextType } from '@/types/UserContextType';
 import UserContext from 'context/UserContext';
+import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext } from 'react';
 import styled from 'styled-components';
-import { UserContextType } from 'types/UserContextType';
 
 type ProfileMoldalProps = {
   open: boolean
@@ -36,12 +37,16 @@ const Container = styled.div`
 
 const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
 
+  const router = useRouter()
+
   const { setUser } = useContext(UserContext) as UserContextType
 
   const signOut = () => {
     localStorage.removeItem('token')
-    setUser({token:''})
+    localStorage.removeItem('id')
+    setUser({token:'', id:null})
     setOpen(false)
+    router.reload()
   }
 
   return (
