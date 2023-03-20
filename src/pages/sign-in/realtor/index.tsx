@@ -5,7 +5,8 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { UserContextType } from "types/UserContextType";
+import { decode } from "jsonwebtoken";
+import { UserContextType } from "@/types/UserContextType";
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -48,7 +49,9 @@ const SignIn = () => {
 
         const token = await response.text()
         localStorage.setItem('token', token)
-        setUser({token})
+        const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
+        localStorage.setItem('id', String(user.id))
+        setUser({ token, id: user.id })
         router.push('/')
 
       }
