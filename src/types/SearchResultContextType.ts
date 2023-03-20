@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react"
-import { UserList } from "./UserList"
+import { RealtorList } from "./RealtorList"
 
 export type SearchResultContextType = {
-  searchResult: UserList
-  setSearchResult: Dispatch<SetStateAction<UserList>>
+  searchResult: RealtorList
+  setSearchResult: Dispatch<SetStateAction<RealtorList>>
 }
