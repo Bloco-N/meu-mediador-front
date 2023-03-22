@@ -25,6 +25,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   form{
+    position: relative;
     height: 90%;
     width: 50%;
     background-color: var(--surface-2);
@@ -65,14 +66,14 @@ const Container = styled.div`
   p{
     cursor: pointer;
     position: absolute;
-    top: 5rem;
-    right: 5rem;
+    top: 3rem;
+    right: 3rem;
     height: 3rem;
     width: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--surface-2);
+    background-color: var(--base);
     border-radius: 1rem;
     font-weight: bold;
   }
@@ -151,8 +152,8 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
         </div>
           <textarea {...register('introduction')} defaultValue={realtor?.introduction ? realtor?.introduction : ''} placeholder='Escreva sua descrição aqui' name="introduction" id="" cols={30} rows={10}></textarea>
           <button>Salvar</button>
+        <p onClick={() => setOpen(false)}>X</p>
       </form>
-      <p onClick={() => setOpen(false)}>X</p>
     </Container>
     : <></>
   );

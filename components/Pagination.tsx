@@ -68,19 +68,19 @@ const Pagination = ({ currentPage, totalOfPages}: PaginationProps) => {
     })
     router.push('/search-result')
   }
-  const handlePageClick = async (e:MouseEvent) => {
+  const handlePageClick = async (e:React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
     const target = e.target as HTMLElement
     const page = Number(target.innerHTML)
     await fetchData(page)
   }
 
-  const handlePrevClick = async (e:MouseEvent) => {
+  const handlePrevClick = async () => {
     if(currentPage - 1 > 1) return
     const page = currentPage - 1
     await fetchData(page)
   }
 
-  const handleNextClick = async (e:MouseEvent) => {
+  const handleNextClick = async () => {
     if(currentPage + 1 > totalOfPages) return
     const page = currentPage + 1
     await fetchData(page)
@@ -89,7 +89,7 @@ const Pagination = ({ currentPage, totalOfPages}: PaginationProps) => {
   return (
     <Container className='card'>
 
-      <p onClick={e => handlePrevClick(e)} className='prev'> ➤ </p>
+      <p onClick={() => handlePrevClick()} className='prev'> ➤ </p>
 
       {
         list.map((item) => (
@@ -97,7 +97,7 @@ const Pagination = ({ currentPage, totalOfPages}: PaginationProps) => {
         ))
       }
 
-      <p onClick={(e) => handleNextClick(e)}> ➤ </p>
+      <p onClick={() => handleNextClick()}> ➤ </p>
     </Container>
   );
 };

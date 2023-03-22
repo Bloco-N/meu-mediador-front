@@ -15,6 +15,8 @@ import MainInfoProfileEditModal from 'components/MainInfoProfileEditModal'
 import MainInfoProfileEditModalContext from 'context/MainInfoProfileEditModalContext'
 import AddPropertyModal from 'components/AddPropertyModal'
 import AddPropertyModalContext from 'context/AddPropertyModalContext'
+import AddServiceModal from 'components/AddServiceModal'
+import AddServiceModalContext from 'context/AddServiceModalContext'
 
 export default function App({ Component, pageProps }: AppProps) {
 
@@ -24,6 +26,8 @@ export default function App({ Component, pageProps }: AppProps) {
   })
 
   const [openAddPropertyModal, setOpenAddPropertyModal] = useState(false)
+
+  const [openAddServiceModal, setOpenAddServiceModal] = useState(false)
 
   const [openMainInfoModal, setOpenMainInfoModal] = useState(false)
 
@@ -54,12 +58,15 @@ export default function App({ Component, pageProps }: AppProps) {
           <PictureModalContext.Provider value = {{data: dataPictureModal, setData: setDataPictureModal}}>
             <MainInfoProfileEditModalContext.Provider value= {{open:openMainInfoModal, setOpen:setOpenMainInfoModal}}>
                 <AddPropertyModalContext.Provider value={{open: openAddPropertyModal, setOpen: setOpenAddPropertyModal}}>
-                  <ProfilePictureMoldal data={dataPictureModal} setData={setDataPictureModal}/>    
-                  <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal}/>
-                  <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal}/>
-                  <Layout>
-                    <Component {...pageProps} />
-                  </Layout>
+                  <AddServiceModalContext.Provider value={{open: openAddServiceModal, setOpen: setOpenAddServiceModal}}>
+                    <ProfilePictureMoldal data={dataPictureModal} setData={setDataPictureModal}/>    
+                    <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal}/>
+                    <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal}/>
+                    <AddServiceModal open={openAddServiceModal} setOpen={setOpenAddServiceModal}/>
+                    <Layout>
+                      <Component {...pageProps} />
+                    </Layout>
+                  </AddServiceModalContext.Provider>
                 </AddPropertyModalContext.Provider>
             </MainInfoProfileEditModalContext.Provider>
           </PictureModalContext.Provider>
