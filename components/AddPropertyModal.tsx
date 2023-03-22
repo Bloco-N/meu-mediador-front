@@ -21,6 +21,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   form{
+    position: relative;
     height: 80%;
     width: 40%;
     background-color: var(--surface-2);
@@ -56,14 +57,14 @@ const Container = styled.div`
   p{
     cursor: pointer;
     position: absolute;
-    top: 5rem;
-    right: 5rem;
+    top: 3rem;
+    right: 3rem;
     height: 3rem;
     width: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--surface-2);
+    background-color: var(--base);
     border-radius: 1rem;
     font-weight: bold;
   }
@@ -105,8 +106,8 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
         <input {...register('link', {required: true})} type="text" placeholder='Link' />
         <textarea {...register('description', {required: true})} placeholder='Fale sobre o imóvel aqui' name="description" id="" cols={30} rows={10}></textarea>
         <button type='submit'>Adicionar Imóvel</button>
+        <p onClick={() => setOpen(false)}>X</p>
       </form>
-      <p onClick={() => setOpen(false)}>X</p>
     </Container>
     : <></>
   );
