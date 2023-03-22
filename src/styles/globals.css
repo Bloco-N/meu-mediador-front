@@ -204,6 +204,12 @@ select{
   color: var(--surface);
 }
 
+.close{
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+}
+
 .edit-main{
   position: absolute;
   height: 2rem;
