@@ -102,7 +102,8 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--base);
+    background-color: var(--surface-2);
+    color: var(--surface);
     border-radius: 1rem;
     font-weight: bold;
   }
