@@ -20,8 +20,9 @@ const Container = styled.div`
     justify-content: space-between;
     gap: 1rem;
     padding: 1rem;
+    transition: all .5s;
     :hover{
-      background-color: var(--surface);
+      background-color: var(--base);
     }
     img{
       height: 2rem;

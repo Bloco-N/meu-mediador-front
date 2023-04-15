@@ -1,7 +1,8 @@
 import { UserContextType } from '@/types/UserContextType';
 import UserContext from 'context/UserContext';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { Dispatch, SetStateAction, useContext } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 type ProfileMoldalProps = {
@@ -17,13 +18,17 @@ const Container = styled.div`
   right: 5rem;
   text-align: center;
   z-index: 2;
-  p{
+  background-color: var(--surface);
+  border: solid 0.1rem var(--border-color);
+  a, p{
     padding: 2rem;
     width: 100%;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
+    font-size: 1.7rem;
+    transition: all .5s;
     :hover{
-      background-color: var(--surface);
+      background-color: #cecece;
     }
   }
   .out{
@@ -39,22 +44,31 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
 
   const router = useRouter()
 
-  const { setUser } = useContext(UserContext) as UserContextType
+  const { user, setUser } = useContext(UserContext) as UserContextType
+
+  const [id, setId] = useState('')
 
   const signOut = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('id')
-    setUser({token:'', id:null})
+    localStorage.removeItem('pic')
+    setUser({token:'', id:null, profilePicture: null})
     setOpen(false)
     router.reload()
   }
+
+  useEffect(() => {
+    const id = localStorage.getItem('id')
+    if(user.id) setId(String(user.id))
+    else if(id) setId(id)
+  }, [user])
 
   return (
 
     open ?
     <Container className='card'>
 
-      <p>Perfil</p>
+      <Link onClick={() => setOpen(false)} href={'/profile/realtor/' + id}>Perfil</Link>
       <p onClick={signOut} className='out'>Sair</p>
 
     </Container>

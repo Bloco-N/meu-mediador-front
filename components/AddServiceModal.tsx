@@ -1,13 +1,14 @@
 import { AddServiceForm } from '@/types/AddServiceForm';
+import { RealtorService } from '@/types/RealtorService';
+import { Service } from '@/types/Service';
 import { useRouter } from 'next/router';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 const Container = styled.div`
   position: absolute;
   z-index: 3;
-  background-color: var(--base-70);
   height: 100%;
   width: 100%;
   display: flex;
@@ -18,7 +19,6 @@ const Container = styled.div`
     position: relative;
     height: 25rem;
     width: 40%;
-    background-color: var(--surface-2);
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
@@ -27,9 +27,6 @@ const Container = styled.div`
     gap: 2rem;
     input{
       width: 70%;
-    }
-    button{
-      background-color: var(--base);
     }
   }
   p{
@@ -42,13 +39,19 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--base);
+    background-color: var(--surface-2);
+    color: var(--surface);
     border-radius: 1rem;
     font-weight: bold;
   }
   h3{
     margin-bottom: 2rem;
-    color: var(--base);
+    color: var(--text);
+  }
+  h4{
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--surface-2);
   }
 `
 
@@ -61,16 +64,47 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
 
   const { register, handleSubmit } = useForm<AddServiceForm>()
 
+  const [services, setServices] = useState<Service []>()
+
   const router = useRouter()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const localId = localStorage.getItem('id')
+      if(localId){
+        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service')
+  
+        let data = await responseServices.json() as Service []
+  
+  
+        const responseRealtorServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + localId)
+  
+        const realtorServicesData = await responseRealtorServices.json() as RealtorService []
+  
+        const realtorServicesNames = realtorServicesData.map( item => item.service.title )
+  
+        const deleteSet = new Set(realtorServicesNames)
+  
+        console.log(data)
+  
+        data = data.filter(item => !deleteSet.has(item.title))
+  
+        setServices(data)
+      }
+
+    }
+
+    fetchData()
+  }, [open])
 
   const onSubmit = async (data: AddServiceForm) => {
 
     const localId = localStorage.getItem('id')
 
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor', {
       method: 'POST',
       body: JSON.stringify({
-        ...data,
+        serviceId: Number(data.serviceId),
         realtorId: Number(localId)
       }),
       headers:{
@@ -79,18 +113,29 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
     })
 
     const text = await response.text()
-    router.reload()
+    if(text === 'created') router.reload()
 
   }
 
   return (
     open ?
-    <Container>
+    <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>Criar Serviço</h3>
-        <input {...register('title', { required: true})} type="text" placeholder='venda de imóveis' />
+        {services?.length === 0 ? (
+          <h4>Você não tem mais serviços para criar</h4>
+        ): (
+          <>
+            <select {...register('serviceId', { required: true})} name="serviceId" >
+              {services?.map(item => (
+                <option key={item.id} value={item.id}>{item.title}</option>
+              ))}
+            </select>
+            <button type='submit'>Criar</button>
+          </>
+
+        )}
         <p onClick={() => setOpen(false)}>X</p>
-        <button type='submit'>Criar</button>
       </form>
     </Container>
     : <></>

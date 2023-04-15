@@ -16,7 +16,6 @@ type MainInfoProfileEditModalProps = {
 const Container = styled.div`
   position: absolute;
   z-index: 3;
-  background-color: var(--base-70);
   height: 100%;
   width: 100%;
   display: flex;
@@ -28,16 +27,12 @@ const Container = styled.div`
     position: relative;
     height: 90%;
     width: 50%;
-    background-color: var(--surface-2);
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 2rem;
     gap: 2rem;
-    button{
-      background-color: var(--base);
-    }
     input{
       min-width: 30rem;
     }
@@ -45,18 +40,16 @@ const Container = styled.div`
       resize: none;
       padding: 2rem;
       font-size: 2rem;
-      background-color: var(--surface);
       border-radius: 1rem;
       width: 85%;
       ::placeholder{
-        color: var(--base);
-        opacity: 0.5;
+        opacity: 0.9;
       }
     }
 
     h3{
       margin-bottom: 2rem;
-      color: var(--base);
+      color: var(--text);
     }
     .input-group{
       display: flex;
@@ -73,7 +66,8 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--base);
+    background-color: var(--surface-2);
+    color: white;
     border-radius: 1rem;
     font-weight: bold;
   }
@@ -111,7 +105,6 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   }, [user.id])
 
   const onSubmit = async (data: MainEditForm) => {
-    console.log(data)
     const token = localStorage.getItem('token')
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/', {
       method:'PUT',
@@ -131,7 +124,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
 
   return (
     open ?
-    <Container>
+    <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>Editar Perfil</h3>
         <div className="input-group">
