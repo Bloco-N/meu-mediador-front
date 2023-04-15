@@ -1,3 +1,3 @@
 export type AddServiceForm = {
-  title: string
+  serviceId: string
 }

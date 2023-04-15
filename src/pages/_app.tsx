@@ -33,7 +33,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const [user, setUser] = useState<User>({
     id: null,
-    token:''
+    token:'',
+    profilePicture: null
   })
 
   const [search, setSearch] = useState('')
@@ -47,7 +48,8 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     setUser({
       token: localStorage.getItem('token') as string,
-      id: null
+      id: null,
+      profilePicture: null
     })
   }, [])
 

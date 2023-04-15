@@ -19,6 +19,7 @@ const SearchRealtor = styled.div`
     height: 20rem;
     margin: auto;
     margin-top: 15vh;
+    background-color: #ffffff5c;
     .search-row {
         display: flex;
         flex-direction: row;

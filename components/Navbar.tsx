@@ -6,6 +6,7 @@ import LoginMoldal from "./LoginMoldal";
 import UserContext from "context/UserContext";
 import ProfileMoldal from "./ProfileMoldal";
 import { UserContextType } from "@/types/UserContextType";
+import profileIcon from '../public/profile.svg'
 
 const Nav = styled.div`
     width: 100vw;
@@ -31,7 +32,8 @@ const Nav = styled.div`
       top: 3rem;
       right: 6rem;
       transition: all .5s;
-      background-color: var(--base);
+      background-color: var(--surface);
+      border: solid 0.1rem var(--border-color );
       width: 15rem;
       text-align: center;
       border-radius: 1rem;
@@ -42,6 +44,8 @@ const Nav = styled.div`
     }
     .profile{
       cursor: pointer;
+      border-radius: 50%;
+      object-fit: cover;
     }
 `
 
@@ -53,13 +57,22 @@ const Navbar = () => {
 
     const [openProfile, setOpenProfile] = useState(false)
 
+    const [pic, setPic] = useState('')
+
+    useEffect(() => {
+      const profilePicture = localStorage.getItem('pic')
+      if(profilePicture === "undefined") return
+      if(user.profilePicture) setPic(user.profilePicture)
+      else if(profilePicture && profilePicture !== 'null') setPic(profilePicture)
+    }, [user])
+
     return (
         <Nav>
             <Link href="/">
                 <h1>Meoagent</h1>
             </Link>
             {user.token ? (
-                <Image onClick={() => setOpenProfile(!openProfile)} className="profile" src={'/profile.svg'} alt={'Profile'} width={60} height={60}></Image>
+                <Image onClick={() => setOpenProfile(!openProfile)} className="profile" src={pic ? pic :  profileIcon} alt={'Profile'} width={60} height={60}/>
             ): (
                 <div
                   onMouseEnter={() => setOpen(true)}

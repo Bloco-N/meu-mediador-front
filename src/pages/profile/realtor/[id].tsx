@@ -15,6 +15,10 @@ import { Property } from "@/types/Property"
 import Link from "next/link"
 import { Service } from "@/types/Service"
 import AddServiceModalContext from "context/AddServiceModalContext"
+import { RealtorService } from "@/types/RealtorService"
+import PropertyTypes, { TPropertyTypes } from "@/types/PropertyTypes"
+import Rooms, { TRooms } from "@/types/Rooms"
+import Preservations, { TPreservations } from "@/types/Preservations"
 
 const Container = styled.div`
   display: flex;
@@ -24,13 +28,17 @@ const Container = styled.div`
   padding: 4rem;
   gap: 2rem;
   .services{
-    height: 10rem;
+
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     padding: 2rem;
     gap: 2rem;
+    position: relative;
+    flex-wrap: wrap;
     .service{
+      flex-shrink: 0;
+      scroll-snap-align: start;
       background-color: var(--base);
       padding: 1rem;
       border-radius: 1rem;
@@ -48,11 +56,15 @@ const Container = styled.div`
     align-items: flex-start;
     gap: 2rem;
     padding: 2rem;
+    position: relative;
     .list{
+      width: 100%;
       display: flex;
-      flex-wrap: wrap;
       flex-direction: row;
       gap: 2rem;
+      scroll-snap-type: x mandatory;
+      padding: 1rem;
+      overflow: auto;
       .plus{
         cursor: pointer;
         height: 3rem;
@@ -62,14 +74,31 @@ const Container = styled.div`
         right: 3rem;
       }
       .propertie{
+        flex-shrink: 0;
+        scroll-snap-align: start;
         display: flex;
         flex-direction: column;
         gap: 1rem;
         background-color: var(--base);
-        padding: 2rem;
+        padding: 1rem;
         border-radius: 1rem;
         width: 40rem;
         position: relative;
+        h2{
+          color: var(--surface-2);
+        }
+        h3{
+          color: var(--surface-2);
+        }
+        .property-img{
+          margin-top: 3rem;
+          object-fit: cover;
+          opacity: 1;
+          border-radius: 1rem;
+          width: 100%;
+          height: 100%;
+          max-height: 25rem;
+        }
         .close{
           position: absolute;
           right: 1rem;
@@ -88,7 +117,7 @@ export default function Profile(){
 
   const [properties, setProperties ] = useState<Property []>()
 
-  const [services, setServices] = useState<Service []>()
+  const [services, setServices] = useState<RealtorService []>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
 
@@ -105,6 +134,7 @@ export default function Profile(){
     const fetchData = async () => {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + id)
       const data = await response.json()
+      console.log(data)
       setRealtor(data)
 
       const responseProperties = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/realtor/' + id)
@@ -113,7 +143,6 @@ export default function Profile(){
 
       const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + id)
       const serviceData = await responseServices.json()
-      console.log(serviceData)
       setServices(serviceData)
 
     }
@@ -150,7 +179,7 @@ export default function Profile(){
 
     const token = localStorage.getItem('token')
 
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/' + id, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
@@ -158,7 +187,7 @@ export default function Profile(){
     })
 
     const text = await response.text()
-    router.reload()
+    if(text === 'deleted') router.reload()
 
   }
 
@@ -171,7 +200,7 @@ export default function Profile(){
           <h3>Este consultor trabalha com:</h3>
           {services?.map((item) =>
                 <p className="service" key={item.id}>
-                  {item.title}
+                  {item.service.title}
                   { sessionProfile && (
                   <Image onClick={ e => handleDeleteService(e)} id={String(item.id)} className="close" src={closeIcon} alt='close icon'/>
                 )}
@@ -191,9 +220,11 @@ export default function Profile(){
                 { sessionProfile && (
                   <Image onClick={ e => handleDeleteProperty(e)} id={String(item.id)} className="close" src={closeIcon} alt='close icon'/>
                 )}
+                <Image className="property-img" src={item.profilePicture} width={200} height={100} alt="profile picture"/>
+                <h2>{item.price}</h2>
                 <h3>{item.title}</h3>
-                <p className="elipses">
-                  {item.description}
+                <p className="sub-text">
+                  {PropertyTypes[item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]} {item.grossArea} de Área Bruta e {item.usefulArea} de Área Útil, {Preservations[item.preservation as keyof TPreservations]}.
                 </p>
                 <Link className="special-link" href={item.link} target='_blank'>
                   Conferir Imóvel

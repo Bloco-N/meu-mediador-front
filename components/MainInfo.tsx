@@ -23,7 +23,7 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: var(--base-70);
+    background-color: var(--surface);
     padding: 3rem;
     border-radius: 1rem;
     height: 100%;
@@ -50,7 +50,7 @@ const Container = styled.div`
       right: 2rem;
     }
     .current-agency{
-      background-color: var(--base);
+      background-color: white;
       display: flex;
       align-items: center;
       gap: 2rem;
@@ -72,6 +72,8 @@ const Container = styled.div`
     .profile{      
       height: 10rem;
       width: 10rem;
+      border-radius: 50%;
+      object-fit: cover;
     }
     .profile-pointer{
       cursor: pointer;
@@ -91,7 +93,6 @@ const Container = styled.div`
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: var(--surface);
     }
   }
 `
@@ -112,6 +113,7 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
   const [sessionProfile, setSessionProfile] = useState(false)
 
   useEffect(() => {
+    console.log(realtor)
     const localId = localStorage.getItem('id')
     if(Number(localId) === realtor?.id){
       setSessionProfile(true)
@@ -122,8 +124,8 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
   return (
 
   <Container>
-    <div className="main-info">
-      <Image onClick={isProfile ? () => setData({open: true, realtor}) : () => {}} className= {isProfile ? "profile profile-pointer" : 'profile' } src={profileIcon} alt='profile icon'/>
+    <div className="main-info border">
+      <Image width={100} height={100} onClick={isProfile ? () => setData({open: true, realtor}) : () => {}} className= {isProfile ? "profile profile-pointer" : 'profile' } src={ realtor?.profilePicture ? realtor.profilePicture : profileIcon} alt='profile icon'/>
       <div className="about">
         <h1>{realtor?.firstName} {realtor?.lastName} </h1>
         <h3>★★★★★</h3>

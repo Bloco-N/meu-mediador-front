@@ -34,6 +34,8 @@ const NameProfile = styled.div`
     width: 20rem;
     height: 10rem;
     background-color: var(--base);
+    font-size: 2rem;
+    font-weight: 400;
 `
 
 const DescriptionProfile = styled.div`
@@ -57,8 +59,7 @@ const ChooseProfile = styled.div`
     flex-direction: column;
     padding: 4rem;
     border-radius: 2rem;
-    background-color: var(--base-70);
-    box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.25);
+    background-color: var(--surface);
 `
 
 const Profile = () => {
@@ -119,11 +120,11 @@ const Profile = () => {
 
     return (
       <Container>
-        <ChooseProfileTitle className="card">
+        <ChooseProfileTitle className="border card">
             <h1>Selecione o tipo de perfil que deseja criar</h1>
         </ChooseProfileTitle>
 
-        <ChooseProfile className="choose-profile">
+        <ChooseProfile className="border choose-profile">
 
             <ViewProfile className="view-profile">
 

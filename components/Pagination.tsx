@@ -24,11 +24,12 @@ const Container = styled.div`
     justify-content: center;
     border-radius: 1rem;
     font-weight: bold;
+    user-select: none;
   }
 
   .current-page{
     color: var(--base);
-    background-color: var(--surface);
+    background-color: var(--surface-2);
   }
 
   .prev{

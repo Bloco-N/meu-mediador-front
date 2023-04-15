@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -12,42 +13,43 @@ a {
   cursor: pointer;
 }
 
+.border{
+  border: solid 0.1rem var(--border-color);
+}
+
+.special-link{
+  transition: .5s;
+  font-weight: bold;
+}
+
 .special-link:hover {
   background-position: 0;
- }
- 
- .special-link:hover::after{
-   width: 100%;
- }
-
- .special-link::after{
-  content: '';
-  background: var(--surface);
-  display: block;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 0.2rem;
-  transition: all 0.5s ease-in-out;
+  color: var(--highlight);
 }
 
 :root {
   font-size: 62.5%;
-  --surface: #a5bccd;
-  --surface-2: #7885c6;
-  --base: #1f2a34;
-  --base-70: #1f2a34b3;
-  --text: white;
-  --star: #e7d27e;
-  font-family: 'Poppins';
-  color: var(--text);
+  --star: #ad963b;
+  --base: #d3d2d2;
+  --surface: #e8e8e8;
+  --surface-2: #454545;
+  --border-color: #b5b3b3;
+  --highlight: #2e6b89;
+  --text: black;
+
+  font-family: 'Quicksand';
+  color: var(--text); 
+}
+
+textarea{
+  font-family: 'Quicksand';
+  background-color: var(--base);
 }
 
 html {
   width: 100vw;
   height: 100vh;
-  background: var(--background-gradient);
-  --background-gradient: linear-gradient(180deg, rgba(136,160,188,1) 27%, rgb(88, 104, 140) 100%);
+  background: var(--base);
 }
 
 .home{
@@ -81,40 +83,31 @@ h5 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--base-70);
-  box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(4px);
+  border: solid 0.1rem var(--border-color);
+  background-color:var(--surface);
   border-radius: 1rem;
 }
 
 input {
-  font-family: 'Poppins';
-  color: var(--base);
+  all: unset;
+  box-sizing: border-box;
   font-size: 2rem;
-  background: var(--surface);
+  background: var(--base);
+  border: solid 0.1rem var(--border-color);
   text-align: left;
   padding: 2rem;
   border-radius: 1rem;
-  border: 1rem solid var(--surface);
-  width: 15vw;
-  height: 8vh;
   outline: none;
+  width: 100%;
 }
 
 input::placeholder{
-  color: var(--base);
-  opacity: 0.7;
-}
-
-.input-realtor,
-.input-forgot-password {
-  width: 25vw;
+  opacity: 0.9;
 }
 
 button {
   all: unset;
-  font-family: 'Poppins';
-  color: var(--text);
+  color: #fff;
   font-size: 2rem;
   background: var(--surface-2);
   text-align: center;
@@ -124,24 +117,16 @@ button {
   min-width: 10rem;
 }
 
-.input-name {
-  width: 12vw;
-  height: 7vh;
-  font-size: 1.5rem;
-}
-
-.input-sign-up {
-  width: 25vw;
-  height: 7vh;
-  font-size: 1.5rem;
-}
-
-.forgot-password,
-.create-account {
-  text-decoration: none;
-  font-family: 'Poppins';
-  color: var(--surface);
-  font-size: 1.6rem;
+.button{
+  all: unset;
+  color: #fff;
+  font-size: 2rem;
+  background: var(--surface-2);
+  text-align: center;
+  border-radius: 1rem;
+  cursor: pointer;
+  padding: 1.5rem;
+  min-width: 10rem;
 }
 
 /* SIGN UP PROFILE */
@@ -170,17 +155,16 @@ button {
 
 select{
 
-  font-weight: bold;
-  font-family: 'Poppins';
+  padding: 2rem;
+  font-size: 2rem;
   cursor: pointer;
   display: grid;
   box-sizing: border-box;
   outline: none;
   width: 60%;
   border-radius: 1rem;
-  padding: 1rem;
-  background-color: var(--surface);
-  color: var(--base);
+  background-color: var(--base);
+  border: solid 0.1rem var(--border-color);
   
 }
 
@@ -192,8 +176,16 @@ select{
     opacity: 1;
   }
 }
+
+.sub-text{
+
+  color: var(--surface-2)
+}
+
 .elipses{
+  color: black;
   width: 30rem;
+  min-height: 2rem;
   max-height: 10rem;
   display: block; 
   display: -webkit-box;
@@ -201,7 +193,6 @@ select{
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: var(--surface);
 }
 
 .close{
@@ -218,3 +209,45 @@ select{
   right: 2rem;
   cursor: pointer;
 }
+
+input[type="file"]{
+  display: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.modal{
+  background-color: #00000062;
+}
+
+.modal form{
+  background-color:#bababac7;
+  backdrop-filter: blur( 0.3rem );
+  -webkit-backdrop-filter: blur( 0.3rem );
+}
+
+::-webkit-scrollbar {
+  height: 0.8rem;
+  width: 0.8rem;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--border-color);
+  border-radius: 1rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 1rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+} 

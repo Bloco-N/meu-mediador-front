@@ -51,7 +51,14 @@ const SignIn = () => {
         localStorage.setItem('token', token)
         const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
         localStorage.setItem('id', String(user.id))
-        setUser({ token, id: user.id })
+
+        const realtorResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + user.id)
+
+        const realtorData = await realtorResponse.json()
+
+        localStorage.setItem('pic', realtorData.profilePicture)
+
+        setUser({ token, id: user.id, profilePicture: realtorData.profilePicture })
         router.push('/')
 
       }

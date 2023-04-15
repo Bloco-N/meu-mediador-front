@@ -1,5 +1,7 @@
 export type AddPropertyForm = {
   title: string,
-  description: string,
-  link: string
+  link: string,
+  propertyType: string,
+  rooms: string
+  preservation: string
 }
