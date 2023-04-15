@@ -113,7 +113,6 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
   const [sessionProfile, setSessionProfile] = useState(false)
 
   useEffect(() => {
-    console.log(realtor)
     const localId = localStorage.getItem('id')
     if(Number(localId) === realtor?.id){
       setSessionProfile(true)
