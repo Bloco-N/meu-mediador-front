@@ -18,7 +18,7 @@ const defaultMaskOptions = {
 const CurrencyInput = ({ ...inputProps }) => {
   const currencyMask = createNumberMask(defaultMaskOptions)
 
-  return <MaskedInput mask={currencyMask} {...inputProps} />
+  return <MaskedInput type='text' mask={currencyMask} {...inputProps} />
 }
  
 export default CurrencyInput
