@@ -12,4 +12,5 @@ export type RealtorProfile = {
   website: string | null
   expTime: number | null
   profilePicture: string | null
+  coverPicture: string | null
 }

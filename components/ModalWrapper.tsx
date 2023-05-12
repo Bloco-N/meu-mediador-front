@@ -50,7 +50,8 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
   const [user, setUser] = useState<User>({
     id: null,
     token:'',
-    profilePicture: null
+    profilePicture: null,
+    coverPicture: null
   })
 
   const [search, setSearch] = useState('')
@@ -65,7 +66,8 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
     setUser({
       token: localStorage.getItem('token') as string,
       id: null,
-      profilePicture: null
+      profilePicture: null,
+      coverPicture: null
     })
   }, [])
   return (

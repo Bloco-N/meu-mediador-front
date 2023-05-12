@@ -68,7 +68,13 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
 
   const router = useRouter()
 
+  useEffect(() => {
+    const endInput = document.getElementById('end') as HTMLInputElement;
+    endInput.value = ""
+  }, [workHere])
+
   const onSubmit = async (data: AddPartnershipForm) => {
+    console.log(data)
 
     const localId = localStorage.getItem('id')
 
@@ -96,8 +102,8 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
         <input {...register( 'position', {required: true})} placeholder="Cargo" type="text" />
         <input {...register( 'agency', {required: true})} placeholder="Agência" type="text" />
         <div>          
-          <input type="date" />
-          <input disabled={workHere} type="date" />
+          <input  {...register('init', {required:true})} type="date" />
+          <input id="end" disabled={workHere} type="date" />
         </div>
         <div>
           <label htmlFor="active">Trabalha aqui atualmente</label>

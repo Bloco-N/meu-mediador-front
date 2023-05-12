@@ -7,6 +7,7 @@ import { PictureModalData } from '@/types/PictureModalData';
 import UserContext from 'context/UserContext';
 import { UserContextType } from '@/types/UserContextType';
 import { useRouter } from 'next/router';
+import { ApiService } from '@/services/ApiService';
 
 type PictureProfileModalProps = {
   data: PictureModalData
@@ -65,6 +66,8 @@ const ProfilePictureModal = ({data, setData}:PictureProfileModalProps) => {
 
   }, [user.id, data.realtor?.id, setPic, data.realtor?.profilePicture])
 
+
+
   const handleChange = (e:React.ChangeEvent) => {
 
 
@@ -80,25 +83,15 @@ const ProfilePictureModal = ({data, setData}:PictureProfileModalProps) => {
 
       const onload = async () => {
         const img = document.getElementById('profile-pic-modal') as HTMLImageElement
+        const apiService = new ApiService()
 
         img.src = fr.result as string
 
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/', {
-          method: 'PUT',
-          body: JSON.stringify({
-            profilePicture: fr.result
-          }),
-          headers:{
-            authorization: 'Bearer ' + token,
-            'Content-Type': 'application/json'
-          }
-        })
-
-        const text = await response.text()
-        console.log(text)
+        const text = await apiService.updateProfilePicture('realtor', fr, token as string)
+        
         if(text === 'updated'){
           localStorage.setItem('pic', fr.result as string)
-          setUser({id: user.id, token: user.token, profilePicture: fr.result as string})
+          setUser({id: user.id, token: user.token, profilePicture: fr.result as string, coverPicture: user.coverPicture})
           router.reload()
         }
       }

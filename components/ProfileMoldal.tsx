@@ -56,7 +56,7 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
     localStorage.removeItem('token')
     localStorage.removeItem('id')
     localStorage.removeItem('pic')
-    setUser({token:'', id:null, profilePicture: null})
+    setUser({token:'', id:null, profilePicture: null, coverPicture: null})
     setOpen(false)
     router.reload()
   }

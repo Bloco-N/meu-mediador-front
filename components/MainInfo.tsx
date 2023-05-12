@@ -12,21 +12,51 @@ import mailIcon from '../public/mail.svg'
 import webIcon from '../public/web.svg'
 import instagramIcon from '../public/instagram.svg'
 import facebookIcon from '../public/facebook.svg'
+import greyImage from '../public/grey.png'
 import UserContext from 'context/UserContext';
 import { UserContextType } from '@/types/UserContextType';
 import MainInfoProfileEditModalContext from 'context/MainInfoProfileEditModalContext';
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import Link from 'next/link';
+import { ApiService } from '@/services/ApiService';
+import { useRouter } from 'next/router';
 
-const Container = styled.div`
+type ContainerProps = {
+  isProfile: boolean
+}
+
+const Container = styled.div<ContainerProps>`
   position: relative;
-  min-height: 20rem;
+
+  min-height: ${props => props.isProfile ? '40rem' : '20rem'};
   @media only screen and (max-width: 900px){
-    min-height: 50rem;
+    min-height: ${porps => porps.isProfile ? '60rem': '40rem'};
     height: 100%;
 
   }
   .main-info{
+    .top{
+      position: absolute;
+      width: 100%;
+      height: 22rem;
+      top: 0;
+      left: 0;
+      .label-back{
+        background-color: var(--surface);
+        border-radius: 50%;
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        bottom: 1rem;
+        right: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+          position: unset;
+        }
+      }
+    }
     display: flex;
     align-items: center;
     background-color: var(--surface);
@@ -34,6 +64,26 @@ const Container = styled.div`
     border-radius: 3rem;
     height: 100%;
     gap: 1rem;
+    .cover-photo{
+      position: absolute;
+      height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      border-top-left-radius: 3rem;
+      border-top-right-radius: 3rem;
+      object-fit: cover;
+    }
+    .profile{      
+      height: ${porps => porps.isProfile ? '20rem': '10rem'};
+      width: ${porps => porps.isProfile ? '20rem': '10rem'};
+      border-radius: 50%;
+      object-fit: cover;
+      position: relative;
+      @media only screen and (max-width: 900px){
+        margin-bottom: unset;
+      }
+    }
     @media only screen and (max-width: 900px){
       flex-direction: column;
     }
@@ -41,13 +91,18 @@ const Container = styled.div`
       @media only screen and (max-width: 900px){
         flex-direction: column;
         gap: 2rem;
+        margin-top: unset;
+        margin-left: unset;
       }
+      margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
+      margin-left: ${porps => porps.isProfile ? '10rem': '2rem'};
       width: 60%;
       display: flex;
       justify-content: space-between;
       gap: 10rem;
     }
     .about{
+      position: relative;
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
@@ -59,6 +114,7 @@ const Container = styled.div`
       }
     }
     .about-2{
+      position: relative;
       @media only screen and (max-width: 900px){
         align-items: center;
         text-align: center;
@@ -80,8 +136,11 @@ const Container = styled.div`
       align-items: center;
       gap: 2rem;
       position: absolute;
-      top: 10rem;
+      top: 9rem;
       right: 2rem;
+      background-color: var(--surface);
+      padding: 1rem;
+      border-radius: 3rem;
       @media only screen and (max-width: 900px){
         position: unset;
       }
@@ -114,12 +173,6 @@ const Container = styled.div`
         width: 3rem;
       }
     }
-    .profile{      
-      height: 10rem;
-      width: 10rem;
-      border-radius: 50%;
-      object-fit: cover;
-    }
     .profile-pointer{
       cursor: pointer;
     }
@@ -151,11 +204,13 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
 
   const { setData } = useContext(PictureModalContext) as PictureModalContextType
 
-  const { user } = useContext(UserContext) as UserContextType
+  const { user, setUser } = useContext(UserContext) as UserContextType
 
   const { setOpen: mainInfoSetOpen } = useContext(MainInfoProfileEditModalContext) as ModalOpenContextType
 
   const [sessionProfile, setSessionProfile] = useState(false)
+
+  const router = useRouter()
 
   useEffect(() => {
     const localId = localStorage.getItem('id')
@@ -165,10 +220,62 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
 
   }, [user.id, realtor?.id])
 
+  const handleChangeCover = (e:React.ChangeEvent) => {
+
+
+    const target = e.target as HTMLInputElement
+
+    const files = target.files as FileList
+
+    const file = files[0]
+
+    if(FileReader && file){
+      const fr = new FileReader()
+      const token = localStorage.getItem('token')
+
+      const onload = async () => {
+        const img = document.getElementById('cover-pic') as HTMLImageElement
+        const apiService = new ApiService()
+
+        img.src = fr.result as string
+
+        const text = await apiService.updateCoverPicture('realtor', fr, token as string)
+        
+        if(text === 'updated'){
+          // localStorage.setItem('cover', fr.result as string)
+          setUser({id: user.id, token: user.token, coverPicture: fr.result as string, profilePicture: user.profilePicture})
+          router.reload()
+        }
+      }
+
+      fr.onload = onload
+
+      fr.readAsDataURL(file)
+    }
+
+  }
+
   return (
 
-  <Container>
+  <Container isProfile={isProfile}>
     <div className="main-info border">
+      <div className='top'>
+        {isProfile && (
+          <>
+            <Image height={1000} width={1000} src={realtor?.coverPicture ? realtor.coverPicture : greyImage} alt='cover image' className='cover-photo'/>
+            {sessionProfile && (
+              <>
+                <div className='label-back'>
+                  <label htmlFor="cover-pic">
+                    <Image className='edit-main' src={editIcon} alt='edit icon'/>
+                  </label>
+                </div>
+                <input onChange={e => handleChangeCover(e)} id="cover-pic" type="file" />
+              </>
+            )}
+          </>
+        )}
+      </div>
       <Image width={100} height={100} onClick={isProfile ? () => setData({open: true, realtor}) : () => {}} className= {isProfile ? "profile profile-pointer" : 'profile' } src={ realtor?.profilePicture ? realtor.profilePicture : profileIcon} alt='profile icon'/>
       { isProfile && sessionProfile ? (
           <Image onClick={() => mainInfoSetOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
@@ -177,7 +284,7 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
       <div className="sub-content">
         <div className="about">
           <h1>{realtor?.firstName} {realtor?.lastName} </h1>
-          <h3>★★★★★</h3>
+          <h3>★★★★★ (5)</h3>
         </div>
         <div className="about-2">
           <p>
