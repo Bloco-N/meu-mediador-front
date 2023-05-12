@@ -11,4 +11,5 @@ export type Property = {
   usefulArea: string,
   realtorId: number | null
   agencyId: number | null
+  createdAt: string
 }

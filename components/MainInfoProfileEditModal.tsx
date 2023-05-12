@@ -25,7 +25,7 @@ const Container = styled.div`
   justify-content: center;
   form{
     position: relative;
-    height: 90%;
+    height: 80%;
     width: 50%;
     border-radius: 1rem;
     display: flex;
@@ -36,20 +36,8 @@ const Container = styled.div`
     input{
       min-width: 30rem;
     }
-    textarea{
-      resize: none;
-      padding: 2rem;
-      font-size: 2rem;
-      border-radius: 1rem;
-      width: 85%;
-      ::placeholder{
-        opacity: 0.9;
-      }
-    }
-
     h3{
       margin-bottom: 2rem;
-      color: var(--text);
     }
     .input-group{
       display: flex;
@@ -106,10 +94,12 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
 
   const onSubmit = async (data: MainEditForm) => {
     const token = localStorage.getItem('token')
+    const { expTime, ...payload} = data
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/', {
       method:'PUT',
       body: JSON.stringify({
-        ...data,
+        ...payload,
+        expTime: Number(expTime),
         whatsapp,
         phone
       }),
@@ -132,18 +122,21 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
           <input {...register('lastName',  {required: true})} defaultValue={realtor?.lastName} type="text" placeholder='Sobrenome' />
         </div>
         <div className="input-group">
-          <InputMask onChange={e => setPhone(e.target.value)} defaultValue={realtor?.phone ? realtor?.phone : ''} placeholder='telefone' mask="99 99 9 9999 9999" maskChar="_" />
-          <InputMask onChange={e => setWhatsapp(e.target.value)} defaultValue={realtor?.whatsapp ? realtor?.whatsapp : ''} placeholder='whatsapp' mask="99 99 9 9999 9999" maskChar="_" />
+          <InputMask type='text' onChange={e => setPhone(e.target.value)} defaultValue={realtor?.phone ? realtor?.phone : ''} placeholder='telefone' mask="99 99 9 9999 9999" maskChar="_" />
+          <InputMask type='text' onChange={e => setWhatsapp(e.target.value)} defaultValue={realtor?.whatsapp ? realtor?.whatsapp : ''} placeholder='whatsapp' mask="99 99 9 9999 9999" maskChar="_" />
         </div>
         <div className="input-group">
           <input {...register('email', {required: true})} defaultValue={realtor?.email} type="email" placeholder='mail@mail.com'/>
           <input {...register('instagram')} defaultValue={realtor?.instagram ? realtor?.instagram : ''} type="text" placeholder='link instagram' />
         </div>
         <div className="input-group">
-          <input {...register('twitter')} defaultValue={realtor?.twitter ? realtor?.twitter : ''} type="text" placeholder='link twitter'/>
+          <input {...register('facebook')} defaultValue={realtor?.facebook ? realtor?.facebook : ''} type="text" placeholder='link facebook'/>
           <input {...register('website')} defaultValue={realtor?.website ? realtor?.website : ''} type="text" placeholder='link site pessoal' />
         </div>
-          <textarea {...register('introduction')} defaultValue={realtor?.introduction ? realtor?.introduction : ''} placeholder='Escreva sua descrição aqui' name="introduction" id="" cols={30} rows={10}></textarea>
+        <div className="input-group">
+          <input {...register('expTime')} defaultValue={realtor?.expTime ? realtor?.expTime : 0} type="number" placeholder='tempo de atuação'/>
+
+        </div>
           <button>Salvar</button>
         <p onClick={() => setOpen(false)}>X</p>
       </form>

@@ -10,6 +10,12 @@ const SignUpContainer = styled.div`
   align-items: center;
   justify-content: center;
   form{
+    @media only screen and (max-width: 900px){
+      width: 60%;
+    }
+    @media only screen and (max-width: 500px){
+      width: 80%;
+    }
     width: 30%;
     height: 55rem;
     margin: auto;
@@ -58,9 +64,9 @@ const SignUp = () => {
           <h2>Cadastro</h2>
 
           <div className="full-name">
-              <input className="input-name" placeholder="Nome" 
+              <input type="text" className="input-name" placeholder="Nome" 
               {...register('firstName', {required:true, })} />
-              <input className="input-name" placeholder="Sobrenome" 
+              <input type="text" className="input-name" placeholder="Sobrenome" 
               {...register('lastName', {required: true})} />
           </div>
 

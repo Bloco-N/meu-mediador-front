@@ -38,12 +38,21 @@ a {
   --text: black;
 
   font-family: 'Quicksand';
-  color: var(--text); 
+  color: var(--surface-2); 
 }
 
 textarea{
   font-family: 'Quicksand';
   background-color: var(--base);
+  resize: none;
+  padding: 2rem;
+  font-size: 2rem;
+  border-radius: 1rem;
+  width: 85%;
+}
+
+textarea::placeholder{
+  opacity: 0.9;
 }
 
 html {
@@ -85,10 +94,10 @@ h5 {
   align-items: center;
   border: solid 0.1rem var(--border-color);
   background-color:var(--surface);
-  border-radius: 1rem;
+  border-radius: 3rem;
 }
 
-input {
+input[type='text'], input[type='email'], input[type='password'], input[type='number'] {
   all: unset;
   box-sizing: border-box;
   font-size: 2rem;
@@ -96,13 +105,34 @@ input {
   border: solid 0.1rem var(--border-color);
   text-align: left;
   padding: 2rem;
-  border-radius: 1rem;
+  border-radius: 3rem;
   outline: none;
   width: 100%;
 }
 
 input::placeholder{
-  opacity: 0.9;
+  opacity: 0.7;
+  color: var(--surface-2);
+}
+
+input[type='checkbox']{
+  all: unset;
+  height: 2rem;
+  width: 2rem;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+input:checked{
+  background-color: var(--highlight);
+}
+
+input[type='date']{
+  border-radius: 1rem;
+  padding: 2rem;
+  border: none;
+  background-color: var(--base);
 }
 
 button {
@@ -162,9 +192,10 @@ select{
   box-sizing: border-box;
   outline: none;
   width: 60%;
-  border-radius: 1rem;
+  border-radius: 3rem;
   background-color: var(--base);
   border: solid 0.1rem var(--border-color);
+  color: var(--surface-2);
   
 }
 
@@ -184,12 +215,12 @@ select{
 
 .elipses{
   color: black;
-  width: 30rem;
+  width: 100%;
   min-height: 2rem;
-  max-height: 10rem;
+  max-height: 20rem;
   display: block; 
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -251,3 +282,9 @@ input::-webkit-inner-spin-button {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 } 
+
+@media only screen and (max-width: 1000px){
+  :root{
+    font-size: 50%;
+  }
+}

@@ -20,6 +20,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: flex-start;
     padding-left: 4rem;
+    gap: 2rem;
     a{
       width: 90%;
       .card{

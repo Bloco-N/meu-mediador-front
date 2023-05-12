@@ -14,6 +14,13 @@ const SignInContainer = styled.div`
   align-items: center;
   justify-content: center;
   form{
+
+    @media only screen and (max-width: 800px){
+      width: 60%;
+    }
+    @media only screen and (max-width: 500px){
+      width: 80%;
+    }
     text-align: center;
     width: 30%;
     height: 100%;

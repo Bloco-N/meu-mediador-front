@@ -11,6 +11,10 @@ type ProfileMoldalProps = {
 } 
 
 const Container = styled.div`
+  @media only screen and (max-width: 1000px){
+    top: 12rem;
+    right: 6rem;
+  }
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -23,8 +27,8 @@ const Container = styled.div`
   a, p{
     padding: 2rem;
     width: 100%;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
     font-size: 1.7rem;
     transition: all .5s;
     :hover{
@@ -35,8 +39,8 @@ const Container = styled.div`
     
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 3rem;
+    border-bottom-right-radius: 3rem;
   }
 `
 

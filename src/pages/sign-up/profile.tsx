@@ -9,6 +9,18 @@ const Container = styled.div`
   justify-content: center;
   height: 100%;
   gap: 2rem;
+  width: 60%;
+  @media only screen and (max-width: 1300px){
+    width: 80%;
+  }
+
+  @media only screen and (max-width: 500px){
+    width: 90%;
+  }
+
+  @media only screen and (max-width: 400px){
+    width: 98%;
+  }
 
 `
 
@@ -16,6 +28,10 @@ const ChooseProfileTitle = styled.div`
   width: 100%;
   font-weight: normal;
   padding: 2rem;
+  text-align: center;
+  @media only screen and (max-width: 800px){
+    font-size: 1.2rem;
+  }
   h1{
     
     font-weight: normal;
@@ -23,14 +39,23 @@ const ChooseProfileTitle = styled.div`
   `
 
 const ViewProfile = styled.div`
-    width: 80rem;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 5rem;
+    @media only screen and (max-width: 800px){
+      gap: 2rem;
+    }
 `
 
 const NameProfile = styled.div`
+    @media only screen and (max-width: 800px){
+      width: 15rem;
+    }
+    @media only screen and (max-width: 800px){
+      width: 12rem;
+    }
     width: 20rem;
     height: 10rem;
     background-color: var(--base);
@@ -39,7 +64,7 @@ const NameProfile = styled.div`
 `
 
 const DescriptionProfile = styled.div`
-    width: 65rem; 
+    width: 100%; 
     margin: auto;
     display: none;
     text-align: center;
@@ -52,13 +77,14 @@ const DescriptionProfile = styled.div`
 
 const ChooseProfile = styled.div`
     height: 25rem;
+    width: 100%;
     gap: 2rem;
     display: flex;
     align-items: center;
     background-color: var(--text);
     flex-direction: column;
     padding: 4rem;
-    border-radius: 2rem;
+    border-radius: 3rem;
     background-color: var(--surface);
 `
 

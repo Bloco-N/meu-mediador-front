@@ -10,23 +10,40 @@ import { SearchForm } from "@/types/SearchForm";
 import { UserCard } from "@/types/UserCard";
 
 const SearchRealtor = styled.div`
-  
-  width: 100%;
-  height: 100%;
 
-  form{
+
+width: 100%;
+height: 100%;
+
+form{
+    @media only screen and (max-width: 1000px) {
+
+      width: 90%;
+      height: 40rem;
+      padding: 2rem;
+      text-align: center;
+      
+    }
     width: 60%;
-    height: 20rem;
+    height: 17rem;
     margin: auto;
     margin-top: 15vh;
-    background-color: #ffffff5c;
+    background-color: #ffffff8C;
+    backdrop-filter: blur(5px);
+    h4{
+      /* font-weight: bold; */
+    }
     .search-row {
+      @media only screen and (max-width: 1000px){
+        flex-direction: column;
+      }
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         padding: 2rem 5rem;
         gap: 2rem;
+        width: 100%;
     }
   }
 `
@@ -67,9 +84,9 @@ export default function Home() {
 
       <form className="card" onSubmit={handleSubmit(onSubmit)}>
         <div className="search-row">
-          <input className="input-realtor" placeholder="Nome do Consultor"
+          <input type="text" className="input-realtor" placeholder="Nome do Consultor"
           {...register('search')} />
-          <input className="input-city-cep" placeholder="Cidade ou CEP" 
+          <input type="text" className="input-city-cep" placeholder="Cidade ou CEP" 
           {...register('zipCode')}/>
           <button className="searchButton">Buscar</button>
         </div>
