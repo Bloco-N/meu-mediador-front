@@ -3,7 +3,8 @@ export type MainEditForm = {
   lastName: string
   email: string
   instagram: string | null
-  twitter: string | null
+  facebook: string | null
   website: string | null
   introduction: string | null
+  expTime: number | null
 }

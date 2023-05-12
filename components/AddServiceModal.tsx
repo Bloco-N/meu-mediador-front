@@ -19,7 +19,7 @@ const Container = styled.div`
     position: relative;
     height: 25rem;
     width: 40%;
-    border-radius: 1rem;
+    border-radius: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -46,7 +46,6 @@ const Container = styled.div`
   }
   h3{
     margin-bottom: 2rem;
-    color: var(--text);
   }
   h4{
     font-size: 2rem;
@@ -84,8 +83,6 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
         const realtorServicesNames = realtorServicesData.map( item => item.service.title )
   
         const deleteSet = new Set(realtorServicesNames)
-  
-        console.log(data)
   
         data = data.filter(item => !deleteSet.has(item.title))
   

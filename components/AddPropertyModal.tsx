@@ -30,7 +30,7 @@ const Container = styled.div`
     position: relative;
     height: 80%;
     width: 75%;
-    border-radius: 1rem;
+    border-radius: 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -90,7 +90,6 @@ const Container = styled.div`
   }
   h3{
       margin-bottom: 2rem;
-      color: var(--text);
     }
   p{
     cursor: pointer;
@@ -133,11 +132,13 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property', {
       method: 'POST',
       body: JSON.stringify({
-        ...data,
-        price,
-        grossArea,
-        usefulArea,
-        profilePicture: pic,
+        propertyData:{
+          ...data,
+          price,
+          grossArea,
+          usefulArea,
+          profilePicture: pic,
+        },
         realtorId: Number(localId)
       }),
       headers:{
