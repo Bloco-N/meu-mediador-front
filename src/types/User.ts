@@ -3,4 +3,5 @@ export type User = {
   token:string
   profilePicture: string | null
   coverPicture: string | null
+  accountType: string | null
 }

@@ -1,6 +1,7 @@
+import { AgencyProfile } from "./AgencyProfile"
 import { RealtorProfile } from "./RealtorProfile"
 
 export type PictureModalData = {
   open: boolean,
-  realtor: RealtorProfile | null
+  userSigned: RealtorProfile | AgencyProfile | null
 }

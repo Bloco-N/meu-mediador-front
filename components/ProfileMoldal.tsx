@@ -50,16 +50,26 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
 
   const { user, setUser } = useContext(UserContext) as UserContextType
 
+  const [accType, setAccType] = useState('')
+
   const [id, setId] = useState('')
 
   const signOut = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('id')
     localStorage.removeItem('pic')
-    setUser({token:'', id:null, profilePicture: null, coverPicture: null})
+    localStorage.removeItem('accountType')
+    setUser({token:'', id:null, profilePicture: null, coverPicture: null, accountType: null})
     setOpen(false)
     router.reload()
   }
+
+  useEffect(() => {
+    const accountType = localStorage.getItem('accountType')
+    if(accountType){
+      setAccType(accountType)
+    }
+  },[])
 
   useEffect(() => {
     const id = localStorage.getItem('id')
@@ -72,7 +82,7 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
     open ?
     <Container className='card'>
 
-      <Link onClick={() => setOpen(false)} href={'/profile/realtor/' + id}>Perfil</Link>
+      <Link onClick={() => setOpen(false)} href={`/profile/` + accType + '/' + id}>Perfil</Link>
       <p onClick={signOut} className='out'>Sair</p>
 
     </Container>

@@ -1,8 +1,7 @@
-export class RealtorProfile {
+export class AgencyProfile{
   id!: number
   email!: string
-  firstName!: string
-  lastName!: string
+  name!: string
   introduction!: string | null
   phone!: string | null
   whatsapp!: string | null
@@ -10,7 +9,6 @@ export class RealtorProfile {
   facebook!: string | null
   professional_email!: string | null
   website!: string | null
-  expTime!: number | null
   profilePicture!: string | null
   coverPicture!: string | null
   phoneCountry!: string | null

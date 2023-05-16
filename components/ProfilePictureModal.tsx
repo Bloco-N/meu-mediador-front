@@ -59,12 +59,12 @@ const ProfilePictureModal = ({data, setData}:PictureProfileModalProps) => {
 
   useEffect(() => {
     const localId = localStorage.getItem('id')
-    if(Number(localId) === data.realtor?.id) setSessionProfile(true)
+    if(Number(localId) === data.userSigned?.id) setSessionProfile(true)
     else setSessionProfile(false)
 
-    if(data.realtor?.profilePicture) setPic(data.realtor?.profilePicture)
+    if(data.userSigned?.profilePicture) setPic(data.userSigned?.profilePicture)
 
-  }, [user.id, data.realtor?.id, setPic, data.realtor?.profilePicture])
+  }, [user.id, data.userSigned?.id, setPic, data.userSigned?.profilePicture])
 
 
 
@@ -80,6 +80,7 @@ const ProfilePictureModal = ({data, setData}:PictureProfileModalProps) => {
     if(FileReader && file){
       const fr = new FileReader()
       const token = localStorage.getItem('token')
+      const accountType = localStorage.getItem('accountType')
 
       const onload = async () => {
         const img = document.getElementById('profile-pic-modal') as HTMLImageElement
@@ -87,11 +88,11 @@ const ProfilePictureModal = ({data, setData}:PictureProfileModalProps) => {
 
         img.src = fr.result as string
 
-        const text = await apiService.updateProfilePicture('realtor', fr, token as string)
+        const text = await apiService.updateProfilePicture(accountType as string, fr, token as string)
         
         if(text === 'updated'){
           localStorage.setItem('pic', fr.result as string)
-          setUser({id: user.id, token: user.token, profilePicture: fr.result as string, coverPicture: user.coverPicture})
+          setUser({id: user.id, token: user.token, profilePicture: fr.result as string, coverPicture: user.coverPicture, accountType: accountType})
           router.reload()
         }
       }
@@ -109,7 +110,7 @@ const ProfilePictureModal = ({data, setData}:PictureProfileModalProps) => {
       <Image height={200} width={200} id='profile-pic-modal' className='profile-pic' src={pic ? pic : profileIcon} alt='profile picture'/>
       <p onClick={() => setData({
         open:false,
-        realtor: data.realtor
+        userSigned: data.userSigned
       })}>X</p>
 
       {sessionProfile && (

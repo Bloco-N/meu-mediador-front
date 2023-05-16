@@ -191,7 +191,7 @@ select{
   display: grid;
   box-sizing: border-box;
   outline: none;
-  width: 60%;
+  width: 100%;
   border-radius: 3rem;
   background-color: var(--base);
   border: solid 0.1rem var(--border-color);

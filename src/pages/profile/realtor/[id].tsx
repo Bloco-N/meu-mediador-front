@@ -25,7 +25,6 @@ import AddPartnershipModalContext from "context/AddPartnershipModalContext"
 import { Award } from "@/types/Award"
 import AddCourseModalContext from "context/AddCourseModalContext"
 import { Course } from "@/types/Course"
-import AboutEditModal from "components/AboutEditModal"
 import AboutEditModalContext from "context/AboutEditModalContext"
 
 const Container = styled.div`
@@ -380,7 +379,7 @@ export default function Profile(){
 
   return (
     <Container>
-      <MainInfo realtor={realtor as RealtorProfile} isProfile={true}/>
+      <MainInfo userSigned={realtor as RealtorProfile} isProfile={true}/>
       <div className="card services">
           <h3>Este consultor trabalha com:</h3>
           {services?.map((item) =>
@@ -411,7 +410,6 @@ export default function Profile(){
             <Image onClick={() => aboutEditOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
           ): ''}
       </div>
-
 
       <div className="card properties">
         <h2>Imóveis</h2>

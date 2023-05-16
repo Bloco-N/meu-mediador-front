@@ -22,10 +22,10 @@ export class ApiService{
 
   }
 
-  public async updateCoverPicture(entity: string, fr: FileReader, token: string){
+  public async updateCoverPicture(accountType: string, fr: FileReader, token: string){
     try {
 
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/${entity}/`, {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/${accountType}/`, {
         method: 'PUT',
         body: JSON.stringify({
           coverPicture: fr.result

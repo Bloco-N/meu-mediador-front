@@ -44,7 +44,7 @@ export default function SearchResult(){
       <div className="list">
         {searchResult.list.map(item => (
           <Link href={'/profile/realtor/' + item.id} key={item.id }>
-            <MainInfo realtor={item} isProfile={false}/>
+            <MainInfo userSigned={item} isProfile={false}/>
           </Link>
         ))}
       </div>

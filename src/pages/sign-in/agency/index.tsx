@@ -2,7 +2,7 @@ import { SignInForm } from "@/types/SignInForm";
 import UserContext from "context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { decode } from "jsonwebtoken";
@@ -43,11 +43,18 @@ const SignIn = () => {
 
     const router = useRouter()
 
+    useEffect(() => {
+      const token = localStorage.getItem('token')
+      if(token){
+        router.push('/')
+      }
+    }, [router])
+
     const onSubmit = async (data:SignInForm) => {
 
       const fetchData = async () => {
         
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/sign-in', {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency' + '/sign-in', {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -55,13 +62,21 @@ const SignIn = () => {
 
         const token = await response.text()
         localStorage.setItem('token', token)
-        const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
+        const user = decode(token) as { id:number, email:string, name: string}
         localStorage.setItem('id', String(user.id))
-        setUser({ token, id: user.id })
-        router.push('/')
 
+        const agencyResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + user.id)
+
+        const agencyData = await agencyResponse.json()
+
+        localStorage.setItem('pic', agencyData.profilePicture)
+        localStorage.setItem('accountType', 'agency')
+
+        setUser({ token, id: user.id, profilePicture: agencyData.profilePicture, coverPicture: agencyData.coverPicture, accountType: 'agency' })
+        router.reload()
+        
       }
-
+      
       await fetchData()
     }
 

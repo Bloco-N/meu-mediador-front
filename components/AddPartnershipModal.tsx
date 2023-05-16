@@ -70,7 +70,9 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
 
   useEffect(() => {
     const endInput = document.getElementById('end') as HTMLInputElement;
-    endInput.value = ""
+    if(endInput){
+      endInput.value = ""
+    }
   }, [workHere])
 
   const onSubmit = async (data: AddPartnershipForm) => {

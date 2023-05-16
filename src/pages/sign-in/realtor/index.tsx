@@ -2,7 +2,7 @@ import { SignInForm } from "@/types/SignInForm";
 import UserContext from "context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { decode } from "jsonwebtoken";
@@ -44,6 +44,13 @@ const SignIn = () => {
 
     const router = useRouter()
 
+    useEffect(() => {
+      const token = localStorage.getItem('token')
+      if(token){
+        router.push('/')
+      }
+    }, [router])
+
     const onSubmit = async (data:SignInForm) => {
 
       const fetchData = async () => {
@@ -64,9 +71,10 @@ const SignIn = () => {
         const realtorData = await realtorResponse.json()
 
         localStorage.setItem('pic', realtorData.profilePicture)
+        localStorage.setItem('accountType', 'realtor')
 
-        setUser({ token, id: user.id, profilePicture: realtorData.profilePicture })
-        router.push('/')
+        setUser({ token, id: user.id, profilePicture: realtorData.profilePicture, coverPicture: realtorData.coverPicture, accountType: 'realtor' })
+        router.reload()
 
       }
 

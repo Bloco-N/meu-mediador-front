@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/types/SignUpForm";
+import { SignUpFormAgency } from "@/types/SignUpFormAgency";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -32,10 +32,10 @@ const SignUpContainer = styled.div`
 
 const SignUp = () => {
 
-  const { register, handleSubmit } = useForm<SignUpForm>()
+  const { register, handleSubmit } = useForm<SignUpFormAgency>()
   const router = useRouter()
 
-  const onSubmit = async (data:SignUpForm) => {
+  const onSubmit = async (data:SignUpFormAgency) => {
     const fetchData = async () => {
 
       if(data.password !== data.confirmPassword) return
@@ -63,13 +63,8 @@ const SignUp = () => {
 
           <h2>Cadastro</h2>
 
-          <div className="full-name">
-              <input type="text" className="input-name" placeholder="Nome" 
-              {...register('firstName', {required:true, })} />
-              <input type="text" className="input-name" placeholder="Sobrenome" 
-              {...register('lastName', {required: true})} />
-          </div>
-
+          <input type="text" className="input-name" placeholder="Nome da Agência" 
+          {...register('name', {required:true, })} />
           <input className="input-sign-up" type="email" placeholder="E-mail" 
           {...register('email', {required:true})}/>
           <input className="input-sign-up" type="password" placeholder="Senha" 

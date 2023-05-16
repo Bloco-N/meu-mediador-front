@@ -25,7 +25,7 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    input{
+    select{
       width: 70%;
     }
   }

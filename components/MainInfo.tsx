@@ -20,6 +20,7 @@ import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import Link from 'next/link';
 import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
+import { AgencyProfile } from '@/types/AgencyProfile';
 
 type ContainerProps = {
   isProfile: boolean
@@ -47,7 +48,7 @@ const Container = styled.div<ContainerProps>`
         height: 4rem;
         width: 4rem;
         position: absolute;
-        bottom: 1rem;
+        top: 1rem;
         right: 2rem;
         display: flex;
         align-items: center;
@@ -136,11 +137,8 @@ const Container = styled.div<ContainerProps>`
       align-items: center;
       gap: 2rem;
       position: absolute;
-      top: 9rem;
+      bottom: 8rem;
       right: 2rem;
-      background-color: var(--surface);
-      padding: 1rem;
-      border-radius: 3rem;
       @media only screen and (max-width: 900px){
         position: unset;
       }
@@ -156,14 +154,14 @@ const Container = styled.div<ContainerProps>`
       }
     }
     .current-agency{
-      background-color: white;
+      background-color: var(--surface);
       display: flex;
       align-items: center;
       gap: 2rem;
       padding: 1rem;
       border-radius: 1rem;
       position: absolute;
-      top: 2rem;
+      bottom: ${porps => porps.isProfile ? '20rem': 'unset'};
       right: 2rem;
       @media only screen and (max-width: 900px){
         position: unset;
@@ -196,11 +194,11 @@ const Container = styled.div<ContainerProps>`
 `
 
 type MainInfoProps = {
-  realtor: RealtorProfile
+  userSigned: RealtorProfile | AgencyProfile
   isProfile: boolean
 }
 
-const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
+const MainInfo = ({ userSigned , isProfile}: MainInfoProps) => {
 
   const { setData } = useContext(PictureModalContext) as PictureModalContextType
 
@@ -214,11 +212,11 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
 
   useEffect(() => {
     const localId = localStorage.getItem('id')
-    if(Number(localId) === realtor?.id){
+    if(Number(localId) === userSigned?.id){
       setSessionProfile(true)
     } 
 
-  }, [user.id, realtor?.id])
+  }, [user.id, userSigned?.id])
 
   const handleChangeCover = (e:React.ChangeEvent) => {
 
@@ -232,6 +230,7 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
     if(FileReader && file){
       const fr = new FileReader()
       const token = localStorage.getItem('token')
+      const accountType = localStorage.getItem('accountType')
 
       const onload = async () => {
         const img = document.getElementById('cover-pic') as HTMLImageElement
@@ -239,11 +238,11 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
 
         img.src = fr.result as string
 
-        const text = await apiService.updateCoverPicture('realtor', fr, token as string)
+        const text = await apiService.updateCoverPicture(accountType as string, fr, token as string)
         
         if(text === 'updated'){
-          // localStorage.setItem('cover', fr.result as string)
-          setUser({id: user.id, token: user.token, coverPicture: fr.result as string, profilePicture: user.profilePicture})
+
+          setUser({id: user.id, token: user.token, coverPicture: fr.result as string, profilePicture: user.profilePicture, accountType: user.accountType})
           router.reload()
         }
       }
@@ -262,7 +261,7 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
       <div className='top'>
         {isProfile && (
           <>
-            <Image height={1000} width={1000} src={realtor?.coverPicture ? realtor.coverPicture : greyImage} alt='cover image' className='cover-photo'/>
+            <Image height={1000} width={1000} src={userSigned?.coverPicture ? userSigned.coverPicture : greyImage} alt='cover image' className='cover-photo'/>
             {sessionProfile && (
               <>
                 <div className='label-back'>
@@ -276,14 +275,20 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
           </>
         )}
       </div>
-      <Image width={100} height={100} onClick={isProfile ? () => setData({open: true, realtor}) : () => {}} className= {isProfile ? "profile profile-pointer" : 'profile' } src={ realtor?.profilePicture ? realtor.profilePicture : profileIcon} alt='profile icon'/>
+      <Image width={100} height={100} onClick={isProfile ? () => setData({open: true, userSigned}) : () => {}} className= {isProfile ? "profile profile-pointer" : 'profile' } src={ userSigned?.profilePicture ? userSigned.profilePicture : profileIcon} alt='profile icon'/>
       { isProfile && sessionProfile ? (
           <Image onClick={() => mainInfoSetOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
       ): ''}
 
       <div className="sub-content">
         <div className="about">
-          <h1>{realtor?.firstName} {realtor?.lastName} </h1>
+          { userSigned?.firstName && (
+            <h1>{userSigned?.firstName} {userSigned?.lastName} </h1>
+          )}
+
+          {userSigned?.name as AgencyProfile && (
+            <h1>{userSigned.name}</h1>
+          )}
           <h3>★★★★★ (5)</h3>
         </div>
         <div className="about-2">
@@ -293,51 +298,53 @@ const MainInfo = ({ realtor , isProfile}: MainInfoProps) => {
             </b>
             Lisboa
           </p>
-          <p>
-          <b>
-            Experiência:
-            </b> {realtor?.expTime} Anos
-          </p>
+          {userSigned instanceof RealtorProfile && (
+            <p>
+              <b>
+                Experiência:
+              </b> {userSigned?.expTime} Anos
+            </p>
+          )}
           <p>
           <b>
             Idiomas:
             </b> Português, Inglês</p>
-          <p>{realtor?.email}</p>
-          <p>{realtor?.phone}</p>
+          <p>{userSigned?.email}</p>
+          <p>{userSigned?.phone}</p>
         </div>
       </div>
 
       {isProfile ?  (
         <div className="contact">
-          {realtor?.email ? (
-            <Link href={'mailto: ' + realtor.email} target='_blank'>
+          {userSigned?.email ? (
+            <Link href={'mailto: ' + userSigned.email} target='_blank'>
               <Image className='icon' src={mailIcon} alt='mail icon'/>
             </Link>
           ) : '' }
-          {realtor?.website ? (
-            <Link href={realtor.website} target='_blank'>
+          {userSigned?.website ? (
+            <Link href={userSigned.website} target='_blank'>
               <Image className='icon' src={webIcon} alt='web icon'/>
             </Link>
           ) : '' }
-          {realtor?.whatsapp ? (
-            <Link href={'https://wa.me/' + realtor.whatsapp.split(' ').join('')} target='_blank'>
+          {userSigned?.whatsapp ? (
+            <Link href={'https://wa.me/' + userSigned.whatsapp.split(' ').join('')} target='_blank'>
               <Image className='icon' src={whatsappIcon} alt='whatsapp icon'/>
             </Link>
           ) : '' }
-          {realtor?.instagram ? (
-            <Link href={realtor.instagram} target='_blank'>
+          {userSigned?.instagram ? (
+            <Link href={userSigned.instagram} target='_blank'>
               <Image className='icon' src={instagramIcon} alt='instagram icon'/>
             </Link>
           ) : '' }
-          {realtor?.facebook ? (
-            <Link href={realtor.facebook} target='_blank'>
+          {userSigned?.facebook ? (
+            <Link href={userSigned.facebook} target='_blank'>
               <Image className='icon' src={facebookIcon} alt='facebook icon'/>
             </Link>
           ) : '' }
         </div>
       ): ''}
       
-      <div className="current-agency">
+      <div className="current-agency border">
         Lorem Ipsun
         <Image className="agency" src={agencyIcon} alt='agency icon'/>
       </div>
