@@ -22,6 +22,8 @@ import AddCourseModal from './AddCourseModal';
 import AddCourseModalContext from 'context/AddCourseModalContext';
 import AboutEditModal from './AboutEditModal';
 import AboutEditModalContext from 'context/AboutEditModalContext';
+import AddCommentModal from './AddCommentModal';
+import AddCommentModalContext from 'context/AddCommentModalContext';
 
 type ModalWrapperProps = {
   children: React.ReactNode
@@ -30,7 +32,7 @@ type ModalWrapperProps = {
 const ModalWrapper = ({ children }: ModalWrapperProps) => {
   const [dataPictureModal, setDataPictureModal] = useState<PictureModalData>({
     open: false,
-    realtor: null
+    userSigned: null
   })
 
   const [openAddPropertyModal, setOpenAddPropertyModal] = useState(false)
@@ -47,11 +49,14 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
 
   const [openPartnershipModal, setOpenPartnershipModal] = useState(false)
 
+  const [openAddCommentModal, setOpenAddCommentModal] = useState(false)
+
   const [user, setUser] = useState<User>({
     id: null,
     token:'',
     profilePicture: null,
-    coverPicture: null
+    coverPicture: null,
+    accountType: ''
   })
 
   const [search, setSearch] = useState('')
@@ -67,9 +72,11 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
       token: localStorage.getItem('token') as string,
       id: null,
       profilePicture: null,
-      coverPicture: null
+      coverPicture: null,
+      accountType: null
     })
   }, [])
+
   return (
     <div>
       <SearchContext.Provider value = {{search, setSearch}}>
@@ -83,6 +90,8 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
       <AddPartnershipModalContext.Provider value={{open: openPartnershipModal, setOpen: setOpenPartnershipModal}} >
       <AddCourseModalContext.Provider value={{open: openCourseModal, setOpen: setOpenCourseModal}}>
       <AboutEditModalContext.Provider value={{open: openAboutEditModal, setOpen: setOpenAboutEditModal}}>
+      <AddCommentModalContext.Provider value={{open: openAddCommentModal, setOpen: setOpenAddCommentModal}}>
+        <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal}/>
         <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal}/>    
         <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal}/>
         <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal}/>
@@ -92,6 +101,7 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
         <AboutEditModal open={openAboutEditModal} setOpen={setOpenAboutEditModal}/>
         <AddPartnershipModal open={openPartnershipModal} setOpen={setOpenPartnershipModal}/>
         {children}
+      </AddCommentModalContext.Provider>
       </AboutEditModalContext.Provider>
       </AddCourseModalContext.Provider>        
       </AddPartnershipModalContext.Provider>

@@ -292,7 +292,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
           {userSigned?.name as AgencyProfile && (
             <h1>{userSigned.name}</h1>
           )}
-          <h3>★★★★★ (5)</h3>
+          <h3>{'★'.repeat(userSigned?.rating)} ({Math.round(userSigned?.rating)})</h3>
         </div>
         <div className="about-2">
           <p>

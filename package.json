@@ -21,6 +21,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.2",
     "react-input-mask": "^2.0.4",
+    "react-simple-star-rating": "^5.1.7",
     "react-text-mask": "^5.5.0",
     "styled-components": "^5.3.6",
     "text-mask-addons": "^3.8.0",

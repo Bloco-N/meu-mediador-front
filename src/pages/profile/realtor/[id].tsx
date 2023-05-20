@@ -25,9 +25,11 @@ import AddPartnershipModalContext from "context/AddPartnershipModalContext"
 import { Award } from "@/types/Award"
 import AddCourseModalContext from "context/AddCourseModalContext"
 import { Course } from "@/types/Course"
+import { Comment } from "@/types/Comment"
 import AboutEditModalContext from "context/AboutEditModalContext"
 import { PartnershipList } from "@/types/PartnershipList"
 import { LastExp } from "@/types/LastExp"
+import AddCommentModalContext from "context/AddCommentModalContext"
 
 const Container = styled.div`
   display: flex;
@@ -205,6 +207,44 @@ const Container = styled.div`
     }
   }
 
+  .comments{
+    padding: 3rem;
+    align-items: flex-start;
+    gap: 2rem;
+    .list{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      .comment{
+        position: relative;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 2rem;
+        padding: 2rem;
+        background-color: var(--base);
+        border-radius: 3rem;
+        .close{
+          position: absolute;
+          top: 2rem;
+          right: 2rem;
+        }
+        .title{
+          display: flex;
+          gap: 1rem;
+          align-items: center;
+          p{
+            color: var(--star);
+          }
+        }
+      }
+    }
+  }
+
   .awards{
     position: relative;
     align-items: flex-start;
@@ -248,9 +288,12 @@ export default function Profile(){
 
   const [awards, setAwards] = useState<Award []>() 
 
+  
   const [courses, setCourses] = useState<Course []>()
-
+  
   const [partnerships, setPartnerships] = useState<PartnershipList []>()
+  
+  const [comments, setComments] = useState<Comment []>()
 
   const [lastExp, setLastExp] = useState<LastExp>()
 
@@ -276,8 +319,27 @@ export default function Profile(){
   
   const { setOpen: aboutEditOpen } = useContext(AboutEditModalContext) as ModalOpenContextType
 
+  const { setOpen: addCommentSetOpen } = useContext(AddCommentModalContext) as ModalOpenContextType
+
+  const [localId, setLocalId] = useState('')
+
+  const [accType, setAccType] = useState('')
+
   const router = useRouter()
   const { id } = router.query
+
+  useEffect(() => {
+    const localStorageId = localStorage.getItem('id')
+    const accountType = localStorage.getItem('accountType')
+
+    if(localStorageId){
+      setLocalId(localStorageId)
+    }
+    if(accountType){
+      setAccType(accountType)
+    }
+
+  }, [])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -304,8 +366,12 @@ export default function Profile(){
 
         const responsePartnerships = await fetch(process.env.NEXT_PUBLIC_API_URL + '/partnership/realtor/' + id)
         const partnershipData = await responsePartnerships.json()
-        console.log(partnershipData)
         setPartnerships(partnershipData)
+
+        const responseComments = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor/' + id)
+        const commentData = await responseComments.json()
+        console.log(commentData)
+        setComments(commentData)
 
         setLastExp({name: partnershipData[0].name, pic: partnershipData[0].pic })
 
@@ -384,6 +450,25 @@ export default function Profile(){
     const token = localStorage.getItem('token')
 
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + id, {
+      method: 'DELETE',
+      headers:{
+        authorization: 'Bearer ' + token
+      }
+    })
+
+    const text = await response.text()
+    if(text === 'deleted') router.reload()
+
+  }
+
+  const handleDeleteComment = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    const target = e.target as HTMLElement
+    
+    const { id } = target
+
+    const token = localStorage.getItem('token')
+
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
@@ -565,6 +650,34 @@ export default function Profile(){
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="card comments">
+        <h2>Avaliações</h2>
+        {
+          comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': (
+            <button onClick={() => addCommentSetOpen(true)}>Adicionar Comentário</button>
+          )
+        }
+        <div className="list">
+            {comments?.map(comment => (
+              <div key={ comment.id } className="comment">
+                {accType === 'client' && Number(localId) === comment.clientId ? (
+                  <Image onClick={e => handleDeleteComment(e)} id={String(comment.id)} className="close" src={closeIcon} alt="close icon"/>
+                ): ''}
+                <div className="title">
+                  <h4>
+                    {comment.clientName}
+                  </h4>
+                  <p>{'★'.repeat(comment.rating)}</p>
+                </div>
+                <p>
+                  {comment.text}
+                </p>
+              </div>
+            ))}
+                          
         </div>
       </div>
 

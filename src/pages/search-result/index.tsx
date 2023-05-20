@@ -44,7 +44,10 @@ export default function SearchResult(){
       <div className="list">
         {searchResult.list.map(item => (
           <Link href={'/profile/realtor/' + item.id} key={item.id }>
-            <MainInfo isRealtor={false} userSigned={item} isProfile={false}/>
+            <MainInfo lastExp={{
+              name: item.agencyName,
+              pic: item.agencyPic
+            }} isRealtor={true} userSigned={item} isProfile={false}/>
           </Link>
         ))}
       </div>

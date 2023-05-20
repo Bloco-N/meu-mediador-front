@@ -48,7 +48,7 @@ const SignUp = () => {
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
 
-      if(response.ok) router.push('/sign-in')
+      if(response.ok) router.push('/sign-in/client')
 
     }
 

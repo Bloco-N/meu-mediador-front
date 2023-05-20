@@ -1,4 +1,4 @@
 export type LastExp = {
-  name:string,
+  name:string | null,
   pic: string | null
 }

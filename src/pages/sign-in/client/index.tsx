@@ -47,7 +47,7 @@ const SignIn = () => {
 
       const fetchData = async () => {
         
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/sign-in', {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client' + '/sign-in', {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -57,7 +57,14 @@ const SignIn = () => {
         localStorage.setItem('token', token)
         const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
         localStorage.setItem('id', String(user.id))
-        setUser({ token, id: user.id })
+
+        const clientResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client/' + user.id)
+    
+        const clientData = await clientResponse.json()
+
+        localStorage.setItem('accountType', 'client')
+
+        setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
         router.push('/')
 
       }

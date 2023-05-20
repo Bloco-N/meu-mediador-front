@@ -16,4 +16,7 @@ export class RealtorProfile {
   phoneCountry!: string | null
   wppCountry!: string | null
   wppText!: string | null
+  rating!: number | null
+  agencyName!: string | null
+  agencyPic!: string | null
 }
