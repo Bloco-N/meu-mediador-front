@@ -53,27 +53,42 @@ const SignIn = () => {
     const onSubmit = async (data:SignInForm) => {
 
       const fetchData = async () => {
+
+        try {
+          
+          const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency' + '/sign-in', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+          })
+
+          if(response.ok){
+
+            const token = await response.text()
+            localStorage.setItem('token', token)
+            const user = decode(token) as { id:number, email:string, name: string}
+            localStorage.setItem('id', String(user.id))
+    
+            const agencyResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + user.id)
+    
+            const agencyData = await agencyResponse.json()
+    
+            localStorage.setItem('pic', agencyData.profilePicture)
+            localStorage.setItem('accountType', 'agency')
+    
+            setUser({ token, id: user.id, profilePicture: agencyData.profilePicture, coverPicture: agencyData.coverPicture, accountType: 'agency' })
+            router.reload()
+          }
+
+          if(response.status === 400){
+            throw new Error('email or password incorrect')
+          }
+  
+
+        } catch (error) {
+          console.log(error.message)
+        }
         
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency' + '/sign-in', {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {"Content-type": "application/json; charset=UTF-8"}
-        })
-
-        const token = await response.text()
-        localStorage.setItem('token', token)
-        const user = decode(token) as { id:number, email:string, name: string}
-        localStorage.setItem('id', String(user.id))
-
-        const agencyResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + user.id)
-
-        const agencyData = await agencyResponse.json()
-
-        localStorage.setItem('pic', agencyData.profilePicture)
-        localStorage.setItem('accountType', 'agency')
-
-        setUser({ token, id: user.id, profilePicture: agencyData.profilePicture, coverPicture: agencyData.coverPicture, accountType: 'agency' })
-        router.reload()
         
       }
       

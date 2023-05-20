@@ -13,4 +13,5 @@ export class AgencyProfile{
   coverPicture!: string | null
   phoneCountry!: string | null
   wppCountry!: string | null
+  wppText!: string | null
 }

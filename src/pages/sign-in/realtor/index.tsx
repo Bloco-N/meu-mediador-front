@@ -54,28 +54,34 @@ const SignIn = () => {
     const onSubmit = async (data:SignInForm) => {
 
       const fetchData = async () => {
+
+        try {
+          const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/sign-in', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+          })
+  
+          const token = await response.text()
+          localStorage.setItem('token', token)
+          const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
+          localStorage.setItem('id', String(user.id))
+  
+          const realtorResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + user.id)
+  
+          const realtorData = await realtorResponse.json()
+  
+          localStorage.setItem('pic', realtorData.profilePicture)
+          localStorage.setItem('accountType', 'realtor')
+  
+          setUser({ token, id: user.id, profilePicture: realtorData.profilePicture, coverPicture: realtorData.coverPicture, accountType: 'realtor' })
+          router.reload()
+          
+        } catch (error) {
+          console.log(error)
+        }
         
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/sign-in', {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {"Content-type": "application/json; charset=UTF-8"}
-        })
-
-        const token = await response.text()
-        localStorage.setItem('token', token)
-        const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
-        localStorage.setItem('id', String(user.id))
-
-        const realtorResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + user.id)
-
-        const realtorData = await realtorResponse.json()
-
-        localStorage.setItem('pic', realtorData.profilePicture)
-        localStorage.setItem('accountType', 'realtor')
-
-        setUser({ token, id: user.id, profilePicture: realtorData.profilePicture, coverPicture: realtorData.coverPicture, accountType: 'realtor' })
-        router.reload()
-
+        
       }
 
       await fetchData()

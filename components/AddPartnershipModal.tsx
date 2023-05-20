@@ -1,5 +1,6 @@
 import { AddAwardForm } from "@/types/AddAwardForm";
 import { AddPartnershipForm } from "@/types/AddPartnershipForm";
+import { AgencyProfile } from "@/types/AgencyProfile";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -66,6 +67,8 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
 
   const { register, handleSubmit } = useForm<AddPartnershipForm>()
 
+  const [agencies, setAgencies] = useState<AgencyProfile []>()
+
   const router = useRouter()
 
   useEffect(() => {
@@ -75,24 +78,36 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
     }
   }, [workHere])
 
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/agency/no-pagination`)
+      const json = await response.json()
+      setAgencies(json)
+    }
+
+    fetchData()
+
+  }, [])
+
   const onSubmit = async (data: AddPartnershipForm) => {
     console.log(data)
 
     const localId = localStorage.getItem('id')
 
-    // const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/realtor', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     title: data.title,
-    //     realtorId: Number(localId)
-    //   }),
-    //   headers:{
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/partnership', {
+      method: 'POST',
+      body: JSON.stringify({
+        ...data,
+        realtorId: Number(localId)
+      }),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
 
-    // const text = await response.text()
-    // if(text === 'created') router.reload()
+    const text = await response.text()
+    if(text === 'updated') router.reload()
 
   }
 
@@ -101,11 +116,16 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>Adicionar Experiência</h3>
-        <input {...register( 'position', {required: true})} placeholder="Cargo" type="text" />
-        <input {...register( 'agency', {required: true})} placeholder="Agência" type="text" />
+        <input {...register( 'title', {required: true})} placeholder="Cargo" type="text" />
+        <input list="agencies" {...register( 'agency', {required: true})} placeholder="Agência" type="text" />
+        <datalist id="agencies">
+          {agencies?.map(item => (
+            <option key={item.id} value={item.name}/>
+          ))}
+        </datalist>
         <div>          
           <input  {...register('init', {required:true})} type="date" />
-          <input id="end" disabled={workHere} type="date" />
+          <input {...register('end')} id="end" disabled={workHere} type="date" />
         </div>
         <div>
           <label htmlFor="active">Trabalha aqui atualmente</label>

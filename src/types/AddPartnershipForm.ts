@@ -1,5 +1,5 @@
 export type AddPartnershipForm = {
-  position: string
+  title: string
   init: Date
   end?: Date
   active: boolean

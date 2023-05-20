@@ -154,7 +154,7 @@ export default function Profile(){
 
   return(
     <Container>
-      <MainInfo userSigned={agency as AgencyProfile} isProfile={true}/>
+      <MainInfo isRealtor={false} userSigned={agency as AgencyProfile} isProfile={true}/>
     </Container>
   )
 }

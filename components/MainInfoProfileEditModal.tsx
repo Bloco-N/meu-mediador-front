@@ -27,13 +27,17 @@ const Container = styled.div`
   form{
     position: relative;
     height: 90%;
-    width: 50%;
+    width: 90rem;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem;
+    padding: 4rem;
     gap: 2rem;
+    overflow-y: scroll;
+    textarea{
+      min-height: 20rem;
+    }
     input{
       min-width: 30rem;
     }
@@ -193,6 +197,8 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
             <input {...register('expTime')} defaultValue={userSigned?.expTime ? userSigned?.expTime : 0} type="number" placeholder='tempo de atuação'/>
           </div>
         )}
+
+        <textarea {...register('wppText')} defaultValue={ userSigned?.wppText ? userSigned.wppText : ''} placeholder='Defina uma mensagem de boas vindas no whatsapp'></textarea>
         
           <button>Salvar</button>
         <p onClick={() => setOpen(false)}>X</p>

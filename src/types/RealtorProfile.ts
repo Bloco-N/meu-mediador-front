@@ -15,4 +15,5 @@ export class RealtorProfile {
   coverPicture!: string | null
   phoneCountry!: string | null
   wppCountry!: string | null
+  wppText!: string | null
 }

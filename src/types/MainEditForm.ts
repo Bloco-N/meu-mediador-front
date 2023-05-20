@@ -9,6 +9,7 @@ export class MainEditForm {
   expTime!: number | null
   phoneCountry!: string | null
   wppCountry!: string | null
+  wppText!: string | null
 }
 
 export class MainEditFormAgency {
@@ -20,4 +21,5 @@ export class MainEditFormAgency {
   introduction!: string | null
   phoneCountry!: string | null
   wppCountry!: string | null
+  wppText!: string | null
 }

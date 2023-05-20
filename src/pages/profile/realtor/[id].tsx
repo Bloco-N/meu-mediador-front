@@ -26,6 +26,8 @@ import { Award } from "@/types/Award"
 import AddCourseModalContext from "context/AddCourseModalContext"
 import { Course } from "@/types/Course"
 import AboutEditModalContext from "context/AboutEditModalContext"
+import { PartnershipList } from "@/types/PartnershipList"
+import { LastExp } from "@/types/LastExp"
 
 const Container = styled.div`
   display: flex;
@@ -179,6 +181,10 @@ const Container = styled.div`
               display: flex;
               flex-direction: column;
               gap: 1rem;
+              div{
+                display: flex;
+                gap: 1rem;
+              }
               h4{
                 font-size: 1.6rem;
                 margin-left: 1rem;
@@ -244,9 +250,15 @@ export default function Profile(){
 
   const [courses, setCourses] = useState<Course []>()
 
+  const [partnerships, setPartnerships] = useState<PartnershipList []>()
+
+  const [lastExp, setLastExp] = useState<LastExp>()
+
   const [editAwards, setEditAwards] = useState(false)
 
   const [editCourses, setEditCourses] = useState(false)
+
+  const [indexPartnership, setIndexPartnership] = useState(-1)
 
   const [sessionProfile, setSessionProfile] = useState(false)
 
@@ -289,6 +301,14 @@ export default function Profile(){
         const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + id)
         const serviceData = await responseServices.json()
         setServices(serviceData)
+
+        const responsePartnerships = await fetch(process.env.NEXT_PUBLIC_API_URL + '/partnership/realtor/' + id)
+        const partnershipData = await responsePartnerships.json()
+        console.log(partnershipData)
+        setPartnerships(partnershipData)
+
+        setLastExp({name: partnershipData[0].name, pic: partnershipData[0].pic })
+
       }
 
     }
@@ -375,11 +395,42 @@ export default function Profile(){
 
   }
 
+  const handleDeletePartnership = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    const target = e.target as HTMLElement
+    
+    const { id } = target
+
+    const token = localStorage.getItem('token')
+
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/partnership/' + id, {
+      method: 'DELETE',
+      headers:{
+        authorization: 'Bearer ' + token
+      }
+    })
+
+    const text = await response.text()
+    if(text === 'deleted') router.reload()
+
+  }
+
+  const handleEditPartnership = (index:number) => {
+
+    if(index === indexPartnership){
+      setIndexPartnership(-1)
+    } else {
+      setIndexPartnership(index)
+    }
+
+
+    
+  }
+
 
 
   return (
     <Container>
-      <MainInfo userSigned={realtor as RealtorProfile} isProfile={true}/>
+      <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true}/>
       <div className="card services">
           <h3>Este consultor trabalha com:</h3>
           {services?.map((item) =>
@@ -490,48 +541,30 @@ export default function Profile(){
           <Image onClick={() => addPartnershipOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
         ): ''}
         <div className="list">
-          <div className="card work">
-          { sessionProfile ? (
-          <Image onClick={() => addPropertySetOpen(true)} className='plus' src={editIcon} alt='edit icon'/>
-        ): ''}
-            <div className="header">
-              <Image className="agency-img" src={agencyIcon} alt="" />
-              <div className="infos">
-                <div className="position">
-                  <h3>Cargo</h3>
-                  <h4>Empresa ● Tempo Integral</h4>
-                  <p>jul de 2022 - dez de 2022 · 6 meses</p>
+          {partnerships?.map((item, index) => (
+            <div key={index} className="card work">
+            { sessionProfile ? (
+            <Image onClick={() => handleEditPartnership(index)} className='plus' src={editIcon} alt='edit icon'/>
+          ): ''}
+              <div className="header">
+                <Image width={10} height={10} className="agency-img" src={item.pic ? item.pic : agencyIcon} alt="" />
+                <div className="infos">
+                {item.list.map((partnership) => (
+                    <div key={partnership.id} className="position">
+                      <div>
+                        {sessionProfile && index === indexPartnership ?(
+                            <Image onClick={e => handleDeletePartnership(e)} id={String(partnership.id)} className="close" src={closeIcon} alt="close icon"/>
+                            ): ''}
+                        <h3>{partnership.title}</h3>
+                      </div>
+                      <h4>{item.name}</h4>
+                      <p>{partnership.workTime}</p>
+                    </div>
+                ))}
                 </div>
               </div>
             </div>
-          </div>
-          <div className="card work">
-          { sessionProfile ? (
-          <Image onClick={() => addPropertySetOpen(true)} className='plus' src={editIcon} alt='edit icon'/>
-        ): ''}
-            <div className="header">
-              <Image className="agency-img" src={agencyIcon} alt="" />
-              <div className="infos">
-                <div className="position">
-                  <h3>Cargo</h3>
-                  <h4>Empresa ● Tempo Integral</h4>
-                  <p>jul de 2022 - dez de 2022 · 6 meses</p>
-                </div>
-                <div className="position">
-                  <h3>Cargo 2</h3>
-                  <h4>Empresa ● Tempo Integral</h4>
-                  <p>jul de 2022 - dez de 2022 · 6 meses</p>
-                </div>
-                <div className="position">
-                  <h3>Cargo 3</h3>
-                  <h4>Empresa ● Tempo Integral</h4>
-                  <p>jul de 2022 - dez de 2022 · 6 meses</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
+          ))}
         </div>
       </div>
 

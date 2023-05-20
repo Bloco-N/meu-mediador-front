@@ -21,6 +21,7 @@ import Link from 'next/link';
 import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
 import { AgencyProfile } from '@/types/AgencyProfile';
+import { LastExp } from '@/types/LastExp';
 
 type ContainerProps = {
   isProfile: boolean
@@ -196,9 +197,11 @@ const Container = styled.div<ContainerProps>`
 type MainInfoProps = {
   userSigned: RealtorProfile | AgencyProfile
   isProfile: boolean
+  lastExp?: LastExp
+  isRealtor: boolean
 }
 
-const MainInfo = ({ userSigned , isProfile}: MainInfoProps) => {
+const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) => {
 
   const { setData } = useContext(PictureModalContext) as PictureModalContextType
 
@@ -298,13 +301,14 @@ const MainInfo = ({ userSigned , isProfile}: MainInfoProps) => {
             </b>
             Lisboa
           </p>
-          {userSigned instanceof RealtorProfile && (
+            {userSigned?.expTime && (
             <p>
               <b>
                 Experiência:
               </b> {userSigned?.expTime} Anos
             </p>
-          )}
+            )}
+
           <p>
           <b>
             Idiomas:
@@ -327,7 +331,7 @@ const MainInfo = ({ userSigned , isProfile}: MainInfoProps) => {
             </Link>
           ) : '' }
           {userSigned?.whatsapp ? (
-            <Link href={'https://wa.me/' + userSigned.whatsapp.split(' ').join('')} target='_blank'>
+            <Link href={'https://wa.me/' + userSigned.whatsapp.split(' ').join('') + `${userSigned.wppText ? '?text=' + encodeURI(userSigned.wppText) :''}` } target='_blank'>
               <Image className='icon' src={whatsappIcon} alt='whatsapp icon'/>
             </Link>
           ) : '' }
@@ -343,11 +347,14 @@ const MainInfo = ({ userSigned , isProfile}: MainInfoProps) => {
           ) : '' }
         </div>
       ): ''}
+
+      {isRealtor && (
+        <div className="current-agency border">
+          {lastExp?.name}
+          <Image width={10} height={10} className="agency" src={lastExp?.pic ? lastExp.pic : agencyIcon} alt='agency icon'/>
+        </div>
+      ) }
       
-      <div className="current-agency border">
-        Lorem Ipsun
-        <Image className="agency" src={agencyIcon} alt='agency icon'/>
-      </div>
     </div>
   </Container>
 
