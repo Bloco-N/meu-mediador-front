@@ -154,7 +154,17 @@ export default function Profile(){
 
   return(
     <Container>
-      <MainInfo isRealtor={false} userSigned={agency as AgencyProfile} isProfile={true}/>
+      {/* <MainInfo isRealtor={false} userSigned={{
+        ...agency,
+        firstName: '',
+        lastName: '',
+        expTime: 0,
+        rating: 5,
+        agencyName:'',
+        agencyPic: '',
+        RealtorCities: [],
+        RealtorLanguages: []
+      }} isProfile={true}/> */}
     </Container>
   )
 }
