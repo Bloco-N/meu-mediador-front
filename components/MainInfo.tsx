@@ -215,7 +215,8 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
 
   useEffect(() => {
     const localId = localStorage.getItem('id')
-    if(Number(localId) === userSigned?.id){
+    const accounType = localStorage.getItem('accountType')
+    if(Number(localId) === userSigned?.id && accounType === 'realtor'){
       setSessionProfile(true)
     } 
 
