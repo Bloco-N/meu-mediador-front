@@ -295,12 +295,18 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
           <h3>{'★'.repeat(userSigned?.rating)} ({Math.round(userSigned?.rating)})</h3>
         </div>
         <div className="about-2">
+        {userSigned?.RealtorCities && (
           <p>
             <b>
             Atua em:
             </b>
-            Lisboa
+            <p>
+              {userSigned.RealtorCities.map((city, index) => (
+              `${city.City.name} ${index < userSigned.RealtorCities.length -1 ? ',': ''} `
+              ))}
+            </p>
           </p>
+        )}
             {userSigned?.expTime && (
             <p>
               <b>
@@ -308,11 +314,14 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
               </b> {userSigned?.expTime} Anos
             </p>
             )}
-
           <p>
-          <b>
+            <b>
             Idiomas:
-            </b> Português, Inglês</p>
+            </b> 
+            {userSigned?.RealtorLanguages?.map((language, index) => (
+              `${language.Language.name} ${index < userSigned.RealtorLanguages.length -1 ? ',': ''} `
+              ))}
+          </p>
           <p>{userSigned?.email}</p>
           <p>{userSigned?.phone}</p>
         </div>

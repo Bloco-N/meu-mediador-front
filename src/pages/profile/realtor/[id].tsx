@@ -288,7 +288,6 @@ export default function Profile(){
 
   const [awards, setAwards] = useState<Award []>() 
 
-  
   const [courses, setCourses] = useState<Course []>()
   
   const [partnerships, setPartnerships] = useState<PartnershipList []>()
@@ -370,7 +369,6 @@ export default function Profile(){
 
         const responseComments = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor/' + id)
         const commentData = await responseComments.json()
-        console.log(commentData)
         setComments(commentData)
 
         setLastExp({name: partnershipData[0].name, pic: partnershipData[0].pic })

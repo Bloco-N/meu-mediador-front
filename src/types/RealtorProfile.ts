@@ -1,3 +1,6 @@
+import { RealtorCity } from "./RealtorCity"
+import { RealtorLanguage } from "./RealtorLanguage"
+
 export class RealtorProfile {
   id!: number
   email!: string
@@ -19,4 +22,7 @@ export class RealtorProfile {
   rating!: number | null
   agencyName!: string | null
   agencyPic!: string | null
+  RealtorCities!: RealtorCity[]
+  RealtorLanguages!: RealtorLanguage[]
+
 }

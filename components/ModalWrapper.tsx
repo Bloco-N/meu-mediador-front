@@ -24,6 +24,10 @@ import AboutEditModal from './AboutEditModal';
 import AboutEditModalContext from 'context/AboutEditModalContext';
 import AddCommentModal from './AddCommentModal';
 import AddCommentModalContext from 'context/AddCommentModalContext';
+import AddCityModalContext from 'context/AddCityModalContext';
+import AddCityModal from './AddCityModal';
+import AddLanguageModalContext from 'context/AddLanguageModalContext';
+import AddLanguageModal from './AddLanguageModal';
 
 type ModalWrapperProps = {
   children: React.ReactNode
@@ -50,6 +54,10 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
   const [openPartnershipModal, setOpenPartnershipModal] = useState(false)
 
   const [openAddCommentModal, setOpenAddCommentModal] = useState(false)
+
+  const [openAddCityModal, setOpenAddCityModal] = useState(false)
+
+  const [openAddLanguageModal, setOpenAddLanguageModal] = useState(false)
 
   const [user, setUser] = useState<User>({
     id: null,
@@ -91,6 +99,9 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
       <AddCourseModalContext.Provider value={{open: openCourseModal, setOpen: setOpenCourseModal}}>
       <AboutEditModalContext.Provider value={{open: openAboutEditModal, setOpen: setOpenAboutEditModal}}>
       <AddCommentModalContext.Provider value={{open: openAddCommentModal, setOpen: setOpenAddCommentModal}}>
+      <AddCityModalContext.Provider value={{open: openAddCityModal, setOpen: setOpenAddCityModal}}>
+      <AddLanguageModalContext.Provider value={{open: openAddLanguageModal, setOpen: setOpenAddLanguageModal}}>
+
         <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal}/>
         <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal}/>    
         <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal}/>
@@ -100,7 +111,11 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
         <AddCourseModal open={openCourseModal} setOpen={setOpenCourseModal}/>
         <AboutEditModal open={openAboutEditModal} setOpen={setOpenAboutEditModal}/>
         <AddPartnershipModal open={openPartnershipModal} setOpen={setOpenPartnershipModal}/>
+        <AddCityModal open={openAddCityModal} setOpen={setOpenAddCityModal}/>
+        <AddLanguageModal open={openAddLanguageModal} setOpen={setOpenAddLanguageModal}/>
         {children}
+      </AddLanguageModalContext.Provider>
+      </AddCityModalContext.Provider>
       </AddCommentModalContext.Provider>
       </AboutEditModalContext.Provider>
       </AddCourseModalContext.Provider>        

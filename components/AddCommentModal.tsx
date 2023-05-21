@@ -39,6 +39,11 @@ const Container = styled.div`
   textarea{
     min-height: 20rem;
   }
+  .redirect{
+    position: absolute;
+    top: 50%;
+    font-weight: bold;
+  }
   .close{
     cursor: pointer;
     position: absolute;
@@ -165,7 +170,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
         ): (
           <>
             <p className="close" onClick={() => setOpen(false)}>X</p>
-            <p>Faça login como cliente</p>
+            <p className="redirect">Faça login como cliente</p>
           </>
         ) }
       </form>

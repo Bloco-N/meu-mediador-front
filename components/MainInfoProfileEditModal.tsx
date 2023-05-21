@@ -8,6 +8,9 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { MainEditForm, MainEditFormAgency } from '@/types/MainEditForm';
 import { AgencyProfile } from '@/types/AgencyProfile';
+import AddCityModalContext from 'context/AddCityModalContext';
+import { ModalOpenContextType } from '@/types/ModalOpenContextType';
+import AddLanguageModalContext from 'context/AddLanguageModalContext';
 
 type MainInfoProfileEditModalProps = {
   open: boolean,
@@ -47,6 +50,7 @@ const Container = styled.div`
     .input-group{
       display: flex;
       gap: 2rem;
+      justify-content: center;
       width: 100%;
       select{
         width: 50%;
@@ -75,6 +79,10 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   const { register, handleSubmit } = useForm<MainEditForm | MainEditFormAgency>()
   const { user } = useContext(UserContext) as UserContextType
 
+  const { setOpen: setCityModalOpen } = useContext(AddCityModalContext) as ModalOpenContextType
+
+  const { setOpen: setLanguageModalOpen } = useContext(AddLanguageModalContext) as ModalOpenContextType
+
   const [accType, setAccType] = useState('')
   
   const [userSigned, setUserSigned] = useState<RealtorProfile | AgencyProfile>()
@@ -85,6 +93,16 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   const [phoneMask, setPhoneMask] = useState('')
 
   const router = useRouter()
+
+  const handleAddCity = () => {
+    setCityModalOpen(true)
+    setOpen(false)
+  }
+
+  const handleAddLanguage = () => {
+    setLanguageModalOpen(true)
+    setOpen(false)
+  }
 
   useEffect(() => {
     const accountType = localStorage.getItem('accountType')
@@ -199,7 +217,10 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
         )}
 
         <textarea {...register('wppText')} defaultValue={ userSigned?.wppText ? userSigned.wppText : ''} placeholder='Defina uma mensagem de boas vindas no whatsapp'></textarea>
-        
+        <div className="input-group">
+          <button onClick={handleAddCity}>Adicionar Local de Atuação</button>
+          <button onClick={handleAddLanguage}>Adicionar Idioma Falado</button>
+        </div>
           <button>Salvar</button>
         <p onClick={() => setOpen(false)}>X</p>
       </form>

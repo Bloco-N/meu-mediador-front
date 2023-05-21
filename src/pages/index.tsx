@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SearchContext from "context/SearchContext";
 import { SearchContextType } from "@/types/SearchContextType";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchResultContext from "context/SearchResultContext";
 import { SearchResultContextType } from "@/types/SearchResultContextType";
 import { SearchForm } from "@/types/SearchForm";
@@ -52,10 +52,24 @@ export default function Home() {
 
   const { register, handleSubmit } = useForm<SearchForm>()
 
+  const [cities, setCities] = useState<Array<string>>()
+
   const router = useRouter()
 
   const { setSearch } = useContext(SearchContext) as SearchContextType
   const { setSearchResult } = useContext(SearchResultContext) as SearchResultContextType
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city')
+      const data = await response.json()
+      setCities(data)
+    }
+
+    fetchData()
+
+  }, [])
 
   
   
@@ -86,8 +100,13 @@ export default function Home() {
         <div className="search-row">
           <input type="text" className="input-realtor" placeholder="Nome do Consultor"
           {...register('search')} />
-          <input type="text" className="input-city-cep" placeholder="Cidade ou CEP" 
+          <input list="cities" type="text" className="input-city-cep" placeholder="Cidade ou CEP" 
           {...register('zipCode')}/>
+          <datalist id="cities">
+            {cities?.map((item, index) => (
+              <option key={index} value={item}/>
+            ))}
+          </datalist>
           <button className="searchButton">Buscar</button>
         </div>
         <h4>Encontre um consultor pro seu próximo imóvel aqui</h4>
