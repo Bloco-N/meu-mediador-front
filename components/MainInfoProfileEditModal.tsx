@@ -76,7 +76,7 @@ const Container = styled.div`
 
 const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps) => {
 
-  const { register, handleSubmit } = useForm<MainEditForm | MainEditFormAgency>()
+  const { register, handleSubmit } = useForm<MainEditForm>()
   const { user } = useContext(UserContext) as UserContextType
 
   const { setOpen: setCityModalOpen } = useContext(AddCityModalContext) as ModalOpenContextType
@@ -85,7 +85,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
 
   const [accType, setAccType] = useState('')
   
-  const [userSigned, setUserSigned] = useState<RealtorProfile | AgencyProfile>()
+  const [userSigned, setUserSigned] = useState<RealtorProfile>()
   const [phone, setPhone] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
 
@@ -131,7 +131,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
     fetchData()
   }, [user.id])
 
-  const onSubmit = async (data: MainEditForm | MainEditFormAgency) => {
+  const onSubmit = async (data: MainEditForm) => {
     const token = localStorage.getItem('token')
     if(accType === 'realtor'){
       console.log(data)

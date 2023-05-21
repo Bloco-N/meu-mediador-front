@@ -6,6 +6,7 @@ export class RealtorProfile {
   email!: string
   firstName!: string
   lastName!: string
+  name!: string
   introduction!: string | null
   phone!: string | null
   whatsapp!: string | null
@@ -19,7 +20,7 @@ export class RealtorProfile {
   phoneCountry!: string | null
   wppCountry!: string | null
   wppText!: string | null
-  rating!: number | null
+  rating!: number
   agencyName!: string | null
   agencyPic!: string | null
   RealtorCities!: RealtorCity[]

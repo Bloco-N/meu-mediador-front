@@ -1,6 +1,7 @@
 export class MainEditForm {
   firstName!: string
   lastName!: string
+  name!:string
   email!: string
   instagram!: string | null
   facebook!: string | null

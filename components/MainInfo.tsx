@@ -195,7 +195,7 @@ const Container = styled.div<ContainerProps>`
 `
 
 type MainInfoProps = {
-  userSigned: RealtorProfile | AgencyProfile
+  userSigned: RealtorProfile
   isProfile: boolean
   lastExp?: LastExp
   isRealtor: boolean
@@ -289,7 +289,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
             <h1>{userSigned?.firstName} {userSigned?.lastName} </h1>
           )}
 
-          {userSigned?.name as AgencyProfile && (
+          {userSigned?.name && (
             <h1>{userSigned.name}</h1>
           )}
           <h3>{'★'.repeat(userSigned?.rating)} ({Math.round(userSigned?.rating)})</h3>
