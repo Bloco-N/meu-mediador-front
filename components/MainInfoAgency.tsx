@@ -15,13 +15,12 @@ import facebookIcon from '../public/facebook.svg'
 import greyImage from '../public/grey.png'
 import UserContext from 'context/UserContext';
 import { UserContextType } from '@/types/UserContextType';
-import MainInfoProfileEditModalContext from 'context/MainInfoProfileEditModalContext';
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import Link from 'next/link';
 import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
 import { AgencyProfile } from '@/types/AgencyProfile';
-import { LastExp } from '@/types/LastExp';
+import MainInfoAgencyEditModalContext from 'context/MainInfoAgencyEditModal';
 
 type ContainerProps = {
   isProfile: boolean
@@ -194,20 +193,18 @@ const Container = styled.div<ContainerProps>`
   }
 `
 
-type MainInfoProps = {
-  userSigned: RealtorProfile
+type MainInfoAgencyProps = {
+  userSigned: AgencyProfile
   isProfile: boolean
-  lastExp?: LastExp
-  isRealtor: boolean
 }
 
-const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) => {
+const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
 
   const { setData } = useContext(PictureModalContext) as PictureModalContextType
 
   const { user, setUser } = useContext(UserContext) as UserContextType
 
-  const { setOpen: mainInfoSetOpen } = useContext(MainInfoProfileEditModalContext) as ModalOpenContextType
+  const { setOpen: mainInfoSetOpen } = useContext(MainInfoAgencyEditModalContext) as ModalOpenContextType
 
   const [sessionProfile, setSessionProfile] = useState(false)
 
@@ -216,7 +213,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
   useEffect(() => {
     const localId = localStorage.getItem('id')
     const accounType = localStorage.getItem('accountType')
-    if(Number(localId) === userSigned?.id && accounType === 'realtor'){
+    if(Number(localId) === userSigned?.id && accounType === 'agency'){
       setSessionProfile(true)
     } 
 
@@ -286,40 +283,9 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
 
       <div className="sub-content">
         <div className="about">
-          { userSigned?.firstName && (
-            <h1>{userSigned?.firstName} {userSigned?.lastName} </h1>
-          )}
-
-          {userSigned?.name && (
-            <h1>{userSigned.name}</h1>
-          )}
-          <h3>{'★'.repeat(userSigned?.rating)} ({Math.round(userSigned?.rating)})</h3>
+          <h1>{userSigned?.name}</h1>
         </div>
         <div className="about-2">
-        {userSigned?.RealtorCities && (
-          <p>
-            <b>
-            Atua em:
-            </b>
-              {userSigned.RealtorCities.map((city, index) => (
-              ` ${city.City.name} ${index < userSigned.RealtorCities.length -1 ? ',': ''} `
-              ))}
-          </p>
-        )}
-          <p>
-            <b>
-              Experiência:
-            </b> {userSigned?.expTime} Anos
-          </p>
-
-          <p>
-            <b>
-            Idiomas: 
-            </b> 
-            {userSigned?.RealtorLanguages?.map((language, index) => (
-              ` ${language.Language.name} ${index < userSigned.RealtorLanguages.length -1 ? ',': ''} `
-              ))}
-          </p>
           <p>{userSigned?.email}</p>
           <p>{userSigned?.phone}</p>
         </div>
@@ -354,13 +320,6 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
           ) : '' }
         </div>
       ): ''}
-
-      {isRealtor && (
-        <div className="current-agency border">
-          {lastExp?.name}
-          <Image width={10} height={10} className="agency" src={lastExp?.pic ? lastExp.pic : agencyIcon} alt='agency icon'/>
-        </div>
-      ) }
       
     </div>
   </Container>
@@ -368,4 +327,4 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
   );
 };
 
-export default MainInfo;
+export default MainInfoAgency;

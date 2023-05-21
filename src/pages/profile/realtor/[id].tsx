@@ -371,7 +371,7 @@ export default function Profile(){
         const commentData = await responseComments.json()
         setComments(commentData)
 
-        setLastExp({name: partnershipData[0].name, pic: partnershipData[0].pic })
+        setLastExp({name: partnershipData[0]?.name, pic: partnershipData[0]?.pic })
 
       }
 

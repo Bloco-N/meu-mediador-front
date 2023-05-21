@@ -1,5 +1,6 @@
 import { AgencyProfile } from "@/types/AgencyProfile";
 import MainInfo from "components/MainInfo";
+import MainInfoAgency from "components/MainInfoAgency";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
@@ -154,17 +155,7 @@ export default function Profile(){
 
   return(
     <Container>
-      {/* <MainInfo isRealtor={false} userSigned={{
-        ...agency,
-        firstName: '',
-        lastName: '',
-        expTime: 0,
-        rating: 5,
-        agencyName:'',
-        agencyPic: '',
-        RealtorCities: [],
-        RealtorLanguages: []
-      }} isProfile={true}/> */}
+      <MainInfoAgency userSigned={agency as AgencyProfile} isProfile={true}/>
     </Container>
   )
 }

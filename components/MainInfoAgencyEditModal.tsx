@@ -74,7 +74,7 @@ const Container = styled.div`
   }
 `
 
-const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps) => {
+const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps) => {
 
   const { register, handleSubmit } = useForm<MainEditForm>()
   const { user } = useContext(UserContext) as UserContextType
@@ -85,7 +85,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
 
   const [accType, setAccType] = useState('')
   
-  const [userSigned, setUserSigned] = useState<RealtorProfile>()
+  const [userSigned, setUserSigned] = useState<AgencyProfile>()
   const [phone, setPhone] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
 
@@ -133,25 +133,6 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
 
   const onSubmit = async (data: MainEditForm) => {
     const token = localStorage.getItem('token')
-    if(accType === 'realtor'){
-      console.log(data)
-      const { expTime, ...payload} = data
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/', {
-        method:'PUT',
-        body: JSON.stringify({
-          ...payload,
-          expTime: Number(expTime),
-          whatsapp,
-          phone
-        }),
-        headers:{
-          authorization: 'Bearer ' + token,
-          'Content-Type': 'application/json'
-        }
-      })
-      const text = await response.text()
-      router.reload()
-    }else if(accType === 'agency'){
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/', {
         method:'PUT',
         body: JSON.stringify({
@@ -166,7 +147,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
       })
       const text = await response.text()
       router.reload()
-    }
+    
   }
 
   return (
@@ -175,15 +156,9 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>Editar Perfil</h3>
         <div className="input-group">
-          {accType === 'realtor' && (
-            <>
-              <input {...register('firstName', {required: true})} defaultValue={userSigned?.firstName} type="text" placeholder='Nome' />
-              <input {...register('lastName',  {required: true})} defaultValue={userSigned?.lastName} type="text" placeholder='Sobrenome' />
-            </>
-          )}
-          {accType === 'agency' && (
-            <input {...register('name', {required: true})} defaultValue={userSigned?.name} type="text" placeholder='Nome' />
-          )}
+
+          <input {...register('name', {required: true})} defaultValue={userSigned?.name} type="text" placeholder='Nome' />
+
         </div>
         <div className="input-group">
           <select {...register('phoneCountry', {required: true})} defaultValue={userSigned?.phoneCountry as string} onChange={e => setPhoneMask(e.target.value)} >
@@ -210,17 +185,12 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
           <input {...register('facebook')} defaultValue={userSigned?.facebook ? userSigned?.facebook : ''} type="text" placeholder='link facebook'/>
           <input {...register('website')} defaultValue={userSigned?.website ? userSigned?.website : ''} type="text" placeholder='link site pessoal' />
         </div>
-        {accType === 'realtor' && (          
-          <div className="input-group">
-            <input {...register('expTime')} defaultValue={userSigned?.expTime ? userSigned?.expTime : 0} type="number" placeholder='tempo de atuação'/>
-          </div>
-        )}
 
         <textarea {...register('wppText')} defaultValue={ userSigned?.wppText ? userSigned.wppText : ''} placeholder='Defina uma mensagem de boas vindas no whatsapp'></textarea>
-        <div className="input-group">
+        {/* <div className="input-group">
           <button onClick={handleAddCity}>Adicionar Local de Atuação</button>
           <button onClick={handleAddLanguage}>Adicionar Idioma Falado</button>
-        </div>
+        </div> */}
           <button>Salvar</button>
         <p onClick={() => setOpen(false)}>X</p>
       </form>
@@ -229,4 +199,4 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   );
 };
 
-export default MainInfoProfileEditModal;
+export default MainInfoAgencyEditModal;

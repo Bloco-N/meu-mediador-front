@@ -28,6 +28,7 @@ import AddCityModalContext from 'context/AddCityModalContext';
 import AddCityModal from './AddCityModal';
 import AddLanguageModalContext from 'context/AddLanguageModalContext';
 import AddLanguageModal from './AddLanguageModal';
+import MainInfoAgencyEditModalContext from 'context/MainInfoAgencyEditModal';
 
 type ModalWrapperProps = {
   children: React.ReactNode
@@ -44,6 +45,8 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
   const [openAddServiceModal, setOpenAddServiceModal] = useState(false)
 
   const [openMainInfoModal, setOpenMainInfoModal] = useState(false)
+
+  const [openMainInfoAgencyModal, setOpenMainInfoAgencyModal] = useState(false)
 
   const [openAwardModal, setOpenAwardModal] = useState(false)
 
@@ -75,6 +78,8 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
     totalOfPages: 0
   })
 
+  useEffect(() => { console.log(openMainInfoAgencyModal)}, [openMainInfoAgencyModal])
+
   useEffect(() => {
     setUser({
       token: localStorage.getItem('token') as string,
@@ -101,7 +106,7 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
       <AddCommentModalContext.Provider value={{open: openAddCommentModal, setOpen: setOpenAddCommentModal}}>
       <AddCityModalContext.Provider value={{open: openAddCityModal, setOpen: setOpenAddCityModal}}>
       <AddLanguageModalContext.Provider value={{open: openAddLanguageModal, setOpen: setOpenAddLanguageModal}}>
-
+      <MainInfoAgencyEditModalContext.Provider value= {{open:openMainInfoAgencyModal, setOpen:setOpenMainInfoAgencyModal}}>
         <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal}/>
         <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal}/>    
         <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal}/>
@@ -113,7 +118,9 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
         <AddPartnershipModal open={openPartnershipModal} setOpen={setOpenPartnershipModal}/>
         <AddCityModal open={openAddCityModal} setOpen={setOpenAddCityModal}/>
         <AddLanguageModal open={openAddLanguageModal} setOpen={setOpenAddLanguageModal}/>
+        <MainInfoProfileEditModal open={openMainInfoAgencyModal} setOpen={setOpenMainInfoAgencyModal}/>
         {children}
+      </MainInfoAgencyEditModalContext.Provider>
       </AddLanguageModalContext.Provider>
       </AddCityModalContext.Provider>
       </AddCommentModalContext.Provider>
