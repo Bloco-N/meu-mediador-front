@@ -308,13 +308,12 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
             </p>
           </p>
         )}
-            {userSigned?.expTime && (
-            <p>
-              <b>
-                Experiência:
-              </b> {userSigned?.expTime} Anos
-            </p>
-            )}
+          <p>
+            <b>
+              Experiência:
+            </b> {userSigned?.expTime} Anos
+          </p>
+
           <p>
             <b>
             Idiomas:
