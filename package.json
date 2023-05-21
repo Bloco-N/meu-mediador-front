@@ -15,13 +15,22 @@
     "@types/react-dom": "18.0.11",
     "eslint": "8.34.0",
     "eslint-config-next": "13.1.6",
+    "jsonwebtoken": "^9.0.0",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.2",
+    "react-input-mask": "^2.0.4",
+    "react-simple-star-rating": "^5.1.7",
+    "react-text-mask": "^5.5.0",
     "styled-components": "^5.3.6",
+    "text-mask-addons": "^3.8.0",
     "typescript": "4.9.5"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.1",
+    "@types/react-input-mask": "^3.0.2",
+    "@types/react-text-mask": "^5.4.11",
     "@types/styled-components": "^5.1.26"
   }
 }
