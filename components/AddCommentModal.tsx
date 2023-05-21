@@ -129,7 +129,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       setAccType(accountType)
     }
 
-  }, [])
+  }, [open])
 
   return (
     (open) ?
