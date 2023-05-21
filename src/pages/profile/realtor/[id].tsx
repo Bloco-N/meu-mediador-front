@@ -377,7 +377,7 @@ export default function Profile(){
 
     }
     const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId)) setSessionProfile(true)
+    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 
