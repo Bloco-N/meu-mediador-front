@@ -381,7 +381,7 @@ export default function Profile(){
 
     fetchData()
 
-  }, [id, user.id])
+  }, [id, user.id, accType])
 
   const handleDeleteProperty = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLElement
