@@ -1,6 +1,8 @@
 import { AddCommentForm } from "@/types/AddCommentForm";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import LoadingContext from "context/LoadingContext";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Rating } from "react-simple-star-rating";
 import styled from "styled-components";
@@ -73,6 +75,8 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const [negotiationSkillsRating, setNegotiationSkillsRating] = useState(0)
   const [profissionalismAndComunicationRating, setProfissionalismAndComunicationRating] = useState(0)
 
+  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
   const handleMarketRating = (rate: number) => {
     setMarketExpertiseRating(rate)
   }
@@ -101,6 +105,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
 
     const localId = localStorage.getItem('id')
 
+    setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment', {
       method: 'POST',
       body: JSON.stringify({
@@ -118,6 +123,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
     })
 
     const text = await response.text()
+    setLoadingOpen(false)
     if(text === 'created') router.reload()
 
   }

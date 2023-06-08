@@ -30,6 +30,7 @@ import AboutEditModalContext from "context/AboutEditModalContext"
 import { PartnershipList } from "@/types/PartnershipList"
 import { LastExp } from "@/types/LastExp"
 import AddCommentModalContext from "context/AddCommentModalContext"
+import LoadingContext from "context/LoadingContext"
 
 const Container = styled.div`
   display: flex;
@@ -320,6 +321,8 @@ export default function Profile(){
 
   const { setOpen: addCommentSetOpen } = useContext(AddCommentModalContext) as ModalOpenContextType
 
+  const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
+
   const [localId, setLocalId] = useState('')
 
   const [accType, setAccType] = useState('')
@@ -337,12 +340,13 @@ export default function Profile(){
     if(accountType){
       setAccType(accountType)
     }
-
+    
   }, [])
-
+  
   useEffect(() => {
     const fetchData = async () => {
       if(id){
+        setLoadingOpen(true)
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + id)
         const data = await response.json()
         setRealtor(data)
@@ -372,7 +376,7 @@ export default function Profile(){
         setComments(commentData)
 
         setLastExp({name: partnershipData[0]?.name, pic: partnershipData[0]?.pic })
-
+        setLoadingOpen(false)
       }
 
     }
@@ -381,7 +385,7 @@ export default function Profile(){
 
     fetchData()
 
-  }, [id, user.id, accType])
+  }, [id, user.id, accType, setLoadingOpen])
 
   const handleDeleteProperty = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLElement
@@ -390,6 +394,8 @@ export default function Profile(){
 
     const token = localStorage.getItem('token')
 
+    setLoadingOpen(true)
+    
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/' + id, {
       method: 'DELETE',
       headers:{
@@ -397,6 +403,8 @@ export default function Profile(){
       }
     })
 
+    setLoadingOpen(false)
+    
     const text = await response.text()
     if(text === 'deleted') router.reload()
 
@@ -409,6 +417,8 @@ export default function Profile(){
 
     const token = localStorage.getItem('token')
 
+    setLoadingOpen(true)
+    
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/' + id, {
       method: 'DELETE',
       headers:{
@@ -416,6 +426,8 @@ export default function Profile(){
       }
     })
 
+    setLoadingOpen(false)
+    
     const text = await response.text()
     if(text === 'deleted') router.reload()
 
@@ -428,12 +440,16 @@ export default function Profile(){
 
     const token = localStorage.getItem('token')
 
+    setLoadingOpen(true)
+    
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/course/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
       }
     })
+
+    setLoadingOpen(false)
 
     const text = await response.text()
     if(text === 'deleted') router.reload()
@@ -447,12 +463,16 @@ export default function Profile(){
 
     const token = localStorage.getItem('token')
 
+    setLoadingOpen(true)
+    
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
       }
     })
+
+    setLoadingOpen(false)
 
     const text = await response.text()
     if(text === 'deleted') router.reload()
@@ -466,12 +486,16 @@ export default function Profile(){
 
     const token = localStorage.getItem('token')
 
+    setLoadingOpen(true)
+    
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
       }
     })
+
+    setLoadingOpen(false)
 
     const text = await response.text()
     if(text === 'deleted') router.reload()
@@ -485,12 +509,16 @@ export default function Profile(){
 
     const token = localStorage.getItem('token')
 
+    setLoadingOpen(true)
+    
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/partnership/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
       }
     })
+
+    setLoadingOpen(false)
 
     const text = await response.text()
     if(text === 'deleted') router.reload()
@@ -504,8 +532,6 @@ export default function Profile(){
     } else {
       setIndexPartnership(index)
     }
-
-
     
   }
 
@@ -668,7 +694,7 @@ export default function Profile(){
                   <h4>
                     {comment.clientName}
                   </h4>
-                  <p>{'★'.repeat(comment.rating)}</p>
+                  <p>{'★'.repeat(Math.floor(comment.rating))}</p>
                 </div>
                 <p>
                   {comment.text}

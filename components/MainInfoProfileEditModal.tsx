@@ -11,6 +11,7 @@ import { AgencyProfile } from '@/types/AgencyProfile';
 import AddCityModalContext from 'context/AddCityModalContext';
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import AddLanguageModalContext from 'context/AddLanguageModalContext';
+import LoadingContext from 'context/LoadingContext';
 
 type MainInfoProfileEditModalProps = {
   open: boolean,
@@ -83,6 +84,8 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
 
   const { setOpen: setLanguageModalOpen } = useContext(AddLanguageModalContext) as ModalOpenContextType
 
+  const {setOpen: setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
   const [accType, setAccType] = useState('')
   
   const [userSigned, setUserSigned] = useState<RealtorProfile>()
@@ -126,14 +129,14 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
         setPhone(json.phone)
       }
 
-
     }
     fetchData()
-  }, [user.id])
+  }, [user.id, setLoadingOpen])
 
   const onSubmit = async (data: MainEditForm) => {
     const token = localStorage.getItem('token')
     if(accType === 'realtor'){
+      setLoadingOpen(true)
       console.log(data)
       const { expTime, ...payload} = data
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/', {
@@ -150,6 +153,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
         }
       })
       const text = await response.text()
+      setLoadingOpen(false)
       router.reload()
     }else if(accType === 'agency'){
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/', {

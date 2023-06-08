@@ -7,6 +7,8 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { decode } from "jsonwebtoken";
 import { UserContextType } from "@/types/UserContextType";
+import LoadingContext from "context/LoadingContext";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -42,6 +44,8 @@ const SignIn = () => {
 
     const { setUser } = useContext(UserContext) as UserContextType
 
+    const { setOpen:setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
+
     const router = useRouter()
 
     useEffect(() => {
@@ -56,6 +60,7 @@ const SignIn = () => {
       const fetchData = async () => {
 
         try {
+          setLoadingOpen(true)
           const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/sign-in', {
             method: 'POST',
             body: JSON.stringify(data),
@@ -75,6 +80,7 @@ const SignIn = () => {
           localStorage.setItem('accountType', 'realtor')
   
           setUser({ token, id: user.id, profilePicture: realtorData.profilePicture, coverPicture: realtorData.coverPicture, accountType: 'realtor' })
+          setLoadingOpen(false)
           router.reload()
           
         } catch (error) {
@@ -99,7 +105,7 @@ const SignIn = () => {
           <input className="input-sign-up" type="password" placeholder="Senha" 
           {...register('password', {required: true})}/>
 
-          {/* <Link className="forgot-password" href="/forgot-password">Esqueci minha senha</Link> */}
+          <Link className="forgot-password" href="/forgot-password">Esqueci minha senha</Link>
 
           <button>Entrar</button>
 

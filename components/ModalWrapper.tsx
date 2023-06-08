@@ -29,6 +29,8 @@ import AddCityModal from './AddCityModal';
 import AddLanguageModalContext from 'context/AddLanguageModalContext';
 import AddLanguageModal from './AddLanguageModal';
 import MainInfoAgencyEditModalContext from 'context/MainInfoAgencyEditModal';
+import LoadingContext from 'context/LoadingContext';
+import Loading from './Loading';
 
 type ModalWrapperProps = {
   children: React.ReactNode
@@ -61,6 +63,8 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
   const [openAddCityModal, setOpenAddCityModal] = useState(false)
 
   const [openAddLanguageModal, setOpenAddLanguageModal] = useState(false)
+
+  const [loadingOpen, setLoadingOpen] = useState(false)
 
   const [user, setUser] = useState<User>({
     id: null,
@@ -107,6 +111,8 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
       <AddCityModalContext.Provider value={{open: openAddCityModal, setOpen: setOpenAddCityModal}}>
       <AddLanguageModalContext.Provider value={{open: openAddLanguageModal, setOpen: setOpenAddLanguageModal}}>
       <MainInfoAgencyEditModalContext.Provider value= {{open:openMainInfoAgencyModal, setOpen:setOpenMainInfoAgencyModal}}>
+      <LoadingContext.Provider value={{open:loadingOpen, setOpen:setLoadingOpen}}>
+
         <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal}/>
         <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal}/>    
         <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal}/>
@@ -119,7 +125,9 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
         <AddCityModal open={openAddCityModal} setOpen={setOpenAddCityModal}/>
         <AddLanguageModal open={openAddLanguageModal} setOpen={setOpenAddLanguageModal}/>
         <MainInfoProfileEditModal open={openMainInfoAgencyModal} setOpen={setOpenMainInfoAgencyModal}/>
+        <Loading open={loadingOpen} setOpen={setLoadingOpen}/>
         {children}
+      </LoadingContext.Provider>
       </MainInfoAgencyEditModalContext.Provider>
       </AddLanguageModalContext.Provider>
       </AddCityModalContext.Provider>

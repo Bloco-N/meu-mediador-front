@@ -1,6 +1,8 @@
 import { AddAwardForm } from "@/types/AddAwardForm";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import LoadingContext from "context/LoadingContext";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -51,6 +53,8 @@ type AddAwardModalProps = {
 
 const AddAwardModal = ({open, setOpen}: AddAwardModalProps) => {
 
+  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
   const { register, handleSubmit } = useForm<AddAwardForm>()
 
   const router = useRouter()
@@ -59,6 +63,7 @@ const AddAwardModal = ({open, setOpen}: AddAwardModalProps) => {
 
     const localId = localStorage.getItem('id')
 
+    setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award', {
       method: 'POST',
       body: JSON.stringify({
@@ -71,6 +76,7 @@ const AddAwardModal = ({open, setOpen}: AddAwardModalProps) => {
     })
 
     const text = await response.text()
+    setLoadingOpen(false)
     if(text === 'created') router.reload()
 
   }

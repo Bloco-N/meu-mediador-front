@@ -1,6 +1,8 @@
 import { AddCourseForm } from "@/types/AddCourseForm";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import LoadingContext from "context/LoadingContext";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -53,12 +55,15 @@ const AddCourseModal = ({open, setOpen}: AddCourseModalProps) => {
 
   const { register, handleSubmit } = useForm<AddCourseForm>()
 
+  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
   const router = useRouter()
 
   const onSubmit = async (data: AddCourseForm) => {
 
     const localId = localStorage.getItem('id')
 
+    setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/course', {
       method: 'POST',
       body: JSON.stringify({
@@ -71,6 +76,7 @@ const AddCourseModal = ({open, setOpen}: AddCourseModalProps) => {
     })
 
     const text = await response.text()
+    setLoadingOpen(false)
     if(text === 'created') router.reload()
 
   }

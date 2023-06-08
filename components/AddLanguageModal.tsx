@@ -2,10 +2,12 @@ import { AddCityForm } from '@/types/AddCityForm';
 import { RealtorProfile } from '@/types/RealtorProfile';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
+import { set, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import closeIcon from '../public/close.svg'
+import { ModalOpenContextType } from '@/types/ModalOpenContextType';
+import LoadingContext from 'context/LoadingContext';
 
 const Container = styled.div`
   position: absolute;
@@ -83,6 +85,8 @@ type AddLanguageModalProps = {
 
 const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
 
+  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
   const { register, handleSubmit } = useForm<AddCityForm>()
 
   const [realtor, setRealtor] = useState<RealtorProfile>()
@@ -115,6 +119,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
 
     const token = localStorage.getItem('token')
 
+    setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language', {
       method: 'POST',
       body: JSON.stringify({
@@ -127,6 +132,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
     })
 
     const text = await response.text()
+    setLoadingOpen(false)
     if(text === 'updated') router.reload()
 
   }

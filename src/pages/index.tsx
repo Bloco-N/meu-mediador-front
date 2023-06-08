@@ -8,6 +8,8 @@ import SearchResultContext from "context/SearchResultContext";
 import { SearchResultContextType } from "@/types/SearchResultContextType";
 import { SearchForm } from "@/types/SearchForm";
 import { UserCard } from "@/types/UserCard";
+import LoadingContext from "context/LoadingContext";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 
 const SearchRealtor = styled.div`
 
@@ -59,6 +61,8 @@ export default function Home() {
   const { setSearch } = useContext(SearchContext) as SearchContextType
   const { setSearchResult } = useContext(SearchResultContext) as SearchResultContextType
 
+  const { setOpen:setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
+
   useEffect(() => {
 
     const fetchData = async () => {
@@ -89,7 +93,9 @@ export default function Home() {
       setSearchResult(json)
       router.push('/search-result')
     }
+    setLoadingOpen(true)
     await fetchData()
+    setLoadingOpen(false)
   }
 
   return (
