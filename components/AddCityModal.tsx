@@ -2,10 +2,12 @@ import { AddCityForm } from '@/types/AddCityForm';
 import { RealtorProfile } from '@/types/RealtorProfile';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import closeIcon from '../public/close.svg'
+import { ModalOpenContextType } from '@/types/ModalOpenContextType';
+import LoadingContext from 'context/LoadingContext';
 
 const Container = styled.div`
   position: absolute;
@@ -85,6 +87,8 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
 
   const { register, handleSubmit } = useForm<AddCityForm>()
 
+  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
   const [realtor, setRealtor] = useState<RealtorProfile>()
 
   const [cities, setCities] = useState<Array<string>>()
@@ -115,6 +119,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
 
     const token = localStorage.getItem('token')
 
+    setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city', {
       method: 'POST',
       body: JSON.stringify({
@@ -127,6 +132,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     })
 
     const text = await response.text()
+    setLoadingOpen(false)
     if(text === 'updated') router.reload()
 
   }

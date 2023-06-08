@@ -1,8 +1,10 @@
 import { AddAwardForm } from "@/types/AddAwardForm";
 import { AddPartnershipForm } from "@/types/AddPartnershipForm";
 import { AgencyProfile } from "@/types/AgencyProfile";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import LoadingContext from "context/LoadingContext";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -63,6 +65,8 @@ type AddServiceModalProps = {
 
 const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
 
+  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
   const [workHere, setWorkHere] = useState(false)
 
   const { register, handleSubmit } = useForm<AddPartnershipForm>()
@@ -95,6 +99,7 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
 
     const localId = localStorage.getItem('id')
 
+    setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/partnership', {
       method: 'POST',
       body: JSON.stringify({
@@ -107,6 +112,7 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
     })
 
     const text = await response.text()
+    setLoadingOpen(false)
     if(text === 'updated') router.reload()
 
   }

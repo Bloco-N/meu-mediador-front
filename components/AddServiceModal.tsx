@@ -1,8 +1,10 @@
 import { AddServiceForm } from '@/types/AddServiceForm';
+import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import { RealtorService } from '@/types/RealtorService';
 import { Service } from '@/types/Service';
+import LoadingContext from 'context/LoadingContext';
 import { useRouter } from 'next/router';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
@@ -61,6 +63,8 @@ type AddServiceModalProps = {
 
 const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
 
+  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
   const { register, handleSubmit } = useForm<AddServiceForm>()
 
   const [services, setServices] = useState<Service []>()
@@ -92,12 +96,12 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
     }
 
     fetchData()
-  }, [open])
+  }, [open, setLoadingOpen])
 
   const onSubmit = async (data: AddServiceForm) => {
 
     const localId = localStorage.getItem('id')
-
+    setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor', {
       method: 'POST',
       body: JSON.stringify({
@@ -108,7 +112,7 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
         'Content-Type': 'application/json'
       }
     })
-
+    setLoadingOpen(false)
     const text = await response.text()
     if(text === 'created') router.reload()
 

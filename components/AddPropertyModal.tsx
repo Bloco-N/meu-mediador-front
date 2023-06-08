@@ -4,12 +4,14 @@ import PropertyTypes from '@/types/PropertyTypes';
 import Rooms from '@/types/Rooms';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import placeholderImg from '../public/placeholder.jpg'
 import CurrencyInput from './CurrencyInput';
 import AreaInput from './AreaInput';
+import { ModalOpenContextType } from '@/types/ModalOpenContextType';
+import LoadingContext from 'context/LoadingContext';
 
 type AddPropertyModalProps = {
   open: boolean,
@@ -112,6 +114,8 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
 
   const { register, handleSubmit } = useForm<AddPropertyForm>()
 
+  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
   const [price, setPrice] = useState('')
   const [grossArea, setGrossArea] = useState('')
   const [usefulArea, setUsefulArea] = useState('')
@@ -127,8 +131,8 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
   const onSubmit = async (data:AddPropertyForm) => {
 
     const localId = localStorage.getItem('id')
-    console.log(data)
-    
+
+    setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property', {
       method: 'POST',
       body: JSON.stringify({
@@ -146,6 +150,7 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
       }
     })
 
+    setLoadingOpen(false)
     const text = await response.text()
     if(text === 'created') router.reload()
 

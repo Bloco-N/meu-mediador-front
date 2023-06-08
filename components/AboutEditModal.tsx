@@ -1,8 +1,10 @@
 import { AddCourseForm } from "@/types/AddCourseForm";
 import { EditAboutForm } from "@/types/EditAboutForm";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import { RealtorProfile } from "@/types/RealtorProfile";
+import LoadingContext from "context/LoadingContext";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -54,6 +56,8 @@ type AboutEditModalProps = {
 
 const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
 
+  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
   const { register, handleSubmit } = useForm<EditAboutForm>()
 
   const [realtor, setRealtor] = useState<RealtorProfile>()
@@ -77,6 +81,7 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
 
   const onSubmit = async (data: EditAboutForm) => {
     const token = localStorage.getItem('token')
+    setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/', {
       method:'PUT',
       body: JSON.stringify({
@@ -88,6 +93,7 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
       }
     })
     const text = await response.text()
+    setLoadingOpen(false)
     router.reload()
   }
 
