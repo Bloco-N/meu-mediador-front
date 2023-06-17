@@ -31,6 +31,9 @@ const Container = styled.div`
     textarea{
       height: 70%;
     }
+    @media (max-width: 1000px) {
+      width: 90%;
+    }
   }
   p{
     cursor: pointer;
@@ -101,6 +104,7 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
     open ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
+        <h2>Quem é você:</h2>
         <textarea {...register('introduction')} defaultValue={realtor?.introduction ? realtor.introduction : ''} placeholder="Coloque sua introdução aqui"/>
         <p onClick={() => setOpen(false)}>X</p>
         <button type="submit"> Atualizar </button>
