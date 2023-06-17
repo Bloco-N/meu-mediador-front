@@ -17,6 +17,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  
   form{
     position: relative;
     height: 50rem;
@@ -34,11 +35,24 @@ const Container = styled.div`
     div{
       display: flex;
       gap: 2rem;
-      width: 60%;
+      width: 80%;
       justify-content: center;
+      
     }
     input[type='text']{
-      width: 60%;
+      width: 80%;
+    }
+    @media (max-width: 800px) {
+      width: 80%;
+    }
+    @media (max-width: 500px) {
+      height: 58rem;
+    }
+    .dates-inputs{
+      @media (max-width: 500px) {
+        flex-direction: column;
+        width: 60%;
+      }
     }
   }
   p{
@@ -129,7 +143,7 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
             <option key={item.id} value={item.name}/>
           ))}
         </datalist>
-        <div>          
+        <div className="dates-inputs">          
           <input  {...register('init', {required:true})} type="date" />
           <input {...register('end')} id="end" disabled={workHere} type="date" />
         </div>
