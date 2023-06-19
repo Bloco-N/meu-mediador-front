@@ -588,19 +588,25 @@ export default function Profile(){
     doc.text(`Serviços: `, 20, 100)
     doc.setFontSize(13)
     doc.setFont('Helvetica', 'normal')
-    doc.text(`${services?.map(service => ` ${service.service.title}`)}`, 25, 110)
-    dottedLine(doc, 20, 120, 180, 120, 1)
+    services?.forEach((service, index) => {
+      doc.text(`${service.service.title}`, 25, 100 + ((index + 1) * 10))
+    })
+    const height1 = 100 + ((services?.length as number + 1) * 10)
+    dottedLine(doc, 20, height1, 180, height1, 1)
     doc.setFontSize(23)
     doc.setFont('Helvetica', 'bold')
-    doc.text(`Imóveis: `, 20, 140)
+    doc.text(`Imóveis: `, 20, height1 + 20)
     doc.setFontSize(13)
     doc.setFont('Helvetica', 'normal')
     doc.setTextColor('#2e6b89')
     properties?.forEach((propertie, index) => {
-      doc.textWithLink(`${propertie.title}: ${PropertyTypes[propertie.propertyType as keyof TPropertyTypes]} ${Rooms[propertie.rooms as keyof TRooms]} ${propertie.grossArea} de Área Bruta e ${propertie.usefulArea} de Área Útil,\n${Preservations[propertie.preservation as keyof TPreservations]}`, 25, 140 + ((index + 1) * 15), {url: propertie.link})
+      doc.textWithLink(`${propertie.title}: ${PropertyTypes[propertie.propertyType as keyof TPropertyTypes]} ${Rooms[propertie.rooms as keyof TRooms]} ${propertie.grossArea} de Área Bruta e ${propertie.usefulArea} de Área Útil,\n${Preservations[propertie.preservation as keyof TPreservations]}`, 25, height1 + 20 + ((index + 1) * 15), {url: propertie.link})
     })
+    doc.addPage()
+    doc.setFillColor('#e8e8e8')
+    doc.rect(0, 0, 1000, 1000, 'F');
     doc.setTextColor('#454545');
-    const height = 140 + ((properties?.length as number + 1) * 15)
+    const height = 0
     dottedLine(doc, 20, height, 180, height, 1)
     doc.setFontSize(23)
     doc.setFont('Helvetica', 'bold')
