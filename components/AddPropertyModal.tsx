@@ -30,18 +30,29 @@ const Container = styled.div`
   justify-content: center;
   form{
     position: relative;
-    height: 80%;
+    height: auto;
     width: 75%;
     border-radius: 3rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
     padding: 4rem;
     gap: 1rem;
+    @media (max-width: 1200px) {
+      width: 75%;
+    }
+    @media (max-width: 500px) {
+      width: 90%;
+    }
     .all-infos{
       display: flex;
       gap: 2rem;
+      @media (max-width: 1200px) {
+        width: 100%;
+        flex-direction: column;
+      }
       .infos{
         display: flex;
         gap: 2rem;
@@ -66,17 +77,35 @@ const Container = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        @media (max-width: 1200px) {
+          max-height: 25rem;
+          max-width: 40rem;
+          margin-left: calc(50% - 20rem);
+        }
+        @media (max-width: 500px) {
+          max-height: 20rem;
+          max-width: 30rem;
+          margin-left: calc(50% - 15rem);
+        }
         img{
           opacity: 0.7;
           border-radius: 1rem;
-          height: 25rem;
-          width: 40rem;
+          max-height: 25rem;
+          max-width: 40rem;
           object-fit: cover;
+          @media (max-width: 500px) {
+            max-height: 20rem;
+            max-width: 30rem;
+            
+          }
         }
         label{
           position: absolute;
           top: 5rem;
           right: 0.5rem;
+          @media (max-width: 1200px) {
+            top: 1rem;
+          }
         }
       }
     }

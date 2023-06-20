@@ -30,31 +30,53 @@ const Container = styled.div`
   justify-content: center;
   form{
     position: relative;
-    height: 90%;
-    width: 90rem;
+    height: auto;
+    width: 90%;
+    max-width: 90rem;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 4rem;
-    gap: 2rem;
+    gap: 1rem;
     overflow-y: scroll;
     textarea{
       min-height: 20rem;
+      @media (max-width: 650px) {
+        min-height: 15rem;
+        width:90%;
+      }
     }
     input{
       min-width: 30rem;
+      @media (max-width: 650px) {
+        height: 5rem;
+      }
     }
     h3{
       margin-bottom: 2rem;
     }
     .input-group{
       display: flex;
-      gap: 2rem;
+      @media (max-width: 650px) {
+        flex-direction: column;
+        align-items: center;
+      }
+      gap: 1rem;
       justify-content: center;
       width: 100%;
       select{
         width: 50%;
+      }
+    }
+    .options{
+      @media (max-width: 650px) {
+        flex-direction: row;
+        button{
+          @media (max-width: 400px) {
+            width: 10px;
+          }
+        }
       }
     }
   }
@@ -189,7 +211,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
             <input {...register('name', {required: true})} defaultValue={userSigned?.name} type="text" placeholder='Nome' />
           )}
         </div>
-        <div className="input-group">
+        <div className="input-group options">
           <select {...register('phoneCountry', {required: true})} defaultValue={userSigned?.phoneCountry as string} onChange={e => setPhoneMask(e.target.value)} >
             <option value="+55 99 9 9999 9999">Brasil</option>
             <option value="+351 999 999 999">Portugal</option>
@@ -221,7 +243,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
         )}
 
         <textarea {...register('wppText')} defaultValue={ userSigned?.wppText ? userSigned.wppText : ''} placeholder='Defina uma mensagem de boas vindas no whatsapp'></textarea>
-        <div className="input-group">
+        <div className="input-group options">
           <button onClick={handleAddCity}>Adicionar Local de Atuação</button>
           <button onClick={handleAddLanguage}>Adicionar Idioma Falado</button>
         </div>

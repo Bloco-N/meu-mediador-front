@@ -27,6 +27,9 @@ const Container = styled.div`
     justify-content: flex-start;
     gap: 2rem;
     padding-top: 4rem;
+    @media (max-width: 600px) {
+      width: 80%;
+    }
     div{
       display: flex;
       align-items: center;

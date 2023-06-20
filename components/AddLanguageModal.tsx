@@ -31,6 +31,9 @@ const Container = styled.div`
     input{
       width: 70%;
     }
+    @media (max-width: 600px) {
+      width: 80%;
+    }
   }
   .close-icon{
     height: 2rem;
