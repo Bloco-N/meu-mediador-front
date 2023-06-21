@@ -1,5 +1,4 @@
 import { AgencyProfile } from "@/types/AgencyProfile";
-import MainInfo from "components/MainInfo";
 import MainInfoAgency from "components/MainInfoAgency";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

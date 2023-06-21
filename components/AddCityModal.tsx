@@ -18,6 +18,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  
   form{
     position: relative;
     min-height: 50rem;
@@ -30,6 +31,9 @@ const Container = styled.div`
     gap: 2rem;
     select{
       width: 70%;
+    }
+    @media (max-width: 600px) {
+      width: 80%;
     }
   }
   .close-icon{

@@ -26,7 +26,10 @@ const Container = styled.div`
     justify-content: center;
     gap: 2rem;
     input{
-      width: 60%;
+      width: 80%;
+    }
+    @media (max-width: 700px) {
+      width: 80%;
     }
   }
   p{
