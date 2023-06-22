@@ -32,6 +32,14 @@ import { LastExp } from "@/types/LastExp"
 import AddCommentModalContext from "context/AddCommentModalContext"
 import LoadingContext from "context/LoadingContext"
 import jsPDF from "jspdf"
+import ConvertToPDF from "./components/ConvertToPDF"
+import ServicesCard from "./components/ServicesCard"
+import AboutCard from "./components/AboutCard"
+import AwardsCard from "./components/AwardsCard"
+import CoursesCard from "./components/CoursesCard"
+import ExperiencesCard from "./components/ExperiencesCard"
+import CommentsCard from "./components/CommentsCard"
+import PropertiesCard from "./components/PropertiesCard"
 
 const Container = styled.div`
   display: flex;
@@ -631,13 +639,14 @@ export default function Profile(){
   }
 
 
-
+  console.log(localId, typeof localId,accType,typeof accType)
   return (
     <Container >
       {sessionProfile && (
         <button className="convert-pdf-button" onClick={handleConvertToPDF}>Converter Perfil em PDF</button>
       )}
       <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true}/>
+      
       <div className="card services">
           <h3>Este consultor trabalha com:</h3>
           {services?.map((item) =>
@@ -802,7 +811,15 @@ export default function Profile(){
                           
         </div>
       </div>
-
+      <ConvertToPDF localId={localId} accType={accType}/>
+      <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true}/>
+      <ServicesCard localId={localId} accType={accType}/>
+      <AboutCard localId={localId} accType={accType}/>
+      <PropertiesCard localId={localId} accType={accType}/>
+      <AwardsCard localId={localId} accType={accType}/>
+      <CoursesCard localId={localId} accType={accType}/>
+      <ExperiencesCard localId={localId} accType={accType}/>
+      <CommentsCard localId={localId} accType={accType}/>
     </Container>
   ) 
 }
