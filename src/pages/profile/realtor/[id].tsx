@@ -70,33 +70,33 @@ export default function Profile(){
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        console.log("INFORMATIONNNNNNNNNNNNNNNNNNNNNNNNNn")
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + id)
+        console.log("API INFORMATION")
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${accType}/${id}`)
         const data = await response.json()
         setRealtor(data)
         console.log("data=",data)
   
-        const responseProperties = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/realtor/' + id)
+        const responseProperties = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/${accType}/${id}`)
         const propertiesData = await responseProperties.json()
         console.log("propertiesData=",propertiesData)
 
-        const responseAwards = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/realtor/' + id)
+        const responseAwards = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/award/${accType}/${id}`)
         const awardsData = await responseAwards.json()
         console.log("awardsData=",awardsData)
 
-        const responseCourses = await fetch(process.env.NEXT_PUBLIC_API_URL + '/course/realtor/' + id)
+        const responseCourses = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/course/${accType}/${id}`)
         const coursesData = await responseCourses.json()
         console.log("coursesData=",coursesData)
   
-        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + id)
+        const responseServices = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service/${accType}/${id}`)
         const serviceData = await responseServices.json()
         console.log("serviceData=",serviceData)
 
-        const responsePartnerships = await fetch(process.env.NEXT_PUBLIC_API_URL + '/partnership/realtor/' + id)
+        const responsePartnerships = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/partnership/${accType}/${id}`)
         const partnershipData = await responsePartnerships.json()
         console.log("partnershipData=",partnershipData)
 
-        const responseComments = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor/' + id)
+        const responseComments = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comment/${accType}/${id}`)
         const commentData = await responseComments.json()
         console.log("commentData=",commentData)
 
