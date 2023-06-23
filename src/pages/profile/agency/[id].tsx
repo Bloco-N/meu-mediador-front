@@ -9,7 +9,7 @@ import styled from "styled-components"
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { LastExp } from "@/types/LastExp"
 import LoadingContext from "context/LoadingContext"
-import AwardsAgencyCard from "./components/AwardsAgencyCard";
+//import AwardsAgencyCard from "./components/AwardsAgencyCard";
 
 const Container = styled.div`
   display: flex;
@@ -85,7 +85,8 @@ export default function Profile(){
   return (
     <Container>
       <MainInfoAgency userSigned={agency as AgencyProfile} isProfile={true}/>
-      <AwardsAgencyCard localId={localId} accType={accType}/>
     </Container>
   ) 
 }
+
+//<AwardsAgencyCard localId={localId} accType={accType}/>
