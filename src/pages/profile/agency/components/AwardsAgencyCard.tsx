@@ -69,7 +69,7 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
       if(id){
         setLoadingOpen(true)
 
-        const responseAwards = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/realtor/' + id)
+        const responseAwards = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/realtor/' + 1)
         const awardsData = await responseAwards.json()
         setAwards(awardsData)
 
@@ -79,6 +79,7 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
     }
     const localId = localStorage.getItem('id') as string
     if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
+    setSessionProfile(true)
 
     fetchData()
 

@@ -9,6 +9,7 @@ import editIcon from '@/../public/edit.svg'
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AboutEditModalContext from "context/AboutEditModalContext"
 import LoadingContext from "context/LoadingContext"
+import { ApiService } from "@/services/ApiService"
 
 const Container = styled.div`
   .introduction{
@@ -51,12 +52,15 @@ export default function AboutCard({localId, accType}:AboutCardProps){
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + id)
-        const data = await response.json()
+
+        const apiService = new ApiService()
+        const data = await apiService.getRealtorInformation(id as string)
         setRealtor(data)
-  
+        console.log("DATA",data)
+
         setLoadingOpen(false)
       }
+      
 
     }
     const localId = localStorage.getItem('id') as string

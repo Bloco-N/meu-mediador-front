@@ -16,6 +16,7 @@ import CoursesCard from "./components/CoursesCard"
 import ExperiencesCard from "./components/ExperiencesCard"
 import CommentsCard from "./components/CommentsCard"
 import PropertiesCard from "./components/PropertiesCard"
+import { ApiService } from "@/services/ApiService"
 
 const Container = styled.div`
   display: flex;
@@ -56,6 +57,7 @@ export default function Profile(){
   useEffect(() => {
     const localStorageId = localStorage.getItem('id')
     const accountType = localStorage.getItem('accountType')
+    console.log(accountType)
 
     if(localStorageId){
       setLocalId(localStorageId)
@@ -71,6 +73,13 @@ export default function Profile(){
       if(id){
         setLoadingOpen(true)
         console.log("API INFORMATION")
+  
+        const apiService = new ApiService()
+        console.log("AAAAAA")
+        console.log(id,accType)
+        const res = await apiService.getRealtorInformation(id as string)
+        setRealtor(res)
+        console.log("DATA SERVICE:",res)
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${accType}/${id}`)
         const data = await response.json()
         setRealtor(data)

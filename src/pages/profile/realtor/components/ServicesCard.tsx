@@ -10,6 +10,7 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AddServiceModalContext from "context/AddServiceModalContext"
 import { RealtorService } from "@/types/RealtorService"
 import LoadingContext from "context/LoadingContext"
+import { ApiService } from "@/services/ApiService"
 
 const Container = styled.div`
   .services{
@@ -83,18 +84,21 @@ export default function ServicesCard({localId, accType}:ServicesCardProps){
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
-    })
+    const apiService = new ApiService()
+
+    const deleteService = await apiService.deleteRealtorService(String(token),Number(id))
+    console.log(deleteService)
+    // const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + id, {
+    //   method: 'DELETE',
+    //   headers:{
+    //     authorization: 'Bearer ' + token
+    //   }
+    // })
+    // const text = await response.text()
+    // if(text === 'deleted') router.reload()
 
     setLoadingOpen(false)
-
-    const text = await response.text()
-    if(text === 'deleted') router.reload()
+    if(deleteService === 'deleted') router.reload()
 
   }
 
