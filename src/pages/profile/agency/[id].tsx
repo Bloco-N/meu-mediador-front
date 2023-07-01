@@ -10,6 +10,10 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { LastExp } from "@/types/LastExp"
 import LoadingContext from "context/LoadingContext"
 import AwardsAgencyCard from "./components/AwardsAgencyCard";
+import PropertiesAgencyCard from "./components/PropertiesAgencyCard";
+import ServicesAgencyCard from "./components/ServicesAgencyCard";
+import AboutAgencyCard from "./components/AboutAgencyCard";
+import CommentsAgencyCard from "./components/CommentsAgencyCard";
 
 const Container = styled.div`
   display: flex;
@@ -85,7 +89,11 @@ export default function Profile(){
   return (
     <Container>
       <MainInfoAgency userSigned={agency as AgencyProfile} isProfile={true}/>
+      <ServicesAgencyCard localId={localId} accType={accType}/>
+      <AboutAgencyCard localId={localId} accType={accType}/>
+      <PropertiesAgencyCard localId={localId} accType={accType}/>
       <AwardsAgencyCard localId={localId} accType={accType}/>
+      <CommentsAgencyCard localId={localId} accType={accType}/>
     </Container>
   ) 
 }

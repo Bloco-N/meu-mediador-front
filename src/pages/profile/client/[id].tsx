@@ -1,5 +1,5 @@
 import { AgencyProfile } from "@/types/AgencyProfile";
-import MainInfoAgency from "components/MainInfoAgency";
+import MainInfoClient from "components/MainInfoClient";
 import { RealtorProfile } from "@/types/RealtorProfile"
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
@@ -9,6 +9,7 @@ import styled from "styled-components"
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { LastExp } from "@/types/LastExp"
 import LoadingContext from "context/LoadingContext"
+import { ClientProfile } from "@/types/ClientProfile";
 //import AwardsAgencyCard from "./components/AwardsAgencyCard";
 
 const Container = styled.div`
@@ -30,32 +31,26 @@ const Container = styled.div`
 
 export default function Profile(){
 
-  const [ realtor, setRealtor ] = useState<RealtorProfile>()
-
-  const [lastExp, setLastExp] = useState<LastExp>()
-
-  const { user } = useContext(UserContext) as UserContextType
-
-  const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
-
   const [localId, setLocalId] = useState('')
 
   const [accType, setAccType] = useState('')
 
   //--------
-  const [agency, setAgency] = useState<AgencyProfile>()
+  const [client, setClient] = useState<ClientProfile>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
 
   const router = useRouter()
   const { id } = router.query
+  console.log("ID",id)
 
   useEffect(() => {
     const fetchData = async () => {
       if(id){
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + id)
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client/' + id)
         const data = await response.json()
-        setAgency(data)
+        console.log("CLIENT",data)
+        setClient(data)
       }
     }
     const localId = localStorage.getItem('id') as string
@@ -78,15 +73,13 @@ export default function Profile(){
     if(accountType){
       setAccType(accountType)
     }
-    
+    console.log(localStorageId,accountType)
   }, [])
 
   console.log(localId,accType)
   return (
     <Container>
-      test
+      <MainInfoClient userSigned={client as ClientProfile} isProfile={true}/>
     </Container>
   ) 
 }
-
-//<AwardsAgencyCard localId={localId} accType={accType}/>

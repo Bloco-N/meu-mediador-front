@@ -41,7 +41,7 @@ interface ServicesCardProps{
     localId:string;
     accType:string;
 }
-export default function ServicesCard({localId, accType}:ServicesCardProps){
+export default function ServicesAgencyCard({localId, accType}:ServicesCardProps){
 
   const [services, setServices] = useState<RealtorService []>()
 
@@ -55,16 +55,17 @@ export default function ServicesCard({localId, accType}:ServicesCardProps){
 
   const router = useRouter()
   const { id } = router.query
-  const apiService = new ApiService()
-
+  
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        const serviceData = await apiService.getRealtorServices(id as string)
-        setLoadingOpen(false)
-
+        
+        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + 1)
+        const serviceData = await responseServices.json()
         setServices(serviceData)
+
+        setLoadingOpen(false)
       }
 
     }
@@ -83,16 +84,18 @@ export default function ServicesCard({localId, accType}:ServicesCardProps){
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    const response = await apiService.deleteRealtorService(String(token),Number(id))
-    setLoadingOpen(false)
 
-    if(response === 'deleted') router.reload()
+    const apiService = new ApiService()
+    const deleteService = await apiService.deleteRealtorService(String(token),Number(id))
+
+    setLoadingOpen(false)
+    if(deleteService === 'deleted') router.reload()
   }
 
   return (
     <Container >
       <div className="card services">
-          <h3>Este consultor trabalha com:</h3>
+          <h3>Esta agência trabalha com:</h3>
           {services?.map((item) =>
                 <p className="service" key={item.id}>
                   {item.service.title}

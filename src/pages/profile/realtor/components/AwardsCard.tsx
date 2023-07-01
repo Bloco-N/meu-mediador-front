@@ -11,6 +11,7 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AddAwardModalContext from "context/AddAwardModalContext"
 import { Award } from "@/types/Award"
 import LoadingContext from "context/LoadingContext"
+import { ApiService } from "@/services/ApiService"
 
 const Container = styled.div`
   .awards{
@@ -63,14 +64,14 @@ export default function AwardsCard({localId, accType}:AwardsCardProps){
 
   const router = useRouter()
   const { id } = router.query
+  const apiService = new ApiService()
   
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
 
-        const responseAwards = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/realtor/' + id)
-        const awardsData = await responseAwards.json()
+        const awardsData = await apiService.getRealtorAwards(id as string)
         setAwards(awardsData)
 
         setLoadingOpen(false)
@@ -92,18 +93,10 @@ export default function AwardsCard({localId, accType}:AwardsCardProps){
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
-    })
-
+    const response = await apiService.deleteRealtorAward(token as string, id)
     setLoadingOpen(false)
     
-    const text = await response.text()
-    if(text === 'deleted') router.reload()
+    if(response === 'deleted') router.reload()
 
   }
 

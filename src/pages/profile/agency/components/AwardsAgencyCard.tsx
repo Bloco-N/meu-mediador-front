@@ -94,6 +94,7 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
 
     setLoadingOpen(true)
     
+    //DELETE AGENCY AWARD
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/' + id, {
       method: 'DELETE',
       headers:{

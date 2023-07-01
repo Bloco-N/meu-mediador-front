@@ -12,6 +12,7 @@ import agencyIcon from '@/../public/agency.svg'
 import AddPartnershipModalContext from "context/AddPartnershipModalContext"
 import { PartnershipList } from "@/types/PartnershipList"
 import LoadingContext from "context/LoadingContext"
+import { ApiService } from "@/services/ApiService"
 
 const Container = styled.div`
   .expiriences{
@@ -75,12 +76,12 @@ const Container = styled.div`
   }
 `
 
-interface ExperiencesCardProps{
+interface PartnershipCardProps{
     localId:string;
     accType:string;
 }
 
-export default function ExperiencesCard({localId, accType}:ExperiencesCardProps){
+export default function PartnershipCard({localId, accType}:PartnershipCardProps){
   
   const [partnerships, setPartnerships] = useState<PartnershipList []>()
 
@@ -96,17 +97,16 @@ export default function ExperiencesCard({localId, accType}:ExperiencesCardProps)
 
   const router = useRouter()
   const { id } = router.query
+  const apiService = new ApiService()
   
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-
-        const responsePartnerships = await fetch(process.env.NEXT_PUBLIC_API_URL + '/partnership/realtor/' + id)
-        const partnershipData = await responsePartnerships.json()
-        setPartnerships(partnershipData)
-
+        const partnershipData = await apiService.getRealtorPartnership(id as string)
         setLoadingOpen(false)
+
+        setPartnerships(partnershipData)
       }
 
     }
@@ -125,19 +125,10 @@ export default function ExperiencesCard({localId, accType}:ExperiencesCardProps)
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/partnership/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
-    })
-
+    const response = await apiService.deleteRealtorPartnership(token as string, id)
     setLoadingOpen(false)
 
-    const text = await response.text()
-    if(text === 'deleted') router.reload()
-
+    if(response === 'deleted') router.reload()
   }
 
   const handleEditPartnership = (index:number) => {
@@ -151,7 +142,7 @@ export default function ExperiencesCard({localId, accType}:ExperiencesCardProps)
   }
 
   return (
-    <Container >
+    <Container>
       <div className="card expiriences">
         <h2> Experiência </h2>
         { sessionProfile ? (

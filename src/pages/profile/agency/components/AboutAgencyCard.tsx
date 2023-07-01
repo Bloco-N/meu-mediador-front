@@ -31,7 +31,7 @@ interface AboutCardProps{
     accType:string;
 }
 
-export default function AboutCard({localId, accType}:AboutCardProps){
+export default function AboutAgencyCard({localId, accType}:AboutCardProps){
 
   const [elip, setElip] = useState(true)
 
@@ -47,16 +47,18 @@ export default function AboutCard({localId, accType}:AboutCardProps){
 
   const router = useRouter()
   const { id } = router.query
-  const apiService = new ApiService()
   
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        const data = await apiService.getRealtorInformation(id as string)
-        setLoadingOpen(false)
 
+        const apiService = new ApiService()
+        const data = await apiService.getRealtorInformation("1")
         setRealtor(data)
+        console.log("DATA",data)
+
+        setLoadingOpen(false)
       }
       
 

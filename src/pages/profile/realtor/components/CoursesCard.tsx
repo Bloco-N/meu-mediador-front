@@ -11,6 +11,7 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AddCourseModalContext from "context/AddCourseModalContext"
 import { Course } from "@/types/Course"
 import LoadingContext from "context/LoadingContext"
+import { ApiService } from "@/services/ApiService"
 
 
 const Container = styled.div`
@@ -65,17 +66,16 @@ export default function CoursesCard({localId, accType}:CoursesCardProps){
 
   const router = useRouter()
   const { id } = router.query
+  const apiService = new ApiService()
   
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-
-        const responseCourses = await fetch(process.env.NEXT_PUBLIC_API_URL + '/course/realtor/' + id)
-        const coursesData = await responseCourses.json()
-        setCourses(coursesData)
-  
+        const coursesData = await apiService.getRealtorCourses(id as string)
         setLoadingOpen(false)
+
+        setCourses(coursesData)
       }
 
     }
@@ -94,23 +94,14 @@ export default function CoursesCard({localId, accType}:CoursesCardProps){
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/course/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
-    })
-
+    const response = await apiService.deleteRealtorCourse(token as string, id)
     setLoadingOpen(false)
 
-    const text = await response.text()
-    if(text === 'deleted') router.reload()
-
+    if(response === 'deleted') router.reload()
   }
 
   return (
-    <Container >
+    <Container>
       <div className="card awards">
         <h2>Cursos e Especializações</h2>
         { sessionProfile ? (

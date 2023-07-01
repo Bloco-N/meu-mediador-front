@@ -15,7 +15,6 @@ import Rooms, { TRooms } from "@/types/Rooms"
 import Preservations, { TPreservations } from "@/types/Preservations"
 import { timeSince } from "@/utils/timeSince"
 import LoadingContext from "context/LoadingContext"
-import { ApiService } from "@/services/ApiService"
 
 const Container = styled.div`
   .properties{
@@ -90,7 +89,7 @@ interface PropertiesCardProps{
     accType:string;
 }
 
-export default function PropertiesCard({localId, accType}:PropertiesCardProps){
+export default function PropertiesAgencyCard({localId, accType}:PropertiesCardProps){
 
   const [properties, setProperties ] = useState<Property []>()
 
@@ -104,16 +103,17 @@ export default function PropertiesCard({localId, accType}:PropertiesCardProps){
 
   const router = useRouter()
   const { id } = router.query
-  const apiService = new ApiService()
   
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        const propertiesData = await apiService.getRealtorProperties(id as string)
-        setLoadingOpen(false)
-
+  
+        const responseProperties = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/realtor/' + 1)
+        const propertiesData = await responseProperties.json()
         setProperties(propertiesData)
+
+        setLoadingOpen(false)
       }
 
     }
@@ -132,10 +132,18 @@ export default function PropertiesCard({localId, accType}:PropertiesCardProps){
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    const response = await apiService.deleteRealtorProperty(token as string, id)
+    
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/' + id, {
+      method: 'DELETE',
+      headers:{
+        authorization: 'Bearer ' + token
+      }
+    })
+
     setLoadingOpen(false)
     
-    if(response === 'deleted') router.reload()
+    const text = await response.text()
+    if(text === 'deleted') router.reload()
 
   }
 

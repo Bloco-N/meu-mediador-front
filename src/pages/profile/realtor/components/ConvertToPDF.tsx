@@ -14,6 +14,7 @@ import { Award } from "@/types/Award"
 import { Course } from "@/types/Course"
 import LoadingContext from "context/LoadingContext"
 import jsPDF from "jspdf"
+import { ApiService } from "@/services/ApiService"
 
 const Container = styled.button`
     width: 10%;
@@ -44,30 +45,27 @@ export default function ConvertToPDF({localId, accType}:ConvertToPDFProps){
 
   const router = useRouter()
   const { id } = router.query
+  const apiService = new ApiService()
   
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + id)
-        const data = await response.json()
+        
+        const data = await apiService.getRealtorInformation(id as string)
         setRealtor(data)
-  
-        const responseProperties = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/realtor/' + id)
-        const propertiesData = await responseProperties.json()
-        setProperties(propertiesData)
 
-        const responseAwards = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/realtor/' + id)
-        const awardsData = await responseAwards.json()
-        setAwards(awardsData)
+        const responseProperties = await apiService.getRealtorProperties(id as string)
+        setProperties(responseProperties)
 
-        const responseCourses = await fetch(process.env.NEXT_PUBLIC_API_URL + '/course/realtor/' + id)
-        const coursesData = await responseCourses.json()
-        setCourses(coursesData)
+        const responseAwards = await apiService.getRealtorAwards(id as string)
+        setAwards(responseAwards)
+
+        const responseCourses = await apiService.getRealtorCourses(id as string)
+        setCourses(responseCourses)
   
-        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + id)
-        const serviceData = await responseServices.json()
-        setServices(serviceData)
+        const responseServices = await apiService.getRealtorServices(id as string)
+        setServices(responseServices)
 
         setLoadingOpen(false)
       }

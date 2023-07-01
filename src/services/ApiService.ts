@@ -53,7 +53,6 @@ export class ApiService{
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/realtor/${accountId}`)
       const data = await response.json()
-      console.log("GET REALTOR INFORMATION:",data)
       return data
     } catch (error) {
       console.log(error)
@@ -66,7 +65,6 @@ export class ApiService{
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service/realtor/${accountId}`)
       const data = await response.json()
-      console.log("GET SERVICES:",data)
       return data
     } catch (error) {
       console.log(error)
@@ -79,7 +77,6 @@ export class ApiService{
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/realtor/${accountId}`)
       const data = await response.json()
-      console.log("GET PROPERTIES:",data)
       return data
     } catch (error) {
       console.log(error)
@@ -90,9 +87,8 @@ export class ApiService{
   //realtor awards
   public async getRealtorAwards(accountId: string){
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/awards/realtor/${accountId}`)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/award/realtor/${accountId}`)
       const data = await response.json()
-      console.log("GET AWARDS",data)
       return data
     } catch (error) {
       console.log(error)
@@ -105,7 +101,6 @@ export class ApiService{
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/course/realtor/${accountId}`)
       const data = await response.json()
-      console.log("GET COURSES:",data)
       return data
     } catch (error) {
       console.log(error)
@@ -113,12 +108,11 @@ export class ApiService{
   }
 
   //get
-  //realtor experience
+  //realtor partnership
   public async getRealtorPartnership(accountId: string){
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/partnership/realtor/${accountId}`)
       const data = await response.json()
-      console.log("GET PARTNERSHIP:",data)
       return data
     } catch (error) {
       console.log(error)
@@ -131,7 +125,6 @@ export class ApiService{
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comment/realtor/${accountId}`)
       const data = await response.json()
-      console.log("GET COMMENTS:",data)
       return data
     } catch (error) {
       console.log(error)
@@ -151,7 +144,6 @@ export class ApiService{
         }
       })
       const text = await response.text()
-      console.log("DELETED SERVICE:",text)
       return text
     } catch (error) {
       console.log(error)
@@ -169,7 +161,6 @@ export class ApiService{
         }
       })
       const text = await response.text()
-      console.log("DELETED PROPERTY:",text)
       return text
     } catch (error) {
       console.log(error)
@@ -187,7 +178,6 @@ export class ApiService{
         }
       })
       const text = await response.text()
-      console.log("DELETED AWARD:",text)
       return text
     } catch (error) {
       console.log(error)
@@ -205,7 +195,6 @@ export class ApiService{
         }
       })
       const text = await response.text()
-      console.log("DELETED COURSE:",text)
       return text
     } catch (error) {
       console.log(error)
@@ -213,7 +202,7 @@ export class ApiService{
   }
 
   //delete
-  //realtor experience
+  //realtor partnership
   public async deleteRealtorPartnership(token: string, partnershipId: string){
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/partnership/${partnershipId}`, {
@@ -223,7 +212,21 @@ export class ApiService{
         }
       })
       const text = await response.text()
-      console.log("DELETED PARTNERSHIP:",text)
+      return text
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  public async deleteComment(token: string, commentId: string){
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comment/${commentId}`, {
+        method: 'DELETE',
+        headers:{
+          authorization: 'Bearer ' + token
+        }
+      })
+      const text = await response.text()
       return text
     } catch (error) {
       console.log(error)
@@ -327,7 +330,7 @@ export class ApiService{
   }
 
   //create
-  //realtor award
+  //realtor partnership
   public async createRealtorPartnership(localId: number, data: any){
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/partnership`, {

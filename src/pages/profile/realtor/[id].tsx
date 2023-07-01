@@ -13,10 +13,10 @@ import ServicesCard from "./components/ServicesCard"
 import AboutCard from "./components/AboutCard"
 import AwardsCard from "./components/AwardsCard"
 import CoursesCard from "./components/CoursesCard"
-import ExperiencesCard from "./components/ExperiencesCard"
 import CommentsCard from "./components/CommentsCard"
 import PropertiesCard from "./components/PropertiesCard"
 import { ApiService } from "@/services/ApiService"
+import PartnershipCard from "./components/PartnershipCard"
 
 const Container = styled.div`
   display: flex;
@@ -53,6 +53,7 @@ export default function Profile(){
 
   const router = useRouter()
   const { id } = router.query
+  const apiService = new ApiService()
 
   useEffect(() => {
     const localStorageId = localStorage.getItem('id')
@@ -72,45 +73,32 @@ export default function Profile(){
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        console.log("API INFORMATION")
+        //console.log("API INFORMATION")
+        //console.log(id,accType)
   
-        const apiService = new ApiService()
-        console.log("AAAAAA")
-        console.log(id,accType)
-        const res = await apiService.getRealtorInformation(id as string)
-        setRealtor(res)
-        console.log("DATA SERVICE:",res)
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${accType}/${id}`)
-        const data = await response.json()
+        const data = await apiService.getRealtorInformation(id as string)
         setRealtor(data)
-        console.log("data=",data)
+        //console.log("DATA INFO:",data)
+        
+        // const responseServices = await apiService.getRealtorServices(id as string)
+        // console.log("SERVICES=",responseServices)
   
-        const responseProperties = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/${accType}/${id}`)
-        const propertiesData = await responseProperties.json()
-        console.log("propertiesData=",propertiesData)
+        // const responseProperties = await apiService.getRealtorProperties(id as string)
+        // console.log("PROPERTIES=",responseProperties)
+        
+        // const responseAwards = await apiService.getRealtorAwards(id as string)
+        // console.log("AWARDS=",responseAwards)
 
-        const responseAwards = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/award/${accType}/${id}`)
-        const awardsData = await responseAwards.json()
-        console.log("awardsData=",awardsData)
+        // const responseCourses = await apiService.getRealtorCourses(id as string)
+        // console.log("COURSES=",responseCourses)
 
-        const responseCourses = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/course/${accType}/${id}`)
-        const coursesData = await responseCourses.json()
-        console.log("coursesData=",coursesData)
+        // const responseComments = await apiService.getRealtorComments(id as string)
+        // console.log("COMMENTS=",responseComments)
   
-        const responseServices = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service/${accType}/${id}`)
-        const serviceData = await responseServices.json()
-        console.log("serviceData=",serviceData)
+        const responsePartnerships = await apiService.getRealtorPartnership(id as string)
+        //console.log("PARTNERSHIP=",responsePartnerships)
 
-        const responsePartnerships = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/partnership/${accType}/${id}`)
-        const partnershipData = await responsePartnerships.json()
-        console.log("partnershipData=",partnershipData)
-
-        const responseComments = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comment/${accType}/${id}`)
-        const commentData = await responseComments.json()
-        console.log("commentData=",commentData)
-
-        setLastExp({name: partnershipData[0]?.name, pic: partnershipData[0]?.pic })
-        console.log("lastExp=",{name: partnershipData[0]?.name, pic: partnershipData[0]?.pic })
+        setLastExp({name: responsePartnerships[0]?.name, pic: responsePartnerships[0]?.pic })
         setLoadingOpen(false)
       }
 
@@ -121,7 +109,7 @@ export default function Profile(){
     fetchData()
 
   }, [id, user.id, accType, setLoadingOpen])
-
+  
   return (
     <Container>
       <ConvertToPDF localId={localId} accType={accType}/>
@@ -131,7 +119,7 @@ export default function Profile(){
       <PropertiesCard localId={localId} accType={accType}/>
       <AwardsCard localId={localId} accType={accType}/>
       <CoursesCard localId={localId} accType={accType}/>
-      <ExperiencesCard localId={localId} accType={accType}/>
+      <PartnershipCard localId={localId} accType={accType}/>
       <CommentsCard localId={localId} accType={accType}/>
     </Container>
   ) 

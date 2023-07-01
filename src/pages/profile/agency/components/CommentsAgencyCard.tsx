@@ -9,8 +9,6 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { Comment } from "@/types/Comment"
 import AddCommentModalContext from "context/AddCommentModalContext"
 import LoadingContext from "context/LoadingContext"
-import { ApiService } from "@/services/ApiService"
-
 
 const Container = styled.div`
   .comments{
@@ -57,7 +55,7 @@ interface CommentsCardProps{
     accType:string;
 }
 
-export default function CommentsCard({localId, accType}:CommentsCardProps){
+export default function CommentsAgencyCard({localId, accType}:CommentsCardProps){
   
   const [comments, setComments] = useState<Comment []>()
 
@@ -71,16 +69,17 @@ export default function CommentsCard({localId, accType}:CommentsCardProps){
 
   const router = useRouter()
   const { id } = router.query
-  const apiService = new ApiService()
   
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        const commentData = await apiService.getRealtorComments(id as string)
-        setLoadingOpen(false)
 
+        const responseComments = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor/' + 1)
+        const commentData = await responseComments.json()
         setComments(commentData)
+
+        setLoadingOpen(false)
       }
     }
     const localId = localStorage.getItem('id') as string
@@ -98,10 +97,18 @@ export default function CommentsCard({localId, accType}:CommentsCardProps){
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    const response = await apiService.deleteComment(token as string, id)
-    setLoadingOpen(false)
     
-    if(response === 'deleted') router.reload()
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/' + id, {
+      method: 'DELETE',
+      headers:{
+        authorization: 'Bearer ' + token
+      }
+    })
+
+    setLoadingOpen(false)
+
+    const text = await response.text()
+    if(text === 'deleted') router.reload()
 
   }
 
