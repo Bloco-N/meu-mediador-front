@@ -547,7 +547,7 @@ export default function Profile(){
 
     const pdfService = new PdfService()
     setLoadingOpen(true)
-    pdfService.exportPdf(realtor?.id as number, realtor?.firstName as string, realtor?.lastName as string)
+    await pdfService.exportPdf(realtor?.id as number, realtor?.firstName as string, realtor?.lastName as string)
     setLoadingOpen(false)
 
   }
