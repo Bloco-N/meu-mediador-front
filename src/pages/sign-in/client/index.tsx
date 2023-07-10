@@ -2,7 +2,7 @@ import { SignInForm } from "@/types/SignInForm";
 import UserContext from "context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { decode } from "jsonwebtoken";
@@ -43,6 +43,13 @@ const SignIn = () => {
 
     const router = useRouter()
 
+    useEffect(() => {
+      const token = localStorage.getItem('token')
+      if(token){
+        router.push('/')
+      }
+    }, [router])
+
     const onSubmit = async (data:SignInForm) => {
 
       const fetchData = async () => {
@@ -65,6 +72,7 @@ const SignIn = () => {
         localStorage.setItem('accountType', 'client')
 
         setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
+        console.log(clientData)
         if(clientData.verified === false){
           router.push('/verify/client')
         }else{
