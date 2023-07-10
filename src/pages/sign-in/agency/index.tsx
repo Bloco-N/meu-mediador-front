@@ -107,7 +107,7 @@ const SignIn = () => {
           <input className="input-sign-up" type="password" placeholder="Senha" 
           {...register('password', {required: true})}/>
 
-          {/* <Link className="forgot-password" href="/forgot-password">Esqueci minha senha</Link> */}
+          <Link className="forgot-password" href="/forgot-password/agency">Esqueci minha senha</Link>
 
           <button>Entrar</button>
 
