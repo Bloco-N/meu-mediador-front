@@ -7,6 +7,9 @@ import UserContext from "context/UserContext";
 import ProfileMoldal from "./ProfileMoldal";
 import { UserContextType } from "@/types/UserContextType";
 import profileIcon from '../public/profile.svg'
+import { useRouter } from "next/router";
+import pt from '../locales/pt/index'
+import en from '../locales/en/index'
 
 const Nav = styled.div`
     width: 100vw;
@@ -16,6 +19,23 @@ const Nav = styled.div`
     justify-content: space-between;
     padding: 3rem 6rem;
     position: relative;
+    .left-side{
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+    .locale{
+      width: 5rem;
+      height: 5rem;
+      background-color: transparent;
+      border: none;
+      padding: 0.2rem;
+      font-size: 1.3rem;
+      option{
+        background-color: transparent;
+        padding: 1rem;
+      }
+    }
     a {
         text-decoration: none;
     }
@@ -55,9 +75,37 @@ const Navbar = () => {
 
     const [open, setOpen] = useState(false)
 
+    const [flag, setFlag] = useState('GB')
+
     const [openProfile, setOpenProfile] = useState(false)
 
     const [pic, setPic] = useState('')
+
+    const router = useRouter()
+
+    const { locale } = router
+
+    const t = locale === 'pt' ? pt : en 
+
+    useEffect(() => {
+      const locale = router.locale as string
+      if(locale === 'en'){
+        setFlag('GB')
+      }else{
+        setFlag(locale.toUpperCase())
+      }
+    }, [router.locale])
+
+    const changeLocation = (e) => {
+      const locale = e.target.value as string
+      router.push(router.asPath, router.asPath, { locale })
+      if(locale === 'en'){
+        setFlag('GB')
+      }else{
+        setFlag(locale.toUpperCase())
+      }
+
+    }
 
     useEffect(() => {
       const profilePicture = localStorage.getItem('pic')
@@ -71,6 +119,18 @@ const Navbar = () => {
             <Link href="/">
                 <h1>Meoagent</h1>
             </Link>
+            <div className="left-side">
+
+              <Image
+                alt="United States"
+                src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
+                width={20}
+                height={20}
+              />
+            <select defaultValue={'pt'} onChange={e => changeLocation(e)} className="locale">
+              <option value="en">EN</option>
+              <option value="pt">PT</option>
+            </select>
             {user.token ? (
                 <Image onClick={() => setOpenProfile(!openProfile)} className="profile" src={pic ? pic :  profileIcon} alt={'Profile'} width={60} height={60}/>
             ): (
@@ -86,6 +146,7 @@ const Navbar = () => {
                 
                 </div>
             )}
+            </div>
 
             <ProfileMoldal open={openProfile} setOpen={setOpenProfile}/>
 

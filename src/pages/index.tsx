@@ -7,9 +7,10 @@ import { useContext, useEffect, useState } from "react";
 import SearchResultContext from "context/SearchResultContext";
 import { SearchResultContextType } from "@/types/SearchResultContextType";
 import { SearchForm } from "@/types/SearchForm";
-import { UserCard } from "@/types/UserCard";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import pt from '../../locales/pt/index'
+import en from '../../locales/en/index'
 
 const SearchRealtor = styled.div`
 
@@ -58,6 +59,10 @@ export default function Home() {
 
   const router = useRouter()
 
+  const { locale } = router
+
+  const t = locale === 'pt' ? pt : en
+
   const { setSearch } = useContext(SearchContext) as SearchContextType
   const { setSearchResult } = useContext(SearchResultContext) as SearchResultContextType
 
@@ -104,18 +109,18 @@ export default function Home() {
 
       <form className="card" onSubmit={handleSubmit(onSubmit)}>
         <div className="search-row">
-          <input type="text" className="input-realtor" placeholder="Nome do Consultor"
+          <input type="text" className="input-realtor" placeholder={t.home.searchRealtorNamePlaceholder}
           {...register('search')} />
-          <input list="cities" type="text" className="input-city-cep" placeholder="Cidade ou CEP" 
+          <input list="cities" type="text" className="input-city-cep" placeholder={t.home.searchRealtorCityPlaceholder} 
           {...register('zipCode')}/>
           <datalist id="cities">
             {cities?.map((item, index) => (
               <option key={index} value={item}/>
             ))}
           </datalist>
-          <button className="searchButton">Buscar</button>
+          <button className="searchButton">{t.home.searchButton}</button>
         </div>
-        <h4>Encontre um consultor pro seu próximo imóvel aqui</h4>
+        <h4>{t.home.welcome}</h4>
       </form>
     </SearchRealtor>
 
