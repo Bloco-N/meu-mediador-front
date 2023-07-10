@@ -65,7 +65,11 @@ const SignIn = () => {
         localStorage.setItem('accountType', 'client')
 
         setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
-        router.push('/')
+        if(clientData.verified === false){
+          router.push('/verify/client')
+        }else{
+          router.reload()
+        }
 
       }
 

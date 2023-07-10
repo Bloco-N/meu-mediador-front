@@ -17,7 +17,7 @@ const Verify = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoadingOpen(true)
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/verify', {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency' + '/verify', {
         method: 'PUT',
         headers: {
           "Content-type": "application/json; charset=UTF-8",

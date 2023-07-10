@@ -43,7 +43,7 @@ const VerifyRealtor = () => {
       else{
         setLoadingOpen(true)
         const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/verify', {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency' + '/verify', {
           method: 'POST',
           body: JSON.stringify({email: user.email}),
           headers: {"Content-type": "application/json; charset=UTF-8"}

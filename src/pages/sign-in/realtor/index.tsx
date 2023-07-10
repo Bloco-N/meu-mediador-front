@@ -81,7 +81,7 @@ const SignIn = () => {
   
           setUser({ token, id: user.id, profilePicture: realtorData.profilePicture, coverPicture: realtorData.coverPicture, accountType: 'realtor' })
           setLoadingOpen(false)
-          console.log(realtorData)
+
           if(realtorData.verified === false){
             router.push('/verify/realtor')
           }else{
