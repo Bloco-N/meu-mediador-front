@@ -81,7 +81,12 @@ const SignIn = () => {
   
           setUser({ token, id: user.id, profilePicture: realtorData.profilePicture, coverPicture: realtorData.coverPicture, accountType: 'realtor' })
           setLoadingOpen(false)
-          router.reload()
+
+          if(realtorData.verified === false){
+            router.push('/verify/realtor')
+          }else{
+            router.reload()
+          }
           
         } catch (error) {
           console.log(error)
@@ -105,7 +110,7 @@ const SignIn = () => {
           <input className="input-sign-up" type="password" placeholder="Senha" 
           {...register('password', {required: true})}/>
 
-          <Link className="forgot-password" href="/forgot-password">Esqueci minha senha</Link>
+          <Link className="forgot-password" href="/forgot-password/realtor">Esqueci minha senha</Link>
 
           <button>Entrar</button>
 

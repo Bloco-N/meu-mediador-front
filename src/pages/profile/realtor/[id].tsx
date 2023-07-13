@@ -109,7 +109,7 @@ export default function Profile(){
     fetchData()
 
   }, [id, user.id, accType, setLoadingOpen])
-  
+
   return (
     <Container>
       <ConvertToPDF localId={localId} accType={accType}/>

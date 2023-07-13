@@ -1,10 +1,14 @@
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
 const ForgotPasswordContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
   form{
     height: 30rem;
     display: flex;
@@ -27,9 +31,11 @@ const ForgotPassword = () => {
 
   const { setOpen:setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
+  const [sended, setSended] = useState(false)
+
   const onSubmit = async (data:{email:string}) => {
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/recover-password', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client' + '/recover-password', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -37,14 +43,16 @@ const ForgotPassword = () => {
 
     const text = await response.text()
 
-    if(text === 'email sended') console.log(text)
+    if(text === 'email sended') {
+      setSended(true)
+    }
     setLoadingOpen(false)
   }
 
     return (
-      <ForgotPasswordContainer className="card">
+      <ForgotPasswordContainer>
 
-        <form onSubmit={handleSubmit(onSubmit)}  action="">
+        <form className="card" onSubmit={handleSubmit(onSubmit)}  action="">
 
           <h2>Recuperar Senha</h2>
 
@@ -54,6 +62,10 @@ const ForgotPassword = () => {
           <button className="forgotPasswordButton">Enviar</button>
 
         </form>
+
+        {sended && (
+          <p>Email enviado, verique sua caixa de mensagem</p>
+        )}
 
 
       </ForgotPasswordContainer>

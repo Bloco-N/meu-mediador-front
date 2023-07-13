@@ -77,7 +77,11 @@ const SignIn = () => {
             localStorage.setItem('accountType', 'agency')
     
             setUser({ token, id: user.id, profilePicture: agencyData.profilePicture, coverPicture: agencyData.coverPicture, accountType: 'agency' })
-            router.reload()
+            if(agencyData.verified === false){
+              router.push('/verify/agency')
+            }else{
+              router.reload()
+            }
           }
 
           if(response.status === 400){
@@ -107,7 +111,7 @@ const SignIn = () => {
           <input className="input-sign-up" type="password" placeholder="Senha" 
           {...register('password', {required: true})}/>
 
-          {/* <Link className="forgot-password" href="/forgot-password">Esqueci minha senha</Link> */}
+          <Link className="forgot-password" href="/forgot-password/agency">Esqueci minha senha</Link>
 
           <button>Entrar</button>
 

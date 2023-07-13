@@ -3,6 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   compiler: {
     styledComponents: true
+  },
+  i18n:{
+    locales: ['pt', 'en', 'es'],
+    defaultLocale: 'pt',
   }
 }
 
