@@ -110,7 +110,7 @@ export default function CommentsCard({localId, accType}:CommentsCardProps){
       <div className="card comments">
         <h2>Avaliações</h2>
         {
-          comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': (
+          comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': !sessionProfile && (
             <button onClick={() => addCommentSetOpen(true)}>Adicionar Comentário</button>
           )
         }

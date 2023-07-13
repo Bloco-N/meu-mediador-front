@@ -59,6 +59,7 @@ export default function Profile(){
       if(id){
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + id)
         const data = await response.json()
+        console.log("AGENCIA", data)
         setAgency(data)
       }
     }
