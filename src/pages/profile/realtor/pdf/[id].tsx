@@ -32,6 +32,14 @@ const Container = styled.div`
       top: 3rem;
       right: 3rem;
   }
+  .hider{
+    background-color: #D3D2D2;
+    width: 50%;
+    height: 140px;
+    position:fixed;
+    top: 0;
+    right: 0;
+  }
 `
 
 export default function Profile(){
@@ -39,8 +47,6 @@ export default function Profile(){
   const [ realtor, setRealtor ] = useState<RealtorProfile>()
 
   const [lastExp, setLastExp] = useState<LastExp>()
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -83,8 +89,6 @@ export default function Profile(){
       }
 
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 
@@ -95,11 +99,12 @@ export default function Profile(){
       <ConvertToPDF localId={localId} accType={accType} sessionProfile={false}/>
       <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true} pdfPage={true}/>
       <ServicesCard localId={localId} accType={accType} sessionProfile={false}/>
-      <AboutCard localId={localId} accType={accType} sessionProfile={false}/>
-      <PropertiesCard localId={localId} accType={accType} sessionProfile={false}/>
+      <AboutCard localId={localId} accType={accType} sessionProfile={false} pdfPage={true}/>
+      <PropertiesCard localId={localId} accType={accType} sessionProfile={false} pdfPage={true}/>
       <AwardsCard localId={localId} accType={accType} sessionProfile={false}/>
       <CoursesCard localId={localId} accType={accType} sessionProfile={false}/>
       <PartnershipCard localId={localId} accType={accType} sessionProfile={false}/>
+      <div className="hider"></div>
     </Container>
   ) 
 }

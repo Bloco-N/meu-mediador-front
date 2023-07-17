@@ -82,6 +82,9 @@ const Container = styled.div`
         }
       }
     }
+    .pdf-list{
+      flex-wrap: wrap;
+    }
   }
 `
 
@@ -89,9 +92,10 @@ interface PropertiesCardProps{
     localId:string;
     accType:string;
     sessionProfile: boolean;
+    pdfPage?:boolean;
 }
 
-export default function PropertiesCard({localId, accType, sessionProfile}:PropertiesCardProps){
+export default function PropertiesCard({localId, accType, sessionProfile, pdfPage=false}:PropertiesCardProps){
 
   const [properties, setProperties ] = useState<Property []>()
 
@@ -140,7 +144,7 @@ export default function PropertiesCard({localId, accType, sessionProfile}:Proper
     <Container >
       <div className="card properties">
         <h2>Imóveis</h2>
-        <div className="list">
+        <div className={`list ${pdfPage && 'pdf-list'}`}>
           {properties?.map(item => (
             <div key={item.id} className="propertie">
                 { sessionProfile && (

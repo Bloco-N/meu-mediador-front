@@ -30,9 +30,10 @@ interface AboutCardProps{
     localId:string;
     accType:string;
     sessionProfile: boolean;
+    pdfPage?: boolean;
 }
 
-export default function AboutCard({localId, accType, sessionProfile}:AboutCardProps){
+export default function AboutCard({localId, accType, sessionProfile, pdfPage=false}:AboutCardProps){
 
   const [elip, setElip] = useState(true)
 
@@ -67,10 +68,13 @@ export default function AboutCard({localId, accType, sessionProfile}:AboutCardPr
     <Container >
       <div className="card introduction">
         <h2>Sobre</h2>
-        <p className={elip ? "elipses" : ""}>
-          {realtor?.introduction}
-        </p>
-        {elip ? (
+        {pdfPage?
+          <p>{realtor?.introduction}</p>
+        : <p className={elip ? "elipses" : ""}>
+            {realtor?.introduction}
+          </p>}
+        {pdfPage?"":
+        elip ? (
           <p className="elipses-button" onClick={() => setElip(false)}>Mostrar Mais</p>
           ):(
           <p className="elipses-button" onClick={() => setElip(true)}>Mostrar Menos</p>
