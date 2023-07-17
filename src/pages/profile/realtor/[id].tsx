@@ -404,7 +404,7 @@ export default function Profile(){
 
     setLoadingOpen(true)
     
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/' + id, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/realtor/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token

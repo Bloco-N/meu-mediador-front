@@ -162,7 +162,7 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
     const localId = localStorage.getItem('id')
 
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/realtor', {
       method: 'POST',
       body: JSON.stringify({
         propertyData:{
