@@ -109,7 +109,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
     const localId = localStorage.getItem('id')
 
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor', {
       method: 'POST',
       body: JSON.stringify({
         ...data,

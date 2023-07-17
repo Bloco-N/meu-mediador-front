@@ -496,7 +496,7 @@ export default function Profile(){
 
     setLoadingOpen(true)
     
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/' + id, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token

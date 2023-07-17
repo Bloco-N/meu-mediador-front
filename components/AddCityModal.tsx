@@ -108,7 +108,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
         const realtorData = await response.json()
         setRealtor(realtorData)
 
-        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/' + localId)
+        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/realtor/' + localId)
         const data = await responseCities.json()
         setCities(data)
 
@@ -124,7 +124,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/realtor', {
       method: 'POST',
       body: JSON.stringify({
         ...data
@@ -148,7 +148,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
 
     const token = localStorage.getItem('token')
 
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/' + id, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/realtor/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token

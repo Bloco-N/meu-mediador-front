@@ -123,7 +123,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/realtor', {
       method: 'POST',
       body: JSON.stringify({
         ...data
@@ -147,7 +147,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
 
     const token = localStorage.getItem('token')
 
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/' + id, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/realtor/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
