@@ -29,15 +29,14 @@ const Container = styled.div`
 interface AboutCardProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
 }
 
-export default function AboutCard({localId, accType}:AboutCardProps){
+export default function AboutCard({localId, accType, sessionProfile}:AboutCardProps){
 
   const [elip, setElip] = useState(true)
 
   const [ realtor, setRealtor ] = useState<RealtorProfile>()
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
   
@@ -58,11 +57,7 @@ export default function AboutCard({localId, accType}:AboutCardProps){
 
         setRealtor(data)
       }
-      
-
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 

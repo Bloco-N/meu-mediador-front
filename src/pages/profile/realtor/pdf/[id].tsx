@@ -8,15 +8,14 @@ import styled from "styled-components"
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { LastExp } from "@/types/LastExp"
 import LoadingContext from "context/LoadingContext"
-import ConvertToPDF from "./components/ConvertToPDF"
-import ServicesCard from "./components/ServicesCard"
-import AboutCard from "./components/AboutCard"
-import AwardsCard from "./components/AwardsCard"
-import CoursesCard from "./components/CoursesCard"
-import CommentsCard from "./components/CommentsCard"
-import PropertiesCard from "./components/PropertiesCard"
+import ConvertToPDF from "../components/ConvertToPDF"
+import ServicesCard from "../components/ServicesCard"
+import AboutCard from "../components/AboutCard"
+import AwardsCard from "../components/AwardsCard"
+import CoursesCard from "../components/CoursesCard"
+import PropertiesCard from "../components/PropertiesCard"
 import { ApiService } from "@/services/ApiService"
-import PartnershipCard from "./components/PartnershipCard"
+import PartnershipCard from "../components/PartnershipCard"
 
 const Container = styled.div`
   display: flex;
@@ -93,15 +92,14 @@ export default function Profile(){
 
   return (
     <Container>
-      <ConvertToPDF localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true} pdfPage={false}/>
-      <ServicesCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <AboutCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <PropertiesCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <AwardsCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <CoursesCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <PartnershipCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <CommentsCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
+      <ConvertToPDF localId={localId} accType={accType} sessionProfile={false}/>
+      <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true} pdfPage={true}/>
+      <ServicesCard localId={localId} accType={accType} sessionProfile={false}/>
+      <AboutCard localId={localId} accType={accType} sessionProfile={false}/>
+      <PropertiesCard localId={localId} accType={accType} sessionProfile={false}/>
+      <AwardsCard localId={localId} accType={accType} sessionProfile={false}/>
+      <CoursesCard localId={localId} accType={accType} sessionProfile={false}/>
+      <PartnershipCard localId={localId} accType={accType} sessionProfile={false}/>
     </Container>
   ) 
 }

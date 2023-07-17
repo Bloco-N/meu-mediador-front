@@ -47,14 +47,13 @@ const Container = styled.div`
 interface AwardsCardProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
 }
-export default function AwardsCard({localId, accType}:AwardsCardProps){
+export default function AwardsCard({localId, accType, sessionProfile}:AwardsCardProps){
 
   const [awards, setAwards] = useState<Award []>() 
 
   const [editAwards, setEditAwards] = useState(false)
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
   
@@ -78,8 +77,6 @@ export default function AwardsCard({localId, accType}:AwardsCardProps){
       }
 
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 

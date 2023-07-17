@@ -55,13 +55,12 @@ const Container = styled.div`
 interface CommentsCardProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
 }
 
-export default function CommentsCard({localId, accType}:CommentsCardProps){
+export default function CommentsCard({localId, accType, sessionProfile}:CommentsCardProps){
   
   const [comments, setComments] = useState<Comment []>()
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -83,8 +82,6 @@ export default function CommentsCard({localId, accType}:CommentsCardProps){
         setComments(commentData)
       }
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 

@@ -24,8 +24,9 @@ const Container = styled.button`
 interface ConvertToPDFProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
 }
-export default function ConvertToPDF({localId, accType}:ConvertToPDFProps){
+export default function ConvertToPDF({localId, accType, sessionProfile}:ConvertToPDFProps){
 
   const [ realtor, setRealtor ] = useState<RealtorProfile>()
 
@@ -36,8 +37,6 @@ export default function ConvertToPDF({localId, accType}:ConvertToPDFProps){
   const [awards, setAwards] = useState<Award []>() 
 
   const [courses, setCourses] = useState<Course []>()
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -71,8 +70,6 @@ export default function ConvertToPDF({localId, accType}:ConvertToPDFProps){
       }
 
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 

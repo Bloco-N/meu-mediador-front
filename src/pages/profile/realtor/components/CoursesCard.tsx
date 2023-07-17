@@ -49,14 +49,13 @@ const Container = styled.div`
 interface CoursesCardProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
 }
-export default function CoursesCard({localId, accType}:CoursesCardProps){
+export default function CoursesCard({localId, accType, sessionProfile}:CoursesCardProps){
 
   const [courses, setCourses] = useState<Course []>()
 
   const [editCourses, setEditCourses] = useState(false)
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -79,8 +78,6 @@ export default function CoursesCard({localId, accType}:CoursesCardProps){
       }
 
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 

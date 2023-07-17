@@ -88,13 +88,12 @@ const Container = styled.div`
 interface PropertiesCardProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
 }
 
-export default function PropertiesCard({localId, accType}:PropertiesCardProps){
+export default function PropertiesCard({localId, accType, sessionProfile}:PropertiesCardProps){
 
   const [properties, setProperties ] = useState<Property []>()
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -117,8 +116,6 @@ export default function PropertiesCard({localId, accType}:PropertiesCardProps){
       }
 
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 

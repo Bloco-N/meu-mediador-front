@@ -195,13 +195,14 @@ const Container = styled.div<ContainerProps>`
 `
 
 type MainInfoProps = {
-  userSigned: RealtorProfile
-  isProfile: boolean
-  lastExp?: LastExp
-  isRealtor: boolean
+  userSigned: RealtorProfile;
+  isProfile: boolean;
+  lastExp?: LastExp;
+  isRealtor: boolean;
+  pdfPage: boolean;
 }
 
-const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) => {
+const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainInfoProps) => {
 
   console.log("userSigned",userSigned)
   console.log("isProfile",isProfile)
@@ -270,7 +271,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
         {isProfile && (
           <>
             <Image height={1000} width={1000} src={userSigned?.coverPicture ? userSigned.coverPicture : greyImage} alt='cover image' className='cover-photo'/>
-            {sessionProfile && (
+            {sessionProfile && !pdfPage && (
               <>
                 <div className='label-back'>
                   <label htmlFor="cover-pic">
@@ -284,7 +285,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
         )}
       </div>
       <Image width={100} height={100} onClick={isProfile ? () => setData({open: true, userSigned}) : () => {}} className= {isProfile ? "profile profile-pointer" : 'profile' } src={ userSigned?.profilePicture ? userSigned.profilePicture : profileIcon} alt='profile icon'/>
-      { isProfile && sessionProfile ? (
+      { isProfile && sessionProfile && !pdfPage ? (
           <Image onClick={() => mainInfoSetOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
       ): ''}
 
