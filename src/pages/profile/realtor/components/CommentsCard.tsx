@@ -56,9 +56,10 @@ interface CommentsCardProps{
     localId:string;
     accType:string;
     sessionProfile: boolean;
+    pdfPage: boolean;
 }
 
-export default function CommentsCard({localId, accType, sessionProfile}:CommentsCardProps){
+export default function CommentsCard({localId, accType, sessionProfile, pdfPage = false }:CommentsCardProps){
   
   const [comments, setComments] = useState<Comment []>()
 
@@ -76,9 +77,15 @@ export default function CommentsCard({localId, accType, sessionProfile}:Comments
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        const commentData = await apiService.getRealtorComments(id as string)
+        let commentData = await apiService.getRealtorComments(id as string)
         setLoadingOpen(false)
-
+        if(pdfPage){
+          commentData = commentData.filter((comment: any, index: number) => {
+            if(index<5){
+              return comment
+            }
+          })
+        }
         setComments(commentData)
       }
     }

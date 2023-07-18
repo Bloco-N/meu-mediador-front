@@ -33,6 +33,14 @@ const Container = styled.div`
       top: 3rem;
       right: 3rem;
   }
+  .hide-profile{
+    background-color: #D3D2D2;
+    width: 65%;
+    height: 120px;
+    position:fixed;
+    top: 0;
+    right: 0;
+  }
 `
 
 export default function Profile(){
@@ -53,6 +61,7 @@ export default function Profile(){
 
   const router = useRouter()
   const { id } = router.query
+  const pdfPage = router.query.pdf?true:false;
   const apiService = new ApiService()
 
   useEffect(() => {
@@ -93,15 +102,16 @@ export default function Profile(){
 
   return (
     <Container>
-      <ConvertToPDF localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true} pdfPage={false}/>
-      <ServicesCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <AboutCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <PropertiesCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <AwardsCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <CoursesCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <PartnershipCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
-      <CommentsCard localId={localId} accType={accType} sessionProfile={sessionProfile}/>
+      {!pdfPage && <ConvertToPDF localId={localId} accType={accType} sessionProfile={sessionProfile}/>}
+      <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true} pdfPage={pdfPage}/>
+      <ServicesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
+      <AboutCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile} pdfPage={pdfPage}/>
+      <PropertiesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile} pdfPage={pdfPage}/>
+      <AwardsCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
+      <CoursesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
+      <PartnershipCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
+      <CommentsCard localId={localId} accType={accType} sessionProfile={sessionProfile} pdfPage={pdfPage}/>
+      {pdfPage && <div className="hide-profile"></div>}
     </Container>
   ) 
 }
