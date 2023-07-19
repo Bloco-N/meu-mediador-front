@@ -79,6 +79,7 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
         setLoadingOpen(true)
         let commentData = await apiService.getRealtorComments(id as string)
         setLoadingOpen(false)
+
         if(pdfPage){
           commentData = commentData.filter((comment: any, index: number) => {
             if(index<5){
