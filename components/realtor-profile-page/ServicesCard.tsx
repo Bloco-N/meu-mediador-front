@@ -78,9 +78,10 @@ export default function ServicesCard({localId, accType, sessionProfile}:Services
     const { id } = target
 
     const token = localStorage.getItem('token')
+    const accountType = localStorage.getItem('accountType')
 
     setLoadingOpen(true)
-    const response = await apiService.deleteRealtorService(String(token),Number(id))
+    const response = await apiService.deleteService(String(token),Number(id),String(accountType))
     setLoadingOpen(false)
 
     if(response === 'deleted') router.reload()

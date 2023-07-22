@@ -1,4 +1,4 @@
-import { AgencyProfile } from "@/types/AgencyProfile"
+import { RealtorProfile } from "@/types/RealtorProfile"
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
 import Image from "next/image"
@@ -35,7 +35,7 @@ export default function AboutAgencyCard({localId, accType}:AboutCardProps){
 
   const [elip, setElip] = useState(true)
 
-  const [ agency, setAgency ] = useState<AgencyProfile>()
+  const [ realtor, setRealtor ] = useState<RealtorProfile>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
 
@@ -54,8 +54,9 @@ export default function AboutAgencyCard({localId, accType}:AboutCardProps){
         setLoadingOpen(true)
 
         const apiService = new ApiService()
-        const data = await apiService.getAgencyInformation(id as string)
-        setAgency(data)
+        const data = await apiService.getRealtorInformation("1")
+        setRealtor(data)
+        console.log("DATA",data)
 
         setLoadingOpen(false)
       }
@@ -63,7 +64,7 @@ export default function AboutAgencyCard({localId, accType}:AboutCardProps){
 
     }
     const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'agency') setSessionProfile(true)
+    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 
@@ -74,7 +75,7 @@ export default function AboutAgencyCard({localId, accType}:AboutCardProps){
       <div className="card introduction">
         <h2>Sobre</h2>
         <p className={elip ? "elipses" : ""}>
-          {agency?.introduction}
+          {realtor?.introduction}
         </p>
         {elip ? (
           <p className="elipses-button" onClick={() => setElip(false)}>Mostrar Mais</p>

@@ -109,7 +109,7 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
       if(id){
         setLoadingOpen(true)
   
-        const responseProperties = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/agency/' + id)
+        const responseProperties = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/realtor/' + 1)
         const propertiesData = await responseProperties.json()
         setProperties(propertiesData)
 
@@ -118,7 +118,7 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
 
     }
     const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'agency') setSessionProfile(true)
+    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 
@@ -133,7 +133,7 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
 
     setLoadingOpen(true)
     
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/agency/' + id, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token

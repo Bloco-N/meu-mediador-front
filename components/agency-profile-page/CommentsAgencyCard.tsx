@@ -75,7 +75,7 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
       if(id){
         setLoadingOpen(true)
 
-        const responseComments = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/agency/' + id)
+        const responseComments = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor/' + 1)
         const commentData = await responseComments.json()
         setComments(commentData)
 

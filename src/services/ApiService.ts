@@ -51,6 +51,16 @@ export class ApiService{
   //realtor information
   public async getRealtorInformation(accountId: string){
     try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/agency/${accountId}`)
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  public async getAgencyInformation(accountId: string){
+    try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/realtor/${accountId}`)
       const data = await response.json()
       return data
@@ -135,9 +145,9 @@ export class ApiService{
 
   //delete
   //realtor service
-  public async deleteRealtorService(token: string, serviceId: number){
+  public async deleteService(token: string, serviceId: number, accountType: string){
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service/realtor/${serviceId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service/${accountType}/${serviceId}`, {
         method: 'DELETE',
         headers:{
           authorization: 'Bearer ' + token

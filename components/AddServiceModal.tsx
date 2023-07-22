@@ -77,13 +77,13 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
+      const accountType = localStorage.getItem('accountType')
       if(localId){
         const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service')
   
         let data = await responseServices.json() as Service []
   
-  
-        const responseRealtorServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + localId)
+        const responseRealtorServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/'+accountType+'/' + localId)
   
         const realtorServicesData = await responseRealtorServices.json() as RealtorService []
   
@@ -104,13 +104,20 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
   const onSubmit = async (data: AddServiceForm) => {
 
     const localId = localStorage.getItem('id')
+    const accountType = localStorage.getItem('accountType')
+    const realtorBody = {
+      serviceId: Number(data.serviceId),
+      realtorId: Number(localId)
+    }
+    const agencyBody = {
+      serviceId: Number(data.serviceId),
+      agencyId: Number(localId)
+    }
+
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/'+accountType, {
       method: 'POST',
-      body: JSON.stringify({
-        serviceId: Number(data.serviceId),
-        realtorId: Number(localId)
-      }),
+      body: JSON.stringify(accountType==="agency"?agencyBody:realtorBody),
       headers:{
         'Content-Type': 'application/json'
       }

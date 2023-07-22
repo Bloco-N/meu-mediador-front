@@ -89,6 +89,7 @@ export default function Profile(){
   console.log(localId,accType)
   return (
     <Container>
+      teste
       <MainInfoAgency userSigned={agency as AgencyProfile} isProfile={true}/>
       <ServicesAgencyCard localId={localId} accType={accType}/>
       <AboutAgencyCard localId={localId} accType={accType}/>

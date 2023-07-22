@@ -160,20 +160,31 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
   const onSubmit = async (data:AddPropertyForm) => {
 
     const localId = localStorage.getItem('id')
-
+    const accountType = localStorage.getItem('accountType')
+    const realtorBody = {
+      propertyData:{
+        ...data,
+        price,
+        grossArea,
+        usefulArea,
+        profilePicture: pic,
+      },
+      realtorId: Number(localId)
+    }
+    const agencyBody = {
+      propertyData:{
+        ...data,
+        price,
+        grossArea,
+        usefulArea,
+        profilePicture: pic,
+      },
+      agencyId: Number(localId)
+    }
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/realtor', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/' + accountType, {
       method: 'POST',
-      body: JSON.stringify({
-        propertyData:{
-          ...data,
-          price,
-          grossArea,
-          usefulArea,
-          profilePicture: pic,
-        },
-        realtorId: Number(localId)
-      }),
+      body: JSON.stringify(accountType==="agency"?agencyBody:realtorBody),
       headers:{
         'Content-Type': 'application/json'
       }
