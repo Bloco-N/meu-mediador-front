@@ -67,7 +67,7 @@ export default function Profile(){
   useEffect(() => {
     const localStorageId = localStorage.getItem('id')
     const accountType = localStorage.getItem('accountType')
-    console.log(accountType)
+    console.log("TIPO" ,accountType, localStorageId)
 
     if(localStorageId){
       setLocalId(localStorageId)
@@ -84,7 +84,9 @@ export default function Profile(){
         setLoadingOpen(true)
   
         const data = await apiService.getRealtorInformation(id as string)
+        console.log(data)
         setRealtor(data)
+
   
         const responsePartnerships = await apiService.getRealtorPartnership(id as string)
 

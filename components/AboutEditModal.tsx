@@ -63,7 +63,7 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
 
   const { register, handleSubmit } = useForm<EditAboutForm>()
 
-  const [realtor, setRealtor] = useState<RealtorProfile>()
+  const [introduction, setIntroduction] = useState('')
 
   const router = useRouter()
 
@@ -71,25 +71,30 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
     const fetchData = async () => {
 
       const localId = localStorage.getItem('id')
+      const accountType = localStorage.getItem('accountType')
       if(localId !== undefined){
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + localId, {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accountType+'/' + localId, {
           method: 'GET'
         })
         const json = await response.json()
-        setRealtor(json)
+        console.log("info",json)
+        setIntroduction(accountType==="agency"?json.description:json.introduction)
+
       }
     }
     fetchData()
   }, [])
 
   const onSubmit = async (data: EditAboutForm) => {
+    console.log("data",data)
     const token = localStorage.getItem('token')
+    const accountType = localStorage.getItem('accountType')
+    const realtorBody = {introduction: data.introduction}
+    const agencyBody = {description: data.introduction}
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accountType+'/', {
       method:'PUT',
-      body: JSON.stringify({
-        introduction: data.introduction
-      }),
+      body: JSON.stringify(accountType==="agency"?agencyBody:realtorBody),
       headers:{
         authorization: 'Bearer ' + token,
         'Content-Type': 'application/json'
@@ -97,6 +102,7 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
     })
     const text = await response.text()
     setLoadingOpen(false)
+    console.log("test")
     router.reload()
   }
 
@@ -105,7 +111,7 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h2>Quem é você:</h2>
-        <textarea {...register('introduction')} defaultValue={realtor?.introduction ? realtor.introduction : ''} placeholder="Coloque sua introdução aqui"/>
+        <textarea {...register('introduction')} defaultValue={introduction ? introduction : ''} placeholder="Coloque sua introdução aqui"/>
         <p onClick={() => setOpen(false)}>X</p>
         <button type="submit"> Atualizar </button>
       </form>

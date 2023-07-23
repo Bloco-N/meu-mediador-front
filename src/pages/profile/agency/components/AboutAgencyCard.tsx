@@ -74,7 +74,7 @@ export default function AboutAgencyCard({localId, accType}:AboutCardProps){
       <div className="card introduction">
         <h2>Sobre</h2>
         <p className={elip ? "elipses" : ""}>
-          {agency?.introduction}
+          {agency?.description}
         </p>
         {elip ? (
           <p className="elipses-button" onClick={() => setElip(false)}>Mostrar Mais</p>

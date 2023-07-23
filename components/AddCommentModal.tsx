@@ -72,7 +72,6 @@ type AddCommentModalProps = {
 }
 
 const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
-
   const [marketExpertiseRating, setMarketExpertiseRating] = useState(0)
   const [responsivenessRating, setResponsivenessRating] = useState(0)
   const [negotiationSkillsRating, setNegotiationSkillsRating] = useState(0)
@@ -101,25 +100,37 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const [accType, setAccType] = useState('')
 
   const router = useRouter()
-
-  const { id:realtorId } = router.query
-
+  
+  const profileType = router.pathname.includes("agency")?"agency":"realtor"
+  const { id:profileId } = router.query
+  
+  console.log("conta",profileType,profileId)
   const onSubmit = async (data: AddCommentForm) => {
 
     const localId = localStorage.getItem('id')
 
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor', {
+    const realtorBody = {
+      ...data,
+      marketExpertiseRating,
+      responsivenessRating,
+      negotiationSkillsRating,
+      profissionalismAndComunicationRating,
+      clientId: Number(localId),
+      realtorId: Number(profileId)
+    }
+    const agencyBody = {
+      ...data,
+      marketExpertiseRating,
+      responsivenessRating,
+      negotiationSkillsRating,
+      profissionalismAndComunicationRating,
+      clientId: Number(localId),
+      agencyId: Number(profileId)
+    }
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/'+profileType, {
       method: 'POST',
-      body: JSON.stringify({
-        ...data,
-        marketExpertiseRating,
-        responsivenessRating,
-        negotiationSkillsRating,
-        profissionalismAndComunicationRating,
-        clientId: Number(localId),
-        realtorId: Number(realtorId)
-      }),
+      body: JSON.stringify(profileType==="agency"?agencyBody:realtorBody),
       headers:{
         'Content-Type': 'application/json'
       }
@@ -146,7 +157,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       <form onSubmit={handleSubmit(onSubmit)} action="">
         {accType === 'client' ? (
           <>
-            <h3>Criar Comentário</h3>
+            <h3>Criar Comentário realtor</h3>
             <div>
               <p>Conhecimento de mercado: </p>
               <Rating

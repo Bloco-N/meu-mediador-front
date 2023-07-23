@@ -34,10 +34,6 @@ const Container = styled.div`
 
 export default function Profile(){
 
-  const [ realtor, setRealtor ] = useState<RealtorProfile>()
-
-  const [lastExp, setLastExp] = useState<LastExp>()
-
   const { user } = useContext(UserContext) as UserContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
@@ -89,15 +85,12 @@ export default function Profile(){
   console.log(localId,accType)
   return (
     <Container>
-      teste
       <MainInfoAgency userSigned={agency as AgencyProfile} isProfile={true}/>
       <ServicesAgencyCard localId={localId} accType={accType}/>
       <AboutAgencyCard localId={localId} accType={accType}/>
       <PropertiesAgencyCard localId={localId} accType={accType}/>
-      <AwardsAgencyCard localId={localId} accType={accType}/>
+      {/* <AwardsAgencyCard localId={localId} accType={accType}/> */}
       <CommentsAgencyCard localId={localId} accType={accType}/>
     </Container>
   ) 
 }
-
-//<AwardsAgencyCard localId={localId} accType={accType}/>

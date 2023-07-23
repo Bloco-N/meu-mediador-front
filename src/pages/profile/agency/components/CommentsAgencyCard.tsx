@@ -83,7 +83,7 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
       }
     }
     const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
+    if(Number(id) === Number(localId) && accType === 'agency') setSessionProfile(true)
 
     fetchData()
 
@@ -117,11 +117,12 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
       <div className="card comments">
         <h2>Avaliações</h2>
         {
-          comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': (
+          comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': !sessionProfile &&  (
             <button onClick={() => addCommentSetOpen(true)}>Adicionar Comentário</button>
           )
         }
         <div className="list">
+            {!comments?.length?"Essa agencia não possui avaliações":""}
             {comments?.map(comment => (
               <div key={ comment.id } className="comment">
                 {accType === 'client' && Number(localId) === comment.clientId ? (
