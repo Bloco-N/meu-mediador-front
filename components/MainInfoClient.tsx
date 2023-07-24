@@ -1,27 +1,19 @@
-import { RealtorProfile } from '@/types/RealtorProfile';
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react';
 import profileIcon from '@/../public/profile.svg'
-import agencyIcon from '@/../public/agency.svg'
 import styled from 'styled-components';
 import PictureModalContext from 'context/PictureModalContext';
 import { PictureModalContextType } from '@/types/PictureModalContextType';
 import editIcon from '../public/edit.svg'
-import whatsappIcon from '../public/whatsapp.svg'
 import mailIcon from '../public/mail.svg'
-import webIcon from '../public/web.svg'
-import instagramIcon from '../public/instagram.svg'
-import facebookIcon from '../public/facebook.svg'
 import greyImage from '../public/grey.png'
 import UserContext from 'context/UserContext';
 import { UserContextType } from '@/types/UserContextType';
-import MainInfoProfileEditModalContext from 'context/MainInfoProfileEditModalContext';
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import Link from 'next/link';
 import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
-import { AgencyProfile } from '@/types/AgencyProfile';
-import { LastExp } from '@/types/LastExp';
+import { ClientProfile } from '@/types/ClientProfile';
 
 type ContainerProps = {
   isProfile: boolean
@@ -194,21 +186,14 @@ const Container = styled.div<ContainerProps>`
   }
 `
 
-type MainInfoProps = {
-  userSigned: RealtorProfile;
-  isProfile: boolean;
-  lastExp?: LastExp;
-  isRealtor: boolean;
-  pdfPage: boolean;
+type MainInfoClientProps = {
+  userSigned: ClientProfile
+  isProfile: boolean
 }
 
-const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainInfoProps) => {
-  
-  const { setData } = useContext(PictureModalContext) as PictureModalContextType
+const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
   const { user, setUser } = useContext(UserContext) as UserContextType
-
-  const { setOpen: mainInfoSetOpen } = useContext(MainInfoProfileEditModalContext) as ModalOpenContextType
 
   const [sessionProfile, setSessionProfile] = useState(false)
 
@@ -217,14 +202,13 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
   useEffect(() => {
     const localId = localStorage.getItem('id')
     const accounType = localStorage.getItem('accountType')
-    if(Number(localId) === userSigned?.id && accounType === 'realtor'){
-      setSessionProfile(true)
+    if(Number(localId) === userSigned?.id && accounType === 'client'){
+      setSessionProfile(false)
     } 
 
   }, [user.id, userSigned?.id])
 
   const handleChangeCover = (e:React.ChangeEvent) => {
-
 
     const target = e.target as HTMLInputElement
 
@@ -258,7 +242,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
     }
 
   }
-
+  console.log("USER",userSigned)
   return (
 
   <Container isProfile={isProfile}>
@@ -266,8 +250,8 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
       <div className='top'>
         {isProfile && (
           <>
-            <Image height={1000} width={1000} src={userSigned?.coverPicture ? userSigned.coverPicture : greyImage} alt='cover image' className='cover-photo'/>
-            {sessionProfile && !pdfPage && (
+            <Image height={1000} width={1000} src={greyImage} alt='cover image' className='cover-photo'/>
+            {sessionProfile && (
               <>
                 <div className='label-back'>
                   <label htmlFor="cover-pic">
@@ -280,49 +264,16 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
           </>
         )}
       </div>
-      <Image width={100} height={100} onClick={isProfile ? () => setData({open: true, userSigned}) : () => {}} className= {isProfile ? "profile profile-pointer" : 'profile' } src={ userSigned?.profilePicture ? userSigned.profilePicture : profileIcon} alt='profile icon'/>
-      { isProfile && sessionProfile && !pdfPage ? (
-          <Image onClick={() => mainInfoSetOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
-      ): ''}
+      <Image width={100} height={100} className= {isProfile ? "profile profile-pointer" : 'profile' } src={profileIcon} alt='profile icon'/>
+      
 
       <div className="sub-content">
         <div className="about">
-          { userSigned?.firstName && (
-            <h1>{userSigned?.firstName} {userSigned?.lastName} </h1>
-          )}
-
-          {userSigned?.name && (
-            <h1>{userSigned.name}</h1>
-          )}
-          <h3>{'★'.repeat(Math.floor(userSigned?.rating))} ({Math.floor(userSigned?.rating)})</h3>
+          <h1>{userSigned?.firstName}</h1>
+          <h1>{userSigned?.lastName}</h1>
         </div>
         <div className="about-2">
-        {userSigned?.RealtorCities && (
-          <p>
-            <b>
-            Atua em:
-            </b>
-              {userSigned.RealtorCities.map((city, index) => (
-              ` ${city.City.name} ${index < userSigned.RealtorCities.length -1 ? ',': ''} `
-              ))}
-          </p>
-        )}
-          <p>
-            <b>
-              Experiência:
-            </b> {userSigned?.expTime} Anos
-          </p>
-
-          <p>
-            <b>
-            Idiomas: 
-            </b> 
-            {userSigned?.RealtorLanguages?.map((language, index) => (
-              ` ${language.Language.name} ${index < userSigned.RealtorLanguages.length -1 ? ',': ''} `
-              ))}
-          </p>
           <p>{userSigned?.email}</p>
-          <p>{userSigned?.phone}</p>
         </div>
       </div>
 
@@ -333,40 +284,12 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
               <Image className='icon' src={mailIcon} alt='mail icon'/>
             </Link>
           ) : '' }
-          {userSigned?.website ? (
-            <Link href={userSigned.website} target='_blank'>
-              <Image className='icon' src={webIcon} alt='web icon'/>
-            </Link>
-          ) : '' }
-          {userSigned?.whatsapp ? (
-            <Link href={'https://wa.me/' + userSigned.whatsapp.split(' ').join('') + `${userSigned.wppText ? '?text=' + encodeURI(userSigned.wppText) :''}` } target='_blank'>
-              <Image className='icon' src={whatsappIcon} alt='whatsapp icon'/>
-            </Link>
-          ) : '' }
-          {userSigned?.instagram ? (
-            <Link href={userSigned.instagram} target='_blank'>
-              <Image className='icon' src={instagramIcon} alt='instagram icon'/>
-            </Link>
-          ) : '' }
-          {userSigned?.facebook ? (
-            <Link href={userSigned.facebook} target='_blank'>
-              <Image className='icon' src={facebookIcon} alt='facebook icon'/>
-            </Link>
-          ) : '' }
         </div>
       ): ''}
-
-      {isRealtor && (
-        <div className="current-agency border">
-          {lastExp?.name}
-          <Image width={10} height={10} className="agency" src={lastExp?.pic ? lastExp.pic : agencyIcon} alt='agency icon'/>
-        </div>
-      ) }
-      
     </div>
   </Container>
 
   );
 };
 
-export default MainInfo;
+export default MainInfoClient;

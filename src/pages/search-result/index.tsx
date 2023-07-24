@@ -47,7 +47,7 @@ export default function SearchResult(){
             <MainInfo lastExp={{
               name: item.agencyName,
               pic: item.agencyPic
-            }} isRealtor={true} userSigned={item} isProfile={false}/>
+            }} isRealtor={true} userSigned={item} isProfile={false} pdfPage={false}/>
           </Link>
         ))}
       </div>
