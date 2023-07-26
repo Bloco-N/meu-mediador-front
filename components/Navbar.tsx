@@ -124,7 +124,7 @@ const Navbar = () => {
     return (
         <Nav>
             <Link href="/">
-                <h1>Meoagent</h1>
+                <h1><img src="/meoagent-logo.png" alt="Meoagent-logo" /></h1>
             </Link>
             <div className="left-side">
               <div className="selection border">
