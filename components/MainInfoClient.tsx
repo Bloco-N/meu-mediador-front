@@ -25,11 +25,13 @@ const Container = styled.div<ContainerProps>`
   min-height: ${props => props.isProfile ? '40rem' : '20rem'};
   @media only screen and (max-width: 900px){
     min-height: ${porps => porps.isProfile ? '60rem': '40rem'};
-    height: 100%;
+    height: auto;
 
   }
   .main-info{
+    
     .top{
+      
       position: absolute;
       width: 100%;
       height: 22rem;
@@ -56,7 +58,7 @@ const Container = styled.div<ContainerProps>`
     background-color: var(--surface);
     padding: 3rem;
     border-radius: 3rem;
-    height: 100%;
+    height: auto;
     gap: 1rem;
     .cover-photo{
       position: absolute;
@@ -68,7 +70,8 @@ const Container = styled.div<ContainerProps>`
       border-top-right-radius: 3rem;
       object-fit: cover;
     }
-    .profile{      
+    .profile{    
+        
       height: ${porps => porps.isProfile ? '20rem': '10rem'};
       width: ${porps => porps.isProfile ? '20rem': '10rem'};
       border-radius: 50%;
@@ -82,6 +85,7 @@ const Container = styled.div<ContainerProps>`
       flex-direction: column;
     }
     .sub-content{
+      
       @media only screen and (max-width: 900px){
         flex-direction: column;
         gap: 2rem;
@@ -91,9 +95,40 @@ const Container = styled.div<ContainerProps>`
       margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
       margin-left: ${porps => porps.isProfile ? '10rem': '2rem'};
       width: 60%;
-      display: flex;
-      justify-content: space-between;
-      gap: 10rem;
+      
+      .form{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        @media only screen and (max-width: 900px){
+          justify-content: center;
+         align-items: center;
+        } 
+        label{
+          opacity: 70%;
+        }
+        li{
+          display: flex;
+          gap:10px;
+        }
+        p{
+          width: auto;
+        }
+        input{
+          height: 18px;
+          font-size: 18px;
+          width:250px;
+          padding: 0;
+          border-radius: 5px;
+          padding-left: 10px;
+        }
+        button{
+          width: 100px;
+          height: 25px;
+          padding: 5px;
+          margin-top: 10px;
+        }
+      }
     }
     .about{
       position: relative;
@@ -102,12 +137,14 @@ const Container = styled.div<ContainerProps>`
       gap: 0.4rem;
       min-width: 15rem;
       color: var(--surface-2);
+      background-color: red;
       @media only screen and (max-width: 900px){
         align-items: center;
         min-width: 100%;
       }
     }
     .about-2{
+      
       position: relative;
       @media only screen and (max-width: 900px){
         align-items: center;
@@ -124,20 +161,12 @@ const Container = styled.div<ContainerProps>`
       }
     }
     .contact{
-      flex-grow: 1;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 2rem;
-      position: absolute;
-      bottom: 8rem;
-      right: 2rem;
-      @media only screen and (max-width: 900px){
-        position: unset;
-      }
+    
+      
+      
       .icon{
-        height: 3rem;
-        width: 3rem;
+        height: 2rem;
+        width: 2rem;
         cursor: pointer;
         opacity: 0.7;
         transition: all .5s;
@@ -193,7 +222,16 @@ type MainInfoClientProps = {
 
 const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
+  console.log("USEEEEER",userSigned)
   const { user, setUser } = useContext(UserContext) as UserContextType
+
+  const [editing, setEditing] = useState(false)
+
+  const [firstName, setFirstName] = useState(userSigned?.firstName)
+
+  const [lastName, setLastName] = useState(userSigned?.lastName)
+
+  const [adress, setAdress] = useState("")
 
   const [sessionProfile, setSessionProfile] = useState(false)
 
@@ -203,7 +241,7 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
     const localId = localStorage.getItem('id')
     const accounType = localStorage.getItem('accountType')
     if(Number(localId) === userSigned?.id && accounType === 'client'){
-      setSessionProfile(false)
+      setSessionProfile(true)
     } 
 
   }, [user.id, userSigned?.id])
@@ -242,7 +280,25 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
     }
 
   }
-  console.log("USER",userSigned)
+
+  function sendInfo(e: any){
+    e.preventDefault() 
+
+    console.log(firstName)
+    console.log(lastName)
+    console.log(adress)
+
+    console.log("enviar")
+    //enviar alterações
+    router.reload()
+    
+  }
+
+  function startEditing(e: any){
+    e.preventDefault() 
+    setEditing(!editing)
+  }
+
   return (
 
   <Container isProfile={isProfile}>
@@ -268,24 +324,50 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
       
 
       <div className="sub-content">
-        <div className="about">
-          <h1>{userSigned?.firstName}</h1>
-          <h1>{userSigned?.lastName}</h1>
-        </div>
-        <div className="about-2">
-          <p>{userSigned?.email}</p>
-        </div>
-      </div>
-
-      {isProfile ?  (
-        <div className="contact">
+        <form className="form">
+          <li>
+            <label>Nome: </label>
+            {editing?
+              <input type="text" value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
+              :<p>{firstName}</p>
+            }
+          </li>
+          <li>
+            <label>Sobrenome: </label>
+            {editing?
+              <input type="text" value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
+              :<p>{lastName}</p>
+            }
+          </li>
+          <li>
+            <label>Endereço: </label>
+            {editing?
+              <input type="text" value={adress} onChange={(e)=>setAdress(e.target.value)}/>
+              :<p>{adress}</p> 
+            }
+          </li>
+          <li>
+            <label>Email: </label>
+            <p>{userSigned?.email}</p>
+            <div className="contact">
           {userSigned?.email ? (
             <Link href={'mailto: ' + userSigned.email} target='_blank'>
               <Image className='icon' src={mailIcon} alt='mail icon'/>
             </Link>
           ) : '' }
         </div>
-      ): ''}
+          </li>
+
+        {editing?
+        <button className='button' onClick={(e)=>sendInfo(e)}>Salvar</button>
+        :<button className='button' onClick={(e)=>startEditing(e)}>Editar</button>
+        }
+        </form>
+        
+        
+      </div>
+
+      
     </div>
   </Container>
 

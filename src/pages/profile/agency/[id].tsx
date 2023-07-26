@@ -92,5 +92,5 @@ export default function Profile(){
       {/* <AwardsAgencyCard localId={localId} accType={accType}/> */}
       <CommentsAgencyCard localId={localId} accType={accType}/>
     </Container>
-  ) 
+  )
 }
