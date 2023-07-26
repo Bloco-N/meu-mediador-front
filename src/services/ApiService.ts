@@ -59,6 +59,16 @@ export class ApiService{
     }
   }
 
+  public async getAgencyInformation(accountId: string){
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/agency/${accountId}`)
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   //get
   //realtor services
   public async getRealtorServices(accountId: string){
@@ -135,9 +145,9 @@ export class ApiService{
 
   //delete
   //realtor service
-  public async deleteRealtorService(token: string, serviceId: number){
+  public async deleteService(token: string, serviceId: number, accountType: string){
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service/realtor/${serviceId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service/${accountType}/${serviceId}`, {
         method: 'DELETE',
         headers:{
           authorization: 'Bearer ' + token
@@ -220,7 +230,7 @@ export class ApiService{
 
   public async deleteComment(token: string, commentId: string){
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comment/${commentId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comment/realtor/${commentId}`, {
         method: 'DELETE',
         headers:{
           authorization: 'Bearer ' + token

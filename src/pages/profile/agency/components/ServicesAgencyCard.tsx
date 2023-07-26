@@ -57,12 +57,16 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
   const { id } = router.query
   
   useEffect(() => {
+    console.log("AAA")
     const fetchData = async () => {
+      console.log(id)
       if(id){
         setLoadingOpen(true)
-        
-        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + 1)
+        console.log("AAA")
+        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/agency/' + id)
+        console.log("resp",responseServices)
         const serviceData = await responseServices.json()
+        console.log("services",serviceData)
         setServices(serviceData)
 
         setLoadingOpen(false)
@@ -70,7 +74,7 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
 
     }
     const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
+    if(Number(id) === Number(localId) && accType === 'agency') setSessionProfile(true)
 
     fetchData()
 
@@ -82,11 +86,11 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
     const { id } = target
 
     const token = localStorage.getItem('token')
-
+    const accountType = localStorage.getItem('accountType')
     setLoadingOpen(true)
 
     const apiService = new ApiService()
-    const deleteService = await apiService.deleteRealtorService(String(token),Number(id))
+    const deleteService = await apiService.deleteService(String(token),Number(id),String(accountType))
 
     setLoadingOpen(false)
     if(deleteService === 'deleted') router.reload()

@@ -65,14 +65,16 @@ const SignIn = () => {
           if(response.ok){
 
             const token = await response.text()
+
             localStorage.setItem('token', token)
             const user = decode(token) as { id:number, email:string, name: string}
+
             localStorage.setItem('id', String(user.id))
     
             const agencyResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + user.id)
     
             const agencyData = await agencyResponse.json()
-    
+            
             localStorage.setItem('pic', agencyData.profilePicture)
             localStorage.setItem('accountType', 'agency')
     

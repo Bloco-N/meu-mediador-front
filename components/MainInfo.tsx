@@ -20,7 +20,6 @@ import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import Link from 'next/link';
 import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
-import { AgencyProfile } from '@/types/AgencyProfile';
 import { LastExp } from '@/types/LastExp';
 
 type ContainerProps = {
@@ -203,6 +202,7 @@ type MainInfoProps = {
 }
 
 const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainInfoProps) => {
+  console.log("USERREALTOR",userSigned)
   
   const { setData } = useContext(PictureModalContext) as PictureModalContextType
 

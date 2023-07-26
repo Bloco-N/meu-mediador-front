@@ -65,6 +65,8 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
 
   const { user } = useContext(UserContext) as UserContextType
 
+  console.log("teste",AddCommentModalContext)
+
   const { setOpen: addCommentSetOpen } = useContext(AddCommentModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
@@ -102,6 +104,7 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
 
     const token = localStorage.getItem('token')
 
+    console.log(id,token)
     setLoadingOpen(true)
     const response = await apiService.deleteComment(token as string, id)
     setLoadingOpen(false)
@@ -120,6 +123,7 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
           )
         }
         <div className="list">
+            {!comments?.length?"Esse consultor não possui avaliações":""}
             {comments?.map(comment => (
               <div key={ comment.id } className="comment">
                 {accType === 'client' && Number(localId) === comment.clientId ? (
