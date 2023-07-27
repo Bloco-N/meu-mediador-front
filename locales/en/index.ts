@@ -50,6 +50,14 @@ const en = {
     properties: 'Properties',
     verify: 'Check Propertie'
   },
+  addPropertiesModal:{
+    uploadPropertie:'Upload Property',
+    title:'Title',
+    link:'Link',
+    grossArea:'Gross Area',
+    usableArea:'Usable Area',
+    edit:'Edit'
+  },
   awards:{
     awards: 'Awards and distinctions'
   }

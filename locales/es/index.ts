@@ -50,6 +50,14 @@ const es = {
     properties: 'Inmuebles',
     verify: 'Verificar Inmueble'
   },
+  addPropertiesModal:{
+    uploadPropertie:'Adicionar Inmueble',
+    title:'Título',
+    link:'Enlace',
+    grossArea:'Área Bruta',
+    usableArea:'Área Útil',
+    edit:'Editar'
+  },
   awards:{
     awards: 'Premios y distinciones'
   }

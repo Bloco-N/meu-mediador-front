@@ -49,6 +49,14 @@ const pt = {
     properties: 'Imóveis',
     verify: 'Conferir Imóvel'
   },
+  addPropertiesModal:{
+    uploadPropertie:'Adicionar Imóvel',
+    title:'Título',
+    link:'Link',
+    grossArea:'Área Bruta',
+    usableArea:'Área Útil',
+    edit:'Editar'
+  },
   awards:{
     awards: 'Prêmios e disntinções'
   }
