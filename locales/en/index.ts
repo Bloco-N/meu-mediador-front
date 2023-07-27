@@ -35,6 +35,11 @@ const en = {
   },
   services:{
     thisRealtorWorkWith: 'This realtor work with: '
+  },
+  about:{
+    about: 'About',
+    showMore: 'Show More',
+    showLess: 'Show Less'
   }
 }
 

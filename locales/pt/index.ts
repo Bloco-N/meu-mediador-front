@@ -34,6 +34,11 @@ const pt = {
   },
   services:{
     thisRealtorWorkWith: 'Esse consultor trabalha com: '
+  },
+  about:{
+    about: 'Sobre',
+    showMore: 'Mostrar Mais',
+    showLess: 'Mostrar Menos'
   }
 }
 
