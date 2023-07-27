@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import realtorIcon from '../public/realtor.svg'
 import agencyIcon from '../public/agency.svg'
 import clientIcon from '../public/profile.svg'
+import locales from 'locales';
+import { useRouter } from 'next/router';
 
 const Container = styled.div`
   display: flex;
@@ -39,25 +41,31 @@ type LoginMoldalProps = {
 
 const LoginMoldal = ({ open, setOpen }: LoginMoldalProps) => {
 
+  const router = useRouter()
+
+  const { locale } = router
+
+  const t = locales[locale as keyof typeof locales]
+
   return (
     open ? (
       <Container onMouseEnter={ () => setOpen(true)}>
 
         <Link href={'/sign-in/client'}>
           <p>
-            Cliente
+            {t.loginModal.client}
           </p>
           <Image src={clientIcon} alt='realtor icon'/>
         </Link>
         <Link href={'/sign-in/realtor'}>
           <p>
-            Consultor
+            {t.loginModal.realtor}
           </p>
           <Image src={realtorIcon} alt='realtor icon'/>
         </Link>
         <Link href={'/sign-in/agency'}>
           <p>
-            Agência
+            {t.loginModal.agency}
           </p>
           <Image src={agencyIcon} alt='realtor icon'/>
         </Link>
