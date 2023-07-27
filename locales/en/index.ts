@@ -32,6 +32,9 @@ const en = {
     addWorkArea:'Add Work Area',
     addLanguage: 'Add Language',
     save: 'Save'
+  },
+  services:{
+    thisRealtorWorkWith: 'This realtor work with: '
   }
 }
 

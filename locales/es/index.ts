@@ -32,6 +32,9 @@ const es = {
     addWorkArea:'Añadir Área de actuación',
     addLanguage: 'Añadir Idioma',
     save: 'Guardar'
+  },
+  services:{
+    thisRealtorWorkWith: 'Este consultor trabaja con: '
   }
 }
 
