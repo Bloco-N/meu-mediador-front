@@ -60,6 +60,9 @@ const en = {
   },
   awards:{
     awards: 'Awards and distinctions'
+  },
+  study:{
+    study: 'Courses and Specializations'
   }
 }
 

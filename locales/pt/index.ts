@@ -59,6 +59,9 @@ const pt = {
   },
   awards:{
     awards: 'Prêmios e disntinções'
+  },
+  study:{
+    study: 'Cursos e especializações'
   }
 }
 
