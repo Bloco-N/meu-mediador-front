@@ -35,6 +35,10 @@ const pt = {
   services:{
     thisRealtorWorkWith: 'Esse consultor trabalha com: '
   },
+  addServices:{
+    createService: 'Criar Serviço',
+    create:'Criar'
+  },
   about:{
     about: 'Sobre',
     showMore: 'Mostrar Mais',

@@ -36,6 +36,10 @@ const en = {
   services:{
     thisRealtorWorkWith: 'This realtor work with: '
   },
+  addServices:{
+    createService: 'Create Service',
+    create:'Create'
+  },
   about:{
     about: 'About',
     showMore: 'Show More',

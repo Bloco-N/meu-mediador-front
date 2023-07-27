@@ -36,6 +36,10 @@ const es = {
   services:{
     thisRealtorWorkWith: 'Este consultor trabaja con: '
   },
+  addServices:{
+    createService: 'Crear Servicio',
+    create:'Crear'
+  },
   about:{
     about: 'Acerca de',
     showMore: 'Mostrar Más',
