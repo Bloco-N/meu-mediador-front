@@ -48,6 +48,9 @@ const pt = {
   properties:{
     properties: 'Imóveis',
     verify: 'Conferir Imóvel'
+  },
+  awards:{
+    awards: 'Prêmios e disntinções'
   }
 }
 

@@ -12,6 +12,7 @@ import AddAwardModalContext from "context/AddAwardModalContext"
 import { Award } from "@/types/Award"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
+import locales from "locales"
 
 const Container = styled.div`
   .awards{
@@ -64,6 +65,10 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
   const router = useRouter()
   const { id } = router.query
   const apiService = new ApiService()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -100,7 +105,7 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
   return (
     <Container >
       <div className="card awards">
-        <h2>Prêmios e distinções</h2>
+        <h2>{t.awards.awards}</h2>
         { sessionProfile ? (
           <div className="edit-icons">
             <Image onClick={() => setEditAwards(!editAwards)} className='plus' src={editIcon} alt='edit icon'/>

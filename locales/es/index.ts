@@ -49,6 +49,9 @@ const es = {
   properties:{
     properties: 'Inmuebles',
     verify: 'Verificar Inmueble'
+  },
+  awards:{
+    awards: 'Premios y distinciones'
   }
 }
 

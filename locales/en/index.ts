@@ -49,6 +49,9 @@ const en = {
   properties:{
     properties: 'Properties',
     verify: 'Check Propertie'
+  },
+  awards:{
+    awards: 'Awards and distinctions'
   }
 }
 
