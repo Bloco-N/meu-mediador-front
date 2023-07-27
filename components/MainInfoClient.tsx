@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
 import { ClientProfile } from '@/types/ClientProfile';
+import LoadingContext from 'context/LoadingContext';
 
 type ContainerProps = {
   isProfile: boolean
@@ -31,7 +32,6 @@ const Container = styled.div<ContainerProps>`
   .main-info{
     
     .top{
-      
       position: absolute;
       width: 100%;
       height: 22rem;
@@ -85,7 +85,6 @@ const Container = styled.div<ContainerProps>`
       flex-direction: column;
     }
     .sub-content{
-      
       @media only screen and (max-width: 900px){
         flex-direction: column;
         gap: 2rem;
@@ -130,40 +129,8 @@ const Container = styled.div<ContainerProps>`
         }
       }
     }
-    .about{
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      min-width: 15rem;
-      color: var(--surface-2);
-      background-color: red;
-      @media only screen and (max-width: 900px){
-        align-items: center;
-        min-width: 100%;
-      }
-    }
-    .about-2{
-      
-      position: relative;
-      @media only screen and (max-width: 900px){
-        align-items: center;
-        text-align: center;
-      }
-      height: 100%;
-      display: flex;
-      color: var(--surface-2);
-      flex-direction: column;
-      justify-content: flex-end;
-      gap: 0.5rem;
-      p{
-        gap: .5rem;
-      }
-    }
-    .contact{
     
-      
-      
+    .contact{
       .icon{
         height: 2rem;
         width: 2rem;
@@ -175,43 +142,6 @@ const Container = styled.div<ContainerProps>`
         }
       }
     }
-    .current-agency{
-      background-color: var(--surface);
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding: 1rem;
-      border-radius: 1rem;
-      position: absolute;
-      bottom: ${porps => porps.isProfile ? '20rem': 'unset'};
-      right: 2rem;
-      @media only screen and (max-width: 900px){
-        position: unset;
-      }
-      .agency{
-        height: 3rem;
-        width: 3rem;
-      }
-    }
-    .profile-pointer{
-      cursor: pointer;
-    }
-    h1{
-      font-weight: normal;
-    }
-    h3{
-      color: var(--star);
-    }
-    p{
-      width: 60rem;
-      max-height: 10rem;
-      display: block; 
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
   }
 `
 
@@ -222,7 +152,7 @@ type MainInfoClientProps = {
 
 const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
-  console.log("USEEEEER",userSigned)
+  console.log("CLIENT USER: ",userSigned)
   const { user, setUser } = useContext(UserContext) as UserContextType
 
   const [editing, setEditing] = useState(false)
@@ -231,8 +161,17 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
   const [lastName, setLastName] = useState(userSigned?.lastName)
 
-  const [adress, setAdress] = useState("")
+  const [phone, setPhone] = useState(userSigned?.phone)
 
+  const [address, setAddress] = useState(userSigned?.address)
+
+  const [city, setCity] = useState(userSigned?.city)
+
+  const [country, setCountry] = useState(userSigned?.country)
+
+  const [zipCode, setZipCode] = useState(userSigned?.zipCode)
+
+  const {setOpen: setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
   const [sessionProfile, setSessionProfile] = useState(false)
 
   const router = useRouter()
@@ -281,17 +220,28 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
   }
 
-  function sendInfo(e: any){
+  async function sendInfo(e: any){
     e.preventDefault() 
-
-    console.log(firstName)
-    console.log(lastName)
-    console.log(adress)
-
-    console.log("enviar")
-    //enviar alterações
+    const token = localStorage.getItem('token')
+    setLoadingOpen(true)
+    await fetch(process.env.NEXT_PUBLIC_API_URL + '/client', {
+        method:'PUT',
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          phone,
+          address,
+          city,
+          country,
+          zipCode,
+        }),
+        headers:{
+          authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+    })
+    setLoadingOpen(false)
     router.reload()
-    
   }
 
   function startEditing(e: any){
@@ -307,7 +257,7 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
         {isProfile && (
           <>
             <Image height={1000} width={1000} src={greyImage} alt='cover image' className='cover-photo'/>
-            {sessionProfile && (
+            {/* {sessionProfile && (
               <>
                 <div className='label-back'>
                   <label htmlFor="cover-pic">
@@ -316,7 +266,7 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
                 </div>
                 <input onChange={e => handleChangeCover(e)} id="cover-pic" type="file" />
               </>
-            )}
+            )} */}
           </>
         )}
       </div>
@@ -325,6 +275,17 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
       <div className="sub-content">
         <form className="form">
+          <li>
+            <label>Email: </label>
+            <p>{userSigned?.email}</p>
+            <div className="contact">
+              {userSigned?.email ? (
+                <Link href={'mailto: ' + userSigned.email} target='_blank'>
+                  <Image className='icon' src={mailIcon} alt='mail icon'/>
+                </Link>
+              ) : '' }
+            </div>
+          </li>
           <li>
             <label>Nome: </label>
             {editing?
@@ -340,22 +301,39 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
             }
           </li>
           <li>
-            <label>Endereço: </label>
+            <label>Telefone: </label>
             {editing?
-              <input type="text" value={adress} onChange={(e)=>setAdress(e.target.value)}/>
-              :<p>{adress}</p> 
+              <input type="text" value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+              :<p>{phone}</p> 
             }
           </li>
           <li>
-            <label>Email: </label>
-            <p>{userSigned?.email}</p>
-            <div className="contact">
-          {userSigned?.email ? (
-            <Link href={'mailto: ' + userSigned.email} target='_blank'>
-              <Image className='icon' src={mailIcon} alt='mail icon'/>
-            </Link>
-          ) : '' }
-        </div>
+            <label>Endereço: </label>
+            {editing?
+              <input type="text" value={address} onChange={(e)=>setAddress(e.target.value)}/>
+              :<p>{address}</p> 
+            }
+          </li>
+          <li>
+            <label>Cidade: </label>
+            {editing?
+              <input type="text" value={city} onChange={(e)=>setCity(e.target.value)}/>
+              :<p>{city}</p> 
+            }
+          </li>
+          <li>
+            <label>País: </label>
+            {editing?
+              <input type="text" value={country} onChange={(e)=>setCountry(e.target.value)}/>
+              :<p>{country}</p> 
+            }
+          </li>
+          <li>
+            <label>CEP: </label>
+            {editing?
+              <input type="text" value={zipCode} onChange={(e)=>setZipCode(e.target.value)}/>
+              :<p>{zipCode}</p> 
+            }
           </li>
 
         {editing?
