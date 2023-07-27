@@ -72,6 +72,11 @@ const es = {
   study:{
     study: 'Cursos y especializaciones'
   },
+  addStudy:{
+    createStudy: 'Crear Cursos y especializaciones',
+    create:'Crear',
+    title:'Título'
+  },
   partnership:{
     partnership: 'Experiencia'
   },
