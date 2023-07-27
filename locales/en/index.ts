@@ -67,7 +67,8 @@ const en = {
   },
   addAwards:{
     createAward: 'Create Award',
-    create:'Create'
+    create:'Create',
+    title: 'Title'
   },
   study:{
     study: 'Courses and Specializations'

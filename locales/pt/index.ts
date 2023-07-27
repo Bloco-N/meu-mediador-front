@@ -66,7 +66,8 @@ const pt = {
   },
   addAwards:{
     createAward: 'Criar Prêmio',
-    create:'Criar'
+    create:'Criar',
+    title:'Título'
   },
   study:{
     study: 'Cursos e especializações'

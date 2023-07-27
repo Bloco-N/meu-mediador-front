@@ -94,7 +94,7 @@ const AddAwardModal = ({open, setOpen}: AddAwardModalProps) => {
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>{t.addAwards.createAward}</h3>
-        <input  {...register('title', {required: true})}  placeholder="Título do prêmio" type="text" />
+        <input  {...register('title', {required: true})}  placeholder={t.addAwards.title} type="text" />
         <p onClick={() => setOpen(false)}>X</p>
         <button type="submit"> {t.addAwards.create} </button>
       </form>
