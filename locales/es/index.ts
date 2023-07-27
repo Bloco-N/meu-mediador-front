@@ -13,6 +13,11 @@ const es = {
   },
   convertToPdf:{
     button: 'Convertir perfil a PDF'
+  },
+  mainInfo:{
+    workArea: 'Área de actuación:',
+    experience: 'Experiencia:',
+    languages: 'Idiomas:'
   }
 }
 

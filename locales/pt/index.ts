@@ -12,6 +12,11 @@ const pt = {
   },
   convertToPdf:{
     button: 'Converter Perfil em PDF'
+  },
+  mainInfo:{
+    workArea: 'Atua em:',
+    experience: 'Experiência:',
+    languages: 'Idiomas:'
   }
 }
 

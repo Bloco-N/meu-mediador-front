@@ -21,6 +21,7 @@ import Link from 'next/link';
 import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
 import { LastExp } from '@/types/LastExp';
+import locales from 'locales';
 
 type ContainerProps = {
   isProfile: boolean
@@ -214,6 +215,10 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
     const localId = localStorage.getItem('id')
     const accounType = localStorage.getItem('accountType')
@@ -300,7 +305,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
         {userSigned?.RealtorCities && (
           <p>
             <b>
-            Atua em:
+            {t.mainInfo.workArea}
             </b>
               {userSigned.RealtorCities.map((city, index) => (
               ` ${city.City.name} ${index < userSigned.RealtorCities.length -1 ? ',': ''} `
@@ -309,13 +314,13 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
         )}
           <p>
             <b>
-              Experiência:
+              {t.mainInfo.experience}
             </b> {userSigned?.expTime} Anos
           </p>
 
           <p>
             <b>
-            Idiomas: 
+            {t.mainInfo.languages}
             </b> 
             {userSigned?.RealtorLanguages?.map((language, index) => (
               ` ${language.Language.name} ${index < userSigned.RealtorLanguages.length -1 ? ',': ''} `
