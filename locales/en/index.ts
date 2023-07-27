@@ -41,6 +41,11 @@ const en = {
     showMore: 'Show More',
     showLess: 'Show Less'
   },
+  aboutEditModal:{
+    whoIsYou: 'Who Is You:',
+    putYourDescriptionHere: 'Put Your Description Here',
+    edit:'Edit'
+  },
   properties:{
     properties: 'Properties',
     verify: 'Check Propertie'

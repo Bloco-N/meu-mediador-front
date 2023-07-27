@@ -40,6 +40,11 @@ const pt = {
     showMore: 'Mostrar Mais',
     showLess: 'Mostrar Menos'
   },
+  aboutEditModal:{
+    whoIsYou: 'Quem é você:',
+    putYourDescriptionHere: 'Coloque sua descrição aqui',
+    edit:'Editar'
+  },
   properties:{
     properties: 'Imóveis',
     verify: 'Conferir Imóvel'
