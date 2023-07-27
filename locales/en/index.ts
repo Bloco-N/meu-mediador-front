@@ -66,6 +66,11 @@ const en = {
   },
   partnership:{
     partnership: 'Experience'
+  },
+  comments:{
+    comments:'Reviews',
+    thisAgentHasNoReviews:'This agent has no Reviews',
+    addComment:'Upload Review'
   }
 }
 

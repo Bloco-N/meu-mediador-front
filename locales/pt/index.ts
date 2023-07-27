@@ -65,6 +65,11 @@ const pt = {
   },
   partnership:{
     partnership: 'Experiência'
+  },
+  comments:{
+    comments:'Avaliações',
+    thisAgentHasNoReviews:'Esse consultor não possui avaliações',
+    addComment:'Adicionar Comentário'
   }
 }
 
