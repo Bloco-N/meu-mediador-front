@@ -10,7 +10,6 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { LastExp } from "@/types/LastExp"
 import LoadingContext from "context/LoadingContext"
 import { ClientProfile } from "@/types/ClientProfile";
-//import AwardsAgencyCard from "./components/AwardsAgencyCard";
 
 const Container = styled.div`
   display: flex;
@@ -79,7 +78,7 @@ export default function Profile(){
   console.log(localId,accType)
   return (
     <Container>
-      <MainInfoClient userSigned={client as ClientProfile} isProfile={true}/>
+      {client?<MainInfoClient userSigned={client as ClientProfile} isProfile={true}/>:""}
     </Container>
   ) 
 }
