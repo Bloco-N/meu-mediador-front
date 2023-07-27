@@ -1,6 +1,7 @@
 import { AddAwardForm } from "@/types/AddAwardForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
+import locales from "locales";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -62,6 +63,10 @@ const AddAwardModal = ({open, setOpen}: AddAwardModalProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   const onSubmit = async (data: AddAwardForm) => {
 
     const localId = localStorage.getItem('id')
@@ -88,10 +93,10 @@ const AddAwardModal = ({open, setOpen}: AddAwardModalProps) => {
     open ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
-        <h3>Criar Prêmio</h3>
+        <h3>{t.addAwards.createAward}</h3>
         <input  {...register('title', {required: true})}  placeholder="Título do prêmio" type="text" />
         <p onClick={() => setOpen(false)}>X</p>
-        <button type="submit"> Criar </button>
+        <button type="submit"> {t.addAwards.create} </button>
       </form>
     </Container>
     : <></>

@@ -65,6 +65,10 @@ const es = {
   awards:{
     awards: 'Premios y distinciones'
   },
+  addAwards:{
+    createAward: 'Crear Premio',
+    create:'Crear'
+  },
   study:{
     study: 'Cursos y especializaciones'
   },
