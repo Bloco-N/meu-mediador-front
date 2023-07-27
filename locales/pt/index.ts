@@ -17,6 +17,20 @@ const pt = {
     workArea: 'Atua em:',
     experience: 'Experiência:',
     languages: 'Idiomas:'
+  },
+  mainInfoEditModal:{
+    name: 'Nome',
+    lastName: 'Sobrenome',
+    phone: 'Telefone',
+    email: 'Email',
+    instagramLink:'Link do Instagram',
+    facebookLink:'Link do Facebook',
+    personalWebsite: 'Link Site Pessoal',
+    whenYouStarted: 'A quanto tempo você trabalha',
+    welcomeMessage: 'Defina uma mensagem de boas vindas o whatsapp',
+    addWorkArea:'Adicionar Local de Atuação',
+    addLanguage: 'Adicionar Idioma Falado',
+    save: 'Salvar'
   }
 }
 
