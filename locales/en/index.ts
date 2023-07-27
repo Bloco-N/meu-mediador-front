@@ -8,8 +8,8 @@ const en = {
   },
   loginModal:{
     client: 'Client',
-    realtor: 'Realtor',
-    agency: 'Agency'
+    realtor: 'Agent',
+    agency: 'Company'
   },
   convertToPdf:{
     button: 'Convert profile to PDF'
