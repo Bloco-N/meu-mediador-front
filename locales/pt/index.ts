@@ -39,6 +39,10 @@ const pt = {
     about: 'Sobre',
     showMore: 'Mostrar Mais',
     showLess: 'Mostrar Menos'
+  },
+  properties:{
+    properties: 'Imóveis',
+    verify: 'Conferir Imóvel'
   }
 }
 

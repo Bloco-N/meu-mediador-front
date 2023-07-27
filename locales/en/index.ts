@@ -40,6 +40,10 @@ const en = {
     about: 'About',
     showMore: 'Show More',
     showLess: 'Show Less'
+  },
+  properties:{
+    properties: 'Properties',
+    verify: 'Check Propertie'
   }
 }
 

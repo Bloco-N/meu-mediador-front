@@ -40,6 +40,10 @@ const es = {
     about: 'Acerca de',
     showMore: 'Mostrar Más',
     showLess: 'Mostrar Menos'
+  },
+  properties:{
+    properties: 'Inmuebles',
+    verify: 'Verificar Inmueble'
   }
 }
 
