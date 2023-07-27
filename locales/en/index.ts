@@ -63,6 +63,9 @@ const en = {
   },
   study:{
     study: 'Courses and Specializations'
+  },
+  partnership:{
+    partnership: 'Experience'
   }
 }
 

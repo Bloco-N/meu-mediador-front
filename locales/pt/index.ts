@@ -62,6 +62,9 @@ const pt = {
   },
   study:{
     study: 'Cursos e especializações'
+  },
+  partnership:{
+    partnership: 'Experiência'
   }
 }
 
