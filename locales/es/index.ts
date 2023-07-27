@@ -8,8 +8,12 @@ const es = {
   },
   loginModal:{
     client: 'Cliente',
-    realtor: 'Corredor',
+    realtor: 'Agente',
     agency: 'Agencia'
+  },
+  profileModal:{
+    profile:'Ver Perfil',
+    signOut:'Cerrar Sésión'
   },
   convertToPdf:{
     button: 'Convertir perfil a PDF'

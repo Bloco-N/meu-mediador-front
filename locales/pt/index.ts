@@ -10,6 +10,10 @@ const pt = {
     realtor: 'Consultor',
     agency: 'Agência'
   },
+  profileModal:{
+    profile:'Ver Perfil',
+    signOut:'Sair'
+  },
   convertToPdf:{
     button: 'Converter Perfil em PDF'
   },

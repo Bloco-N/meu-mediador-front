@@ -11,6 +11,10 @@ const en = {
     realtor: 'Agent',
     agency: 'Company'
   },
+  profileModal:{
+    profile:'View Profile',
+    signOut:'Sign Out'
+  },
   convertToPdf:{
     button: 'Convert profile to PDF'
   },
