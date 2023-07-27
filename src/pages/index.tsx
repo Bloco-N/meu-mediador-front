@@ -9,8 +9,7 @@ import { SearchResultContextType } from "@/types/SearchResultContextType";
 import { SearchForm } from "@/types/SearchForm";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
-import pt from '../../locales/pt/index'
-import en from '../../locales/en/index'
+import locales from '../../locales'
 
 const SearchRealtor = styled.div`
 
@@ -61,7 +60,7 @@ export default function Home() {
 
   const { locale } = router
 
-  const t = locale === 'pt' ? pt : en
+  const t = locales[locale as keyof typeof locales]
 
   const { setSearch } = useContext(SearchContext) as SearchContextType
   const { setSearchResult } = useContext(SearchResultContext) as SearchResultContextType
