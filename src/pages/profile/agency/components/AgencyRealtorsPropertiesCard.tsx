@@ -15,6 +15,7 @@ import Rooms, { TRooms } from "@/types/Rooms"
 import Preservations, { TPreservations } from "@/types/Preservations"
 import { timeSince } from "@/utils/timeSince"
 import LoadingContext from "context/LoadingContext"
+import { AgencyProfile } from "@/types/AgencyProfile"
 
 const Container = styled.div`
   .properties{
@@ -84,16 +85,13 @@ const Container = styled.div`
   }
 `
 
-interface PropertiesCardProps{
-    localId:string;
-    accType:string;
-}
+export default function AgencyRealtorsPropertiesCard({agency}:any){
 
-export default function PropertiesAgencyCard({localId, accType}:PropertiesCardProps){
-
-  const [properties, setProperties ] = useState<Property []>()
+  const [properties, setProperties ] = useState<any>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
+
+  const [prop,setProp] = useState([])
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -104,59 +102,42 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
   const router = useRouter()
   const { id } = router.query
   
+
   useEffect(() => {
-    const fetchData = async () => {
-      if(id){
-        setLoadingOpen(true)
-  
-        const responseProperties = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/agency/' + id)
-        const propertiesData = await responseProperties.json()
-        setProperties(propertiesData)
-        setLoadingOpen(false)
-      }
-
-    }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'agency') setSessionProfile(true)
-
-    fetchData()
-
-  }, [id, user.id, accType, setLoadingOpen])
-
-  const handleDeleteProperty = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-    const target = e.target as HTMLElement
-    
-    const { id } = target
-
-    const token = localStorage.getItem('token')
-
-    setLoadingOpen(true)
-    
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/agency/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
+    const allProperties = agency.Partnerships.map((part:any)=> part.Realtor)
+    const agencyRealtors = allProperties.map((item:any)=> {
+        console.log(item)
+        return {name:item.firstName,lastName:item.lastName, id:item.id, properties:item.Properties}
     })
+    const agencyRealtorsProperties: any = []
+    for(let i = 0; i< agencyRealtors.length;i++){
+        for(let j = 0; j< agencyRealtors[i].properties.length;j++){
+            agencyRealtorsProperties.push({
+                ...agencyRealtors[i].properties[j],
+                realtorLastName:agencyRealtors[i].lastName,
+                realtorId:agencyRealtors[i].id,
+                realtorName:agencyRealtors[i].name
+            })
+        }
+    }
 
-    setLoadingOpen(false)
-    
-    const text = await response.text()
-    if(text === 'deleted') router.reload()
-
-  }
-
+    setProperties(agencyRealtorsProperties)
+  }, [])
+  
   return (
     <Container >
       <div className="card properties">
         <h2>Imóveis</h2>
         <div className="list">
-          {properties?.map(item => (
+          {properties?.map((item:any) => (
             <div key={item.id} className="propertie">
-                { sessionProfile && (
-                  <Image onClick={ e => handleDeleteProperty(e)} id={String(item.id)} className="close" src={closeIcon} alt='close icon'/>
-                )}
                 <Image className="property-img" src={item.profilePicture} width={200} height={100} alt="profile picture"/>
+                <div>
+                    <span>Consultor(a): </span>
+                    <a className="special-link" onClick={()=>router.push(`/profile/realtor/${item.realtorId}`)}>
+                        {`${item.realtorName} ${item.realtorLastName}`}
+                    </a>
+                </div>
                 <h2>{item.price}</h2>
                 <h3>{item.title}</h3>
                 <p className="sub-text">
@@ -171,7 +152,6 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
                   </p>
                 </div>
               </div>
-
           ))}
           { sessionProfile ? (
           <Image onClick={() => addPropertySetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>

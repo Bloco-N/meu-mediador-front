@@ -76,7 +76,6 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
     if(user.id) setId(String(user.id))
     else if(id) setId(id)
   }, [user])
-  console.log("TIPOS",accType,id)
   return (
 
     open ?

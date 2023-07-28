@@ -202,7 +202,6 @@ type MainInfoProps = {
 }
 
 const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainInfoProps) => {
-  console.log("USERREALTOR",userSigned)
   
   const { setData } = useContext(PictureModalContext) as PictureModalContextType
 

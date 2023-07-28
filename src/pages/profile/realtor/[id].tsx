@@ -67,7 +67,6 @@ export default function Profile(){
   useEffect(() => {
     const localStorageId = localStorage.getItem('id')
     const accountType = localStorage.getItem('accountType')
-    console.log("TIPO" ,accountType, localStorageId)
 
     if(localStorageId){
       setLocalId(localStorageId)
@@ -84,7 +83,6 @@ export default function Profile(){
         setLoadingOpen(true)
   
         const data = await apiService.getRealtorInformation(id as string)
-        console.log(data)
         setRealtor(data)
 
   
@@ -92,12 +90,13 @@ export default function Profile(){
 
         setLastExp({name: responsePartnerships[0]?.name, pic: responsePartnerships[0]?.pic })
         setLoadingOpen(false)
+        window.scrollTo(0, 0);
       }
 
     }
     const localId = localStorage.getItem('id') as string
     if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
-
+    
     fetchData()
 
   }, [id, user.id, accType, setLoadingOpen])

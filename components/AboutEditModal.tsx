@@ -77,7 +77,6 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
           method: 'GET'
         })
         const json = await response.json()
-        console.log("info",json)
         setIntroduction(accountType==="agency"?json.description:json.introduction)
 
       }
@@ -86,7 +85,6 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
   }, [])
 
   const onSubmit = async (data: EditAboutForm) => {
-    console.log("data",data)
     const token = localStorage.getItem('token')
     const accountType = localStorage.getItem('accountType')
     const realtorBody = {introduction: data.introduction}
@@ -102,7 +100,6 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
     })
     const text = await response.text()
     setLoadingOpen(false)
-    console.log("test")
     router.reload()
   }
 

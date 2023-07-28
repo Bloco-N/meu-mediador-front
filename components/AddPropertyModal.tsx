@@ -209,13 +209,11 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
 
       const onload = async () => {
         const img = document.getElementById('property-img') as HTMLImageElement
-        console.log(img)
 
         img.src = fr.result as string
 
         setPic(fr.result as string)
         
-        console.log(file)
       }
 
       fr.onload = onload

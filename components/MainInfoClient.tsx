@@ -126,7 +126,6 @@ type MainInfoClientProps = {
 
 const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
-  console.log("CLIENT USER: ",userSigned)
   const { user, setUser } = useContext(UserContext) as UserContextType
 
   const [editing, setEditing] = useState(false)
