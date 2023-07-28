@@ -1,5 +1,7 @@
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
+import locales from "locales";
+import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -33,6 +35,12 @@ const ForgotPassword = () => {
 
   const [sended, setSended] = useState(false)
 
+  const router = useRouter()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   const onSubmit = async (data:{email:string}) => {
     setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/recover-password', {
@@ -54,17 +62,17 @@ const ForgotPassword = () => {
 
         <form className="card" onSubmit={handleSubmit(onSubmit)}  action="">
 
-          <h2>Recuperar Senha</h2>
+          <h2>{t.forgotPassword.recoverPassword}a</h2>
 
-          <input {...register('email', {required: true})} className="input-forgot-password" type="email" placeholder="E-mail" />
-          <h4>Informe um email para recuperar sua senha</h4>
+          <input {...register('email', {required: true})} className="input-forgot-password" type="email" placeholder={t.signIn.email} />
+          <h4>{t.forgotPassword.enterAnEmail}</h4>
 
 
-          <button className="forgotPasswordButton">Enviar</button>
+          <button className="forgotPasswordButton">{t.forgotPassword.send}</button>
 
         </form>
         {sended && (
-          <p>Email enviado, verique sua caixa de mensagem</p>
+          <p>{t.forgotPassword.emailSent}</p>
         )}
 
 

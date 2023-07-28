@@ -108,6 +108,12 @@ const pt = {
   signUp:{
     signUp:"Cadastro",
     confirmPassword:"Confirmar Senha"
+  },
+  forgotPassword:{
+    recoverPassword:"Recuperar Senha",
+    enterAnEmail:"Informe um email para recuperar sua senha",
+    send:"Enviar",
+    emailSent:"Email enviado, verique sua caixa de mensagem"
   }
 }
 

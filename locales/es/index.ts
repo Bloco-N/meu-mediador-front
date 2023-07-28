@@ -109,6 +109,12 @@ const es = {
   signUp:{
     signUp:"Inscribirse",
     confirmPassword:"Confirmar Contraseña"
+  },
+  forgotPassword:{
+    recoverPassword:"Recuperar Contraseña",
+    enterAnEmail:"Introduce un Dirección de Correo Electrónico para recuperar tu contraseña",
+    send:"Enviar",
+    emailSent:"Correo electrónico enviado, revise su bandeja de entrada"
   }
 }
 

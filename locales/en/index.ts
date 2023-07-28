@@ -109,6 +109,12 @@ const en = {
   signUp:{
     signUp:"Sign Up",
     confirmPassword:"Confirm Password"
+  },
+  forgotPassword:{
+    recoverPassword:"Recover Password",
+    enterAnEmail:"Enter an email to recover your password",
+    send:"Send",
+    emailSent:"Email sent, check your inbox"
   }
 }
 
