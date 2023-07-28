@@ -83,7 +83,7 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
   
         let data = await responseServices.json() as Service []
   
-        const responseRealtorServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/'+accountType+'/' + localId)
+        const responseRealtorServices = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service/${accountType==="agency"?"agenct":"realtor"}/${localId}`)
   
         const realtorServicesData = await responseRealtorServices.json() as RealtorService []
   
@@ -92,12 +92,9 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
         const deleteSet = new Set(realtorServicesNames)
   
         data = data.filter(item => !deleteSet.has(item.title))
-  
         setServices(data)
       }
-
     }
-
     fetchData()
   }, [open, setLoadingOpen])
 

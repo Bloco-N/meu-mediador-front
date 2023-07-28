@@ -30,36 +30,13 @@ const Container = styled.div<ContainerProps>`
 
   }
   .main-info{
-    
-    .top{
-      position: absolute;
-      width: 100%;
-      height: 22rem;
-      top: 0;
-      left: 0;
-      .label-back{
-        background-color: var(--surface);
-        border-radius: 50%;
-        height: 4rem;
-        width: 4rem;
-        position: absolute;
-        top: 1rem;
-        right: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img{
-          position: unset;
-        }
-      }
-    }
     display: flex;
     align-items: center;
     background-color: var(--surface);
     padding: 3rem;
     border-radius: 3rem;
     height: auto;
-    gap: 1rem;
+    gap: 5rem;
     .cover-photo{
       position: absolute;
       height: 100%;
@@ -70,8 +47,8 @@ const Container = styled.div<ContainerProps>`
       border-top-right-radius: 3rem;
       object-fit: cover;
     }
+   
     .profile{    
-        
       height: ${porps => porps.isProfile ? '20rem': '10rem'};
       width: ${porps => porps.isProfile ? '20rem': '10rem'};
       border-radius: 50%;
@@ -91,9 +68,6 @@ const Container = styled.div<ContainerProps>`
         margin-top: unset;
         margin-left: unset;
       }
-      margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
-      margin-left: ${porps => porps.isProfile ? '10rem': '2rem'};
-      width: 60%;
       
       .form{
         display: flex;
@@ -152,7 +126,6 @@ type MainInfoClientProps = {
 
 const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
-  console.log("CLIENT USER: ",userSigned)
   const { user, setUser } = useContext(UserContext) as UserContextType
 
   const [editing, setEditing] = useState(false)
@@ -253,31 +226,12 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
   <Container isProfile={isProfile}>
     <div className="main-info border">
-      <div className='top'>
-        {isProfile && (
-          <>
-            <Image height={1000} width={1000} src={greyImage} alt='cover image' className='cover-photo'/>
-            {/* {sessionProfile && (
-              <>
-                <div className='label-back'>
-                  <label htmlFor="cover-pic">
-                    <Image className='edit-main' src={editIcon} alt='edit icon'/>
-                  </label>
-                </div>
-                <input onChange={e => handleChangeCover(e)} id="cover-pic" type="file" />
-              </>
-            )} */}
-          </>
-        )}
-      </div>
       <Image width={100} height={100} className= {isProfile ? "profile profile-pointer" : 'profile' } src={profileIcon} alt='profile icon'/>
-      
-
       <div className="sub-content">
         <form className="form">
           <li>
-            <label>Email: </label>
-            <p>{userSigned?.email}</p>
+            <label><h3>Email:</h3> </label>
+            <h3>{userSigned?.email}</h3>
             <div className="contact">
               {userSigned?.email ? (
                 <Link href={'mailto: ' + userSigned.email} target='_blank'>
@@ -308,7 +262,7 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
             }
           </li>
           <li>
-            <label>Endereço: </label>
+            <label>Morada: </label>
             {editing?
               <input type="text" value={address} onChange={(e)=>setAddress(e.target.value)}/>
               :<p>{address}</p> 
@@ -329,7 +283,7 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
             }
           </li>
           <li>
-            <label>CEP: </label>
+            <label>Código Postal: </label>
             {editing?
               <input type="text" value={zipCode} onChange={(e)=>setZipCode(e.target.value)}/>
               :<p>{zipCode}</p> 
