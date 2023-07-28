@@ -149,7 +149,7 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
   return (
     <Container >
       <div className="card properties">
-        <h2>Imóveis</h2>
+        <h2>Imóveis da Agência</h2>
         <div className="list">
           {properties?.map(item => (
             <div key={item.id} className="propertie">

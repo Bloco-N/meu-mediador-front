@@ -108,7 +108,6 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
   }, [])
 
   const onSubmit = async (data: AddPartnershipForm) => {
-    console.log(data)
 
     const localId = localStorage.getItem('id')
 

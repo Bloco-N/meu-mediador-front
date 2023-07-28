@@ -16,6 +16,7 @@ import Preservations, { TPreservations } from "@/types/Preservations"
 import { timeSince } from "@/utils/timeSince"
 import LoadingContext from "context/LoadingContext"
 import { AgencyProfile } from "@/types/AgencyProfile"
+import housePaceholder from '../../../../../public/placeholder.jpg'
 
 const Container = styled.div`
   .properties{
@@ -32,6 +33,11 @@ const Container = styled.div`
       scroll-snap-type: x mandatory;
       padding: 1rem;
       overflow: auto;
+      .properties-column{
+        display: flex;
+        flex-direction: column;
+        gap:20px;
+      }
       .plus{
         cursor: pointer;
         height: 3rem;
@@ -47,9 +53,9 @@ const Container = styled.div`
         flex-direction: column;
         gap: 1rem;
         background-color: var(--base);
-        padding: 1.5rem;
-        border-radius: 3rem;
-        width: 40rem;
+        padding: 1rem;
+        border-radius: 1rem;
+        width: 30rem;
         position: relative;
         .footer{
           display: flex;
@@ -59,23 +65,21 @@ const Container = styled.div`
           }
         }
         h2{
+          margin-top: -5px;
           color: var(--surface-2);
         }
         h3{
+          margin-top: -5px;
+          margin-bottom: -8px;
           color: var(--surface-2);
         }
         .property-img{
-          margin-top: 3rem;
-          object-fit: cover;
+          object-fit: fill;
           opacity: 1;
-          border-radius: 3rem;
+          border-radius: 1rem;
           width: 100%;
           height: 100%;
-          max-height: 25rem;
-        }
-        .close{
-          position: absolute;
-          right: 1rem;
+          max-height: 14rem;
         }
         .special-link{
           width: 12rem;
@@ -90,8 +94,6 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
   const [properties, setProperties ] = useState<any>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
-
-  const [prop,setProp] = useState([])
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -120,38 +122,71 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
             })
         }
     }
+    const agencyRealtorsPropertiesInPairs: any =[]
+    for(let i = 0; i< agencyRealtorsProperties.length;i=i+2){
+      agencyRealtorsPropertiesInPairs.push([agencyRealtorsProperties[i],agencyRealtorsProperties[i+1]])
+    }
 
-    setProperties(agencyRealtorsProperties)
+    setProperties(agencyRealtorsPropertiesInPairs)
   }, [])
   
   return (
     <Container >
       <div className="card properties">
-        <h2>Imóveis</h2>
+        <h2>Imóveis com Consultores</h2>
         <div className="list">
           {properties?.map((item:any) => (
-            <div key={item.id} className="propertie">
-                <Image className="property-img" src={item.profilePicture} width={200} height={100} alt="profile picture"/>
-                <div>
+            <div key={item[0].id} className="properties-column">
+              <div  className="propertie">
+              <div className="realtor-name">
                     <span>Consultor(a): </span>
-                    <a className="special-link" onClick={()=>router.push(`/profile/realtor/${item.realtorId}`)}>
-                        {`${item.realtorName} ${item.realtorLastName}`}
+                    <a className="special-link" onClick={()=>router.push(`/profile/realtor/${item[0].realtorId}`)}>
+                        {`${item[0].realtorName} ${item[0].realtorLastName}`}
                     </a>
                 </div>
-                <h2>{item.price}</h2>
-                <h3>{item.title}</h3>
+                <div className="image-container">
+                <Image className="property-img" src={item[0].profilePicture||housePaceholder} width={200} height={100} alt="profile picture"/>
+
+                </div>
+                
+                <h2>{item[0].price}</h2>
+                <h3>{item[0].title}</h3>
                 <p className="sub-text">
-                  {PropertyTypes[item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]} {item.grossArea} de Área Bruta e {item.usefulArea} de Área Útil, {Preservations[item.preservation as keyof TPreservations]}.
+                  {PropertyTypes[item[0].propertyType as keyof TPropertyTypes]} {Rooms[item[0].rooms as keyof TRooms]} {item[0].grossArea} de Área Bruta e {item[0].usefulArea} de Área Útil, {Preservations[item[0].preservation as keyof TPreservations]}.
                 </p>
                 <div className="footer">
-                  <Link className="special-link" href={item.link} target='_blank'>
+                  <Link className="special-link" href={item[0].link} target='_blank'>
                     Conferir Imóvel
                   </Link>
                   <p className="sub-text">
-                    {timeSince(new Date(item.createdAt))}
+                    {timeSince(new Date(item[0].createdAt))}
                   </p>
                 </div>
               </div>
+              {item[1] && <div  className="propertie">
+                <div>
+                    <span>Consultor(a): </span>
+                    <a className="special-link" onClick={()=>router.push(`/profile/realtor/${item[1].realtorId}`)}>
+                        {`${item[1].realtorName} ${item[1].realtorLastName}`}
+                    </a>
+                </div>
+                <Image className="property-img" src={item[1].profilePicture||housePaceholder} width={200} height={100} alt="profile picture"/>
+                <h2>{item[1].price}</h2>
+                <h3>{item[1].title}</h3>
+                <p className="sub-text">
+                  {PropertyTypes[item[1].propertyType as keyof TPropertyTypes]} {Rooms[item[1].rooms as keyof TRooms]} {item[1].grossArea} de Área Bruta e {item[1].usefulArea} de Área Útil, {Preservations[item[1].preservation as keyof TPreservations]}.
+                </p>
+                <div className="footer">
+                  <Link className="special-link" href={item[1].link} target='_blank'>
+                    Conferir Imóvel
+                  </Link>
+                  <p className="sub-text">
+                    {timeSince(new Date(item[1].createdAt))}
+                  </p>
+                </div>
+              </div>
+}
+            </div>
           ))}
           { sessionProfile ? (
           <Image onClick={() => addPropertySetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
