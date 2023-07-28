@@ -88,6 +88,15 @@ const pt = {
     comments:'Avaliações',
     thisAgentHasNoReviews:'Esse consultor não possui avaliações',
     addComment:'Adicionar Comentário'
+  },
+  signIn:{
+    signIn: "Entrar",
+    email:"Email",
+    password: "Senha",
+    forgot: "Esqueci minha senha",
+    enter: "Entrar",
+    notHaveAnAccount: "Não possúi uma conta ainda?",
+    here: "Cadastre-se aqui"
   }
 }
 

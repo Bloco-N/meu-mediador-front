@@ -89,6 +89,15 @@ const es = {
     comments:'Reseñas',
     thisAgentHasNoReviews:'Este consultor no tiene reseñas',
     addComment:'Adicionar Reseña'
+  },
+  signIn:{
+    signIn: "Iniciar Sesión",
+    email:"Dirección de Correo Electrónico",
+    password: "Contraseña",
+    forgot: "Olvidé mi contraseña",
+    enter: "Iniciar Sesión",
+    notHaveAnAccount: "¿Todavía no tienes una cuenta?",
+    here: "Registrar aquí"
   }
 }
 

@@ -89,6 +89,15 @@ const en = {
     comments:'Reviews',
     thisAgentHasNoReviews:'This agent has no Reviews',
     addComment:'Upload Review'
+  },
+  signIn:{
+    signIn: "Sign In",
+    email:"Email",
+    password: "Password",
+    forgot: "Forgot my password",
+    enter: "Sign In",
+    notHaveAnAccount: "Not have an account yet?",
+    here: "Sign up here"
   }
 }
 
