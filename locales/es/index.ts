@@ -24,6 +24,7 @@ const es = {
     languages: 'Idiomas:'
   },
   mainInfoEditModal:{
+    agencyName:"Nombre de Agencia",
     name: 'Nombre',
     lastName: 'Apelido',
     phone: 'Número de teléfono',
@@ -98,6 +99,16 @@ const es = {
     enter: "Iniciar Sesión",
     notHaveAnAccount: "¿Todavía no tienes una cuenta?",
     here: "Registrar aquí"
+  },
+  createProfile:{
+    selectTheType: "Seleccione el tipo de perfil que desea crear",
+    areYouLooking: "¿Estás buscando un asesor para conquistar tu próxima propiedad?",
+    promoteYourSales: "Promociona tus ventas, capta clientes y asóciate con tu empresa",
+    registerYourCompany: "Registra tu empresa para asociar a tus asesores y anunciar tus propiedades en venta"
+  },
+  signUp:{
+    signUp:"Inscribirse",
+    confirmPassword:"Confirmar Contraseña"
   }
 }
 

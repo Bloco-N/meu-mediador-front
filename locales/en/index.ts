@@ -24,6 +24,7 @@ const en = {
     languages: 'Languages:'
   },
   mainInfoEditModal:{
+    agencyName:"Company Name",
     name: 'First Name',
     lastName: 'Last Name',
     phone: 'Phone',
@@ -98,6 +99,16 @@ const en = {
     enter: "Sign In",
     notHaveAnAccount: "Not have an account yet?",
     here: "Sign up here"
+  },
+  createProfile:{
+    selectTheType: "Select the type of profile you want to create",
+    areYouLooking: "Are you looking for a consultant to conquer your next property?",
+    promoteYourSales: "Promote your sales, attract customers and associate with your company",
+    registerYourCompany: "Register your company to associate your consultants and advertise your properties for sale"
+  },
+  signUp:{
+    signUp:"Sign Up",
+    confirmPassword:"Confirm Password"
   }
 }
 

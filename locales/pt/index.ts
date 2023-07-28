@@ -23,6 +23,7 @@ const pt = {
     languages: 'Idiomas:'
   },
   mainInfoEditModal:{
+    agencyName:"Nome da Agência",
     name: 'Nome',
     lastName: 'Sobrenome',
     phone: 'Telefone',
@@ -97,6 +98,16 @@ const pt = {
     enter: "Entrar",
     notHaveAnAccount: "Não possúi uma conta ainda?",
     here: "Cadastre-se aqui"
+  },
+  createProfile:{
+    selectTheType: "Selecione o tipo de perfil que deseja criar",
+    areYouLooking: "Está em busca de um consultor para conquistar seu próximo imóvel?",
+    promoteYourSales: "Divulgue suas vendas, atraia clientes e se associe a sua empresa",
+    registerYourCompany: "Cadastre sua empresa para associar seus consultores e divulgar seus imóveis a venda"
+  },
+  signUp:{
+    signUp:"Cadastro",
+    confirmPassword:"Confirmar Senha"
   }
 }
 
