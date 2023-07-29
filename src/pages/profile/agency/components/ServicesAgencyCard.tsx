@@ -10,7 +10,6 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AddServiceModalContext from "context/AddServiceModalContext"
 import { RealtorService } from "@/types/RealtorService"
 import LoadingContext from "context/LoadingContext"
-import { ApiService } from "@/services/ApiService"
 
 const Container = styled.div`
   .services{
@@ -42,7 +41,7 @@ interface ServicesCardProps{
     accType:string;
 }
 export default function ServicesAgencyCard({localId, accType}:ServicesCardProps){
-
+  console.log("AQUI")
   const [services, setServices] = useState<RealtorService []>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
@@ -58,11 +57,13 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
   
   useEffect(() => {
     const fetchData = async () => {
+      console.log("AQ",id)
       if(id){
         setLoadingOpen(true)
         
-        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + 1)
+        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/agenct/' + id)
         const serviceData = await responseServices.json()
+        console.log("SERVDATA",serviceData)
         setServices(serviceData)
 
         setLoadingOpen(false)
@@ -70,7 +71,7 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
 
     }
     const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
+    if(Number(id) === Number(localId) && accType === 'agency') setSessionProfile(true)
 
     fetchData()
 
@@ -85,11 +86,18 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
 
     setLoadingOpen(true)
 
-    const apiService = new ApiService()
-    const deleteService = await apiService.deleteRealtorService(String(token),Number(id))
+
+    setLoadingOpen(true)
+    
+    await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/agency/' + id, {
+      method: 'DELETE',
+      headers:{
+        authorization: 'Bearer ' + token
+      }
+    })
 
     setLoadingOpen(false)
-    if(deleteService === 'deleted') router.reload()
+    router.reload()
   }
 
   return (

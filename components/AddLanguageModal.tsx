@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import closeIcon from '../public/close.svg'
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import LoadingContext from 'context/LoadingContext';
+import locales from 'locales';
 
 const Container = styled.div`
   position: absolute;
@@ -98,6 +99,10 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
@@ -123,7 +128,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/realtor', {
       method: 'POST',
       body: JSON.stringify({
         ...data
@@ -147,7 +152,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
 
     const token = localStorage.getItem('token')
 
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/' + id, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/realtor/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
@@ -163,8 +168,8 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
     open ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
-        <h3>Adicionar Idioma</h3>
-        <h4>Idiomas que você fala:</h4>
+        <h3>{t.mainInfoEditModal.addLanguage}</h3>
+        <h4>{t.addLanguage.languagesYou}</h4>
         <div className="list">
           {realtor?.RealtorLanguages.map(item => (
             <p key={item.Language.id} >
@@ -174,8 +179,8 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
           ))}
         </div>
 
-        <input placeholder='Idioma' type="text" {...register('name', {required: true})} />
-        <button type='submit'>Criar</button>
+        <input placeholder={t.mainInfoEditModal.language} type="text" {...register('name', {required: true})} />
+        <button type='submit'>{t.addCity.add}</button>
 
         <p className='close' onClick={() => setOpen(false)}>X</p>
       </form>

@@ -8,8 +8,6 @@ import ProfileMoldal from "./ProfileMoldal";
 import { UserContextType } from "@/types/UserContextType";
 import profileIcon from '../public/profile.svg'
 import { useRouter } from "next/router";
-import pt from '../locales/pt/index'
-import en from '../locales/en/index'
 
 const Nav = styled.div`
     width: 100vw;
@@ -124,7 +122,7 @@ const Navbar = () => {
     return (
         <Nav>
             <Link href="/">
-                <h1>Meoagent</h1>
+                <h1><img src="/meoagent-logo.png" alt="Meoagent-logo" /></h1>
             </Link>
             <div className="left-side">
               <div className="selection border">
@@ -137,6 +135,7 @@ const Navbar = () => {
                 <select defaultValue={'pt'} onChange={e => changeLocation(e)} className="locale">
                   <option value="en">EN</option>
                   <option value="pt">PT</option>
+                  <option value="es">ES</option>
                 </select>
               </div>
               {user.token ? (

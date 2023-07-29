@@ -1,4 +1,5 @@
 import { SignUpForm } from "@/types/SignUpForm";
+import locales from "locales";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -35,6 +36,10 @@ const SignUp = () => {
   const { register, handleSubmit } = useForm<SignUpForm>()
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   const onSubmit = async (data: SignUpForm) => {
     const fetchData = async () => {
 
@@ -61,23 +66,23 @@ const SignUp = () => {
 
         <form className="card" onSubmit={handleSubmit(onSubmit)}>
 
-          <h2>Cadastro</h2>
+          <h2>{t.signUp.signUp}</h2>
 
           <div className="full-name">
-              <input type="text" className="input-name" placeholder="Nome" 
+              <input type="text" className="input-name" placeholder={t.mainInfoEditModal.name}
               {...register('firstName', {required:true, })} />
-              <input type="text" className="input-name" placeholder="Sobrenome" 
+              <input type="text" className="input-name" placeholder={t.mainInfoEditModal.lastName}
               {...register('lastName', {required: true})} />
           </div>
 
-          <input className="input-sign-up" type="email" placeholder="E-mail" 
+          <input className="input-sign-up" type="email" placeholder={t.signIn.email}
           {...register('email', {required:true})}/>
-          <input className="input-sign-up" type="password" placeholder="Senha" 
+          <input className="input-sign-up" type="password" placeholder={t.signIn.password}
           {...register('password', {required:true})}/>
-          <input className="input-sign-up" type="password" placeholder="Confirmar Senha"
+          <input className="input-sign-up" type="password" placeholder={t.signUp.confirmPassword}
           {...register('confirmPassword', {required:true})}/>
 
-          <button type="submit">Cadastrar</button>
+          <button type="submit">{t.signUp.signUp}</button>
 
         </form>
 

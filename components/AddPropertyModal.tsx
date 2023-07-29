@@ -12,6 +12,7 @@ import CurrencyInput from './CurrencyInput';
 import AreaInput from './AreaInput';
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import LoadingContext from 'context/LoadingContext';
+import locales from 'locales';
 
 type AddPropertyModalProps = {
   open: boolean,
@@ -153,6 +154,10 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
     setPic('')
   }, [open])
@@ -160,20 +165,31 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
   const onSubmit = async (data:AddPropertyForm) => {
 
     const localId = localStorage.getItem('id')
-
+    const accountType = localStorage.getItem('accountType')
+    const realtorBody = {
+      propertyData:{
+        ...data,
+        price,
+        grossArea,
+        usefulArea,
+        profilePicture: pic,
+      },
+      realtorId: Number(localId)
+    }
+    const agencyBody = {
+      propertyData:{
+        ...data,
+        price,
+        grossArea,
+        usefulArea,
+        profilePicture: pic,
+      },
+      agencyId: Number(localId)
+    }
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/' + accountType, {
       method: 'POST',
-      body: JSON.stringify({
-        propertyData:{
-          ...data,
-          price,
-          grossArea,
-          usefulArea,
-          profilePicture: pic,
-        },
-        realtorId: Number(localId)
-      }),
+      body: JSON.stringify(accountType==="agency"?agencyBody:realtorBody),
       headers:{
         'Content-Type': 'application/json'
       }
@@ -198,13 +214,11 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
 
       const onload = async () => {
         const img = document.getElementById('property-img') as HTMLImageElement
-        console.log(img)
 
         img.src = fr.result as string
 
         setPic(fr.result as string)
         
-        console.log(file)
       }
 
       fr.onload = onload
@@ -217,18 +231,18 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
     open ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
-        <h3>Adicionar Imóvel</h3>
+        <h3>{t.addPropertiesModal.uploadPropertie}</h3>
         <div className="all-infos">
           <div className="infos">
             <div className="inputs">
-              <input {...register('title', {required: true})} type="text" placeholder='Título' />
-              <input {...register('link', {required: true})} type="text" placeholder='Link' />
+              <input {...register('title', {required: true})} type="text" placeholder={t.addPropertiesModal.title} />
+              <input {...register('link', {required: true})} type="text" placeholder={t.addPropertiesModal.link}/>
               <CurrencyInput onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value)} placeholder="0.00 €"/>
-              <AreaInput onChange={(e:React.ChangeEvent<HTMLInputElement>) => setGrossArea(e.target.value)} placeholder='Área Bruta'/>
+              <AreaInput onChange={(e:React.ChangeEvent<HTMLInputElement>) => setGrossArea(e.target.value)} placeholder={t.addPropertiesModal.grossArea}/>
             </div>
             <div className="selections">
               <select {...register('propertyType')} name="propertyType" id="propertyType">
-                {Object.entries(PropertyTypes).map(([key, value]) => (
+                {Object.entries(PropertyTypes[locale as keyof typeof PropertyTypes]).map(([key, value]) => (
                   <option key={key} value={key}>{value}</option>
                   ))}
               </select>
@@ -238,24 +252,24 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
                   ))}
               </select>
               <select {...register('preservation', { required: true})} name="preservation" id="preservation">
-                {Object.entries(Preservations).map(([key, value]) => (
+                {Object.entries(Preservations[locale as keyof typeof Preservations]).map(([key, value]) => (
                   <option key={key} value={key}>{value}</option>
                   ))}
               </select>
-              <AreaInput onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsefulArea(e.target.value)}  placeholder='Área Útil'/>
+              <AreaInput onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsefulArea(e.target.value)}  placeholder={t.addPropertiesModal.usableArea}/>
             </div>
           </div>
           <div className="image-place">
             <Image id="property-img" height={400} width={400} className='property-img' src={pic ? pic : placeholderImg} alt='property image'>
             </Image>
             <label htmlFor="property-pic">
-                Editar
+                {t.addPropertiesModal.edit}
             </label>
             <input onChange={e => handleChange (e)} id="property-pic" type="file" />
           </div>
         </div>
         <p onClick={() => setOpen(false)}>X</p>
-        <button type='submit'>Adicionar Imóvel</button>
+        <button type='submit'>{t.addPropertiesModal.uploadPropertie}</button>
       </form>
     </Container>
     : <></>

@@ -13,6 +13,7 @@ import AddPartnershipModalContext from "context/AddPartnershipModalContext"
 import { PartnershipList } from "@/types/PartnershipList"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
+import locales from "locales"
 
 const Container = styled.div`
   .expiriences{
@@ -79,15 +80,14 @@ const Container = styled.div`
 interface PartnershipCardProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
 }
 
-export default function PartnershipCard({localId, accType}:PartnershipCardProps){
+export default function PartnershipCard({localId, accType, sessionProfile}:PartnershipCardProps){
   
   const [partnerships, setPartnerships] = useState<PartnershipList []>()
 
   const [indexPartnership, setIndexPartnership] = useState(-1)
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -98,6 +98,10 @@ export default function PartnershipCard({localId, accType}:PartnershipCardProps)
   const router = useRouter()
   const { id } = router.query
   const apiService = new ApiService()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -110,8 +114,6 @@ export default function PartnershipCard({localId, accType}:PartnershipCardProps)
       }
 
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 
@@ -144,7 +146,7 @@ export default function PartnershipCard({localId, accType}:PartnershipCardProps)
   return (
     <Container>
       <div className="card expiriences">
-        <h2> Experiência </h2>
+        <h2>{t.partnership.partnership}</h2>
         { sessionProfile ? (
           <Image onClick={() => addPartnershipOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
         ): ''}

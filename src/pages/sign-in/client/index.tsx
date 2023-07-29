@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { decode } from "jsonwebtoken";
 import { UserContextType } from "@/types/UserContextType";
+import locales from "locales";
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -43,6 +44,10 @@ const SignIn = () => {
 
     const router = useRouter()
 
+    const locale = router.locale
+
+    const t = locales[locale as keyof typeof locales]
+
     useEffect(() => {
       const token = localStorage.getItem('token')
       if(token){
@@ -72,7 +77,6 @@ const SignIn = () => {
         localStorage.setItem('accountType', 'client')
 
         setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
-        console.log(clientData)
         if(clientData.verified === false){
           router.push('/verify/client')
         }else{
@@ -89,20 +93,20 @@ const SignIn = () => {
 
         <form className="card" onSubmit={handleSubmit(onSubmit)}>
 
-          <h2>Login</h2>
+          <h2>{t.signIn.signIn}</h2>
 
-          <input className="input-sign-up" type="email" placeholder="E-mail"
+          <input className="input-sign-up" type="email" placeholder={t.signIn.email}
           {...register('email', {required: true})} />
-          <input className="input-sign-up" type="password" placeholder="Senha" 
+          <input className="input-sign-up" type="password" placeholder={t.signIn.password}
           {...register('password', {required: true})}/>
 
-          <Link className="forgot-password" href="/forgot-password/client">Esqueci minha senha</Link>
+          <Link className="forgot-password" href="/forgot-password/client">{t.signIn.forgot}</Link>
 
-          <button>Entrar</button>
+          <button>{t.signIn.enter}</button>
 
           <div className="bottom-cta">
-            <h5>Ainda não tem uma conta? </h5>
-            <Link className="create-account special-link" href="/sign-up/profile">Cadastre-se aqui</Link>
+            <h5>{t.signIn.notHaveAnAccount}</h5>
+            <Link className="create-account special-link" href="/sign-up/profile">{t.signIn.here}</Link>
           </div>
         </form>
 

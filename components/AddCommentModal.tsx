@@ -1,6 +1,7 @@
 import { AddCommentForm } from "@/types/AddCommentForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
+import locales from "locales";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -72,7 +73,6 @@ type AddCommentModalProps = {
 }
 
 const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
-
   const [marketExpertiseRating, setMarketExpertiseRating] = useState(0)
   const [responsivenessRating, setResponsivenessRating] = useState(0)
   const [negotiationSkillsRating, setNegotiationSkillsRating] = useState(0)
@@ -102,24 +102,39 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
 
   const router = useRouter()
 
-  const { id:realtorId } = router.query
+  const locale = router.locale
 
+  const t = locales[locale as keyof typeof locales]
+  
+  const profileType = router.pathname.includes("agency")?"agency":"realtor"
+  const { id:profileId } = router.query
+  
   const onSubmit = async (data: AddCommentForm) => {
 
     const localId = localStorage.getItem('id')
 
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment', {
+    const realtorBody = {
+      ...data,
+      marketExpertiseRating,
+      responsivenessRating,
+      negotiationSkillsRating,
+      profissionalismAndComunicationRating,
+      clientId: Number(localId),
+      realtorId: Number(profileId)
+    }
+    const agencyBody = {
+      ...data,
+      marketExpertiseRating,
+      responsivenessRating,
+      negotiationSkillsRating,
+      profissionalismAndComunicationRating,
+      clientId: Number(localId),
+      agencyId: Number(profileId)
+    }
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/'+profileType, {
       method: 'POST',
-      body: JSON.stringify({
-        ...data,
-        marketExpertiseRating,
-        responsivenessRating,
-        negotiationSkillsRating,
-        profissionalismAndComunicationRating,
-        clientId: Number(localId),
-        realtorId: Number(realtorId)
-      }),
+      body: JSON.stringify(profileType==="agency"?agencyBody:realtorBody),
       headers:{
         'Content-Type': 'application/json'
       }
@@ -146,34 +161,34 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       <form onSubmit={handleSubmit(onSubmit)} action="">
         {accType === 'client' ? (
           <>
-            <h3>Criar Comentário</h3>
+            <h3>{t.review.createAReview}r</h3>
             <div>
-              <p>Conhecimento de mercado: </p>
+              <p>{t.review.marketKnowledge} </p>
               <Rating
                 onClick={handleMarketRating}
               />
             </div>
             <div>
-              <p>Capacidade de resposta: </p>
+              <p>{t.review.responsiveness} </p>
               <Rating
                 onClick={handleResponsiveRating}
               />
             </div>
             <div>
-              <p>Negociação: </p>
+              <p>{t.review.negotiation} </p>
               <Rating
                 onClick={handleNegotiationRating}
               />
             </div>
             <div>
-              <p>Profissionalismo e Comunicação: </p>
+              <p>{t.review.professionalismAndCommunication} </p>
               <Rating
                 onClick={handleProfissionalismRating}
               />
             </div>
-            <textarea placeholder="Escreva seu comentário aqui" {...register('text', {required: true})}/>
+            <textarea placeholder={t.review.writeYourCommentHere} {...register('text', {required: true})}/>
             <p className="close" onClick={() => setOpen(false)}>X</p>
-            <button type="submit"> Criar </button>
+            <button type="submit"> {t.addCity.add} </button>
           </>
 
         ): (

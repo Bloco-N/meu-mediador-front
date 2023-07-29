@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
 import { ClientProfile } from '@/types/ClientProfile';
+import LoadingContext from 'context/LoadingContext';
 
 type ContainerProps = {
   isProfile: boolean
@@ -25,39 +26,17 @@ const Container = styled.div<ContainerProps>`
   min-height: ${props => props.isProfile ? '40rem' : '20rem'};
   @media only screen and (max-width: 900px){
     min-height: ${porps => porps.isProfile ? '60rem': '40rem'};
-    height: 100%;
+    height: auto;
 
   }
   .main-info{
-    .top{
-      position: absolute;
-      width: 100%;
-      height: 22rem;
-      top: 0;
-      left: 0;
-      .label-back{
-        background-color: var(--surface);
-        border-radius: 50%;
-        height: 4rem;
-        width: 4rem;
-        position: absolute;
-        top: 1rem;
-        right: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img{
-          position: unset;
-        }
-      }
-    }
     display: flex;
     align-items: center;
     background-color: var(--surface);
     padding: 3rem;
     border-radius: 3rem;
-    height: 100%;
-    gap: 1rem;
+    height: auto;
+    gap: 5rem;
     .cover-photo{
       position: absolute;
       height: 100%;
@@ -68,7 +47,8 @@ const Container = styled.div<ContainerProps>`
       border-top-right-radius: 3rem;
       object-fit: cover;
     }
-    .profile{      
+   
+    .profile{    
       height: ${porps => porps.isProfile ? '20rem': '10rem'};
       width: ${porps => porps.isProfile ? '20rem': '10rem'};
       border-radius: 50%;
@@ -88,56 +68,46 @@ const Container = styled.div<ContainerProps>`
         margin-top: unset;
         margin-left: unset;
       }
-      margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
-      margin-left: ${porps => porps.isProfile ? '10rem': '2rem'};
-      width: 60%;
-      display: flex;
-      justify-content: space-between;
-      gap: 10rem;
-    }
-    .about{
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      min-width: 15rem;
-      color: var(--surface-2);
-      @media only screen and (max-width: 900px){
-        align-items: center;
-        min-width: 100%;
+      
+      .form{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        @media only screen and (max-width: 900px){
+          justify-content: center;
+         align-items: center;
+        } 
+        label{
+          opacity: 70%;
+        }
+        li{
+          display: flex;
+          gap:10px;
+        }
+        p{
+          width: auto;
+        }
+        input{
+          height: 18px;
+          font-size: 18px;
+          width:250px;
+          padding: 0;
+          border-radius: 5px;
+          padding-left: 10px;
+        }
+        button{
+          width: 100px;
+          height: 25px;
+          padding: 5px;
+          margin-top: 10px;
+        }
       }
     }
-    .about-2{
-      position: relative;
-      @media only screen and (max-width: 900px){
-        align-items: center;
-        text-align: center;
-      }
-      height: 100%;
-      display: flex;
-      color: var(--surface-2);
-      flex-direction: column;
-      justify-content: flex-end;
-      gap: 0.5rem;
-      p{
-        gap: .5rem;
-      }
-    }
+    
     .contact{
-      flex-grow: 1;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 2rem;
-      position: absolute;
-      bottom: 8rem;
-      right: 2rem;
-      @media only screen and (max-width: 900px){
-        position: unset;
-      }
       .icon{
-        height: 3rem;
-        width: 3rem;
+        height: 2rem;
+        width: 2rem;
         cursor: pointer;
         opacity: 0.7;
         transition: all .5s;
@@ -145,43 +115,6 @@ const Container = styled.div<ContainerProps>`
           opacity: 1;
         }
       }
-    }
-    .current-agency{
-      background-color: var(--surface);
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding: 1rem;
-      border-radius: 1rem;
-      position: absolute;
-      bottom: ${porps => porps.isProfile ? '20rem': 'unset'};
-      right: 2rem;
-      @media only screen and (max-width: 900px){
-        position: unset;
-      }
-      .agency{
-        height: 3rem;
-        width: 3rem;
-      }
-    }
-    .profile-pointer{
-      cursor: pointer;
-    }
-    h1{
-      font-weight: normal;
-    }
-    h3{
-      color: var(--star);
-    }
-    p{
-      width: 60rem;
-      max-height: 10rem;
-      display: block; 
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
   }
 `
@@ -195,6 +128,23 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
   const { user, setUser } = useContext(UserContext) as UserContextType
 
+  const [editing, setEditing] = useState(false)
+
+  const [firstName, setFirstName] = useState(userSigned?.firstName)
+
+  const [lastName, setLastName] = useState(userSigned?.lastName)
+
+  const [phone, setPhone] = useState(userSigned?.phone)
+
+  const [address, setAddress] = useState(userSigned?.address)
+
+  const [city, setCity] = useState(userSigned?.city)
+
+  const [country, setCountry] = useState(userSigned?.country)
+
+  const [zipCode, setZipCode] = useState(userSigned?.zipCode)
+
+  const {setOpen: setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
   const [sessionProfile, setSessionProfile] = useState(false)
 
   const router = useRouter()
@@ -203,7 +153,7 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
     const localId = localStorage.getItem('id')
     const accounType = localStorage.getItem('accountType')
     if(Number(localId) === userSigned?.id && accounType === 'client'){
-      setSessionProfile(false)
+      setSessionProfile(true)
     } 
 
   }, [user.id, userSigned?.id])
@@ -242,50 +192,114 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
     }
 
   }
-  console.log("USER",userSigned)
+
+  async function sendInfo(e: any){
+    e.preventDefault() 
+    const token = localStorage.getItem('token')
+    setLoadingOpen(true)
+    await fetch(process.env.NEXT_PUBLIC_API_URL + '/client', {
+        method:'PUT',
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          phone,
+          address,
+          city,
+          country,
+          zipCode,
+        }),
+        headers:{
+          authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+    })
+    setLoadingOpen(false)
+    router.reload()
+  }
+
+  function startEditing(e: any){
+    e.preventDefault() 
+    setEditing(!editing)
+  }
+
   return (
 
   <Container isProfile={isProfile}>
     <div className="main-info border">
-      <div className='top'>
-        {isProfile && (
-          <>
-            <Image height={1000} width={1000} src={greyImage} alt='cover image' className='cover-photo'/>
-            {sessionProfile && (
-              <>
-                <div className='label-back'>
-                  <label htmlFor="cover-pic">
-                    <Image className='edit-main' src={editIcon} alt='edit icon'/>
-                  </label>
-                </div>
-                <input onChange={e => handleChangeCover(e)} id="cover-pic" type="file" />
-              </>
-            )}
-          </>
-        )}
-      </div>
       <Image width={100} height={100} className= {isProfile ? "profile profile-pointer" : 'profile' } src={profileIcon} alt='profile icon'/>
-      
-
       <div className="sub-content">
-        <div className="about">
-          <h1>{userSigned?.firstName}</h1>
-          <h1>{userSigned?.lastName}</h1>
-        </div>
-        <div className="about-2">
-          <p>{userSigned?.email}</p>
-        </div>
+        <form className="form">
+          <li>
+            <label><h3>Email:</h3> </label>
+            <h3>{userSigned?.email}</h3>
+            <div className="contact">
+              {userSigned?.email ? (
+                <Link href={'mailto: ' + userSigned.email} target='_blank'>
+                  <Image className='icon' src={mailIcon} alt='mail icon'/>
+                </Link>
+              ) : '' }
+            </div>
+          </li>
+          <li>
+            <label>Nome: </label>
+            {editing?
+              <input type="text" value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
+              :<p>{firstName}</p>
+            }
+          </li>
+          <li>
+            <label>Sobrenome: </label>
+            {editing?
+              <input type="text" value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
+              :<p>{lastName}</p>
+            }
+          </li>
+          <li>
+            <label>Telefone: </label>
+            {editing?
+              <input type="text" value={phone} onChange={(e)=>setPhone(e.target.value)}/>
+              :<p>{phone}</p> 
+            }
+          </li>
+          <li>
+            <label>Morada: </label>
+            {editing?
+              <input type="text" value={address} onChange={(e)=>setAddress(e.target.value)}/>
+              :<p>{address}</p> 
+            }
+          </li>
+          <li>
+            <label>Cidade: </label>
+            {editing?
+              <input type="text" value={city} onChange={(e)=>setCity(e.target.value)}/>
+              :<p>{city}</p> 
+            }
+          </li>
+          <li>
+            <label>País: </label>
+            {editing?
+              <input type="text" value={country} onChange={(e)=>setCountry(e.target.value)}/>
+              :<p>{country}</p> 
+            }
+          </li>
+          <li>
+            <label>Código Postal: </label>
+            {editing?
+              <input type="text" value={zipCode} onChange={(e)=>setZipCode(e.target.value)}/>
+              :<p>{zipCode}</p> 
+            }
+          </li>
+
+        {editing?
+        <button className='button' onClick={(e)=>sendInfo(e)}>Salvar</button>
+        :<button className='button' onClick={(e)=>startEditing(e)}>Editar</button>
+        }
+        </form>
+        
+        
       </div>
 
-      {isProfile ?  (
-        <div className="contact">
-          {userSigned?.email ? (
-            <Link href={'mailto: ' + userSigned.email} target='_blank'>
-              <Image className='icon' src={mailIcon} alt='mail icon'/>
-            </Link>
-          ) : '' }
-        </div>
-      ): ''}
+      
     </div>
   </Container>
 

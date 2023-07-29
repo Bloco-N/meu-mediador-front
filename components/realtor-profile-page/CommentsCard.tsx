@@ -10,6 +10,7 @@ import { Comment } from "@/types/Comment"
 import AddCommentModalContext from "context/AddCommentModalContext"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
+import locales from "locales"
 
 
 const Container = styled.div`
@@ -55,13 +56,13 @@ const Container = styled.div`
 interface CommentsCardProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
+    pdfPage: boolean;
 }
 
-export default function CommentsCard({localId, accType}:CommentsCardProps){
+export default function CommentsCard({localId, accType, sessionProfile, pdfPage = false }:CommentsCardProps){
   
   const [comments, setComments] = useState<Comment []>()
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -72,6 +73,10 @@ export default function CommentsCard({localId, accType}:CommentsCardProps){
   const router = useRouter()
   const { id } = router.query
   const apiService = new ApiService()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -80,11 +85,17 @@ export default function CommentsCard({localId, accType}:CommentsCardProps){
         const commentData = await apiService.getRealtorComments(id as string)
         setLoadingOpen(false)
 
-        setComments(commentData)
+        let reverseComments = commentData.reverse()
+        if(pdfPage){
+          reverseComments = reverseComments.filter((comment: any, index: number) => {
+            if(index<5){
+              return comment
+            }
+          })
+        }
+        setComments(reverseComments)
       }
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 
@@ -96,7 +107,7 @@ export default function CommentsCard({localId, accType}:CommentsCardProps){
     const { id } = target
 
     const token = localStorage.getItem('token')
-
+    
     setLoadingOpen(true)
     const response = await apiService.deleteComment(token as string, id)
     setLoadingOpen(false)
@@ -108,13 +119,14 @@ export default function CommentsCard({localId, accType}:CommentsCardProps){
   return (
     <Container >
       <div className="card comments">
-        <h2>Avaliações</h2>
+        <h2>{t.comments.comments}</h2>
         {
           comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': !sessionProfile && (
-            <button onClick={() => addCommentSetOpen(true)}>Adicionar Comentário</button>
+            <button onClick={() => addCommentSetOpen(true)}>{t.comments.addComment}</button>
           )
         }
         <div className="list">
+            {!comments?.length? t.comments.thisAgentHasNoReviews :""}
             {comments?.map(comment => (
               <div key={ comment.id } className="comment">
                 {accType === 'client' && Number(localId) === comment.clientId ? (

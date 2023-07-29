@@ -12,6 +12,7 @@ import AddAwardModalContext from "context/AddAwardModalContext"
 import { Award } from "@/types/Award"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
+import locales from "locales"
 
 const Container = styled.div`
   .awards{
@@ -47,14 +48,13 @@ const Container = styled.div`
 interface AwardsCardProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
 }
-export default function AwardsCard({localId, accType}:AwardsCardProps){
+export default function AwardsCard({localId, accType, sessionProfile}:AwardsCardProps){
 
   const [awards, setAwards] = useState<Award []>() 
 
   const [editAwards, setEditAwards] = useState(false)
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
   
@@ -65,6 +65,10 @@ export default function AwardsCard({localId, accType}:AwardsCardProps){
   const router = useRouter()
   const { id } = router.query
   const apiService = new ApiService()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -78,8 +82,6 @@ export default function AwardsCard({localId, accType}:AwardsCardProps){
       }
 
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 
@@ -103,7 +105,7 @@ export default function AwardsCard({localId, accType}:AwardsCardProps){
   return (
     <Container >
       <div className="card awards">
-        <h2>Prêmios e distinções</h2>
+        <h2>{t.awards.awards}</h2>
         { sessionProfile ? (
           <div className="edit-icons">
             <Image onClick={() => setEditAwards(!editAwards)} className='plus' src={editIcon} alt='edit icon'/>

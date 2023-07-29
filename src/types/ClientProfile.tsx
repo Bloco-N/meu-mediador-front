@@ -3,4 +3,9 @@ export class ClientProfile{
     email!: string
     firstName!: string
     lastName!: string
+    phone!: string
+    address!: string
+    city!: string
+    country!: string
+    zipCode!: string
   }

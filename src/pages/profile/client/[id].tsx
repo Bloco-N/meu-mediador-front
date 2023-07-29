@@ -10,7 +10,6 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { LastExp } from "@/types/LastExp"
 import LoadingContext from "context/LoadingContext"
 import { ClientProfile } from "@/types/ClientProfile";
-//import AwardsAgencyCard from "./components/AwardsAgencyCard";
 
 const Container = styled.div`
   display: flex;
@@ -42,14 +41,12 @@ export default function Profile(){
 
   const router = useRouter()
   const { id } = router.query
-  console.log("ID",id)
 
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client/' + id)
         const data = await response.json()
-        console.log("CLIENT",data)
         setClient(data)
       }
     }
@@ -73,13 +70,11 @@ export default function Profile(){
     if(accountType){
       setAccType(accountType)
     }
-    console.log(localStorageId,accountType)
   }, [])
 
-  console.log(localId,accType)
   return (
     <Container>
-      <MainInfoClient userSigned={client as ClientProfile} isProfile={true}/>
+      {client?<MainInfoClient userSigned={client as ClientProfile} isProfile={true}/>:""}
     </Container>
   ) 
 }

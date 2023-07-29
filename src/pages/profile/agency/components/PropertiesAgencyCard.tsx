@@ -15,6 +15,7 @@ import Rooms, { TRooms } from "@/types/Rooms"
 import Preservations, { TPreservations } from "@/types/Preservations"
 import { timeSince } from "@/utils/timeSince"
 import LoadingContext from "context/LoadingContext"
+import locales from "locales"
 
 const Container = styled.div`
   .properties{
@@ -103,22 +104,25 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
 
   const router = useRouter()
   const { id } = router.query
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
   
-        const responseProperties = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/realtor/' + 1)
+        const responseProperties = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/agency/' + id)
         const propertiesData = await responseProperties.json()
         setProperties(propertiesData)
-
         setLoadingOpen(false)
       }
 
     }
     const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
+    if(Number(id) === Number(localId) && accType === 'agency') setSessionProfile(true)
 
     fetchData()
 
@@ -133,7 +137,7 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
 
     setLoadingOpen(true)
     
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/' + id, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/agency/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
@@ -150,7 +154,7 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
   return (
     <Container >
       <div className="card properties">
-        <h2>Imóveis</h2>
+        <h2>Imóveis da Agência</h2>
         <div className="list">
           {properties?.map(item => (
             <div key={item.id} className="propertie">
@@ -161,7 +165,7 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
                 <h2>{item.price}</h2>
                 <h3>{item.title}</h3>
                 <p className="sub-text">
-                  {PropertyTypes[item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]} {item.grossArea} de Área Bruta e {item.usefulArea} de Área Útil, {Preservations[item.preservation as keyof TPreservations]}.
+                  {PropertyTypes[locale as keyof typeof PropertyTypes][item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]} {item.grossArea} de Área Bruta e {item.usefulArea} de Área Útil, {Preservations[locale as keyof typeof Preservations][item.preservation as keyof TPreservations]}.
                 </p>
                 <div className="footer">
                   <Link className="special-link" href={item.link} target='_blank'>

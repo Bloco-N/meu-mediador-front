@@ -10,6 +10,7 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AboutEditModalContext from "context/AboutEditModalContext"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
+import locales from "locales"
 
 const Container = styled.div`
   .introduction{
@@ -29,15 +30,15 @@ const Container = styled.div`
 interface AboutCardProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
+    pdfPage?: boolean;
 }
 
-export default function AboutCard({localId, accType}:AboutCardProps){
+export default function AboutCard({localId, accType, sessionProfile, pdfPage=false}:AboutCardProps){
 
   const [elip, setElip] = useState(true)
 
   const [ realtor, setRealtor ] = useState<RealtorProfile>()
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
   
@@ -48,6 +49,10 @@ export default function AboutCard({localId, accType}:AboutCardProps){
   const router = useRouter()
   const { id } = router.query
   const apiService = new ApiService()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -58,11 +63,7 @@ export default function AboutCard({localId, accType}:AboutCardProps){
 
         setRealtor(data)
       }
-      
-
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 
@@ -71,14 +72,17 @@ export default function AboutCard({localId, accType}:AboutCardProps){
   return (
     <Container >
       <div className="card introduction">
-        <h2>Sobre</h2>
-        <p className={elip ? "elipses" : ""}>
-          {realtor?.introduction}
-        </p>
-        {elip ? (
-          <p className="elipses-button" onClick={() => setElip(false)}>Mostrar Mais</p>
+        <h2>{t.about.about}</h2>
+        {pdfPage?
+          <p>{realtor?.introduction}</p>
+        : <p className={elip ? "elipses" : ""}>
+            {realtor?.introduction}
+          </p>}
+        {pdfPage?"":
+        elip ? (
+          <p className="elipses-button" onClick={() => setElip(false)}>{t.about.showMore}</p>
           ):(
-          <p className="elipses-button" onClick={() => setElip(true)}>Mostrar Menos</p>
+          <p className="elipses-button" onClick={() => setElip(true)}>{t.about.showLess}</p>
         )}
         { sessionProfile ? (
             <Image onClick={() => aboutEditOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>

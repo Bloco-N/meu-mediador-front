@@ -1,6 +1,7 @@
 import { AddCourseForm } from "@/types/AddCourseForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
+import locales from "locales";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -62,6 +63,10 @@ const AddCourseModal = ({open, setOpen}: AddCourseModalProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   const onSubmit = async (data: AddCourseForm) => {
 
     const localId = localStorage.getItem('id')
@@ -88,10 +93,10 @@ const AddCourseModal = ({open, setOpen}: AddCourseModalProps) => {
     open ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
-        <h3>Criar Curso ou Especialização</h3>
-        <input  {...register('name', {required: true})}  placeholder="Título do prêmio" type="text" />
+        <h3>{t.addStudy.createStudy}</h3>
+        <input  {...register('name', {required: true})}  placeholder={t.addStudy.title} type="text" />
         <p onClick={() => setOpen(false)}>X</p>
-        <button type="submit"> Criar </button>
+        <button type="submit"> {t.addStudy.create} </button>
       </form>
     </Container>
     : <></>

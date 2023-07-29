@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { decode } from "jsonwebtoken";
 import { UserContextType } from "@/types/UserContextType";
+import locales from "locales";
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -43,6 +44,10 @@ const SignIn = () => {
 
     const router = useRouter()
 
+    const locale = router.locale
+
+    const t = locales[locale as keyof typeof locales]
+
     useEffect(() => {
       const token = localStorage.getItem('token')
       if(token){
@@ -65,14 +70,16 @@ const SignIn = () => {
           if(response.ok){
 
             const token = await response.text()
+
             localStorage.setItem('token', token)
             const user = decode(token) as { id:number, email:string, name: string}
+
             localStorage.setItem('id', String(user.id))
     
             const agencyResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + user.id)
     
             const agencyData = await agencyResponse.json()
-    
+            
             localStorage.setItem('pic', agencyData.profilePicture)
             localStorage.setItem('accountType', 'agency')
     
@@ -104,20 +111,20 @@ const SignIn = () => {
 
         <form className="card" onSubmit={handleSubmit(onSubmit)}>
 
-          <h2>Login</h2>
+          <h2>{t.signIn.signIn}</h2>
 
-          <input className="input-sign-up" type="email" placeholder="E-mail"
+          <input className="input-sign-up" type="email" placeholder={t.signIn.email}
           {...register('email', {required: true})} />
-          <input className="input-sign-up" type="password" placeholder="Senha" 
+          <input className="input-sign-up" type="password" placeholder={t.signIn.password}
           {...register('password', {required: true})}/>
 
-          <Link className="forgot-password" href="/forgot-password/agency">Esqueci minha senha</Link>
+          <Link className="forgot-password" href="/forgot-password/agency">{t.signIn.forgot}</Link>
 
-          <button>Entrar</button>
+          <button>{t.signIn.enter}</button>
 
           <div className="bottom-cta">
-            <h5>Ainda não tem uma conta? </h5>
-            <Link className="create-account special-link" href="/sign-up/profile">Cadastre-se aqui</Link>
+            <h5>{t.signIn.notHaveAnAccount}</h5>
+            <Link className="create-account special-link" href="/sign-up/profile">{t.signIn.here}</Link>
           </div>
         </form>
 

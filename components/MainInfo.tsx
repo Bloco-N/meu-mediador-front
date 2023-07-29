@@ -20,8 +20,8 @@ import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import Link from 'next/link';
 import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
-import { AgencyProfile } from '@/types/AgencyProfile';
 import { LastExp } from '@/types/LastExp';
+import locales from 'locales';
 
 type ContainerProps = {
   isProfile: boolean
@@ -195,18 +195,15 @@ const Container = styled.div<ContainerProps>`
 `
 
 type MainInfoProps = {
-  userSigned: RealtorProfile
-  isProfile: boolean
-  lastExp?: LastExp
-  isRealtor: boolean
+  userSigned: RealtorProfile;
+  isProfile: boolean;
+  lastExp?: LastExp;
+  isRealtor: boolean;
+  pdfPage: boolean;
 }
 
-const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) => {
-
-  console.log("userSigned",userSigned)
-  console.log("isProfile",isProfile)
-  console.log("lastExp",lastExp)
-  console.log("isRealtor",isRealtor)
+const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainInfoProps) => {
+  
   const { setData } = useContext(PictureModalContext) as PictureModalContextType
 
   const { user, setUser } = useContext(UserContext) as UserContextType
@@ -216,6 +213,10 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
   const [sessionProfile, setSessionProfile] = useState(false)
 
   const router = useRouter()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
 
   useEffect(() => {
     const localId = localStorage.getItem('id')
@@ -270,7 +271,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
         {isProfile && (
           <>
             <Image height={1000} width={1000} src={userSigned?.coverPicture ? userSigned.coverPicture : greyImage} alt='cover image' className='cover-photo'/>
-            {sessionProfile && (
+            {sessionProfile && !pdfPage && (
               <>
                 <div className='label-back'>
                   <label htmlFor="cover-pic">
@@ -284,7 +285,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
         )}
       </div>
       <Image width={100} height={100} onClick={isProfile ? () => setData({open: true, userSigned}) : () => {}} className= {isProfile ? "profile profile-pointer" : 'profile' } src={ userSigned?.profilePicture ? userSigned.profilePicture : profileIcon} alt='profile icon'/>
-      { isProfile && sessionProfile ? (
+      { isProfile && sessionProfile && !pdfPage ? (
           <Image onClick={() => mainInfoSetOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
       ): ''}
 
@@ -303,7 +304,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
         {userSigned?.RealtorCities && (
           <p>
             <b>
-            Atua em:
+            {t.mainInfo.workArea}
             </b>
               {userSigned.RealtorCities.map((city, index) => (
               ` ${city.City.name} ${index < userSigned.RealtorCities.length -1 ? ',': ''} `
@@ -312,13 +313,13 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor}: MainInfoProps) 
         )}
           <p>
             <b>
-              Experiência:
+              {t.mainInfo.experience}
             </b> {userSigned?.expTime} Anos
           </p>
 
           <p>
             <b>
-            Idiomas: 
+            {t.mainInfo.languages}
             </b> 
             {userSigned?.RealtorLanguages?.map((language, index) => (
               ` ${language.Language.name} ${index < userSigned.RealtorLanguages.length -1 ? ',': ''} `

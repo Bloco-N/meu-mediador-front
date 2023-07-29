@@ -2,7 +2,7 @@ export class AgencyProfile{
   id!: number
   email!: string
   name!: string
-  introduction!: string | null
+  description!: string | null
   phone!: string | null
   whatsapp!: string | null
   instagram!: string | null

@@ -8,15 +8,15 @@ import styled from "styled-components"
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { LastExp } from "@/types/LastExp"
 import LoadingContext from "context/LoadingContext"
-import ConvertToPDF from "./components/ConvertToPDF"
-import ServicesCard from "./components/ServicesCard"
-import AboutCard from "./components/AboutCard"
-import AwardsCard from "./components/AwardsCard"
-import CoursesCard from "./components/CoursesCard"
-import CommentsCard from "./components/CommentsCard"
-import PropertiesCard from "./components/PropertiesCard"
+import ConvertToPDF from "components/realtor-profile-page/ConvertToPDF"
+import ServicesCard from "components/realtor-profile-page/ServicesCard"
+import AwardsCard from "components/realtor-profile-page/AwardsCard"
+import CoursesCard from "components/realtor-profile-page/CoursesCard"
+import CommentsCard from "components/realtor-profile-page/CommentsCard"
+import PropertiesCard from "components/realtor-profile-page/PropertiesCard"
 import { ApiService } from "@/services/ApiService"
-import PartnershipCard from "./components/PartnershipCard"
+import PartnershipCard from "components/realtor-profile-page/PartnershipCard"
+import AboutCard from "components/realtor-profile-page/AboutCard"
 
 const Container = styled.div`
   display: flex;
@@ -32,6 +32,14 @@ const Container = styled.div`
       position: absolute;
       top: 3rem;
       right: 3rem;
+  }
+  .hide-profile{
+    background-color: #D3D2D2;
+    width: 65%;
+    height: 120px;
+    position:fixed;
+    top: 0;
+    right: 0;
   }
 `
 
@@ -53,12 +61,12 @@ export default function Profile(){
 
   const router = useRouter()
   const { id } = router.query
+  const pdfPage = router.query.pdf?true:false;
   const apiService = new ApiService()
 
   useEffect(() => {
     const localStorageId = localStorage.getItem('id')
     const accountType = localStorage.getItem('accountType')
-    console.log(accountType)
 
     if(localStorageId){
       setLocalId(localStorageId)
@@ -73,54 +81,38 @@ export default function Profile(){
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        //console.log("API INFORMATION")
-        //console.log(id,accType)
   
         const data = await apiService.getRealtorInformation(id as string)
         setRealtor(data)
-        //console.log("DATA INFO:",data)
-        
-        // const responseServices = await apiService.getRealtorServices(id as string)
-        // console.log("SERVICES=",responseServices)
-  
-        // const responseProperties = await apiService.getRealtorProperties(id as string)
-        // console.log("PROPERTIES=",responseProperties)
-        
-        // const responseAwards = await apiService.getRealtorAwards(id as string)
-        // console.log("AWARDS=",responseAwards)
 
-        // const responseCourses = await apiService.getRealtorCourses(id as string)
-        // console.log("COURSES=",responseCourses)
-
-        // const responseComments = await apiService.getRealtorComments(id as string)
-        // console.log("COMMENTS=",responseComments)
   
         const responsePartnerships = await apiService.getRealtorPartnership(id as string)
-        //console.log("PARTNERSHIP=",responsePartnerships)
 
         setLastExp({name: responsePartnerships[0]?.name, pic: responsePartnerships[0]?.pic })
         setLoadingOpen(false)
+        window.scrollTo(0, 0);
       }
 
     }
     const localId = localStorage.getItem('id') as string
     if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
-
+    
     fetchData()
 
   }, [id, user.id, accType, setLoadingOpen])
 
   return (
     <Container>
-      <ConvertToPDF localId={localId} accType={accType}/>
-      <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true}/>
-      <ServicesCard localId={localId} accType={accType}/>
-      <AboutCard localId={localId} accType={accType}/>
-      <PropertiesCard localId={localId} accType={accType}/>
-      <AwardsCard localId={localId} accType={accType}/>
-      <CoursesCard localId={localId} accType={accType}/>
-      <PartnershipCard localId={localId} accType={accType}/>
-      <CommentsCard localId={localId} accType={accType}/>
+      {!pdfPage && <ConvertToPDF localId={localId} accType={accType} sessionProfile={sessionProfile}/>}
+      <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true} pdfPage={pdfPage}/>
+      <ServicesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
+      <AboutCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile} pdfPage={pdfPage}/>
+      <PropertiesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile} pdfPage={pdfPage}/>
+      <AwardsCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
+      <CoursesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
+      <PartnershipCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
+      <CommentsCard localId={localId} accType={accType} sessionProfile={sessionProfile} pdfPage={pdfPage}/>
+      {pdfPage && <div className="hide-profile"></div>}
     </Container>
   ) 
 }

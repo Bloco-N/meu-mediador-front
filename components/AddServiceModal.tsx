@@ -3,6 +3,7 @@ import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import { RealtorService } from '@/types/RealtorService';
 import { Service } from '@/types/Service';
 import LoadingContext from 'context/LoadingContext';
+import locales, { servicesLocales } from 'locales';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -74,16 +75,20 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
+      const accountType = localStorage.getItem('accountType')
       if(localId){
         const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service')
   
         let data = await responseServices.json() as Service []
   
-  
-        const responseRealtorServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor/' + localId)
+        const responseRealtorServices = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service/${accountType==="agency"?"agenct":"realtor"}/${localId}`)
   
         const realtorServicesData = await responseRealtorServices.json() as RealtorService []
   
@@ -92,25 +97,29 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
         const deleteSet = new Set(realtorServicesNames)
   
         data = data.filter(item => !deleteSet.has(item.title))
-  
         setServices(data)
       }
-
     }
-
     fetchData()
   }, [open, setLoadingOpen])
 
   const onSubmit = async (data: AddServiceForm) => {
 
     const localId = localStorage.getItem('id')
+    const accountType = localStorage.getItem('accountType')
+    const realtorBody = {
+      serviceId: Number(data.serviceId),
+      realtorId: Number(localId)
+    }
+    const agencyBody = {
+      serviceId: Number(data.serviceId),
+      agencyId: Number(localId)
+    }
+
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/realtor', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/'+accountType, {
       method: 'POST',
-      body: JSON.stringify({
-        serviceId: Number(data.serviceId),
-        realtorId: Number(localId)
-      }),
+      body: JSON.stringify(accountType==="agency"?agencyBody:realtorBody),
       headers:{
         'Content-Type': 'application/json'
       }
@@ -125,17 +134,44 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
     open ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
-        <h3>Criar Serviço</h3>
+        <h3>{t.addServices.createService}</h3>
         {services?.length === 0 ? (
           <h4>Você não tem mais serviços para criar</h4>
         ): (
           <>
             <select {...register('serviceId', { required: true})} name="serviceId" >
-              {services?.map(item => (
-                <option key={item.id} value={item.id}>{item.title}</option>
-              ))}
+              {
+                locale === 'pt' &&(
+
+                  services?.map(item => (
+                  
+                    <option key={item.id} value={item.id}>{servicesLocales.pt[item.title as keyof typeof servicesLocales.pt]}</option>
+
+                  ))
+                )
+              }
+              {
+                locale === 'en' &&(
+
+                  services?.map(item => (
+                  
+                    <option key={item.id} value={item.id}>{servicesLocales.en[item.title as keyof typeof servicesLocales.en]}</option>
+
+                  ))
+                )
+              }
+              {
+                locale === 'es' &&(
+
+                  services?.map(item => (
+                  
+                    <option key={item.id} value={item.id}>{servicesLocales.es[item.title as keyof typeof servicesLocales.es]}</option>
+
+                  ))
+                )
+              }
             </select>
-            <button type='submit'>Criar</button>
+            <button type='submit'>{t.addServices.create}</button>
           </>
 
         )}

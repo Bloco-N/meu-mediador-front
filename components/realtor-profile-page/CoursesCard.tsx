@@ -12,6 +12,7 @@ import AddCourseModalContext from "context/AddCourseModalContext"
 import { Course } from "@/types/Course"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
+import locales from "locales"
 
 
 const Container = styled.div`
@@ -49,14 +50,13 @@ const Container = styled.div`
 interface CoursesCardProps{
     localId:string;
     accType:string;
+    sessionProfile: boolean;
 }
-export default function CoursesCard({localId, accType}:CoursesCardProps){
+export default function CoursesCard({localId, accType, sessionProfile}:CoursesCardProps){
 
   const [courses, setCourses] = useState<Course []>()
 
   const [editCourses, setEditCourses] = useState(false)
-
-  const [sessionProfile, setSessionProfile] = useState(false)
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -67,6 +67,10 @@ export default function CoursesCard({localId, accType}:CoursesCardProps){
   const router = useRouter()
   const { id } = router.query
   const apiService = new ApiService()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -79,8 +83,6 @@ export default function CoursesCard({localId, accType}:CoursesCardProps){
       }
 
     }
-    const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
 
     fetchData()
 
@@ -103,7 +105,7 @@ export default function CoursesCard({localId, accType}:CoursesCardProps){
   return (
     <Container>
       <div className="card awards">
-        <h2>Cursos e Especializações</h2>
+        <h2>{t.study.study}</h2>
         { sessionProfile ? (
           <div className="edit-icons">
             <Image onClick={() => setEditCourses(!editCourses)} className='plus' src={editIcon} alt='edit icon'/>

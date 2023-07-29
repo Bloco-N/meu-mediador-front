@@ -75,15 +75,23 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
       if(id){
         setLoadingOpen(true)
 
-        const responseComments = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor/' + 1)
+        const responseComments = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/agency/' + id)
         const commentData = await responseComments.json()
-        setComments(commentData)
+        let reverseComments = commentData.reverse()
+        // if(pdfPage){
+        //   reverseComments = reverseComments.filter((comment: any, index: number) => {
+        //     if(index<5){
+        //       return comment
+        //     }
+        //   })
+        // }
+        setComments(reverseComments)
 
         setLoadingOpen(false)
       }
     }
     const localId = localStorage.getItem('id') as string
-    if(Number(id) === Number(localId) && accType === 'realtor') setSessionProfile(true)
+    if(Number(id) === Number(localId) && accType === 'agency') setSessionProfile(true)
 
     fetchData()
 
@@ -117,13 +125,16 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
       <div className="card comments">
         <h2>Avaliações</h2>
         {
-          comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': (
+          comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': !sessionProfile &&  (
             <button onClick={() => addCommentSetOpen(true)}>Adicionar Comentário</button>
           )
         }
         <div className="list">
+            {!comments?.length?"Essa agencia não possui avaliações":""}
             {comments?.map(comment => (
+              
               <div key={ comment.id } className="comment">
+                
                 {accType === 'client' && Number(localId) === comment.clientId ? (
                   <Image onClick={e => handleDeleteComment(e)} id={String(comment.id)} className="close" src={closeIcon} alt="close icon"/>
                 ): ''}
