@@ -1,5 +1,6 @@
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
+import locales from "locales";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -31,6 +32,10 @@ const RecoverPassword = () => {
   const router = useRouter()
   const { token } = router.query
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   const onSubmit = async (data:{password:string, confirmPassword:string}) => {
 
     if(data.password !== data.confirmPassword) return;
@@ -55,13 +60,13 @@ const RecoverPassword = () => {
 
         <form onSubmit={handleSubmit(onSubmit)}  action="">
 
-          <h2>Recuperar Senha</h2>
+          <h2>{t.forgotPassword.recoverPassword}</h2>
 
-          <input {...register('password', {required: true})} className="input-forgot-password" type="password" placeholder="Senha" />
-          <input {...register('confirmPassword', {required: true})} className="input-forgot-password" type="password" placeholder="Confirmar Senha" />
+          <input {...register('password', {required: true})} className="input-forgot-password" type="password" placeholder={t.signIn.password} />
+          <input {...register('confirmPassword', {required: true})} className="input-forgot-password" type="password" placeholder={t.signUp.confirmPassword} />
 
-          <button className="forgotPasswordButton">Enviar</button>
-
+          <button className="forgotPasswordButton">{t.forgotPassword.send}</button>
+ 
         </form>
 
 
