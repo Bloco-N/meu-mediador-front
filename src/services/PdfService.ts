@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export class PdfService{
   public async exportPdf (id: number, firstName:string, lastName:string, locale: string){
-    const response = await pdfshift(process.env.NEXT_PUBLIC_PDF_SERVICE_KEY as string, {source:'https://meoagent.com/'+ locale +'/profile/realtor/' + id + '?pdf=1', delay: (5 * 1000), pages:'1-2', format:'350mmx894mm'}) as  { data: any }
+    const response = await pdfshift(process.env.NEXT_PUBLIC_PDF_SERVICE_KEY as string, {source:'https://meoagent.com/'+ locale +'/profile/realtor/' + id + '?pdf=1', delay: (5 * 1000), pages:'1-2', format:'350mmx1094mm'}) as  { data: any }
     createAndDownloadBlobFile(response.data, `${firstName}_${lastName}_profile`)
   }
 }
