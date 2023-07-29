@@ -83,7 +83,7 @@ export default function ConvertToPDF({localId, accType, sessionProfile}:ConvertT
 
   const handleConvertToPDF = () => {
     const pdfService = new PdfService()
-    pdfService.exportPdf(realtor?.id as number, realtor?.firstName as string, realtor?.lastName as string)
+    pdfService.exportPdf(realtor?.id as number, realtor?.firstName as string, realtor?.lastName as string, locale as string)
   }
 
   return (
