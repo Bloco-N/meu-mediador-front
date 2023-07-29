@@ -24,6 +24,7 @@ const en = {
     languages: 'Languages:'
   },
   mainInfoEditModal:{
+    language:"Language",
     agencyName:"Company Name",
     name: 'First Name',
     lastName: 'Last Name',
@@ -125,6 +126,9 @@ const en = {
     placeWhere:"Places where you work:",
     add:"To add",
     youHaveNoMore:"You have no more cities to add"
+  },
+  addLanguage:{
+    languagesYou:"Languages ​​you speak:"
   }
 }
 

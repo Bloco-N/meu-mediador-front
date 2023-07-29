@@ -24,6 +24,7 @@ const es = {
     languages: 'Idiomas:'
   },
   mainInfoEditModal:{
+    language:"Idioma",
     agencyName:"Nombre de Agencia",
     name: 'Nombre',
     lastName: 'Apelido',
@@ -125,6 +126,9 @@ const es = {
     placeWhere:"Lugares donde trabaja:",
     add:"Añadir",
     youHaveNoMore:"No tienes más ciudades para agregar"
+  },
+  addLanguage:{
+    languagesYou:"Idiomas que hablas:"
   }
 }
 

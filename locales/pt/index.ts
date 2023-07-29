@@ -23,6 +23,7 @@ const pt = {
     languages: 'Idiomas:'
   },
   mainInfoEditModal:{
+    language:"Idioma",
     agencyName:"Nome da Agência",
     name: 'Nome',
     lastName: 'Sobrenome',
@@ -124,6 +125,9 @@ const pt = {
     placeWhere:"Lugares onde você atua:",
     add:"Adicionar",
     youHaveNoMore:"Você não tem mais cidades para adicionar"
+  },
+  addLanguage:{
+    languagesYou:"Idiomas que você fala:"
   }
 }
 
