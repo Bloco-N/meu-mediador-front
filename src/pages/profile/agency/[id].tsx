@@ -14,6 +14,7 @@ import PropertiesAgencyCard from "./components/PropertiesAgencyCard";
 import ServicesAgencyCard from "./components/ServicesAgencyCard";
 import AboutAgencyCard from "./components/AboutAgencyCard";
 import CommentsAgencyCard from "./components/CommentsAgencyCard";
+import AgencyRealtorsPropertiesCard from "./components/AgencyRealtorsPropertiesCard";
 
 const Container = styled.div`
   display: flex;
@@ -82,12 +83,12 @@ export default function Profile(){
     
   }, [])
 
-  console.log(localId,accType)
   return (
     <Container>
       <MainInfoAgency userSigned={agency as AgencyProfile} isProfile={true}/>
       <ServicesAgencyCard localId={localId} accType={accType}/>
       <AboutAgencyCard localId={localId} accType={accType}/>
+      {agency&&<AgencyRealtorsPropertiesCard agency={agency}/>}
       <PropertiesAgencyCard localId={localId} accType={accType}/>
       {/* <AwardsAgencyCard localId={localId} accType={accType}/> */}
       <CommentsAgencyCard localId={localId} accType={accType}/>

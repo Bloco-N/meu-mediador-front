@@ -77,7 +77,15 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
 
         const responseComments = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/agency/' + id)
         const commentData = await responseComments.json()
-        setComments(commentData)
+        let reverseComments = commentData.reverse()
+        // if(pdfPage){
+        //   reverseComments = reverseComments.filter((comment: any, index: number) => {
+        //     if(index<5){
+        //       return comment
+        //     }
+        //   })
+        // }
+        setComments(reverseComments)
 
         setLoadingOpen(false)
       }
@@ -124,7 +132,9 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
         <div className="list">
             {!comments?.length?"Essa agencia não possui avaliações":""}
             {comments?.map(comment => (
+              
               <div key={ comment.id } className="comment">
+                
                 {accType === 'client' && Number(localId) === comment.clientId ? (
                   <Image onClick={e => handleDeleteComment(e)} id={String(comment.id)} className="close" src={closeIcon} alt="close icon"/>
                 ): ''}

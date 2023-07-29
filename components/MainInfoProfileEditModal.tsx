@@ -164,7 +164,6 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
     const token = localStorage.getItem('token')
     if(accType === 'realtor'){
       setLoadingOpen(true)
-      console.log(data)
       const { expTime, ...payload} = data
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/', {
         method:'PUT',

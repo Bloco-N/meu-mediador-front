@@ -104,7 +104,6 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const profileType = router.pathname.includes("agency")?"agency":"realtor"
   const { id:profileId } = router.query
   
-  console.log("conta",profileType,profileId)
   const onSubmit = async (data: AddCommentForm) => {
 
     const localId = localStorage.getItem('id')

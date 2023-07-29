@@ -199,7 +199,6 @@ type MainInfoAgencyProps = {
 }
 
 const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
-  console.log("USER",userSigned)
 
   const { setData } = useContext(PictureModalContext) as PictureModalContextType
 

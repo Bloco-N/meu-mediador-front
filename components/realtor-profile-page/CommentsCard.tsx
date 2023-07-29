@@ -66,8 +66,6 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
 
   const { user } = useContext(UserContext) as UserContextType
 
-  console.log("teste",AddCommentModalContext)
-
   const { setOpen: addCommentSetOpen } = useContext(AddCommentModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
@@ -84,17 +82,18 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        let commentData = await apiService.getRealtorComments(id as string)
+        const commentData = await apiService.getRealtorComments(id as string)
         setLoadingOpen(false)
 
+        let reverseComments = commentData.reverse()
         if(pdfPage){
-          commentData = commentData.filter((comment: any, index: number) => {
+          reverseComments = reverseComments.filter((comment: any, index: number) => {
             if(index<5){
               return comment
             }
           })
         }
-        setComments(commentData)
+        setComments(reverseComments)
       }
     }
 
@@ -108,8 +107,7 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
     const { id } = target
 
     const token = localStorage.getItem('token')
-
-    console.log(id,token)
+    
     setLoadingOpen(true)
     const response = await apiService.deleteComment(token as string, id)
     setLoadingOpen(false)

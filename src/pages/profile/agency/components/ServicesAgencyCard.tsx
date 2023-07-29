@@ -10,7 +10,6 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AddServiceModalContext from "context/AddServiceModalContext"
 import { RealtorService } from "@/types/RealtorService"
 import LoadingContext from "context/LoadingContext"
-import { ApiService } from "@/services/ApiService"
 
 const Container = styled.div`
   .services{
@@ -42,7 +41,7 @@ interface ServicesCardProps{
     accType:string;
 }
 export default function ServicesAgencyCard({localId, accType}:ServicesCardProps){
-
+  console.log("AQUI")
   const [services, setServices] = useState<RealtorService []>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
@@ -57,16 +56,14 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
   const { id } = router.query
   
   useEffect(() => {
-    console.log("AAA")
     const fetchData = async () => {
-      console.log(id)
+      console.log("AQ",id)
       if(id){
         setLoadingOpen(true)
-        console.log("AAA")
-        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/agency/' + id)
-        console.log("resp",responseServices)
+        
+        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/agenct/' + id)
         const serviceData = await responseServices.json()
-        console.log("services",serviceData)
+        console.log("SERVDATA",serviceData)
         setServices(serviceData)
 
         setLoadingOpen(false)
@@ -86,14 +83,21 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
     const { id } = target
 
     const token = localStorage.getItem('token')
-    const accountType = localStorage.getItem('accountType')
+
     setLoadingOpen(true)
 
-    const apiService = new ApiService()
-    const deleteService = await apiService.deleteService(String(token),Number(id),String(accountType))
+
+    setLoadingOpen(true)
+    
+    await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/agency/' + id, {
+      method: 'DELETE',
+      headers:{
+        authorization: 'Bearer ' + token
+      }
+    })
 
     setLoadingOpen(false)
-    if(deleteService === 'deleted') router.reload()
+    router.reload()
   }
 
   return (

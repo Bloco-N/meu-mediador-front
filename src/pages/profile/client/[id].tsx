@@ -41,14 +41,12 @@ export default function Profile(){
 
   const router = useRouter()
   const { id } = router.query
-  console.log("ID",id)
 
   useEffect(() => {
     const fetchData = async () => {
       if(id){
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client/' + id)
         const data = await response.json()
-        console.log("CLIENT",data)
         setClient(data)
       }
     }
@@ -72,10 +70,8 @@ export default function Profile(){
     if(accountType){
       setAccType(accountType)
     }
-    console.log(localStorageId,accountType)
   }, [])
 
-  console.log(localId,accType)
   return (
     <Container>
       {client?<MainInfoClient userSigned={client as ClientProfile} isProfile={true}/>:""}
