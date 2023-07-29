@@ -129,6 +129,14 @@ const es = {
   },
   addLanguage:{
     languagesYou:"Idiomas que hablas:"
+  },
+  review:{
+    createAReview:"Crear una Reseña",
+    marketKnowledge: "Conocimiento de Mercado:",
+    responsiveness:"Sensibilidad:",
+    negotiation:"Habilidades de Negociación:",
+    professionalismAndCommunication:"Profesionalidad y Comunicación:",
+    writeYourCommentHere:"Escribe tu comentario aqui"
   }
 }
 

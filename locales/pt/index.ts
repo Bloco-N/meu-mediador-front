@@ -128,6 +128,14 @@ const pt = {
   },
   addLanguage:{
     languagesYou:"Idiomas que você fala:"
+  },
+  review:{
+    createAReview:"Criar Comentário",
+    marketKnowledge: "Conhecimento de mercado:",
+    responsiveness:"Capacidade de resposta:",
+    negotiation:"Negociação:",
+    professionalismAndCommunication:"Porfissionalismo e Comunicação:",
+    writeYourCommentHere:"Escreva seu comentário Aqui"
   }
 }
 

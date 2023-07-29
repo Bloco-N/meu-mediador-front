@@ -129,6 +129,14 @@ const en = {
   },
   addLanguage:{
     languagesYou:"Languages ​​you speak:"
+  },
+  review:{
+    createAReview:"Create a Review",
+    marketKnowledge: "Market Knowledge:",
+    responsiveness:"Responsiveness:",
+    negotiation:"Negotiation Skills:",
+    professionalismAndCommunication:"Professionalism and Communication:",
+    writeYourCommentHere:"Write your comment here"
   }
 }
 
