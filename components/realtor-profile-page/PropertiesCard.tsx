@@ -159,7 +159,7 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
                 <h2>{item.price}</h2>
                 <h3>{item.title}</h3>
                 <p className="sub-text">
-                  {PropertyTypes[item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]} {item.grossArea} de Área Bruta e {item.usefulArea} de Área Útil, {Preservations[item.preservation as keyof TPreservations]}.
+                  {PropertyTypes[locale as keyof typeof PropertyTypes][item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]}, {t.addPropertiesModal.grossArea}: {item.grossArea}, {t.addPropertiesModal.usableArea}: {item.usefulArea}, {Preservations[locale as keyof typeof PropertyTypes][item.preservation as keyof TPreservations]}.
                 </p>
                 <div className="footer">
                   <Link className="special-link" href={item.link} target='_blank'>

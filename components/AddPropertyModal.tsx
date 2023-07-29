@@ -242,7 +242,7 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
             </div>
             <div className="selections">
               <select {...register('propertyType')} name="propertyType" id="propertyType">
-                {Object.entries(PropertyTypes).map(([key, value]) => (
+                {Object.entries(PropertyTypes[locale as keyof typeof PropertyTypes]).map(([key, value]) => (
                   <option key={key} value={key}>{value}</option>
                   ))}
               </select>
@@ -252,7 +252,7 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
                   ))}
               </select>
               <select {...register('preservation', { required: true})} name="preservation" id="preservation">
-                {Object.entries(Preservations).map(([key, value]) => (
+                {Object.entries(Preservations[locale as keyof typeof Preservations]).map(([key, value]) => (
                   <option key={key} value={key}>{value}</option>
                   ))}
               </select>
