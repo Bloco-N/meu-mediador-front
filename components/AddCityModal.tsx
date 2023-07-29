@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import closeIcon from '../public/close.svg'
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import LoadingContext from 'context/LoadingContext';
+import locales from 'locales';
 
 const Container = styled.div`
   position: absolute;
@@ -99,6 +100,10 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
@@ -164,8 +169,8 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     open ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
-        <h3>Adicionar Local de Atuação</h3>
-        <h4>Lugares onde você atua:</h4>
+        <h3>{t.addCity.addCity}</h3>
+        <h4>{t.addCity.placeWhere}</h4>
         <div className="list">
           {realtor?.RealtorCities.map(item => (
             <p key={item.City.id} >
@@ -175,7 +180,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
           ))}
         </div>
         {cities?.length === 0 ? (
-          <h4>Você não tem mais cidades para adicionar</h4>
+          <h4>{t.addCity.youHaveNoMore}</h4>
         ): (
           <>
             <select {...register('name', { required: true})}>
@@ -183,7 +188,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
                 <option key={index} value={item}>{item}</option>
               ))}
             </select>
-            <button type='submit'>Criar</button>
+            <button type='submit'>{t.addCity.add}</button>
           </>
 
         )}

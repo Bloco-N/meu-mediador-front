@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { decode } from "jsonwebtoken";
 import { useRouter } from "next/router";
+import locales from "locales";
 
 const VerifyRealtorContainer = styled.div`
   display: flex;
@@ -34,6 +35,10 @@ const VerifyRealtor = () => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
 
     const fetchData = async () => {
@@ -57,7 +62,7 @@ const VerifyRealtor = () => {
     }
 
     fetchData()
-  }, [])
+  }, [router, setLoadingOpen])
 
 
     return (
@@ -65,9 +70,9 @@ const VerifyRealtor = () => {
 
         <form action="">
 
-          <h2>Verifique sua Conta</h2>
+          <h2>{t.verifyAccount.verifyYourAccount}</h2>
 
-          <p>Enviamos um email para o email cadastrado, verifique sua caixa de mensagens e as instruções para verificar sua conta</p>
+          <p>{t.verifyAccount.weSend}</p>
 
         </form>
 

@@ -17,6 +17,7 @@ import { timeSince } from "@/utils/timeSince"
 import LoadingContext from "context/LoadingContext"
 import { AgencyProfile } from "@/types/AgencyProfile"
 import housePaceholder from '../../../../../public/placeholder.jpg'
+import locales from "locales"
 
 const Container = styled.div`
   .properties{
@@ -103,6 +104,10 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
 
   const router = useRouter()
   const { id } = router.query
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
 
   useEffect(() => {
@@ -152,7 +157,7 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
                 <h2>{item[0].price}</h2>
                 <h3>{item[0].title}</h3>
                 <p className="sub-text">
-                  {PropertyTypes[item[0].propertyType as keyof TPropertyTypes]} {Rooms[item[0].rooms as keyof TRooms]} {item[0].grossArea} de Área Bruta e {item[0].usefulArea} de Área Útil, {Preservations[item[0].preservation as keyof TPreservations]}.
+                  {PropertyTypes[locale as keyof typeof PropertyTypes][item[0].propertyType as keyof TPropertyTypes]} {Rooms[item[0].rooms as keyof TRooms]} {item[0].grossArea} de Área Bruta e {item[0].usefulArea} de Área Útil, {Preservations[locale as keyof typeof Preservations][item[0].preservation as keyof TPreservations]}.
                 </p>
                 <div className="footer">
                   <Link className="special-link" href={item[0].link} target='_blank'>
@@ -174,7 +179,7 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
                 <h2>{item[1].price}</h2>
                 <h3>{item[1].title}</h3>
                 <p className="sub-text">
-                  {PropertyTypes[item[1].propertyType as keyof TPropertyTypes]} {Rooms[item[1].rooms as keyof TRooms]} {item[1].grossArea} de Área Bruta e {item[1].usefulArea} de Área Útil, {Preservations[item[1].preservation as keyof TPreservations]}.
+                  {PropertyTypes[locale as keyof typeof PropertyTypes][item[1].propertyType as keyof TPropertyTypes]} {Rooms[item[1].rooms as keyof TRooms]} {item[1].grossArea} de Área Bruta e {item[1].usefulArea} de Área Útil, {Preservations[locale as keyof typeof Preservations][item[1].preservation as keyof TPreservations]}.
                 </p>
                 <div className="footer">
                   <Link className="special-link" href={item[1].link} target='_blank'>

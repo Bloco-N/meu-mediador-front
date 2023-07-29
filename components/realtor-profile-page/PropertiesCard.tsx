@@ -16,6 +16,7 @@ import Preservations, { TPreservations } from "@/types/Preservations"
 import { timeSince } from "@/utils/timeSince"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
+import locales from "locales"
 
 const Container = styled.div`
   .properties{
@@ -108,6 +109,10 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
   const router = useRouter()
   const { id } = router.query
   const apiService = new ApiService()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -143,7 +148,7 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
   return (
     <Container >
       <div className="card properties">
-        <h2>Imóveis</h2>
+        <h2>{t.properties.properties}</h2>
         <div className={`list ${pdfPage && 'pdf-list'}`}>
           {properties?.map(item => (
             <div key={item.id} className="propertie">
@@ -154,11 +159,11 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
                 <h2>{item.price}</h2>
                 <h3>{item.title}</h3>
                 <p className="sub-text">
-                  {PropertyTypes[item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]} {item.grossArea} de Área Bruta e {item.usefulArea} de Área Útil, {Preservations[item.preservation as keyof TPreservations]}.
+                  {PropertyTypes[locale as keyof typeof PropertyTypes][item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]}, {t.addPropertiesModal.grossArea}: {item.grossArea}, {t.addPropertiesModal.usableArea}: {item.usefulArea}, {Preservations[locale as keyof typeof PropertyTypes][item.preservation as keyof TPreservations]}.
                 </p>
                 <div className="footer">
                   <Link className="special-link" href={item.link} target='_blank'>
-                    Conferir Imóvel
+                    {t.properties.verify}
                   </Link>
                   <p className="sub-text">
                     {timeSince(new Date(item.createdAt))}

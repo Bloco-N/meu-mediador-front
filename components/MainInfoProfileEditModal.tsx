@@ -12,6 +12,7 @@ import AddCityModalContext from 'context/AddCityModalContext';
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import AddLanguageModalContext from 'context/AddLanguageModalContext';
 import LoadingContext from 'context/LoadingContext';
+import locales from 'locales';
 
 type MainInfoProfileEditModalProps = {
   open: boolean,
@@ -119,6 +120,10 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   const handleAddCity = () => {
     setCityModalOpen(true)
     setOpen(false)
@@ -202,8 +207,8 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
         <div className="input-group">
           {accType === 'realtor' && (
             <>
-              <input {...register('firstName', {required: true})} defaultValue={userSigned?.firstName} type="text" placeholder='Nome' />
-              <input {...register('lastName',  {required: true})} defaultValue={userSigned?.lastName} type="text" placeholder='Sobrenome' />
+              <input {...register('firstName', {required: true})} defaultValue={userSigned?.firstName} type="text" placeholder={t.mainInfoEditModal.name} />
+              <input {...register('lastName',  {required: true})} defaultValue={userSigned?.lastName} type="text" placeholder={t.mainInfoEditModal.lastName} />
             </>
           )}
           {accType === 'agency' && (
@@ -224,29 +229,29 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
 
         </div>
         <div className="input-group">
-          <InputMask type='text' onChange={e => setPhone(e.target.value)} defaultValue={userSigned?.phone ? userSigned?.phone : '+55 99 9 9999 9999'} placeholder='telefone' mask={phoneMask} maskChar="_" />
-          <InputMask type='text' onChange={e => setWhatsapp(e.target.value)} defaultValue={userSigned?.whatsapp ? userSigned?.whatsapp : '+55 99 9 9999 9999'} placeholder='whatsapp' mask={wppMask} maskChar="_" />
+          <InputMask type='text' onChange={e => setPhone(e.target.value)} defaultValue={userSigned?.phone ? userSigned?.phone : '+55 99 9 9999 9999'} placeholder={t.mainInfoEditModal.phone} mask={phoneMask} maskChar="_" />
+          <InputMask type='text' onChange={e => setWhatsapp(e.target.value)} defaultValue={userSigned?.whatsapp ? userSigned?.whatsapp : '+55 99 9 9999 9999'} placeholder='Whatsapp' mask={wppMask} maskChar="_" />
         </div>
         <div className="input-group">
-          <input {...register('email', {required: true})} defaultValue={userSigned?.email} type="email" placeholder='mail@mail.com'/>
-          <input {...register('instagram')} defaultValue={userSigned?.instagram ? userSigned?.instagram : ''} type="text" placeholder='link instagram' />
+          <input {...register('email', {required: true})} defaultValue={userSigned?.email} type="email" placeholder={t.mainInfoEditModal.email}/>
+          <input {...register('instagram')} defaultValue={userSigned?.instagram ? userSigned?.instagram : ''} type="text" placeholder={t.mainInfoEditModal.instagramLink} />
         </div>
         <div className="input-group">
-          <input {...register('facebook')} defaultValue={userSigned?.facebook ? userSigned?.facebook : ''} type="text" placeholder='link facebook'/>
-          <input {...register('website')} defaultValue={userSigned?.website ? userSigned?.website : ''} type="text" placeholder='link site pessoal' />
+          <input {...register('facebook')} defaultValue={userSigned?.facebook ? userSigned?.facebook : ''} type="text" placeholder={t.mainInfoEditModal.facebookLink}/>
+          <input {...register('website')} defaultValue={userSigned?.website ? userSigned?.website : ''} type="text" placeholder={t.mainInfoEditModal.personalWebsite} />
         </div>
         {accType === 'realtor' && (          
           <div className="input-group">
-            <input {...register('expTime')} defaultValue={userSigned?.expTime ? userSigned?.expTime : 0} type="number" placeholder='tempo de atuação'/>
+            <input {...register('expTime')} defaultValue={userSigned?.expTime ? userSigned?.expTime : 0} type="number" placeholder={t.mainInfoEditModal.whenYouStarted}/>
           </div>
         )}
 
-        <textarea {...register('wppText')} defaultValue={ userSigned?.wppText ? userSigned.wppText : ''} placeholder='Defina uma mensagem de boas vindas no whatsapp'></textarea>
+        <textarea {...register('wppText')} defaultValue={ userSigned?.wppText ? userSigned.wppText : ''} placeholder={t.mainInfoEditModal.welcomeMessage}></textarea>
         <div className="input-group options">
-          <button onClick={handleAddCity}>Adicionar Local de Atuação</button>
-          <button onClick={handleAddLanguage}>Adicionar Idioma Falado</button>
+          <button onClick={handleAddCity}>{t.mainInfoEditModal.addWorkArea}</button>
+          <button onClick={handleAddLanguage}>{t.mainInfoEditModal.addLanguage}</button>
         </div>
-          <button>Salvar</button>
+          <button>{t.mainInfoEditModal.save}</button>
         <p onClick={() => setOpen(false)}>X</p>
       </form>
     </Container>

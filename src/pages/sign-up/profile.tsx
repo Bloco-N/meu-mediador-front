@@ -1,4 +1,6 @@
+import locales from "locales";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -90,6 +92,12 @@ const ChooseProfile = styled.div`
 
 const Profile = () => {
 
+  const router = useRouter()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   // Client Description
     function showClientDescription() {
         if (typeof window !== 'undefined') {
@@ -147,7 +155,7 @@ const Profile = () => {
     return (
       <Container>
         <ChooseProfileTitle className="border card">
-            <h1>Selecione o tipo de perfil que deseja criar</h1>
+            <h1>{t.createProfile.selectTheType}</h1>
         </ChooseProfileTitle>
 
         <ChooseProfile className="border choose-profile">
@@ -159,7 +167,7 @@ const Profile = () => {
                     onMouseLeave={hideClientDescription}>
 
                     <NameProfile className="card choose-profile-client">
-                        Cliente
+                       {t.loginModal.client}
                     </NameProfile>
 
                 </Link>
@@ -168,7 +176,7 @@ const Profile = () => {
                     onMouseEnter={showRealtorDescription}
                     onMouseLeave={hideRealtorDescription}>
                     <NameProfile className="card choose-profile-realtor">
-                        Consultor
+                        {t.loginModal.realtor}
                     </NameProfile>
                 </Link>
 
@@ -176,22 +184,22 @@ const Profile = () => {
                     onMouseEnter={showAgencyDescription}
                     onMouseLeave={hideAgencyDescription}>
                     <NameProfile className="card choose-profile-agency">
-                        Agência
+                        {t.loginModal.agency}
                     </NameProfile>
                 </Link>
 
             </ViewProfile>
 
             <DescriptionProfile className="description-client-profile">
-                <h3>Está em busca de um consultor para conquistar seu próximo imóvel?</h3>
+                <h3>{t.createProfile.areYouLooking}</h3>
             </DescriptionProfile>
 
             <DescriptionProfile className="description-realtor-profile">
-                <h3>Divulgue suas vendas, atraia clientes e se associe a sua empresa</h3>
+                <h3>{t.createProfile.promoteYourSales}</h3>
             </DescriptionProfile>
 
             <DescriptionProfile className="description-agency-profile">
-                <h3>Cadastre sua empresa para associar seus consultores e divulgar seus imóveis a venda</h3>
+                <h3>{t.createProfile.registerYourCompany}</h3>
             </DescriptionProfile>
 
         </ChooseProfile>

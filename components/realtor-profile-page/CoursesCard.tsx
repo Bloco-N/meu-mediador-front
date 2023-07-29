@@ -12,6 +12,7 @@ import AddCourseModalContext from "context/AddCourseModalContext"
 import { Course } from "@/types/Course"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
+import locales from "locales"
 
 
 const Container = styled.div`
@@ -66,6 +67,10 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
   const router = useRouter()
   const { id } = router.query
   const apiService = new ApiService()
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -100,7 +105,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
   return (
     <Container>
       <div className="card awards">
-        <h2>Cursos e Especializações</h2>
+        <h2>{t.study.study}</h2>
         { sessionProfile ? (
           <div className="edit-icons">
             <Image onClick={() => setEditCourses(!editCourses)} className='plus' src={editIcon} alt='edit icon'/>

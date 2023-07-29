@@ -3,6 +3,7 @@ import { EditAboutForm } from "@/types/EditAboutForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import { RealtorProfile } from "@/types/RealtorProfile";
 import LoadingContext from "context/LoadingContext";
+import locales from "locales";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -67,6 +68,10 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
     const fetchData = async () => {
 
@@ -107,10 +112,10 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
     open ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
-        <h2>Quem é você:</h2>
-        <textarea {...register('introduction')} defaultValue={introduction ? introduction : ''} placeholder="Coloque sua introdução aqui"/>
+        <h2>{t.aboutEditModal.whoIsYou}</h2>
+        <textarea {...register('introduction')} defaultValue={introduction ? introduction : ''} placeholder={t.aboutEditModal.putYourDescriptionHere}/>
         <p onClick={() => setOpen(false)}>X</p>
-        <button type="submit"> Atualizar </button>
+        <button type="submit"> {t.aboutEditModal.edit} </button>
       </form>
     </Container>
     : <></>

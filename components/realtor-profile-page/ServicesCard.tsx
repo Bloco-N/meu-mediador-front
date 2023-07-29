@@ -11,6 +11,7 @@ import AddServiceModalContext from "context/AddServiceModalContext"
 import { RealtorService } from "@/types/RealtorService"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
+import locales, { servicesLocales } from "locales"
 
 const Container = styled.div`
   .services{
@@ -56,6 +57,10 @@ export default function ServicesCard({localId, accType, sessionProfile}:Services
   const { id } = router.query
   const apiService = new ApiService()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
     const fetchData = async () => {
       if(id){
@@ -90,10 +95,12 @@ export default function ServicesCard({localId, accType, sessionProfile}:Services
   return (
     <Container >
       <div className="card services">
-          <h3>Este consultor trabalha com:</h3>
+          <h3>{t.services.thisRealtorWorkWith}:</h3>
           {services?.map((item) =>
                 <p className="service" key={item.id}>
-                  {item.service.title}
+                  {locale === 'en' && servicesLocales.en[item.service.title as keyof typeof servicesLocales.en]}
+                  {locale === 'pt' && servicesLocales.pt[item.service.title as keyof typeof servicesLocales.pt]}
+                  {locale === 'es' && servicesLocales.es[item.service.title as keyof typeof servicesLocales.es]}
                   { sessionProfile && (
                   <Image onClick={ e => handleDeleteService(e)} id={String(item.id)} className="close" src={closeIcon} alt='close icon'/>
                 )}

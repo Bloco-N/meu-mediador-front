@@ -1,4 +1,5 @@
 import { SignUpFormAgency } from "@/types/SignUpFormAgency";
+import locales from "locales";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
@@ -35,6 +36,10 @@ const SignUp = () => {
   const { register, handleSubmit } = useForm<SignUpFormAgency>()
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   const onSubmit = async (data:SignUpFormAgency) => {
     const fetchData = async () => {
 
@@ -61,18 +66,18 @@ const SignUp = () => {
 
         <form className="card" onSubmit={handleSubmit(onSubmit)}>
 
-          <h2>Cadastro</h2>
+          <h2>{t.signUp.signUp}</h2>
 
-          <input type="text" className="input-name" placeholder="Nome da Agência" 
+          <input type="text" className="input-name" placeholder={t.mainInfoEditModal.agencyName}
           {...register('name', {required:true, })} />
-          <input className="input-sign-up" type="email" placeholder="E-mail" 
+          <input className="input-sign-up" type="email" placeholder={t.signIn.email}
           {...register('email', {required:true})}/>
-          <input className="input-sign-up" type="password" placeholder="Senha" 
+          <input className="input-sign-up" type="password" placeholder={t.signIn.password}
           {...register('password', {required:true})}/>
-          <input className="input-sign-up" type="password" placeholder="Confirmar Senha"
+          <input className="input-sign-up" type="password" placeholder={t.signUp.confirmPassword}
           {...register('confirmPassword', {required:true})}/>
 
-          <button type="submit">Cadastrar</button>
+          <button type="submit">{t.signUp.signUp}</button>
 
         </form>
 

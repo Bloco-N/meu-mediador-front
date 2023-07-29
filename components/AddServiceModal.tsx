@@ -3,6 +3,7 @@ import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import { RealtorService } from '@/types/RealtorService';
 import { Service } from '@/types/Service';
 import LoadingContext from 'context/LoadingContext';
+import locales, { servicesLocales } from 'locales';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -74,6 +75,10 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
@@ -129,17 +134,44 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
     open ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
-        <h3>Criar Serviço</h3>
+        <h3>{t.addServices.createService}</h3>
         {services?.length === 0 ? (
           <h4>Você não tem mais serviços para criar</h4>
         ): (
           <>
             <select {...register('serviceId', { required: true})} name="serviceId" >
-              {services?.map(item => (
-                <option key={item.id} value={item.id}>{item.title}</option>
-              ))}
+              {
+                locale === 'pt' &&(
+
+                  services?.map(item => (
+                  
+                    <option key={item.id} value={item.id}>{servicesLocales.pt[item.title as keyof typeof servicesLocales.pt]}</option>
+
+                  ))
+                )
+              }
+              {
+                locale === 'en' &&(
+
+                  services?.map(item => (
+                  
+                    <option key={item.id} value={item.id}>{servicesLocales.en[item.title as keyof typeof servicesLocales.en]}</option>
+
+                  ))
+                )
+              }
+              {
+                locale === 'es' &&(
+
+                  services?.map(item => (
+                  
+                    <option key={item.id} value={item.id}>{servicesLocales.es[item.title as keyof typeof servicesLocales.es]}</option>
+
+                  ))
+                )
+              }
             </select>
-            <button type='submit'>Criar</button>
+            <button type='submit'>{t.addServices.create}</button>
           </>
 
         )}

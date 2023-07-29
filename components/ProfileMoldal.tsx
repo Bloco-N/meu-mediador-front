@@ -1,5 +1,6 @@
 import { UserContextType } from '@/types/UserContextType';
 import UserContext from 'context/UserContext';
+import locales from 'locales';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
@@ -48,6 +49,10 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   const { user, setUser } = useContext(UserContext) as UserContextType
 
   const [accType, setAccType] = useState('')
@@ -81,8 +86,8 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
     open ?
     <Container className='card'>
 
-      <Link onClick={() => setOpen(false)} href={`/profile/` + accType + '/' + id}>Perfil</Link>
-      <p onClick={signOut} className='out'>Sair</p>
+      <Link onClick={() => setOpen(false)} href={`/profile/` + accType + '/' + id}>{t.profileModal.profile}</Link>
+      <p onClick={signOut} className='out'>{t.profileModal.signOut}</p>
 
     </Container>
     : <></>
