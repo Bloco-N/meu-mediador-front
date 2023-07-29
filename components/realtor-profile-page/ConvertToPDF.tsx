@@ -79,7 +79,7 @@ export default function ConvertToPDF({localId, accType, sessionProfile}:ConvertT
 
     fetchData()
 
-  }, [id, user.id, accType, setLoadingOpen])
+  }, [id, user.id, accType])
 
   const handleConvertToPDF = () => {
     setLoadingOpen(true)
