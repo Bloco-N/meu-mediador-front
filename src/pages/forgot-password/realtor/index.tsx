@@ -62,7 +62,7 @@ const ForgotPassword = () => {
 
         <form className="card" onSubmit={handleSubmit(onSubmit)}  action="">
 
-          <h2>{t.forgotPassword.recoverPassword}a</h2>
+          <h2>{t.forgotPassword.recoverPassword}</h2>
 
           <input {...register('email', {required: true})} className="input-forgot-password" type="email" placeholder={t.signIn.email} />
           <h4>{t.forgotPassword.enterAnEmail}</h4>
