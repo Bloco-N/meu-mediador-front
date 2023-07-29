@@ -115,6 +115,10 @@ const es = {
     enterAnEmail:"Introduce un Dirección de Correo Electrónico para recuperar tu contraseña",
     send:"Enviar",
     emailSent:"Correo electrónico enviado, revise su bandeja de entrada"
+  },
+  verifyAccount:{
+    verifyYourAccount:"Verifica tu cuenta",
+    weSend:"Hemos enviado un correo electrónico a su dirección de correo electrónico registrada, revise su bandeja de entrada para obtener instrucciones sobre cómo verificar su cuenta."
   }
 }
 

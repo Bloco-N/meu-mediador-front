@@ -115,6 +115,10 @@ const en = {
     enterAnEmail:"Enter an email to recover your password",
     send:"Send",
     emailSent:"Email sent, check your inbox"
+  },
+  verifyAccount:{
+    verifyYourAccount:"Verify your account",
+    weSend:"We've sent an email to your registered email address, check your inbox for instructions on how to verify your account."
   }
 }
 

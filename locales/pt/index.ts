@@ -114,6 +114,10 @@ const pt = {
     enterAnEmail:"Informe um email para recuperar sua senha",
     send:"Enviar",
     emailSent:"Email enviado, verique sua caixa de mensagem"
+  },
+  verifyAccount:{
+    verifyYourAccount:"Verifique sua conta",
+    weSend:"Enviamos um email para o email cadastrado, verifique sua caixa de mensagens e as instruções para verificar sua conta."
   }
 }
 
