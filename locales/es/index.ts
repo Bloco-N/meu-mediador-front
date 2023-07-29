@@ -119,6 +119,12 @@ const es = {
   verifyAccount:{
     verifyYourAccount:"Verifica tu cuenta",
     weSend:"Hemos enviado un correo electrónico a su dirección de correo electrónico registrada, revise su bandeja de entrada para obtener instrucciones sobre cómo verificar su cuenta."
+  },
+  addCity:{
+    addCity:"Añadir Área de Actuación",
+    placeWhere:"Lugares donde trabaja:",
+    add:"Añadir",
+    youHaveNoMore:"No tienes más ciudades para agregar"
   }
 }
 

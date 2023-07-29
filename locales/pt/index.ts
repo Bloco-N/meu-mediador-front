@@ -118,6 +118,12 @@ const pt = {
   verifyAccount:{
     verifyYourAccount:"Verifique sua conta",
     weSend:"Enviamos um email para o email cadastrado, verifique sua caixa de mensagens e as instruções para verificar sua conta."
+  },
+  addCity:{
+    addCity:"Adicionar Local de Atuação",
+    placeWhere:"Lugares onde você atua:",
+    add:"Adicionar",
+    youHaveNoMore:"Você não tem mais cidades para adicionar"
   }
 }
 

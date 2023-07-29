@@ -119,6 +119,12 @@ const en = {
   verifyAccount:{
     verifyYourAccount:"Verify your account",
     weSend:"We've sent an email to your registered email address, check your inbox for instructions on how to verify your account."
+  },
+  addCity:{
+    addCity:"Add Work Area",
+    placeWhere:"Places where you work:",
+    add:"To add",
+    youHaveNoMore:"You have no more cities to add"
   }
 }
 
