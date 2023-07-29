@@ -36,7 +36,8 @@ const Container = styled.div`
   .hide-profile{
     background-color: #D3D2D2;
     width: 65%;
-    height: 120px;
+    height: 140px;
+    max-width: calc(100% - 270px) ;
     position:fixed;
     top: 0;
     right: 0;
