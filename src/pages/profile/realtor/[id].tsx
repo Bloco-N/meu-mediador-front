@@ -39,6 +39,7 @@ const Container = styled.div`
     height: 140px;
     max-width: calc(100% - 270px) ;
     position:fixed;
+    z-index: 5;
     top: 0;
     right: 0;
   }
