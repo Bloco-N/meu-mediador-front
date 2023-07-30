@@ -93,7 +93,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
 
   const { register, handleSubmit } = useForm<AddCityForm>()
 
-  const [realtor, setRealtor] = useState<RealtorProfile>()
+  const [user, setUser] = useState<any>()
 
   const [cities, setCities] = useState<Array<string>>()
 
@@ -106,18 +106,15 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
+      const accType = localStorage.getItem('accountType')
+      console.log("lenguage",accType, localId)
       if(localId){
 
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + localId)
-        const realtorData = await response.json()
-        setRealtor(realtorData)
-
-        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/' + localId)
-        const data = await responseCities.json()
-        setCities(data)
-
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
+        const userData = await response.json()
+        console.log("INFOOOO",userData)
+        setUser(userData)
       }
-
     }
 
     fetchData()
@@ -126,9 +123,10 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
   const onSubmit = async (data: AddCityForm) => {
 
     const token = localStorage.getItem('token')
+    const accType = localStorage.getItem('accountType')
 
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/realtor', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/'+accType, {
       method: 'POST',
       body: JSON.stringify({
         ...data
@@ -151,8 +149,9 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
     const { id } = target
 
     const token = localStorage.getItem('token')
+    const accType = localStorage.getItem('accountType')
 
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/realtor/' + id, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/'+accType+'/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
@@ -171,7 +170,13 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
         <h3>{t.mainInfoEditModal.addLanguage}</h3>
         <h4>{t.addLanguage.languagesYou}</h4>
         <div className="list">
-          {realtor?.RealtorLanguages.map(item => (
+          {user?.RealtorLanguages?.map((item: any )=> (
+            <p key={item.Language.id} >
+              {item.Language.name}
+              <Image onClick={e => handleDeleteLanguage(e)} id={String(item.Language.id)} className="close-icon" src={closeIcon} alt="close icon"/>
+            </p>
+          ))}
+          {user?.AgencyLanguages?.map((item: any ) => (
             <p key={item.Language.id} >
               {item.Language.name}
               <Image onClick={e => handleDeleteLanguage(e)} id={String(item.Language.id)} className="close-icon" src={closeIcon} alt="close icon"/>

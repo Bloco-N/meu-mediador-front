@@ -14,4 +14,6 @@ export class AgencyProfile{
   phoneCountry!: string | null
   wppCountry!: string | null
   wppText!: string | null
+  AgencyCities!: any[];
+  AgencyLanguages!: any[];
 }

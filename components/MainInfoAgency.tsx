@@ -21,6 +21,8 @@ import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
 import { AgencyProfile } from '@/types/AgencyProfile';
 import MainInfoAgencyEditModalContext from 'context/MainInfoAgencyEditModal';
+import locales from 'locales';
+
 
 type ContainerProps = {
   isProfile: boolean
@@ -210,6 +212,10 @@ const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
     const localId = localStorage.getItem('id')
     const accounType = localStorage.getItem('accountType')
@@ -286,6 +292,24 @@ const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
           <h1>{userSigned?.name}</h1>
         </div>
         <div className="about-2">
+        {userSigned?.AgencyCities && (
+          <p>
+            <b>
+            {t.mainInfo.workArea}
+            </b>
+              {userSigned.AgencyCities.map((city, index) => (
+              ` ${city.City.name} ${index < userSigned.AgencyCities.length -1 ? ',': ''} `
+              ))}
+          </p>
+        )}
+        <p>
+            <b>
+            {t.mainInfo.languages}
+            </b> 
+            {userSigned?.AgencyLanguages?.map((language, index) => (
+              ` ${language.Language.name} ${index < userSigned.AgencyLanguages.length -1 ? ',': ''} `
+              ))}
+          </p>
           <p>{userSigned?.email}</p>
           <p>{userSigned?.phone}</p>
         </div>
