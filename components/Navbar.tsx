@@ -65,11 +65,15 @@ const Nav = styled.div`
       display: flex;
       align-items: center;
       right: 25rem;
-      gap: 2rem;
+      gap: 1rem;
       background-color: var(--surface);
       border-radius: 1rem;
       padding: 1rem;
       height: 5rem;
+      @media (max-width: 700px) {
+        right: 18rem;
+        gap: 1px;
+      }
     }
     .profile{
       cursor: pointer;
