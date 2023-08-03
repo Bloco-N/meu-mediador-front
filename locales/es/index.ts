@@ -88,6 +88,13 @@ const es = {
   partnership:{
     partnership: 'Experiencia'
   },
+  addPartnership:{
+    addExperience:'Añadir Experiencia',
+    jobTitle:'Cargo',
+    company:'Agencia',
+    currentJob:'Trabajo Actual',
+    create:'Crear'
+  },
   comments:{
     comments:'Reseñas',
     thisAgentHasNoReviews:'Este consultor no tiene reseñas',
