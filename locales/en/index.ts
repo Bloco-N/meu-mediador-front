@@ -44,7 +44,8 @@ const en = {
   },
   addServices:{
     createService: 'Create Service',
-    create:'Create'
+    create:'Create',
+    YouHaveNoMore:'You have no more services to create'
   },
   about:{
     about: 'About',
