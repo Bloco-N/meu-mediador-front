@@ -53,7 +53,7 @@ const es = {
     showLess: 'Mostrar Menos'
   },
   aboutEditModal:{
-    whoIsYou: 'Quién eres tú:',
+    whoIsYou: 'Cuéntale a tu cliente un poco sobre ti:',
     putYourDescriptionHere: 'Pon tu presentación aquí',
     edit:'Editar'
   },

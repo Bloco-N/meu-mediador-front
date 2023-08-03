@@ -20,8 +20,8 @@ const Container = styled.div`
   justify-content: center;
   form{
     position: relative;
-    height: 70%;
-    width: 40%;
+    height: 80%;
+    width: 50%;
     border-radius: 3rem;
     display: flex;
     flex-direction: column;

@@ -52,7 +52,7 @@ const pt = {
     showLess: 'Mostrar Menos'
   },
   aboutEditModal:{
-    whoIsYou: 'Quem é você:',
+    whoIsYou: 'Conte ao seu cliente um pouco sobre você:',
     putYourDescriptionHere: 'Coloque sua descrição aqui',
     edit:'Editar'
   },

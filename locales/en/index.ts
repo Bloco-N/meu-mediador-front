@@ -40,7 +40,7 @@ const en = {
     save: 'Save'
   },
   services:{
-    thisRealtorWorkWith: 'This realtor work with: '
+    thisRealtorWorkWith: 'This Real Estate Agent work with: '
   },
   addServices:{
     createService: 'Create Service',
@@ -53,7 +53,7 @@ const en = {
     showLess: 'Show Less'
   },
   aboutEditModal:{
-    whoIsYou: 'Who Is You:',
+    whoIsYou: 'Tell your client a little about yourself:',
     putYourDescriptionHere: 'Put Your Description Here',
     edit:'Edit'
   },
