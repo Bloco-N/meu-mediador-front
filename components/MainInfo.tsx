@@ -130,6 +130,16 @@ const Container = styled.div<ContainerProps>`
       p{
         gap: .5rem;
       }
+      .bottom{
+        display: flex;
+        flex-direction: row;
+        .bottom-1, .bottom-2{
+          width: 20rem;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
     }
     .contact{
       flex-grow: 1;
@@ -325,8 +335,22 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
               ` ${language.Language.name} ${index < userSigned.RealtorLanguages.length -1 ? ',': ''} `
               ))}
           </p>
-          <p>{userSigned?.email}</p>
-          <p>{userSigned?.phone}</p>
+          <div className="bottom">
+            <div className="bottom-1">
+              <p>
+                <b>{t.mainInfo.clientsHelped}</b>
+                3
+              </p>
+              <p>
+                <b>{t.mainInfo.salesResult}</b>
+                2
+              </p>
+            </div>
+            <div className="bottom-2">  
+              <p>{userSigned?.email}</p>
+              <p>{userSigned?.phone}</p>
+            </div>
+          </div>
         </div>
       </div>
 

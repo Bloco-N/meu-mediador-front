@@ -20,7 +20,9 @@ const pt = {
   mainInfo:{
     workArea: 'Atua em:',
     experience: 'Experiência:',
-    languages: 'Idiomas:'
+    languages: 'Idiomas:',
+    salesResult: 'Resultado de Vendas: ',
+    clientsHelped:'Clientes Ajudados: '
   },
   mainInfoEditModal:{
     language:"Idioma",
@@ -43,7 +45,8 @@ const pt = {
   },
   addServices:{
     createService: 'Criar Serviço',
-    create:'Criar'
+    create:'Criar',
+    YouHaveNoMore:'Você não tem mais serviços para criar'
   },
   about:{
     about: 'Sobre',
@@ -51,7 +54,7 @@ const pt = {
     showLess: 'Mostrar Menos'
   },
   aboutEditModal:{
-    whoIsYou: 'Quem é você:',
+    whoIsYou: 'Conte ao seu cliente um pouco sobre você:',
     putYourDescriptionHere: 'Coloque sua descrição aqui',
     edit:'Editar'
   },
@@ -68,7 +71,7 @@ const pt = {
     edit:'Editar'
   },
   awards:{
-    awards: 'Prêmios e disntinções'
+    awards: 'Prêmios e distinções'
   },
   addAwards:{
     createAward: 'Criar Prêmio',
@@ -85,6 +88,13 @@ const pt = {
   },
   partnership:{
     partnership: 'Experiência'
+  },
+  addPartnership:{
+    addExperience:'Adicionar Experiência',
+    jobTitle:'Cargo',
+    company:'Agência',
+    currentJob:'Trabalha aqui atualmente',
+    create:'Criar'
   },
   comments:{
     comments:'Avaliações',

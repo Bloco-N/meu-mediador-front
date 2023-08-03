@@ -94,7 +94,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
 
   const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
 
-  const [realtor, setRealtor] = useState<RealtorProfile>()
+  const [user, setUser] = useState<any>()
 
   const [cities, setCities] = useState<Array<string>>()
 
@@ -107,14 +107,17 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
+      const accType = localStorage.getItem('accountType')
       if(localId){
 
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + localId)
-        const realtorData = await response.json()
-        setRealtor(realtorData)
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
+        const userData = await response.json()
+        console.log("USERRR",userData)
+        setUser(userData)
 
-        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/realtor/' + localId)
+        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + localId)
         const data = await responseCities.json()
+        console.log("CITIESSS",data)
         setCities(data)
 
       }
@@ -127,9 +130,9 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
   const onSubmit = async (data: AddCityForm) => {
 
     const token = localStorage.getItem('token')
-
+    const accType = localStorage.getItem('accountType')
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/realtor', {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType, {
       method: 'POST',
       body: JSON.stringify({
         ...data
@@ -152,8 +155,8 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     const { id } = target
 
     const token = localStorage.getItem('token')
-
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/realtor/' + id, {
+    const accType = localStorage.getItem('accountType')
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + id, {
       method: 'DELETE',
       headers:{
         authorization: 'Bearer ' + token
@@ -172,7 +175,13 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
         <h3>{t.addCity.addCity}</h3>
         <h4>{t.addCity.placeWhere}</h4>
         <div className="list">
-          {realtor?.RealtorCities.map(item => (
+          {user?.RealtorCities?.map((item:any) => (
+            <p key={item.City.id} >
+              {item.City.name}
+              <Image onClick={e => handleDeleteCity(e)} id={String(item.City.id)} className="close-icon" src={closeIcon} alt="close icon"/>
+            </p>
+          ))}
+          {user?.AgencyCities?.map((item:any) => (
             <p key={item.City.id} >
               {item.City.name}
               <Image onClick={e => handleDeleteCity(e)} id={String(item.City.id)} className="close-icon" src={closeIcon} alt="close icon"/>
