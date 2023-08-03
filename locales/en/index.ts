@@ -1,7 +1,7 @@
 const en = {
 
   home:{
-    welcome: "Find your next realtor here",
+    welcome: "Find your next Real Estate Agent here",
     searchRealtorNamePlaceholder:"Realtor Name",
     searchRealtorCityPlaceholder: "City or zip-code",
     searchButton: "Search"

@@ -68,7 +68,7 @@ const pt = {
     edit:'Editar'
   },
   awards:{
-    awards: 'Prêmios e disntinções'
+    awards: 'Prêmios e distinções'
   },
   addAwards:{
     createAward: 'Criar Prêmio',
