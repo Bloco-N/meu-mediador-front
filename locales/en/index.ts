@@ -59,7 +59,7 @@ const en = {
   },
   properties:{
     properties: 'Properties',
-    verify: 'Check Propertie'
+    verify: 'Check Property'
   },
   addPropertiesModal:{
     uploadPropertie:'Upload Property',
