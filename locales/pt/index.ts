@@ -20,7 +20,9 @@ const pt = {
   mainInfo:{
     workArea: 'Atua em:',
     experience: 'Experiência:',
-    languages: 'Idiomas:'
+    languages: 'Idiomas:',
+    salesResult: 'Resultado de Vendas: ',
+    clientsHelped:'Clientes Ajudados: '
   },
   mainInfoEditModal:{
     language:"Idioma",

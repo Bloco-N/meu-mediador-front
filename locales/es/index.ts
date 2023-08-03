@@ -21,7 +21,9 @@ const es = {
   mainInfo:{
     workArea: 'Área de actuación:',
     experience: 'Experiencia:',
-    languages: 'Idiomas:'
+    languages: 'Idiomas:',
+    salesResult: 'Resultado de ventas: ',
+    clientsHelped:'Clientes ayudados: '
   },
   mainInfoEditModal:{
     language:"Idioma",
