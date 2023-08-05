@@ -112,12 +112,10 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
 
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
         const userData = await response.json()
-        console.log("USERRR",userData)
         setUser(userData)
 
         const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + localId)
         const data = await responseCities.json()
-        console.log("CITIESSS",data)
         setCities(data)
 
       }
