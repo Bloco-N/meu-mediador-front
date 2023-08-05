@@ -55,6 +55,9 @@ const Container = styled.div`
         .footer{
           display: flex;
           justify-content: space-between;
+          a{
+            width: 50%;
+          }
           .sub-text{
             font-style: italic;
           }

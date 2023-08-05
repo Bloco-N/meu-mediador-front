@@ -1,7 +1,7 @@
 const en = {
 
   home:{
-    welcome: "Find your next realtor here",
+    welcome: "Find your next Real Estate Agent here",
     searchRealtorNamePlaceholder:"Realtor Name",
     searchRealtorCityPlaceholder: "City or zip-code",
     searchButton: "Search"
@@ -21,7 +21,9 @@ const en = {
   mainInfo:{
     workArea: 'Work Area:',
     experience: 'Experience:',
-    languages: 'Languages:'
+    languages: 'Languages:',
+    salesResult: 'Sales Result: ',
+    clientsHelped:'Clients Helped: '
   },
   mainInfoEditModal:{
     language:"Language",
@@ -40,11 +42,12 @@ const en = {
     save: 'Save'
   },
   services:{
-    thisRealtorWorkWith: 'This realtor work with: '
+    thisRealtorWorkWith: 'This Real Estate Agent work with: '
   },
   addServices:{
     createService: 'Create Service',
-    create:'Create'
+    create:'Create',
+    YouHaveNoMore:'You have no more services to create'
   },
   about:{
     about: 'About',
@@ -52,13 +55,13 @@ const en = {
     showLess: 'Show Less'
   },
   aboutEditModal:{
-    whoIsYou: 'Who Is You:',
+    whoIsYou: 'Tell your client a little about yourself:',
     putYourDescriptionHere: 'Put Your Description Here',
     edit:'Edit'
   },
   properties:{
     properties: 'Properties',
-    verify: 'Check Propertie'
+    verify: 'Check Property'
   },
   addPropertiesModal:{
     uploadPropertie:'Upload Property',
@@ -86,6 +89,13 @@ const en = {
   },
   partnership:{
     partnership: 'Experience'
+  },
+  addPartnership:{
+    addExperience:'Add Experience',
+    jobTitle:'Job Title',
+    company:'Company',
+    currentJob:'Current Job',
+    create:'Create'
   },
   comments:{
     comments:'Reviews',

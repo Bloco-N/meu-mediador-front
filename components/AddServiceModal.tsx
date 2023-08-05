@@ -136,7 +136,7 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>{t.addServices.createService}</h3>
         {services?.length === 0 ? (
-          <h4>Você não tem mais serviços para criar</h4>
+          <h4>{t.addServices.YouHaveNoMore}</h4>
         ): (
           <>
             <select {...register('serviceId', { required: true})} name="serviceId" >
