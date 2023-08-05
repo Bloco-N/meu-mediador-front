@@ -25,5 +25,5 @@ export class RealtorProfile {
   agencyPic!: string | null
   RealtorCities!: RealtorCity[]
   RealtorLanguages!: RealtorLanguage[]
-
+  address?: string | null
 }
