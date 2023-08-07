@@ -121,8 +121,8 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
       <div className="card comments">
         <h2>{t.comments.comments}</h2>
         {
-          comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': !sessionProfile && (
-            <button onClick={() => addCommentSetOpen(true)}>{t.comments.addComment}</button>
+          comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': !sessionProfile && !pdfPage && (
+            pdfPage || <button onClick={() => addCommentSetOpen(true)}>{t.comments.addComment}</button>
           )
         }
         <div className="list">

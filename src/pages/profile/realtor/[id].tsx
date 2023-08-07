@@ -114,7 +114,7 @@ export default function Profile(){
       <CoursesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
       <PartnershipCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
       <CommentsCard localId={localId} accType={accType} sessionProfile={sessionProfile} pdfPage={pdfPage}/>
-      {pdfPage && <div className="hide-profile"></div>}
+      {/* {pdfPage && <div className="hide-profile"></div>} */}
     </Container>
   ) 
 }
