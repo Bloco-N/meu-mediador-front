@@ -42,7 +42,8 @@ const es = {
     save: 'Guardar'
   },
   services:{
-    thisRealtorWorkWith: 'Este consultor trabaja con: '
+    thisRealtorWorkWith: 'Este consultor trabaja con: ',
+    thisAgencyWorkWith: 'Esta agencia trabaja con: '
   },
   addServices:{
     createService: 'Crear Servicio',
@@ -143,10 +144,16 @@ const es = {
   review:{
     createAReview:"Crear una Reseña",
     marketKnowledge: "Conocimiento de Mercado:",
-    responsiveness:"Sensibilidad:",
+    responsiveness:"Capacidad de respuesta:",
     negotiation:"Habilidades de Negociación:",
     professionalismAndCommunication:"Profesionalidad y Comunicación:",
     writeYourCommentHere:"Escribe tu comentario aqui"
+  },
+  clientProfile:{
+    adress:'Dirección',
+    city:'Ciudad',
+    country:'País',
+    zipCode:'Código Postal' 
   }
 }
 

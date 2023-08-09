@@ -42,7 +42,8 @@ const en = {
     save: 'Save'
   },
   services:{
-    thisRealtorWorkWith: 'This Real Estate Agent work with: '
+    thisRealtorWorkWith: 'This Real Estate Agent work with: ',
+    thisAgencyWorkWith: 'This Agency work with: '
   },
   addServices:{
     createService: 'Create Service',
@@ -134,7 +135,7 @@ const en = {
   addCity:{
     addCity:"Add Work Area",
     placeWhere:"Places where you work:",
-    add:"To add",
+    add:"Add",
     youHaveNoMore:"You have no more cities to add"
   },
   addLanguage:{
@@ -147,6 +148,12 @@ const en = {
     negotiation:"Negotiation Skills:",
     professionalismAndCommunication:"Professionalism and Communication:",
     writeYourCommentHere:"Write your comment here"
+  },
+  clientProfile:{
+    adress:'Adress',
+    city:'City',
+    country:'Country',
+    zipCode:'Zip Code' 
   }
 }
 

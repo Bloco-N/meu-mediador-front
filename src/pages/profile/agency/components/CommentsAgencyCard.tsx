@@ -9,6 +9,7 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { Comment } from "@/types/Comment"
 import AddCommentModalContext from "context/AddCommentModalContext"
 import LoadingContext from "context/LoadingContext"
+import locales from "locales"
 
 const Container = styled.div`
   .comments{
@@ -69,6 +70,10 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
 
   const router = useRouter()
   const { id } = router.query
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -123,14 +128,14 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
   return (
     <Container >
       <div className="card comments">
-        <h2>Avaliações</h2>
+        <h2>{t.comments.comments}</h2>
         {
           comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': !sessionProfile &&  (
-            <button onClick={() => addCommentSetOpen(true)}>Adicionar Comentário</button>
+            <button onClick={() => addCommentSetOpen(true)}>{t.comments.addComment}</button>
           )
         }
         <div className="list">
-            {!comments?.length?"Essa agencia não possui avaliações":""}
+            {!comments?.length? t.comments.thisAgentHasNoReviews:""}
             {comments?.map(comment => (
               
               <div key={ comment.id } className="comment">

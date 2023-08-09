@@ -41,7 +41,8 @@ const pt = {
     save: 'Salvar'
   },
   services:{
-    thisRealtorWorkWith: 'Esse consultor trabalha com: '
+    thisRealtorWorkWith: 'Esse consultor trabalha com: ',
+    thisAgencyWorkWith: 'Essa agência trabalha com: : '
   },
   addServices:{
     createService: 'Criar Serviço',
@@ -146,6 +147,12 @@ const pt = {
     negotiation:"Negociação:",
     professionalismAndCommunication:"Porfissionalismo e Comunicação:",
     writeYourCommentHere:"Escreva seu comentário Aqui"
+  },
+  clientProfile:{
+    adress:'Morada',
+    city:'Cidade',
+    country:'País',
+    zipCode:'Código Postal' 
   }
 }
 

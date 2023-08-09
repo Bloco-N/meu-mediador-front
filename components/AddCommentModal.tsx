@@ -161,7 +161,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       <form onSubmit={handleSubmit(onSubmit)} action="">
         {accType === 'client' ? (
           <>
-            <h3>{t.review.createAReview}r</h3>
+            <h3>{t.review.createAReview}</h3>
             <div>
               <p>{t.review.marketKnowledge} </p>
               <Rating

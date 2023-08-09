@@ -154,6 +154,8 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     
     const { id } = target
 
+    console.log(id)
+
     const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + id, {
@@ -176,15 +178,15 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
         <h4>{t.addCity.placeWhere}</h4>
         <div className="list">
           {user?.RealtorCities?.map((item:any) => (
-            <p key={item.City.id} >
+            <p key={item.id} >
               {item.City.name}
-              <Image onClick={e => handleDeleteCity(e)} id={String(item.City.id)} className="close-icon" src={closeIcon} alt="close icon"/>
+              <Image onClick={e => handleDeleteCity(e)} id={String(item.id)} className="close-icon" src={closeIcon} alt="close icon"/>
             </p>
           ))}
           {user?.AgencyCities?.map((item:any) => (
-            <p key={item.City.id} >
+            <p key={item.id} >
               {item.City.name}
-              <Image onClick={e => handleDeleteCity(e)} id={String(item.City.id)} className="close-icon" src={closeIcon} alt="close icon"/>
+              <Image onClick={e => handleDeleteCity(e)} id={String(item.id)} className="close-icon" src={closeIcon} alt="close icon"/>
             </p>
           ))}
         </div>

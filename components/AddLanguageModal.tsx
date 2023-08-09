@@ -171,15 +171,15 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
         <h4>{t.addLanguage.languagesYou}</h4>
         <div className="list">
           {user?.RealtorLanguages?.map((item: any )=> (
-            <p key={item.Language.id} >
+            <p key={item.id} >
               {item.Language.name}
-              <Image onClick={e => handleDeleteLanguage(e)} id={String(item.Language.id)} className="close-icon" src={closeIcon} alt="close icon"/>
+              <Image onClick={e => handleDeleteLanguage(e)} id={String(item.id)} className="close-icon" src={closeIcon} alt="close icon"/>
             </p>
           ))}
           {user?.AgencyLanguages?.map((item: any ) => (
-            <p key={item.Language.id} >
+            <p key={item.id} >
               {item.Language.name}
-              <Image onClick={e => handleDeleteLanguage(e)} id={String(item.Language.id)} className="close-icon" src={closeIcon} alt="close icon"/>
+              <Image onClick={e => handleDeleteLanguage(e)} id={String(item.id)} className="close-icon" src={closeIcon} alt="close icon"/>
             </p>
           ))}
         </div>
