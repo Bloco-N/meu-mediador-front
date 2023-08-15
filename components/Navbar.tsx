@@ -97,7 +97,6 @@ const Navbar = () => {
     const router = useRouter()
 
     const pdfPage = router.query.pdf?true:false;
-  console.log("PDF",pdfPage)
     useEffect(() => {
       const locale = router.locale as string
       if(locale === 'en'){

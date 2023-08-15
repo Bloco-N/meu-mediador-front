@@ -75,7 +75,6 @@ const Container = styled.div`
 `
 
 const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps) => {
-  console.log("AAA")
   const { register, handleSubmit } = useForm<MainEditForm>()
   const { user } = useContext(UserContext) as UserContextType
 
@@ -116,13 +115,11 @@ const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps)
     const fetchData = async () => {
 
       const localId = localStorage.getItem('id')
-      console.log("A")
       if(localId !== undefined){
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/${accountType}/` + localId, {
           method: 'GET'
         })
         const json = await response.json()
-        console.log("AGENCY: ",json)
         setUserSigned(json)
         setWhatsapp(json.whatsapp)
         setPhone(json.phone)

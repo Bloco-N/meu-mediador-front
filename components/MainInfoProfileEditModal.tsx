@@ -161,7 +161,6 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   }, [user.id, setLoadingOpen])
 
   const onSubmit = async (data: MainEditForm) => {
-    console.log("AAA",data)
     const token = localStorage.getItem('token')
     if(accType === 'realtor'){
       setLoadingOpen(true)
@@ -183,7 +182,6 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
       setLoadingOpen(false)
       router.reload()
     }else if(accType === 'agency'){
-      console.log("DATA", data)
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/', {
         method:'PUT',
         body: JSON.stringify({
@@ -209,7 +207,6 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
       router.reload()
     }
   }
-  console.log("USER: ",userSigned)
   return (
     open ?
     <Container className='modal'>
