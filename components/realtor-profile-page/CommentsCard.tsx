@@ -2,10 +2,10 @@ import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import { useContext, useEffect, useState } from "react"
+import React, { ButtonHTMLAttributes, useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import closeIcon from '@/../public/close.svg'
-import { ModalOpenContextType } from "@/types/ModalOpenContextType"
+import { ModalOpenContextAddReply, ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { Comment } from "@/types/Comment"
 import AddCommentModalContext from "context/AddCommentModalContext"
 import LoadingContext from "context/LoadingContext"
@@ -69,7 +69,7 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
 
   const { setOpen: addCommentSetOpen } = useContext(AddCommentModalContext) as ModalOpenContextType
 
-  const { setOpen: addReplySetOpen } = useContext(AddReplyModalContext) as ModalOpenContextType
+  const { setOpen: addReplySetOpen,  } = useContext(AddReplyModalContext) as ModalOpenContextAddReply
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -119,6 +119,14 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
 
   }
 
+  const handleReply = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const target = e.target as HTMLElement
+    addReplySetOpen({
+      open:true,
+      commentId: Number(target.id)
+    })
+  }
+
   return (
     <Container >
       <div className="card comments">
@@ -145,7 +153,7 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
                   {comment.text}
                 </p>
                 {sessionProfile && (
-                  <button onClick={() => addReplySetOpen(true)}>{t.comments.reply}</button>
+                  <button onClick={(e) => handleReply(e)}>{t.comments.reply}</button>
                 )}
               </div>
             ))}            

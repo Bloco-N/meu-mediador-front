@@ -4,3 +4,11 @@ export type ModalOpenContextType = {
   open: boolean,
   setOpen:  Dispatch<SetStateAction<boolean>>
 }
+
+export type ModalOpenContextAddReply = {
+  state:{
+    open: boolean,
+    commentId: number
+  } 
+  setOpen:  Dispatch<SetStateAction<{open:boolean, commentId:number}>>,
+}

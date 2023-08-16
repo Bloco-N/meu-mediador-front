@@ -1,7 +1,7 @@
 
-import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import { ModalOpenContextAddReply, ModalOpenContextType } from "@/types/ModalOpenContextType";
 import { createContext } from "react";
 
-const AddReplyModalContext = createContext<ModalOpenContextType | null>(null)
+const AddReplyModalContext = createContext<ModalOpenContextAddReply | null>(null)
 
 export default AddReplyModalContext

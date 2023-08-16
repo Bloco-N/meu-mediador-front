@@ -62,7 +62,10 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
 
   const [openAddCommentModal, setOpenAddCommentModal] = useState(false)
 
-  const [openAddReplyModal, setOpenAddReplyModal] = useState(false)
+  const [openAddReplyModal, setOpenAddReplyModal] = useState({
+    open:false,
+    commentId:0
+  })
 
   const [openAddCityModal, setOpenAddCityModal] = useState(false)
 
@@ -116,9 +119,9 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
       <AddLanguageModalContext.Provider value={{open: openAddLanguageModal, setOpen: setOpenAddLanguageModal}}>
       <MainInfoAgencyEditModalContext.Provider value= {{open:openMainInfoAgencyModal, setOpen:setOpenMainInfoAgencyModal}}>
       <LoadingContext.Provider value={{open:loadingOpen, setOpen:setLoadingOpen}}>
-      <AddReplyModalContext.Provider value={{open:openAddReplyModal, setOpen:setOpenAddReplyModal}}>
+      <AddReplyModalContext.Provider value={{state:openAddReplyModal, setOpen:setOpenAddReplyModal}}>
 
-        <AddReplyModal open={openAddReplyModal} setOpen={setOpenAddReplyModal}/>
+        <AddReplyModal open={openAddReplyModal.open} setOpen={setOpenAddReplyModal} commentId={openAddReplyModal.commentId}/>
         <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal}/>
         <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal}/>    
         <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal}/>

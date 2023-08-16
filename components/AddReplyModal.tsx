@@ -51,10 +51,11 @@ const Container = styled.div`
 
 type AddReplyModalProps = {
   open: boolean,
-  setOpen: Dispatch<SetStateAction<boolean>>
+  setOpen: Dispatch<SetStateAction<{open: boolean, commentId:number}>>,
+  commentId: number
 }
 
-export default function AddReplyModal({open, setOpen}:AddReplyModalProps){
+export default function AddReplyModal({open, setOpen, commentId}:AddReplyModalProps){
 
   const { register, handleSubmit } = useForm<{reply:string}>()
 
@@ -72,7 +73,8 @@ export default function AddReplyModal({open, setOpen}:AddReplyModalProps){
 
         <h3>{t.review.createAReview}</h3>
         <textarea placeholder={t.review.writeYourCommentHere} {...register('reply', {required: true})}/>
-        <p className="close" onClick={() => setOpen(false)}>X</p>
+        <p className="close" onClick={() => setOpen({open: false, commentId: 0})}>X</p>
+        <button type="submit"> {t.addCity.add} </button>
       </form>
     </Container>
 
