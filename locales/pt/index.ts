@@ -100,7 +100,8 @@ const pt = {
   comments:{
     comments:'Avaliações',
     thisAgentHasNoReviews:'Esse consultor não possui avaliações',
-    addComment:'Adicionar Comentário'
+    addComment:'Adicionar Comentário',
+    reply:"Responder"
   },
   signIn:{
     signIn: "Entrar",

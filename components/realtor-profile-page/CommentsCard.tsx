@@ -11,6 +11,7 @@ import AddCommentModalContext from "context/AddCommentModalContext"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
+import AddReplyModalContext from "context/AddReplyModalContext"
 
 
 const Container = styled.div`
@@ -67,6 +68,8 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
   const { user } = useContext(UserContext) as UserContextType
 
   const { setOpen: addCommentSetOpen } = useContext(AddCommentModalContext) as ModalOpenContextType
+
+  const { setOpen: addReplySetOpen } = useContext(AddReplyModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -141,6 +144,9 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
                 <p>
                   {comment.text}
                 </p>
+                {sessionProfile && (
+                  <button onClick={() => addReplySetOpen(true)}>{t.comments.reply}</button>
+                )}
               </div>
             ))}            
         </div>

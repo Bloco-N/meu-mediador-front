@@ -101,7 +101,8 @@ const en = {
   comments:{
     comments:'Reviews',
     thisAgentHasNoReviews:'This agent has no Reviews',
-    addComment:'Upload Review'
+    addComment:'Upload Review',
+    reply:"Reply"
   },
   signIn:{
     signIn: "Sign In",

@@ -101,7 +101,8 @@ const es = {
   comments:{
     comments:'Reseñas',
     thisAgentHasNoReviews:'Este consultor no tiene reseñas',
-    addComment:'Adicionar Reseña'
+    addComment:'Adicionar Reseña',
+    reply:"Responder"
   },
   signIn:{
     signIn: "Iniciar Sesión",
