@@ -144,11 +144,13 @@ const es = {
   },
   review:{
     createAReview:"Crear una Reseña",
+    addReply:'Añadir Respuesta',
     marketKnowledge: "Conocimiento de Mercado:",
     responsiveness:"Capacidad de respuesta:",
     negotiation:"Habilidades de Negociación:",
     professionalismAndCommunication:"Profesionalidad y Comunicación:",
-    writeYourCommentHere:"Escribe tu comentario aqui"
+    writeYourCommentHere:"Escribe tu comentario aqui",
+    writeYourReplyHere:"Escribe tu respuesta aqui",
   },
   clientProfile:{
     adress:'Dirección',

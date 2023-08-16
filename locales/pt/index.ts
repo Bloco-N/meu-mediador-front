@@ -143,11 +143,13 @@ const pt = {
   },
   review:{
     createAReview:"Criar Comentário",
+    addReply:'Adicionar Resposta',
     marketKnowledge: "Conhecimento de mercado:",
     responsiveness:"Capacidade de resposta:",
     negotiation:"Negociação:",
     professionalismAndCommunication:"Porfissionalismo e Comunicação:",
-    writeYourCommentHere:"Escreva seu comentário Aqui"
+    writeYourCommentHere:"Escreva seu comentário aqui",
+    writeYourReplyHere:"Escreva sua resposta aqui"
   },
   clientProfile:{
     adress:'Morada',

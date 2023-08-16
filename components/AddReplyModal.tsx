@@ -71,8 +71,8 @@ export default function AddReplyModal({open, setOpen, commentId}:AddReplyModalPr
     <Container className="modal">
       <form action="">
 
-        <h3>{t.review.createAReview}</h3>
-        <textarea placeholder={t.review.writeYourCommentHere} {...register('reply', {required: true})}/>
+        <h3>{t.review.addReply}</h3>
+        <textarea placeholder={t.review.writeYourReplyHere} {...register('reply', {required: true})}/>
         <p className="close" onClick={() => setOpen({open: false, commentId: 0})}>X</p>
         <button type="submit"> {t.addCity.add} </button>
       </form>

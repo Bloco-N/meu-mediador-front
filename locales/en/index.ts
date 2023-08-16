@@ -144,11 +144,13 @@ const en = {
   },
   review:{
     createAReview:"Create a Review",
+    addReply:'Upload Reply',
     marketKnowledge: "Market Knowledge:",
     responsiveness:"Responsiveness:",
     negotiation:"Negotiation Skills:",
     professionalismAndCommunication:"Professionalism and Communication:",
-    writeYourCommentHere:"Write your comment here"
+    writeYourCommentHere:"Write your comment here",
+    writeYourReplyHere:"Write your reply here",
   },
   clientProfile:{
     adress:'Adress',
