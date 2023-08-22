@@ -4,4 +4,5 @@ export type Comment = {
   clientName:string
   rating:number
   text: string
+  reply: string
 }

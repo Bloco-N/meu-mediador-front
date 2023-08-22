@@ -8,7 +8,8 @@ export type ModalOpenContextType = {
 export type ModalOpenContextAddReply = {
   state:{
     open: boolean,
-    commentId: number
+    commentId: number,
+    reply: string
   } 
-  setOpen:  Dispatch<SetStateAction<{open:boolean, commentId:number}>>,
+  setOpen:  Dispatch<SetStateAction<{open:boolean, commentId:number, reply:string}>>,
 }

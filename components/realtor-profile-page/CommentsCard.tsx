@@ -5,6 +5,7 @@ import { useRouter } from "next/router"
 import React, { ButtonHTMLAttributes, useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import closeIcon from '@/../public/close.svg'
+import editIcon from '@/../public/edit.svg'
 import { ModalOpenContextAddReply, ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { Comment } from "@/types/Comment"
 import AddCommentModalContext from "context/AddCommentModalContext"
@@ -36,6 +37,20 @@ const Container = styled.div`
         padding: 2rem;
         background-color: var(--base);
         border-radius: 3rem;
+        div{
+          display: flex;
+          align-items: center;
+          gap:2rem;
+        }
+        .edit{
+          cursor: pointer;
+        }
+        .reply-title{
+          font-weight: bold;
+        }
+        .reply{
+          padding-left: 5rem;
+        }
         .close{
           position: absolute;
           top: 2rem;
@@ -88,6 +103,8 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
         const commentData = await apiService.getRealtorComments(id as string)
         setLoadingOpen(false)
 
+        console.log(commentData)
+
         let reverseComments = commentData.reverse()
         if(pdfPage){
           reverseComments = reverseComments.filter((comment: any, index: number) => {
@@ -121,10 +138,25 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
 
   const handleReply = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const target = e.target as HTMLElement
-    addReplySetOpen({
-      open:true,
-      commentId: Number(target.id)
-    })
+    if(comments){
+
+      addReplySetOpen({
+        open:true,
+        commentId: Number(target.id),
+        reply: comments.find(item => item.id === Number(target.id))?.reply as string
+      })
+    }
+  }
+
+  const handleEdit = (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    const target = e.target as HTMLElement
+    if(comments){
+      addReplySetOpen({
+        open:true,
+        commentId: Number(target.id),
+        reply: comments.find(item => item.id === Number(target.id))?.reply as string
+      })
+    }
   }
 
   return (
@@ -152,8 +184,21 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
                 <p>
                   {comment.text}
                 </p>
-                {sessionProfile && (
-                  <button onClick={(e) => handleReply(e)}>{t.comments.reply}</button>
+                {comment.reply && (
+                  <>
+                  <p
+                    className="reply-title"
+                  >Resposta:</p>
+                  <div>
+                    <p className="reply">
+                      {comment.reply}
+                    </p>
+                    <Image onClick={(e) => handleEdit(e)} id={String(comment.id)} className="edit" src={editIcon} height={20} width={20} alt="edit icon"/>
+                  </div>
+                  </>
+                )}
+                {(sessionProfile && (!comment.reply)) && (
+                  <button id={String(comment.id)} onClick={(e) => handleReply(e)}>{t.comments.reply}</button>
                 )}
               </div>
             ))}            

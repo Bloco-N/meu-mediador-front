@@ -64,7 +64,8 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
 
   const [openAddReplyModal, setOpenAddReplyModal] = useState({
     open:false,
-    commentId:0
+    commentId:0,
+    reply:''
   })
 
   const [openAddCityModal, setOpenAddCityModal] = useState(false)
@@ -121,7 +122,7 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
       <LoadingContext.Provider value={{open:loadingOpen, setOpen:setLoadingOpen}}>
       <AddReplyModalContext.Provider value={{state:openAddReplyModal, setOpen:setOpenAddReplyModal}}>
 
-        <AddReplyModal open={openAddReplyModal.open} setOpen={setOpenAddReplyModal} commentId={openAddReplyModal.commentId}/>
+        <AddReplyModal state={openAddReplyModal} setOpen={setOpenAddReplyModal} />
         <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal}/>
         <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal}/>    
         <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal}/>

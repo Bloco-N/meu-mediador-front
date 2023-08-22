@@ -1,6 +1,10 @@
 export type Partnership = {
-  id: number,
+  id: number
   title:string
   agency: string
-  workTime: string
+  workTime: {
+    pt:string
+    en:string
+    es:string
+  }
 }

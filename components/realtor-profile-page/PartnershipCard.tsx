@@ -168,7 +168,7 @@ export default function PartnershipCard({localId, accType, sessionProfile}:Partn
                         <h3>{partnership.title}</h3>
                       </div>
                       <h4>{item.name}</h4>
-                      <p>{partnership.workTime}</p>
+                      <p>{partnership.workTime[locale as keyof typeof partnership.workTime]}</p>
                     </div>
                 ))}
                 </div>

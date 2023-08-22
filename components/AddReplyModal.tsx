@@ -1,6 +1,8 @@
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import LoadingContext from "context/LoadingContext";
 import locales from "locales";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -50,12 +52,17 @@ const Container = styled.div`
 `
 
 type AddReplyModalProps = {
-  open: boolean,
-  setOpen: Dispatch<SetStateAction<{open: boolean, commentId:number}>>,
-  commentId: number
+  state:{
+    open: boolean,
+    commentId: number,
+    reply: string
+  }
+  setOpen: Dispatch<SetStateAction<{open: boolean, commentId:number, reply:string}>>,
 }
 
-export default function AddReplyModal({open, setOpen, commentId}:AddReplyModalProps){
+export default function AddReplyModal({state, setOpen}:AddReplyModalProps){
+
+  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
 
   const { register, handleSubmit } = useForm<{reply:string}>()
 
@@ -65,15 +72,30 @@ export default function AddReplyModal({open, setOpen, commentId}:AddReplyModalPr
 
   const t = locales[locale as keyof typeof locales]
 
+  const onSubmit = async (data:{reply:string}) => {
+    setLoadingOpen(true)
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor/' + state.commentId, {
+      method: 'PUT',
+      body: JSON.stringify({...data}),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+
+    const text = await response.text()
+    setLoadingOpen(false)
+    if(text === 'updated') router.reload()
+  }
+
   return (
 
-    open ?
+    state.open ?
     <Container className="modal">
-      <form action="">
+      <form onSubmit={handleSubmit(onSubmit)}>
 
         <h3>{t.review.addReply}</h3>
-        <textarea placeholder={t.review.writeYourReplyHere} {...register('reply', {required: true})}/>
-        <p className="close" onClick={() => setOpen({open: false, commentId: 0})}>X</p>
+        <textarea defaultValue={state.reply ? state.reply : ''} placeholder={t.review.writeYourReplyHere} {...register('reply', {required: true})}/>
+        <p className="close" onClick={() => setOpen({open: false, commentId: 0, reply:''})}>X</p>
         <button type="submit"> {t.addCity.add} </button>
       </form>
     </Container>
