@@ -41,7 +41,8 @@ const pt = {
     save: 'Salvar'
   },
   services:{
-    thisRealtorWorkWith: 'Esse consultor trabalha com: '
+    thisRealtorWorkWith: 'Esse consultor trabalha com: ',
+    thisAgencyWorkWith: 'Essa agência trabalha com: : '
   },
   addServices:{
     createService: 'Criar Serviço',
@@ -99,7 +100,8 @@ const pt = {
   comments:{
     comments:'Avaliações',
     thisAgentHasNoReviews:'Esse consultor não possui avaliações',
-    addComment:'Adicionar Comentário'
+    addComment:'Adicionar Comentário',
+    reply:"Responder"
   },
   signIn:{
     signIn: "Entrar",
@@ -141,11 +143,19 @@ const pt = {
   },
   review:{
     createAReview:"Criar Comentário",
+    addReply:'Adicionar Resposta',
     marketKnowledge: "Conhecimento de mercado:",
     responsiveness:"Capacidade de resposta:",
     negotiation:"Negociação:",
     professionalismAndCommunication:"Porfissionalismo e Comunicação:",
-    writeYourCommentHere:"Escreva seu comentário Aqui"
+    writeYourCommentHere:"Escreva seu comentário aqui",
+    writeYourReplyHere:"Escreva sua resposta aqui"
+  },
+  clientProfile:{
+    adress:'Morada',
+    city:'Cidade',
+    country:'País',
+    zipCode:'Código Postal' 
   }
 }
 

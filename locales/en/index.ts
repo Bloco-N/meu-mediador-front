@@ -42,7 +42,8 @@ const en = {
     save: 'Save'
   },
   services:{
-    thisRealtorWorkWith: 'This Real Estate Agent work with: '
+    thisRealtorWorkWith: 'This Real Estate Agent work with: ',
+    thisAgencyWorkWith: 'This Agency work with: '
   },
   addServices:{
     createService: 'Create Service',
@@ -100,7 +101,8 @@ const en = {
   comments:{
     comments:'Reviews',
     thisAgentHasNoReviews:'This agent has no Reviews',
-    addComment:'Upload Review'
+    addComment:'Upload Review',
+    reply:"Reply"
   },
   signIn:{
     signIn: "Sign In",
@@ -134,7 +136,7 @@ const en = {
   addCity:{
     addCity:"Add Work Area",
     placeWhere:"Places where you work:",
-    add:"To add",
+    add:"Add",
     youHaveNoMore:"You have no more cities to add"
   },
   addLanguage:{
@@ -142,11 +144,19 @@ const en = {
   },
   review:{
     createAReview:"Create a Review",
+    addReply:'Upload Reply',
     marketKnowledge: "Market Knowledge:",
     responsiveness:"Responsiveness:",
     negotiation:"Negotiation Skills:",
     professionalismAndCommunication:"Professionalism and Communication:",
-    writeYourCommentHere:"Write your comment here"
+    writeYourCommentHere:"Write your comment here",
+    writeYourReplyHere:"Write your reply here",
+  },
+  clientProfile:{
+    adress:'Adress',
+    city:'City',
+    country:'Country',
+    zipCode:'Zip Code' 
   }
 }
 

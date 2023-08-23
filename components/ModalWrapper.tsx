@@ -31,6 +31,8 @@ import AddLanguageModal from './AddLanguageModal';
 import MainInfoAgencyEditModalContext from 'context/MainInfoAgencyEditModal';
 import LoadingContext from 'context/LoadingContext';
 import Loading from './Loading';
+import AddReplyModal from './AddReplyModal';
+import AddReplyModalContext from 'context/AddReplyModalContext';
 
 type ModalWrapperProps = {
   children: React.ReactNode
@@ -59,6 +61,12 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
   const [openPartnershipModal, setOpenPartnershipModal] = useState(false)
 
   const [openAddCommentModal, setOpenAddCommentModal] = useState(false)
+
+  const [openAddReplyModal, setOpenAddReplyModal] = useState({
+    open:false,
+    commentId:0,
+    reply:''
+  })
 
   const [openAddCityModal, setOpenAddCityModal] = useState(false)
 
@@ -112,7 +120,9 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
       <AddLanguageModalContext.Provider value={{open: openAddLanguageModal, setOpen: setOpenAddLanguageModal}}>
       <MainInfoAgencyEditModalContext.Provider value= {{open:openMainInfoAgencyModal, setOpen:setOpenMainInfoAgencyModal}}>
       <LoadingContext.Provider value={{open:loadingOpen, setOpen:setLoadingOpen}}>
+      <AddReplyModalContext.Provider value={{state:openAddReplyModal, setOpen:setOpenAddReplyModal}}>
 
+        <AddReplyModal state={openAddReplyModal} setOpen={setOpenAddReplyModal} />
         <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal}/>
         <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal}/>    
         <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal}/>
@@ -127,6 +137,7 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
         <MainInfoProfileEditModal open={openMainInfoAgencyModal} setOpen={setOpenMainInfoAgencyModal}/>
         <Loading open={loadingOpen} setOpen={setLoadingOpen}/>
         {children}
+      </AddReplyModalContext.Provider>
       </LoadingContext.Provider>
       </MainInfoAgencyEditModalContext.Provider>
       </AddLanguageModalContext.Provider>

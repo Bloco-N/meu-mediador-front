@@ -10,6 +10,7 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AddServiceModalContext from "context/AddServiceModalContext"
 import { RealtorService } from "@/types/RealtorService"
 import LoadingContext from "context/LoadingContext"
+import locales from "locales"
 
 const Container = styled.div`
   .services{
@@ -54,6 +55,10 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
 
   const router = useRouter()
   const { id } = router.query
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -103,7 +108,7 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
   return (
     <Container >
       <div className="card services">
-          <h3>Esta agência trabalha com:</h3>
+          <h3>{t.services.thisAgencyWorkWith}</h3>
           {services?.map((item) =>
                 <p className="service" key={item.id}>
                   {item.service.title}

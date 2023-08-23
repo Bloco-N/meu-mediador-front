@@ -138,7 +138,7 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
   return (
     <Container >
       <div className="card properties">
-        <h2>Imóveis com Consultores</h2>
+        <h2>{t.properties.properties} </h2>
         <div className="list">
           {properties?.map((item:any) => (
             <div key={item[0].id} className="properties-column">
@@ -183,7 +183,7 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
                 </p>
                 <div className="footer">
                   <Link className="special-link" href={item[1].link} target='_blank'>
-                    Conferir Imóvel
+                    {t.properties.verify}
                   </Link>
                   <p className="sub-text">
                     {timeSince(new Date(item[1].createdAt))}

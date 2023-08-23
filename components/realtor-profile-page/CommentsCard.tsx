@@ -2,15 +2,17 @@ import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
 import Image from "next/image"
 import { useRouter } from "next/router"
-import { useContext, useEffect, useState } from "react"
+import React, { ButtonHTMLAttributes, useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import closeIcon from '@/../public/close.svg'
-import { ModalOpenContextType } from "@/types/ModalOpenContextType"
+import editIcon from '@/../public/edit.svg'
+import { ModalOpenContextAddReply, ModalOpenContextType } from "@/types/ModalOpenContextType"
 import { Comment } from "@/types/Comment"
 import AddCommentModalContext from "context/AddCommentModalContext"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
+import AddReplyModalContext from "context/AddReplyModalContext"
 
 
 const Container = styled.div`
@@ -35,6 +37,20 @@ const Container = styled.div`
         padding: 2rem;
         background-color: var(--base);
         border-radius: 3rem;
+        div{
+          display: flex;
+          align-items: center;
+          gap:2rem;
+        }
+        .edit{
+          cursor: pointer;
+        }
+        .reply-title{
+          font-weight: bold;
+        }
+        .reply{
+          padding-left: 5rem;
+        }
         .close{
           position: absolute;
           top: 2rem;
@@ -68,6 +84,8 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
 
   const { setOpen: addCommentSetOpen } = useContext(AddCommentModalContext) as ModalOpenContextType
 
+  const { setOpen: addReplySetOpen,  } = useContext(AddReplyModalContext) as ModalOpenContextAddReply
+
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
   const router = useRouter()
@@ -84,6 +102,8 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
         setLoadingOpen(true)
         const commentData = await apiService.getRealtorComments(id as string)
         setLoadingOpen(false)
+
+        console.log(commentData)
 
         let reverseComments = commentData.reverse()
         if(pdfPage){
@@ -116,6 +136,29 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
 
   }
 
+  const handleReply = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const target = e.target as HTMLElement
+    if(comments){
+
+      addReplySetOpen({
+        open:true,
+        commentId: Number(target.id),
+        reply: comments.find(item => item.id === Number(target.id))?.reply as string
+      })
+    }
+  }
+
+  const handleEdit = (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+    const target = e.target as HTMLElement
+    if(comments){
+      addReplySetOpen({
+        open:true,
+        commentId: Number(target.id),
+        reply: comments.find(item => item.id === Number(target.id))?.reply as string
+      })
+    }
+  }
+
   return (
     <Container >
       <div className="card comments">
@@ -141,6 +184,22 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
                 <p>
                   {comment.text}
                 </p>
+                {comment.reply && (
+                  <>
+                  <p
+                    className="reply-title"
+                  >Resposta:</p>
+                  <div>
+                    <p className="reply">
+                      {comment.reply}
+                    </p>
+                    <Image onClick={(e) => handleEdit(e)} id={String(comment.id)} className="edit" src={editIcon} height={20} width={20} alt="edit icon"/>
+                  </div>
+                  </>
+                )}
+                {(sessionProfile && (!comment.reply)) && (
+                  <button id={String(comment.id)} onClick={(e) => handleReply(e)}>{t.comments.reply}</button>
+                )}
               </div>
             ))}            
         </div>

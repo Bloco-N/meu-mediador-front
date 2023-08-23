@@ -15,6 +15,7 @@ import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
 import { ClientProfile } from '@/types/ClientProfile';
 import LoadingContext from 'context/LoadingContext';
+import locales from 'locales';
 
 type ContainerProps = {
   isProfile: boolean
@@ -149,6 +150,10 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
   const router = useRouter()
 
+  const locale = router.locale
+  
+  const t = locales[locale as keyof typeof locales]
+
   useEffect(() => {
     const localId = localStorage.getItem('id')
     const accounType = localStorage.getItem('accountType')
@@ -230,7 +235,7 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
       <div className="sub-content">
         <form className="form">
           <li>
-            <label><h3>Email:</h3> </label>
+            <label><h3>{t.signIn.email}:</h3> </label>
             <h3>{userSigned?.email}</h3>
             <div className="contact">
               {userSigned?.email ? (
@@ -241,49 +246,49 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
             </div>
           </li>
           <li>
-            <label>Nome: </label>
+            <label>{t.mainInfoEditModal.name}: </label>
             {editing?
               <input type="text" value={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
               :<p>{firstName}</p>
             }
           </li>
           <li>
-            <label>Sobrenome: </label>
+            <label>{t.mainInfoEditModal.lastName}: </label>
             {editing?
               <input type="text" value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
               :<p>{lastName}</p>
             }
           </li>
           <li>
-            <label>Telefone: </label>
+            <label>{t.mainInfoEditModal.phone}: </label>
             {editing?
               <input type="text" value={phone} onChange={(e)=>setPhone(e.target.value)}/>
               :<p>{phone}</p> 
             }
           </li>
           <li>
-            <label>Morada: </label>
+            <label>{t.clientProfile.adress}: </label>
             {editing?
               <input type="text" value={address} onChange={(e)=>setAddress(e.target.value)}/>
               :<p>{address}</p> 
             }
           </li>
           <li>
-            <label>Cidade: </label>
+            <label>{t.clientProfile.city}: </label>
             {editing?
               <input type="text" value={city} onChange={(e)=>setCity(e.target.value)}/>
               :<p>{city}</p> 
             }
           </li>
           <li>
-            <label>País: </label>
+            <label>{t.clientProfile.country}: </label>
             {editing?
               <input type="text" value={country} onChange={(e)=>setCountry(e.target.value)}/>
               :<p>{country}</p> 
             }
           </li>
           <li>
-            <label>Código Postal: </label>
+            <label>{t.clientProfile.zipCode}: </label>
             {editing?
               <input type="text" value={zipCode} onChange={(e)=>setZipCode(e.target.value)}/>
               :<p>{zipCode}</p> 
@@ -291,8 +296,8 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
           </li>
 
         {editing?
-        <button className='button' onClick={(e)=>sendInfo(e)}>Salvar</button>
-        :<button className='button' onClick={(e)=>startEditing(e)}>Editar</button>
+        <button className='button' onClick={(e)=>sendInfo(e)}>{t.mainInfoEditModal.save}</button>
+        :<button className='button' onClick={(e)=>startEditing(e)}>{t.aboutEditModal.edit}</button>
         }
         </form>
         

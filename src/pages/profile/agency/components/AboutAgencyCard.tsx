@@ -10,6 +10,7 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AboutEditModalContext from "context/AboutEditModalContext"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
+import locales from "locales"
 
 const Container = styled.div`
   .introduction{
@@ -47,6 +48,10 @@ export default function AboutAgencyCard({localId, accType}:AboutCardProps){
 
   const router = useRouter()
   const { id } = router.query
+
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   
   useEffect(() => {
     const fetchData = async () => {
@@ -72,14 +77,14 @@ export default function AboutAgencyCard({localId, accType}:AboutCardProps){
   return (
     <Container >
       <div className="card introduction">
-        <h2>Sobre</h2>
+        <h2>{t.about.about}</h2>
         <p className={elip ? "elipses" : ""}>
           {agency?.description}
         </p>
         {elip ? (
-          <p className="elipses-button" onClick={() => setElip(false)}>Mostrar Mais</p>
+          <p className="elipses-button" onClick={() => setElip(false)}>{t.about.showMore}</p>
           ):(
-          <p className="elipses-button" onClick={() => setElip(true)}>Mostrar Menos</p>
+          <p className="elipses-button" onClick={() => setElip(true)}>{t.about.showLess}</p>
         )}
         { sessionProfile ? (
             <Image onClick={() => aboutEditOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
