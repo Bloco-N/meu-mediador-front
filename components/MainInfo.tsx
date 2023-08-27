@@ -362,7 +362,9 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
           {userSigned?.name && (
             <h1>{userSigned.name}</h1>
           )}
-          <h3>{'★'.repeat(Math.floor(userSigned?.rating))} ({Math.floor(userSigned?.rating)})</h3>
+          {(userSigned?.rating > 0) && (
+            <h3>{'★'.repeat(Math.floor(userSigned?.rating))} ({Math.floor(userSigned?.rating)})</h3>
+          )}
         </div>
         <div className="about-2">
         {userSigned?.RealtorCities && (
