@@ -17,6 +17,12 @@ const Nav = styled.div`
     justify-content: space-between;
     padding: 3rem 6rem;
     position: relative;
+    .logo{
+      height: 5rem;
+      @media only screen and (max-width: 450px){
+        height: 3rem;
+      }
+    }
     .left-side{
       display: flex;
       align-items: center;
@@ -126,7 +132,7 @@ const Navbar = () => {
     return (
         <Nav>
             <Link href="/">
-                <h1><img src="/meoagent-logo.png" alt="Meoagent-logo" /></h1>
+                <h1><img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" /></h1>
             </Link>
             <div className="left-side">
               <div className="selection border">

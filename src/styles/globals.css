@@ -288,3 +288,9 @@ input::-webkit-inner-spin-button {
     font-size: 50%;
   }
 }
+
+@media only screen and (max-width: 375px){
+  :root{
+    font-size: 35%;
+  }
+}
