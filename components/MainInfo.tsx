@@ -371,7 +371,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
               <b>Cidades que atua:</b>
               <ul className="cities-list">
               {userSigned.RealtorCities.map((city) => (
-              <li>- {city.City.name}</li>
+              <li key={city.City.id}>- {city.City.name}</li>
               ))}</ul>
             </ToolTipContainer>
             <div className="tt"></div>
