@@ -17,6 +17,9 @@ const Nav = styled.div`
     justify-content: space-between;
     padding: 3rem 6rem;
     position: relative;
+    @media only screen and (max-width: 450px){
+      padding: 1rem;
+    }
     .logo{
       height: 5rem;
       @media only screen and (max-width: 450px){
@@ -79,6 +82,9 @@ const Nav = styled.div`
       @media (max-width: 700px) {
         right: 18rem;
         gap: 1px;
+      }
+      @media only screen and (max-width: 450px){
+        right: 14rem;
       }
     }
     .profile{
