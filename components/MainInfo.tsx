@@ -329,7 +329,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
   return (
 
   <Container isProfile={isProfile}>
-     <button data-tippy-content="Tooltip">Text</button>
+     {/* <button data-tippy-content="Tooltip">Text</button> */}
     <div className="main-info border">
       <div className='top'>
         {isProfile && (
