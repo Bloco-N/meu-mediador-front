@@ -41,6 +41,9 @@ const Container = styled.div`
         right: 3rem;
       }
       .propertie{
+        @media only screen and (max-width: 400px){
+          width: 25rem;
+        }
         flex-shrink: 0;
         scroll-snap-align: start;
         display: flex;
