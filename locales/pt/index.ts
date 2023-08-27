@@ -34,7 +34,7 @@ const pt = {
     instagramLink:'Link do Instagram',
     facebookLink:'Link do Facebook',
     personalWebsite: 'Link Site Pessoal',
-    whenYouStarted: 'A quanto tempo você trabalha',
+    whenYouStarted: 'Quantos anos de experiência você tem?',
     welcomeMessage: 'Defina uma mensagem de boas vindas o whatsapp',
     addWorkArea:'Adicionar Local de Atuação',
     addLanguage: 'Adicionar Idioma Falado',

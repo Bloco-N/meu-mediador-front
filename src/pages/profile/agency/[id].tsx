@@ -56,7 +56,6 @@ export default function Profile(){
       if(id){
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + id)
         const data = await response.json()
-        console.log("AGENCIA", data)
         setAgency(data)
       }
     }
@@ -89,7 +88,7 @@ export default function Profile(){
       <ServicesAgencyCard localId={localId} accType={accType}/>
       <AboutAgencyCard localId={localId} accType={accType}/>
       {agency&&<AgencyRealtorsPropertiesCard agency={agency}/>}
-      <PropertiesAgencyCard localId={localId} accType={accType}/>
+      {/* <PropertiesAgencyCard localId={localId} accType={accType}/> */}
       {/* <AwardsAgencyCard localId={localId} accType={accType}/> */}
       <CommentsAgencyCard localId={localId} accType={accType}/>
     </Container>

@@ -113,7 +113,6 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
   useEffect(() => {
     const allProperties = agency.Partnerships.map((part:any)=> part.Realtor)
     const agencyRealtors = allProperties.map((item:any)=> {
-        console.log(item)
         return {name:item.firstName,lastName:item.lastName, id:item.id, properties:item.Properties}
     })
     const agencyRealtorsProperties: any = []

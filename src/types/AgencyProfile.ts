@@ -16,4 +16,5 @@ export class AgencyProfile{
   wppText!: string | null
   AgencyCities!: any[];
   AgencyLanguages!: any[];
+  address?: string | null;
 }

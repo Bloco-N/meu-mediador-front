@@ -140,7 +140,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
       setAccType(accountType)
     }
   }, [])
-
+  
   useEffect(() => {
     const accountType = localStorage.getItem('accountType')
     const fetchData = async () => {
@@ -185,7 +185,16 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/', {
         method:'PUT',
         body: JSON.stringify({
-          ...data,
+          
+          address: data.address,
+          email: data.email,
+          facebook: data.facebook,
+          instagram: data.instagram,
+          name: data.name,
+          phoneCountry: data.phoneCountry,
+          website: data.website,
+          wppCountry: data.wppCountry,
+          wppText: data.wppText,
           whatsapp,
           phone
         }),
@@ -198,7 +207,6 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
       router.reload()
     }
   }
-
   return (
     open ?
     <Container className='modal'>
@@ -245,7 +253,11 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
             <input {...register('expTime')} defaultValue={userSigned?.expTime ? userSigned?.expTime : 0} type="number" placeholder={t.mainInfoEditModal.whenYouStarted}/>
           </div>
         )}
-
+        {accType === 'agency' && (          
+          <div className="input-group">
+            <input {...register('address')} defaultValue={userSigned?.address ? userSigned?.address : ""} type="text" placeholder={"Endereço"}/>
+          </div>
+        )}
         <textarea {...register('wppText')} defaultValue={ userSigned?.wppText ? userSigned.wppText : ''} placeholder={t.mainInfoEditModal.welcomeMessage}></textarea>
         <div className="input-group options">
           <button onClick={handleAddCity}>{t.mainInfoEditModal.addWorkArea}</button>

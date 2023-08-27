@@ -310,8 +310,9 @@ const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
               ` ${language.Language.name} ${index < userSigned.AgencyLanguages.length -1 ? ',': ''} `
               ))}
           </p>
-          <p>{userSigned?.email}</p>
-          <p>{userSigned?.phone}</p>
+          <p><b>{"Email: "}</b>{userSigned?.email}</p>
+          <p><b>{"Telefone: "}</b>{userSigned?.phone}</p>
+          <p><b>{"Endereço: "}</b>{userSigned?.address}</p>
         </div>
       </div>
 

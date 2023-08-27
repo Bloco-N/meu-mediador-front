@@ -75,7 +75,6 @@ const Container = styled.div`
 `
 
 const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps) => {
-
   const { register, handleSubmit } = useForm<MainEditForm>()
   const { user } = useContext(UserContext) as UserContextType
 

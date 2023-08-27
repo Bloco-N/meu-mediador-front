@@ -17,6 +17,12 @@ const Nav = styled.div`
     justify-content: space-between;
     padding: 3rem 6rem;
     position: relative;
+    .logo{
+      height: 5rem;
+      @media only screen and (max-width: 450px){
+        height: 3rem;
+      }
+    }
     .left-side{
       display: flex;
       align-items: center;
@@ -96,6 +102,7 @@ const Navbar = () => {
 
     const router = useRouter()
 
+    const pdfPage = router.query.pdf?true:false;
     useEffect(() => {
       const locale = router.locale as string
       if(locale === 'en'){
@@ -126,41 +133,43 @@ const Navbar = () => {
     return (
         <Nav>
             <Link href="/">
-                <h1><img src="/meoagent-logo.png" alt="Meoagent-logo" /></h1>
+                <h1><img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" /></h1>
             </Link>
-            <div className="left-side">
-              <div className="selection border">
-                <Image
-                  alt="United States"
-                  src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
-                  width={20}
-                  height={20}
-                />
-                <select defaultValue={'pt'} onChange={e => changeLocation(e)} className="locale">
-                  <option value="en">EN</option>
-                  <option value="pt">PT</option>
-                  <option value="es">ES</option>
-                </select>
+            {pdfPage || <>
+              <div className="left-side">
+                <div className="selection border">
+                  <Image
+                    alt="United States"
+                    src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
+                    width={20}
+                    height={20}
+                  />
+                  <select defaultValue={'pt'} onChange={e => changeLocation(e)} className="locale">
+                    <option value="en">EN</option>
+                    <option value="pt">PT</option>
+                    <option value="es">ES</option>
+                  </select>
+                </div>
+                {user.token ? (
+                    <Image onClick={() => setOpenProfile(!openProfile)} className="profile" src={pic ? pic :  profileIcon} alt={'Profile'} width={60} height={60}/>
+                ): (
+                    <div
+                      onMouseEnter={() => setOpen(true)}
+                      onMouseLeave={() => setOpen(false)}
+                      className = { open ? 'login' : 'login closed'}
+                      >
+                      <p>
+                        LOGIN
+                      </p>
+                      <LoginMoldal open={ open } setOpen = { setOpen }/>
+                    
+                    </div>
+                )}
               </div>
-              {user.token ? (
-                  <Image onClick={() => setOpenProfile(!openProfile)} className="profile" src={pic ? pic :  profileIcon} alt={'Profile'} width={60} height={60}/>
-              ): (
-                  <div
-                    onMouseEnter={() => setOpen(true)}
-                    onMouseLeave={() => setOpen(false)}
-                    className = { open ? 'login' : 'login closed'}
-                    >
-                    <p>
-                      LOGIN
-                    </p>
-                    <LoginMoldal open={ open } setOpen = { setOpen }/>
-                  
-                  </div>
-              )}
-            </div>
 
-            <ProfileMoldal open={openProfile} setOpen={setOpenProfile}/>
-
+              <ProfileMoldal open={openProfile} setOpen={setOpenProfile}/>
+            </>
+              }
         </Nav>
     );
 };

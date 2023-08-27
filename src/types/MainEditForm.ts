@@ -11,6 +11,7 @@ export class MainEditForm {
   phoneCountry!: string | null
   wppCountry!: string | null
   wppText!: string | null
+  address?: string | null
 }
 
 export class MainEditFormAgency {
