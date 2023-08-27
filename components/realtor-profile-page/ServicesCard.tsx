@@ -14,7 +14,6 @@ import { ApiService } from "@/services/ApiService"
 import locales, { servicesLocales } from "locales"
 
 const Container = styled.div`
-  margin-top: 50px;
   .services{
     display: flex;
     flex-direction: row;
