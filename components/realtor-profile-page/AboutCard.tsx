@@ -20,6 +20,7 @@ const Container = styled.div`
     p{
       margin: 2rem;
       white-space: pre-wrap;
+      font-size: 1.8rem;
     }
     .elipses-button{
       cursor: pointer;
