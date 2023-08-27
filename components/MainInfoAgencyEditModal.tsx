@@ -132,20 +132,23 @@ const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps)
 
   const onSubmit = async (data: MainEditForm) => {
     const token = localStorage.getItem('token')
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/', {
-        method:'PUT',
-        body: JSON.stringify({
-          ...data,
-          whatsapp,
-          phone
-        }),
-        headers:{
-          authorization: 'Bearer ' + token,
-          'Content-Type': 'application/json'
-        }
-      })
-      const text = await response.text()
-      router.reload()
+    if(data.website && !data.website.startsWith('https://')){
+      data.website = 'https://' + data.website
+    }
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/', {
+      method:'PUT',
+      body: JSON.stringify({
+        ...data,
+        whatsapp,
+        phone
+      }),
+      headers:{
+        authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json'
+      }
+    })
+    const text = await response.text()
+    router.reload()
     
   }
 

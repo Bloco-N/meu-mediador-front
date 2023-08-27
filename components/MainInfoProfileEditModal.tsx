@@ -162,6 +162,9 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
 
   const onSubmit = async (data: MainEditForm) => {
     const token = localStorage.getItem('token')
+    if(data.website && !data.website.startsWith('https://')){
+      data.website = 'https://' + data.website
+    }
     if(accType === 'realtor'){
       setLoadingOpen(true)
       const { expTime, ...payload} = data
