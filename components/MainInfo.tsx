@@ -399,22 +399,22 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
               ` ${language.Language.name} ${index < userSigned.RealtorLanguages.length -1 ? ',': ''} `
               ))}
           </p>
-          <div className="bottom-2">  
-            <p>{userSigned?.email}</p>
-            <p>{userSigned?.phone}</p>
+          <p>{userSigned?.email}</p>
+          <p>{userSigned?.phone}</p>
           {/* <div className="bottom">
             <div className="bottom-1">
-              <p>
-                <b>{t.mainInfo.clientsHelped}</b>
-                3
-              </p>
-              <p>
-                <b>{t.mainInfo.salesResult}</b>
-                2
-              </p>
+            <p>
+            <b>{t.mainInfo.clientsHelped}</b>
+            3
+            </p>
+            <p>
+            <b>{t.mainInfo.salesResult}</b>
+            2
+            </p>
+            </div>
+            <div className="bottom-2">  
             </div>
             </div> */}
-          </div>
         </div>
       </div>
 

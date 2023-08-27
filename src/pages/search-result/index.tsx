@@ -50,8 +50,8 @@ export default function SearchResult(){
             }} isRealtor={true} userSigned={item} isProfile={false} pdfPage={false}/>
           </Link>
         ))}
+      <Pagination currentPage={searchResult.currentPage} totalOfPages={searchResult.totalOfPages}/>
       </div>
-        <Pagination currentPage={searchResult.currentPage} totalOfPages={searchResult.totalOfPages}/>
     </Container>
   )
 }

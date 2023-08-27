@@ -12,8 +12,7 @@ const Container = styled.div`
   flex-direction: row;
   padding: 1rem;
   gap: 2rem;
-  position: fixed;
-  bottom: 1rem;
+  margin: auto;
 
   p{
     cursor: pointer;

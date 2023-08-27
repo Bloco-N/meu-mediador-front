@@ -68,6 +68,10 @@ const Nav = styled.div`
       padding-bottom: 1rem;
       transition: all .5s;
       z-index: 2;
+      @media only screen and (max-width: 450px){
+        top: 1rem;
+        right: 1rem;
+      }
     }
     .selection{
       position: absolute;
@@ -80,10 +84,10 @@ const Nav = styled.div`
       padding: 1rem;
       height: 5rem;
       @media (max-width: 700px) {
-        right: 18rem;
-        gap: 1px;
+        right: 22rem;
+        gap: 1rem;
       }
-      @media only screen and (max-width: 450px){
+      @media only screen and (max-width: 250px){
         right: 14rem;
       }
     }
