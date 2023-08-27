@@ -18,8 +18,12 @@ const Container = styled.div`
     align-items: flex-start;
     position: relative;
     p{
+      @media only screen and (max-width: 500px){
+        margin: 0;
+      }
       margin: 2rem;
       white-space: pre-wrap;
+      font-size: 1.8rem;
     }
     .elipses-button{
       cursor: pointer;
