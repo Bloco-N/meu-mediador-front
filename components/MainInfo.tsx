@@ -22,6 +22,8 @@ import { ApiService } from '@/services/ApiService';
 import { useRouter } from 'next/router';
 import { LastExp } from '@/types/LastExp';
 import locales from 'locales';
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
 
 type ContainerProps = {
   isProfile: boolean
@@ -204,6 +206,34 @@ const Container = styled.div<ContainerProps>`
   }
 `
 
+type ToolTipContainerProps = {
+  show: boolean,
+  posX: number,
+  posY:number,
+}
+
+
+const ToolTipContainer = styled.div<ToolTipContainerProps>`
+cursor: default;
+background-color:#D3D2D2;
+padding:10px;
+position:fixed;
+min-width: 150px;
+  top:${porps => `${porps.posY}px`};
+  left:${porps => `${porps.posX}px`};
+  z-index:15;
+  display:${porps => porps.show ? 'flex': 'none'};
+  flex-direction:column;
+  gap:3px;
+  border-radius:5px;
+  list-style-type: none;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  .cities-list{
+    overflow-y:auto;
+    max-height:290px;
+  }
+  `
+
 type MainInfoProps = {
   userSigned: RealtorProfile;
   isProfile: boolean;
@@ -223,6 +253,8 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
   const [sessionProfile, setSessionProfile] = useState(false)
 
   const router = useRouter()
+
+  const [tooltip,setTooltip] = useState({show: false, posX: 0, posY: 0})
 
   const locale = router.locale
 
@@ -273,9 +305,31 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
 
   }
 
+  function printCities(){
+    const cities = userSigned.RealtorCities.map(city=>city.City.name)
+    if(cities.length>3) return ` ${cities[0]}, ${cities[1]}`
+    if(cities.length===3) return ` ${cities[0]}, ${cities[1]} e ${cities[2]}`
+    if(cities.length===2) return ` ${cities[0]} e ${cities[1]}`
+    if(cities.length===1) return ` ${cities[0]}`
+    return 'Ainda não adicionou cidades'
+  }
+
+  function tooltipShow(e : React.MouseEvent<HTMLButtonElement>){
+    setTooltip({show: true, posX: e.clientX, posY: e.clientY,})
+  }
+
+  function tooltipStill(){
+    setTooltip({...tooltip, show: true})
+  }
+
+  function tooltipHide(){
+    setTooltip({...tooltip, show: false})
+  }
+
   return (
 
   <Container isProfile={isProfile}>
+     <button data-tippy-content="Tooltip">Text</button>
     <div className="main-info border">
       <div className='top'>
         {isProfile && (
@@ -313,13 +367,21 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
         <div className="about-2">
         {userSigned?.RealtorCities && (
           <p>
+            <ToolTipContainer onMouseOver={()=>tooltipStill()} onMouseLeave={()=>tooltipHide()} show={tooltip.show} posX={tooltip.posX} posY={tooltip.posY}>
+              <b>Cidades que atua:</b>
+              <ul className="cities-list">
+              {userSigned.RealtorCities.map((city) => (
+              <li>- {city.City.name}</li>
+              ))}</ul>
+            </ToolTipContainer>
+            <div className="tt"></div>
             <b>
-            {t.mainInfo.workArea}
+              {t.mainInfo.workArea}
             </b>
-              {userSigned.RealtorCities.map((city, index) => (
-              ` ${city.City.name} ${index < userSigned.RealtorCities.length -1 ? ',': ''} `
-              ))}
+              {printCities()}{userSigned.RealtorCities.length>3?
+                <span> e outras <b onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>)=>tooltipShow(e)} onMouseLeave={()=>tooltipHide()}>{userSigned.RealtorCities.length-2}</b> cidades</span>:""}
           </p>
+          
         )}
           <p>
             <b>

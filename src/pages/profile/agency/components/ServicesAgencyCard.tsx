@@ -42,7 +42,7 @@ interface ServicesCardProps{
     accType:string;
 }
 export default function ServicesAgencyCard({localId, accType}:ServicesCardProps){
-  console.log("AQUI")
+  
   const [services, setServices] = useState<RealtorService []>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
@@ -62,13 +62,11 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
   
   useEffect(() => {
     const fetchData = async () => {
-      console.log("AQ",id)
       if(id){
         setLoadingOpen(true)
         
         const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/agenct/' + id)
         const serviceData = await responseServices.json()
-        console.log("SERVDATA",serviceData)
         setServices(serviceData)
 
         setLoadingOpen(false)

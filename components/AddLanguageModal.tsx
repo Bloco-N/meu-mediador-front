@@ -107,12 +107,10 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
       const accType = localStorage.getItem('accountType')
-      console.log("lenguage",accType, localId)
       if(localId){
 
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
         const userData = await response.json()
-        console.log("INFOOOO",userData)
         setUser(userData)
       }
     }

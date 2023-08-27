@@ -112,12 +112,10 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
 
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
         const userData = await response.json()
-        console.log("USERRR",userData)
         setUser(userData)
 
         const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + localId)
         const data = await responseCities.json()
-        console.log("CITIESSS",data)
         setCities(data)
 
       }
@@ -127,8 +125,24 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     fetchData()
   }, [open])
 
-  const onSubmit = async (data: AddCityForm) => {
+  function reload() {
+    const fetchData = async () => {
+      const localId = localStorage.getItem('id')
+      const accType = localStorage.getItem('accountType')
+      if(localId){
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
+        const userData = await response.json()
+        setUser(userData)
 
+        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + localId)
+        const data = await responseCities.json()
+        setCities(data)
+      }
+    }
+    fetchData()
+  }
+
+  const onSubmit = async (data: AddCityForm) => {
     const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
     setLoadingOpen(true)
@@ -145,7 +159,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
 
     const text = await response.text()
     setLoadingOpen(false)
-    if(text === 'updated') router.reload()
+    reload()
 
   }
 
@@ -166,7 +180,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     })
 
     const text = await response.text()
-    if(text === 'deleted') router.reload()
+    reload()
 
   }
 

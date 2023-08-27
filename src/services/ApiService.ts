@@ -260,7 +260,6 @@ export class ApiService{
         }
       })
       const text = await response.text()
-      console.log("ADDED SERVICE:",text)
       return text
     } catch (error) {
       console.log(error)
@@ -282,7 +281,6 @@ export class ApiService{
         }
       })
       const text = await response.text()
-      console.log("UPDATED ABOUT:",text)
       return text
     } catch (error) {
       console.log(error)
@@ -310,7 +308,6 @@ export class ApiService{
         }
       })
       const text = await response.text()
-      console.log("CREATE PROPERTY:",text)
       return text
     } catch (error) {
       console.log(error)
@@ -332,7 +329,6 @@ export class ApiService{
         }
       })
       const text = await response.text()
-      console.log("CREATE AWARD:",text)
       return text
     } catch (error) {
       console.log(error)
@@ -354,7 +350,6 @@ export class ApiService{
         }
       })
       const text = await response.text()
-      console.log("CREATE AWARD:",text)
       return text
     } catch (error) {
       console.log(error)
