@@ -162,9 +162,9 @@ export class ApiService{
 
   //delete
   //realtor property
-  public async deleteRealtorProperty(token: string, propertyId: string){
+  public async deleteRealtorProperty(token: string, propertyId: string, entity: string){
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/${propertyId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/${entity}/${propertyId}`, {
         method: 'DELETE',
         headers:{
           authorization: 'Bearer ' + token

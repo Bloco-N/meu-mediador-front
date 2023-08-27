@@ -141,7 +141,7 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    const response = await apiService.deleteRealtorProperty(token as string, id)
+    const response = await apiService.deleteRealtorProperty(token as string, id, 'realtor')
     setLoadingOpen(false)
     
     if(response === 'deleted') router.reload()
