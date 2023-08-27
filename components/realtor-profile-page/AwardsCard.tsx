@@ -103,6 +103,7 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
   }
 
   return (
+    (awards?.length && awards?.length > 0) ?
     <Container >
       <div className="card awards">
         <h2>{t.awards.awards}</h2>
@@ -125,5 +126,6 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
         </ul>
       </div>
     </Container>
+    : <></>
   ) 
 }

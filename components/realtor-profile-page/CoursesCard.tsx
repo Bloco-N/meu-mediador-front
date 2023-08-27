@@ -103,6 +103,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
   }
 
   return (
+    (courses?.length && courses.length > 0) ?
     <Container>
       <div className="card awards">
         <h2>{t.study.study}</h2>
@@ -125,5 +126,6 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
         </ul>
       </div>
     </Container>
+    : <></>
   ) 
 }
