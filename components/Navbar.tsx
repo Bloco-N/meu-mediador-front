@@ -19,6 +19,7 @@ const Nav = styled.div`
     position: relative;
     @media only screen and (max-width: 450px){
       padding: 1rem;
+      align-items: center;
     }
     .logo{
       height: 5rem;
@@ -68,9 +69,10 @@ const Nav = styled.div`
       padding-bottom: 1rem;
       transition: all .5s;
       z-index: 2;
-      @media only screen and (max-width: 450px){
-        top: 1rem;
-        right: 1rem;
+      @media only screen and (max-width: 500px){
+        position: relative;
+        top: 0;
+        right: 0;
       }
     }
     .selection{
@@ -83,12 +85,12 @@ const Nav = styled.div`
       border-radius: 1rem;
       padding: 1rem;
       height: 5rem;
-      @media (max-width: 700px) {
-        right: 22rem;
-        gap: 1rem;
+      @media (max-width: 500px) {
+        position: relative;
+        right: 0;
+
       }
       @media only screen and (max-width: 250px){
-        right: 14rem;
       }
     }
     .profile{
@@ -114,6 +116,8 @@ const Navbar = () => {
 
     const router = useRouter()
 
+    const { id } = router.query
+
     const pdfPage = router.query.pdf?true:false;
     useEffect(() => {
       let locale = localStorage.getItem('locale')
@@ -126,7 +130,12 @@ const Navbar = () => {
       }else{
         setFlag(locale.toUpperCase())
       }
-      router.push(router.asPath, router.asPath, { locale })
+      if(id && typeof id === 'string'){
+        const finalPath = router.asPath.replace('[id]', id)
+        router.push(finalPath, finalPath, { locale })
+      }else{
+        router.push(router.asPath, router.asPath, { locale })
+      }
 
     }, [])
 
