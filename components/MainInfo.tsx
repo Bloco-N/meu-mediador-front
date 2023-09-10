@@ -99,11 +99,9 @@ const Container = styled.div<ContainerProps>`
         margin-left: unset;
       }
       margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
-      margin-left: ${porps => porps.isProfile ? '10rem': '2rem'};
-      width: 60%;
+      margin-left: ${porps => porps.isProfile ? '2rem': '2rem'};
       display: flex;
-      justify-content: space-between;
-      gap: 10rem;
+      gap: 5rem;
     }
     .about{
       position: relative;
@@ -130,7 +128,7 @@ const Container = styled.div<ContainerProps>`
       justify-content: flex-end;
       gap: 0.5rem;
       p{
-        gap: .5rem;
+        overflow-wrap: break-word;
       }
       .bottom{
         display: flex;
@@ -193,7 +191,7 @@ const Container = styled.div<ContainerProps>`
     h3{
       color: var(--star);
     }
-    p{
+    /* p{
       width: 60rem;
       max-height: 10rem;
       display: block; 
@@ -202,7 +200,7 @@ const Container = styled.div<ContainerProps>`
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
+    } */
   }
 `
 

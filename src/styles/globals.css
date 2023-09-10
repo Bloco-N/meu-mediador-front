@@ -291,6 +291,6 @@ input::-webkit-inner-spin-button {
 
 @media only screen and (max-width: 375px){
   :root{
-    font-size: 35%;
+    font-size: 25%;
   }
 }
