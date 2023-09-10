@@ -106,6 +106,8 @@ const Navbar = () => {
 
     const [flag, setFlag] = useState('GB')
 
+    const [defaultLocale, setDefaultLocale] = useState('')
+
     const [openProfile, setOpenProfile] = useState(false)
 
     const [pic, setPic] = useState('')
@@ -114,17 +116,25 @@ const Navbar = () => {
 
     const pdfPage = router.query.pdf?true:false;
     useEffect(() => {
-      const locale = router.locale as string
+      let locale = localStorage.getItem('locale')
+      if(!locale) locale = router.locale as string
+      const localeSet = document.getElementById('locale-set') as HTMLSelectElement
+      localeSet.value = locale
+      setDefaultLocale(locale)
       if(locale === 'en'){
         setFlag('GB')
       }else{
         setFlag(locale.toUpperCase())
       }
-    }, [router.locale])
+      router.push(router.asPath, router.asPath, { locale })
+
+    }, [])
 
     const changeLocation = (e:React.ChangeEvent<HTMLSelectElement>) => {
       const locale = e.target.value as string
+      localStorage.setItem('locale', locale)
       router.push(router.asPath, router.asPath, { locale })
+      setDefaultLocale(locale)
       if(locale === 'en'){
         setFlag('GB')
       }else{
@@ -132,6 +142,8 @@ const Navbar = () => {
       }
 
     }
+
+    useEffect(() => { console.log(defaultLocale)}, [defaultLocale])
 
     useEffect(() => {
       const profilePicture = localStorage.getItem('pic')
@@ -154,7 +166,7 @@ const Navbar = () => {
                     width={20}
                     height={20}
                   />
-                  <select defaultValue={'pt'} onChange={e => changeLocation(e)} className="locale">
+                  <select id="locale-set" onChange={e => changeLocation(e)} className="locale">
                     <option value="en">EN</option>
                     <option value="pt">PT</option>
                     <option value="es">ES</option>
