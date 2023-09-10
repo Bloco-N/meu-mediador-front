@@ -106,6 +106,13 @@ const SignIn = () => {
       await fetchData()
     }
 
+    async function gLogin() {
+      console.log("GOOGLE")
+      window.open("http://localhost:8080/auth/google","_self")
+      
+      //await fetchData()
+    }
+
     return (
       <SignInContainer>
 
@@ -121,7 +128,7 @@ const SignIn = () => {
           <Link className="forgot-password" href="/forgot-password/agency">{t.signIn.forgot}</Link>
 
           <button>{t.signIn.enter}</button>
-
+          <div onClick={()=>gLogin()}>google</div>
           <div className="bottom-cta">
             <h5>{t.signIn.notHaveAnAccount}</h5>
             <Link className="create-account special-link" href="/sign-up/profile">{t.signIn.here}</Link>
