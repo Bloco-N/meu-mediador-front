@@ -23,6 +23,9 @@ const Container = styled.div`
     position: relative;
     flex-wrap: wrap;
     .service{
+      @media only screen and (max-width: 400px){
+        font-size: 1.3rem;
+      }
       flex-shrink: 0;
       scroll-snap-align: start;
       background-color: var(--base);

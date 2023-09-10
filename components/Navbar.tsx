@@ -19,6 +19,7 @@ const Nav = styled.div`
     position: relative;
     @media only screen and (max-width: 450px){
       padding: 1rem;
+      align-items: center;
     }
     .logo{
       height: 5rem;
@@ -68,9 +69,10 @@ const Nav = styled.div`
       padding-bottom: 1rem;
       transition: all .5s;
       z-index: 2;
-      @media only screen and (max-width: 450px){
-        top: 1rem;
-        right: 1rem;
+      @media only screen and (max-width: 500px){
+        position: relative;
+        top: 0;
+        right: 0;
       }
     }
     .selection{
@@ -83,12 +85,12 @@ const Nav = styled.div`
       border-radius: 1rem;
       padding: 1rem;
       height: 5rem;
-      @media (max-width: 700px) {
-        right: 22rem;
-        gap: 1rem;
+      @media (max-width: 500px) {
+        position: relative;
+        right: 0;
+
       }
       @media only screen and (max-width: 250px){
-        right: 14rem;
       }
     }
     .profile{
@@ -106,25 +108,42 @@ const Navbar = () => {
 
     const [flag, setFlag] = useState('GB')
 
+    const [defaultLocale, setDefaultLocale] = useState('')
+
     const [openProfile, setOpenProfile] = useState(false)
 
     const [pic, setPic] = useState('')
 
     const router = useRouter()
 
+    const { id } = router.query
+
     const pdfPage = router.query.pdf?true:false;
     useEffect(() => {
-      const locale = router.locale as string
+      let locale = localStorage.getItem('locale')
+      if(!locale) locale = router.locale as string
+      const localeSet = document.getElementById('locale-set') as HTMLSelectElement
+      localeSet.value = locale
+      setDefaultLocale(locale)
       if(locale === 'en'){
         setFlag('GB')
       }else{
         setFlag(locale.toUpperCase())
       }
-    }, [router.locale])
+      if(id && typeof id === 'string'){
+        const finalPath = router.asPath.replace('[id]', id)
+        router.push(finalPath, finalPath, { locale })
+      }else{
+        router.push(router.asPath, router.asPath, { locale })
+      }
+
+    }, [])
 
     const changeLocation = (e:React.ChangeEvent<HTMLSelectElement>) => {
       const locale = e.target.value as string
+      localStorage.setItem('locale', locale)
       router.push(router.asPath, router.asPath, { locale })
+      setDefaultLocale(locale)
       if(locale === 'en'){
         setFlag('GB')
       }else{
@@ -132,6 +151,8 @@ const Navbar = () => {
       }
 
     }
+
+    useEffect(() => { console.log(defaultLocale)}, [defaultLocale])
 
     useEffect(() => {
       const profilePicture = localStorage.getItem('pic')
@@ -154,7 +175,7 @@ const Navbar = () => {
                     width={20}
                     height={20}
                   />
-                  <select defaultValue={'pt'} onChange={e => changeLocation(e)} className="locale">
+                  <select id="locale-set" onChange={e => changeLocation(e)} className="locale">
                     <option value="en">EN</option>
                     <option value="pt">PT</option>
                     <option value="es">ES</option>

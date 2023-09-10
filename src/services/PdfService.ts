@@ -20,7 +20,7 @@ function pdfshift(api_key:string, data:{ source:string, delay:number, pages: str
           responseType: (asJson ? 'json' : 'arraybuffer'),
           data: {
             ...data,
-            sandbox: true
+            sandbox: false
           },
           auth: { username: 'api', password: api_key }
       }).then(resolve).catch(response => {
