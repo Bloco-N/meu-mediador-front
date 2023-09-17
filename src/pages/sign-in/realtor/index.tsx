@@ -10,6 +10,7 @@ import { UserContextType } from "@/types/UserContextType";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import locales from "locales";
+import { useState } from 'react'
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -47,6 +48,8 @@ const SignIn = () => {
 
     const { setOpen:setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
+    const [loginError, setLoginError] = useState(false)
+
     const router = useRouter()
 
     const locale = router.locale
@@ -72,6 +75,12 @@ const SignIn = () => {
             headers: {"Content-type": "application/json; charset=UTF-8"}
           })
   
+          if(!response.ok){
+            setLoginError(true)
+            setLoadingOpen(false)
+            return
+          }
+
           const token = await response.text()
           localStorage.setItem('token', token)
           const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
@@ -115,6 +124,11 @@ const SignIn = () => {
           <input className="input-sign-up" type="password" placeholder={t.signIn.password}
           {...register('password', {required: true})}/>
 
+        {loginError && (
+          <p className="text-error">
+            {t.signIn.error}
+          </p>
+        )}
           <Link className="forgot-password" href="/forgot-password/realtor">{t.signIn.forgot}</Link>
 
           <button>{t.signIn.enter}</button>

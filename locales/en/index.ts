@@ -111,7 +111,8 @@ const en = {
     forgot: "Forgot my password",
     enter: "Sign In",
     notHaveAnAccount: "Not have an account yet?",
-    here: "Sign up here"
+    here: "Sign up here",
+    error:"Incorrect email or password"
   },
   createProfile:{
     selectTheType: "Select the type of profile you want to create",

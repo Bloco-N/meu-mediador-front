@@ -111,7 +111,8 @@ const es = {
     forgot: "Olvidé mi contraseña",
     enter: "Iniciar Sesión",
     notHaveAnAccount: "¿Todavía no tienes una cuenta?",
-    here: "Registrar aquí"
+    here: "Registrar aquí",
+    error:"Correo electrónico o contraseña incorrectos"
   },
   createProfile:{
     selectTheType: "Seleccione el tipo de perfil que desea crear",

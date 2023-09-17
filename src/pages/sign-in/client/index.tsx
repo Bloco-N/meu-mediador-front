@@ -8,6 +8,9 @@ import styled from "styled-components";
 import { decode } from "jsonwebtoken";
 import { UserContextType } from "@/types/UserContextType";
 import locales from "locales";
+import { useState } from 'react'
+import LoadingContext from "context/LoadingContext";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -42,6 +45,10 @@ const SignIn = () => {
 
     const { setUser } = useContext(UserContext) as UserContextType
 
+    const { setOpen:setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
+
+    const [loginError, setLoginError] = useState(false)
+
     const router = useRouter()
 
     const locale = router.locale
@@ -59,11 +66,20 @@ const SignIn = () => {
 
       const fetchData = async () => {
         
+        setLoadingOpen(true)
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client' + '/sign-in', {
           method: 'POST',
           body: JSON.stringify(data),
           headers: {"Content-type": "application/json; charset=UTF-8"}
         })
+
+          
+        if(!response.ok){
+          setLoginError(true)
+          setLoadingOpen(false)
+          return
+        }
+
 
         const token = await response.text()
         localStorage.setItem('token', token)
@@ -77,6 +93,7 @@ const SignIn = () => {
         localStorage.setItem('accountType', 'client')
 
         setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
+        setLoadingOpen(false)
         if(clientData.verified === false){
           router.push('/verify/client')
         }else{
@@ -99,6 +116,12 @@ const SignIn = () => {
           {...register('email', {required: true})} />
           <input className="input-sign-up" type="password" placeholder={t.signIn.password}
           {...register('password', {required: true})}/>
+
+          {loginError && (
+            <p className="text-error">
+              {t.signIn.error}
+            </p>
+          )}
 
           <Link className="forgot-password" href="/forgot-password/client">{t.signIn.forgot}</Link>
 
