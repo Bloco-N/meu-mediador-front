@@ -8,6 +8,9 @@ import styled from "styled-components";
 import { decode } from "jsonwebtoken";
 import { UserContextType } from "@/types/UserContextType";
 import locales from "locales";
+import { useState } from 'react'
+import LoadingContext from "context/LoadingContext";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -42,6 +45,11 @@ const SignIn = () => {
 
     const { setUser } = useContext(UserContext) as UserContextType
 
+    const { setOpen:setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
+
+    const [loginError, setLoginError] = useState(false)
+
+
     const router = useRouter()
 
     const locale = router.locale
@@ -60,6 +68,8 @@ const SignIn = () => {
       const fetchData = async () => {
 
         try {
+
+          setLoadingOpen(true)
           
           const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency' + '/sign-in', {
             method: 'POST',
@@ -67,34 +77,33 @@ const SignIn = () => {
             headers: {"Content-type": "application/json; charset=UTF-8"}
           })
 
-          if(response.ok){
-
-            const token = await response.text()
-
-            localStorage.setItem('token', token)
-            const user = decode(token) as { id:number, email:string, name: string}
-
-            localStorage.setItem('id', String(user.id))
-    
-            const agencyResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + user.id)
-    
-            const agencyData = await agencyResponse.json()
-            
-            localStorage.setItem('pic', agencyData.profilePicture)
-            localStorage.setItem('accountType', 'agency')
-    
-            setUser({ token, id: user.id, profilePicture: agencyData.profilePicture, coverPicture: agencyData.coverPicture, accountType: 'agency' })
-            if(agencyData.verified === false){
-              router.push('/verify/agency')
-            }else{
-              router.reload()
-            }
+          if(!response.ok){
+            setLoginError(true)
+            setLoadingOpen(false)
+            return
           }
 
-          if(response.status === 400){
-            throw new Error('email or password incorrect')
-          }
+          const token = await response.text()
+
+          localStorage.setItem('token', token)
+          const user = decode(token) as { id:number, email:string, name: string}
+
+          localStorage.setItem('id', String(user.id))
   
+          const agencyResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + user.id)
+  
+          const agencyData = await agencyResponse.json()
+          
+          localStorage.setItem('pic', agencyData.profilePicture)
+          localStorage.setItem('accountType', 'agency')
+  
+          setUser({ token, id: user.id, profilePicture: agencyData.profilePicture, coverPicture: agencyData.coverPicture, accountType: 'agency' })
+          setLoadingOpen(false)
+          if(agencyData.verified === false){
+            router.push('/verify/agency')
+          }else{
+            router.reload()
+          }
 
         } catch (error) {
           console.log(error)
@@ -117,6 +126,12 @@ const SignIn = () => {
           {...register('email', {required: true})} />
           <input className="input-sign-up" type="password" placeholder={t.signIn.password}
           {...register('password', {required: true})}/>
+
+          {loginError && (
+            <p className="text-error">
+              {t.signIn.error}
+            </p>
+          )}
 
           <Link className="forgot-password" href="/forgot-password/agency">{t.signIn.forgot}</Link>
 

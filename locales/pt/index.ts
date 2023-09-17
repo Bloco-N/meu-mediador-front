@@ -110,7 +110,8 @@ const pt = {
     forgot: "Esqueci minha senha",
     enter: "Entrar",
     notHaveAnAccount: "Não possúi uma conta ainda?",
-    here: "Cadastre-se aqui"
+    here: "Cadastre-se aqui",
+    error:"Email ou senha incorretos"
   },
   createProfile:{
     selectTheType: "Selecione o tipo de perfil que deseja criar",

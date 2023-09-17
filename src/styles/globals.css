@@ -36,6 +36,7 @@ a {
   --border-color: #b5b3b3;
   --highlight: #2e6b89;
   --text: black;
+  --error: #c24343;
 
   font-family: 'Quicksand';
   color: var(--surface-2); 
@@ -66,6 +67,10 @@ html {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.text-error{
+  color: var(--error);
 }
 
 body {
