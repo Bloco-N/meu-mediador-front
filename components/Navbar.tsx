@@ -16,20 +16,33 @@ const Nav = styled.div`
     justify-content: space-between;
     padding: 3rem 6rem;
     position: relative;
-    @media only screen and (max-width: 450px){
+    @media only screen and (max-width: 500px){
       padding: 1rem;
-      align-items: center;
+      flex-direction: column;
+      gap: 2rem;
+
     }
     .logo{
       height: 5rem;
-      @media only screen and (max-width: 450px){
-        height: 3rem;
+      @media only screen and (max-width: 500px){
+        height: 8rem;
       }
     }
     .left-side{
       display: flex;
       align-items: center;
       gap: 3rem;
+
+      @media (max-width: 500px) {
+        align-items: start;
+        min-height: 25px;
+        width: 60%;
+        justify-content: space-between;
+
+        &:has(.profile) { 
+          align-items: center;
+        }
+      }
     }
     .locale{
       width: 5rem;
@@ -70,8 +83,27 @@ const Nav = styled.div`
       z-index: 2;
       @media only screen and (max-width: 500px){
         position: relative;
+        width: 15rem;
         top: 0;
         right: 0;
+        min-height: 100%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .5s, border-radius 0s;
+
+        &:has(div) {
+          border-radius: 1rem 1rem 0 0;
+          div {
+            position: absolute;
+            background: #e8e8e8;
+            top: 100%;
+            width: 100%;
+            border-radius: 0 0 1rem 1rem;
+            animation: apear .5s forwards;
+          }
+        }
       }
     }
     .selection{
@@ -88,17 +120,22 @@ const Nav = styled.div`
         position: relative;
         right: 0;
         gap: .5rem;
-        height: 4rem;
-        min-width: 5rem;
+        max-height: 25px;
+
+        img {
+          width: 2rem;
+        }
 
       }
-      @media only screen and (max-width: 250px){
-      }
+
     }
     .profile{
       cursor: pointer;
       border-radius: 50%;
       object-fit: cover;
+    }
+    .card {
+      top: 100%;
     }
 `
 

@@ -69,9 +69,9 @@ html {
   background-position: center;
 }
 
-@media (width < 768px) {
+@media (max-width: 768px) {
   .home {
-    background-position: -70rem;
+    background-position: -65rem;
   }
 }
 
