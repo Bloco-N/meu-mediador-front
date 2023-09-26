@@ -191,6 +191,12 @@ const Container = styled.div<ContainerProps>`
     h3{
       color: var(--star);
     }
+
+    @media (width < 768px) {
+      p {
+        font-size: 1.8rem;  
+      }
+    }
     /* p{
       width: 60rem;
       max-height: 10rem;

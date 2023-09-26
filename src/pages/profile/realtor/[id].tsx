@@ -43,6 +43,7 @@ const Container = styled.div`
     top: 0;
     right: 0;
   }
+
 `
 
 export default function Profile(){

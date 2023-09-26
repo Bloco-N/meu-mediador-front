@@ -13,6 +13,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+
   .list{
     height: 80%;
     width: 100%;
@@ -21,6 +22,16 @@ const Container = styled.div`
     align-items: flex-start;
     padding-left: 4rem;
     gap: 2rem;
+
+    &:last-child {
+      margin-bottom: 390px;
+    }
+    .pagination {
+      margin: 0 auto;
+      @media (width < 768px) {
+        padding-bottom: 30px; 
+      }
+    }
     a{
       width: 90%;
       .card{
@@ -31,6 +42,9 @@ const Container = styled.div`
         justify-content: space-between;
       }
     }
+  }
+  @media (width < 768px) {
+   font-size: 1.6rem;
   }
 `
 
@@ -50,7 +64,9 @@ export default function SearchResult(){
             }} isRealtor={true} userSigned={item} isProfile={false} pdfPage={false}/>
           </Link>
         ))}
-      <Pagination currentPage={searchResult.currentPage} totalOfPages={searchResult.totalOfPages}/>
+        <div className="pagination">
+          <Pagination currentPage={searchResult.currentPage} totalOfPages={searchResult.totalOfPages}/>
+        </div>
       </div>
     </Container>
   )

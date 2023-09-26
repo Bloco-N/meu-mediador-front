@@ -18,6 +18,10 @@ const Container = styled.div`
   width: 100%;
   padding: 4rem;
   gap: 2rem;
+
+  @media (width < 768px) {
+    padding: 2rem;
+  }
   .plus{
       cursor: pointer;
       height: 3rem;

@@ -69,7 +69,7 @@ const Container = styled.div<ContainerProps>`
         margin-top: unset;
         margin-left: unset;
       }
-      
+
       .form{
         display: flex;
         flex-direction: column;
@@ -103,6 +103,31 @@ const Container = styled.div<ContainerProps>`
           margin-top: 10px;
         }
       }
+
+      @media (width < 768px) {
+      label, p, h3 {
+        font-size: 16px;  
+      }
+
+      .form {
+        li {
+          width: 100%;
+          height: 25px;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+
+          &:has(p) {
+            justify-content: start;
+          }
+          input {
+            height: 100%;
+            padding: .5rem 10px;
+            width: 200px;
+          }
+        }
+      }
+    }
     }
     
     .contact{

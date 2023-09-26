@@ -17,12 +17,12 @@ const Container = styled.div`
   }
 
   @media only screen and (max-width: 500px){
-    width: 90%;
+    width: calc(100% - 30px);
   }
 
-  @media only screen and (max-width: 400px){
-    width: 98%;
-  }
+  /* @media only screen and (max-width: 400px){
+    width: 100%;
+  } */
 
 `
 

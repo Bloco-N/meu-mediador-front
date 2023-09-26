@@ -15,17 +15,21 @@ const SignUpContainer = styled.div`
       width: 60%;
     }
     @media only screen and (max-width: 500px){
-      width: 80%;
+      width: calc(100% - 30px);
+      padding: 3rem 2rem;
+      gap: 3rem;
     }
     width: 30%;
-    height: 55rem;
+    min-height: 55rem;
     margin: auto;
     padding: 3rem 3.5rem;
     gap: 2.5rem;
 
     .full-name{
+      width: 100%;
       display: flex;
       gap: 2rem;
+      /* flex-direction: column; */
     }
 
   }

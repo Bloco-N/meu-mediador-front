@@ -4,28 +4,7 @@ import locales from "locales";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
-
-const ForgotPasswordContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  form{
-    height: 30rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: 2rem;
-    h4{
-      font-size: 1.3rem;
-    }
-    h2{
-      margin-bottom: 2rem;
-    }
-    padding: 2rem 3rem;
-  }
-`
+import ForgotPasswordContainer from "../style/ForgotPasswordContainer";
 
 const ForgotPassword = () => {
 

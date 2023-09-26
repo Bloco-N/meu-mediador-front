@@ -22,7 +22,11 @@ const SignInContainer = styled.div`
       width: 60%;
     }
     @media only screen and (max-width: 500px){
-      width: 80%;
+      width: 90%;
+      
+      .bottom-cta, h5, .forgot-password {
+        font-size: 1.5rem;
+      }
     }
     text-align: center;
     width: 30%;

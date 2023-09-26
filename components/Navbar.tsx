@@ -12,7 +12,6 @@ import { useRouter } from "next/router";
 const Nav = styled.div`
     width: 100vw;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding: 3rem 6rem;
@@ -88,6 +87,9 @@ const Nav = styled.div`
       @media (max-width: 500px) {
         position: relative;
         right: 0;
+        gap: .5rem;
+        height: 4rem;
+        min-width: 5rem;
 
       }
       @media only screen and (max-width: 250px){
@@ -168,7 +170,7 @@ const Navbar = () => {
             </Link>
             {pdfPage || <>
               <div className="left-side">
-                <div className="selection border">
+                <div className="locale-area selection border">
                   <Image
                     alt="United States"
                     src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}

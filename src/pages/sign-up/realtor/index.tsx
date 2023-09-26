@@ -16,6 +16,9 @@ const SignUpContainer = styled.div`
     }
     @media only screen and (max-width: 500px){
       width: 80%;
+      width: calc(100% - 30px);
+      padding: 3rem 2rem;
+      gap: 3rem;
     }
     width: 30%;
     height: 55rem;
