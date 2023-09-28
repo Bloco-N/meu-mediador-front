@@ -14,6 +14,7 @@ import locales from "locales"
 
 const Container = styled.div`
   .introduction{
+    background: #fff;
     padding: 3rem;
     align-items: flex-start;
     position: relative;

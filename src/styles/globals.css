@@ -64,6 +64,11 @@ html {
 
 .home {
   background-image: url('/bg.jpg');
+
+  @media (width < 768px) {
+    background: #CFCFCF;
+  }
+
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

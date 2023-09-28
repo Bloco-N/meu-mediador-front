@@ -18,6 +18,7 @@ import locales from "locales"
 const Container = styled.div`
 
   .awards{
+    background: #fff;
     position: relative;
     align-items: flex-start;
     padding: 3rem;

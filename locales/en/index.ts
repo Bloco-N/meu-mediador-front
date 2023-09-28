@@ -110,7 +110,7 @@ const en = {
     password: "Password",
     forgot: "Forgot my password",
     enter: "Sign In",
-    notHaveAnAccount: "Not have an account yet?",
+    notHaveAnAccount: "Dot have an account yet?",
     here: "Sign up here",
     error:"Incorrect email or password"
   },

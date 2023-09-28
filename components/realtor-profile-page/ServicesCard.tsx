@@ -15,6 +15,7 @@ import locales, { servicesLocales } from "locales"
 
 const Container = styled.div`
   .services{
+    background: #fff;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;

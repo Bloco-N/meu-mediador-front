@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { ReactNode, useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from './Navbar';
+import Footer from "./Footer";
 
 type LayoutProps = {
   children: ReactNode
@@ -17,7 +18,7 @@ const Container = styled.div`
   justify-content: center;
   main{
     width: 100%;
-    height: 80%;
+    height: 100%;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
@@ -46,6 +47,7 @@ export default function Layout({ children } : LayoutProps) {
 
           <Navbar />
           <main>{children}</main>
+          <Footer />
         </Container>
         
     )

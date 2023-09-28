@@ -165,7 +165,7 @@ const Container = styled.div<ContainerProps>`
       }
     }
     .current-agency{
-      background-color: var(--surface);
+      background: #fff;
       display: flex;
       align-items: center;
       gap: 2rem;
@@ -207,6 +207,7 @@ const Container = styled.div<ContainerProps>`
       overflow: hidden;
       text-overflow: ellipsis;
     } */
+    background: #fff;
   }
 `
 

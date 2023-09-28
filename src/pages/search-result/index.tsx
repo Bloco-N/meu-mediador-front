@@ -43,8 +43,24 @@ const Container = styled.div`
       }
     }
   }
+
+  @media (width < 900px) {
+    .list {
+      padding: 0;
+      align-items: center;
+    }
+  }
   @media (width < 768px) {
    font-size: 1.6rem;
+   position: relative;
+
+   .list {
+    padding: 0 38px; 
+
+    a {
+        width: 100%;
+      }
+   }
   }
 `
 

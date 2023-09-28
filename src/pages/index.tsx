@@ -16,6 +16,7 @@ const SearchRealtor = styled.div`
 
 width: 100%;
 height: 100%;
+padding: 0 37px;
 
 form{
     @media only screen and (max-width: 1000px) {
@@ -27,12 +28,25 @@ form{
     @media (width < 768px) {
       width: calc(100% - 4rem);
     }
+    background: #E9E9E9;
     width: 60%;
     height: 17rem;
     margin: auto;
     margin-top: 15vh;
-    background-color: #ffffff8C;
     backdrop-filter: blur(5px);
+
+    @media (width < 768px) {
+      input {
+        border: 1px solid #3a2e2c5a;
+      }
+      input, .searchButton {
+        background: #fff;
+      }
+      .searchButton, h4 {
+        color: #3A2E2C;
+        opacity: 1;
+      }
+    }
  
     h4{
       /* font-weight: bold; */
@@ -54,6 +68,16 @@ form{
       }
     }
   }
+
+@media (width < 768px) {
+  padding: 0 27px;
+ 
+  .card {
+    width: 100%;
+    height: 332px;
+    padding: 0 27px;
+  }
+}
 `
 
 export default function Home() {

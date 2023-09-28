@@ -17,6 +17,7 @@ const SignInContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
   form{
 
     @media only screen and (max-width: 800px){
@@ -37,6 +38,32 @@ const SignInContainer = styled.div`
   .bottom-cta{
     display: flex;
     gap: 0.5rem;
+  }
+  @media (width < 768px) {
+    padding: 0 37px;
+
+    .card {
+      width: 100%;
+      min-height: 363px;
+      gap: 18px;
+      padding: 19px 27px 31px 27px;
+
+      input {
+        color: #3A2E2C;
+        opacity: 1;
+        font-weight: 600;
+      }
+
+      input::placeholder {
+        opacity: .8;
+        font-weight: 500;
+        color: #3A2E2C;
+      }
+
+      input[type="email"]{
+        margin-bottom: 19px;
+      }
+    }
   }
 `
 

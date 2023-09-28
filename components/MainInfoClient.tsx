@@ -78,9 +78,6 @@ const Container = styled.div<ContainerProps>`
           justify-content: center;
          align-items: center;
         } 
-        label{
-          opacity: 70%;
-        }
         li{
           display: flex;
           gap:10px;
