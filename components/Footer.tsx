@@ -11,10 +11,11 @@ import { useRouter } from "next/router";
 
 const FooterStyle = styled.div`
     width: 100%;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15px 0 90px 0;
+    padding: 8px 0 30px 0;
     position: relative;
     @media only screen and (max-width: 500px){
       padding: 45px;
