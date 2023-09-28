@@ -65,7 +65,7 @@ html {
 .home {
   background-image: url('/bg.jpg');
 
-  @media (width < 768px) {
+  @media (max-width: 768px) {
     background: #CFCFCF;
   }
 

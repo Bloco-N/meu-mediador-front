@@ -19,7 +19,7 @@ const Container = styled.div`
   padding: 4rem;
   gap: 2rem;
 
-  @media (width < 768px) {
+  @media (max-width: 768px) {
     padding: 2rem;
   }
   .plus{

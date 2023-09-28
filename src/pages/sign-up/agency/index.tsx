@@ -33,7 +33,7 @@ const SignUpContainer = styled.div`
 
   }
 
-  @media (width < 768px) {
+  @media (max-width: 768px) {
     padding: 0 37px;
 
     .card {

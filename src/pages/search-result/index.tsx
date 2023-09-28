@@ -28,7 +28,7 @@ const Container = styled.div`
     }
     .pagination {
       margin: 0 auto;
-      @media (width < 768px) {
+      @media (max-width: 768px) {
         padding-bottom: 30px; 
       }
     }
@@ -44,13 +44,13 @@ const Container = styled.div`
     }
   }
 
-  @media (width < 900px) {
+  @media (max-width: 900px) {
     .list {
       padding: 0;
       align-items: center;
     }
   }
-  @media (width < 768px) {
+  @media (max-width: 768px) {
    font-size: 1.6rem;
    position: relative;
 

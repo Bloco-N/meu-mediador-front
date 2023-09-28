@@ -43,7 +43,7 @@ const SignInContainer = styled.div`
     gap: 0.5rem;
   }
 
-  @media (width < 768px) {
+  @media (max-width: 768px) {
     padding: 0 37px;
 
     .card {

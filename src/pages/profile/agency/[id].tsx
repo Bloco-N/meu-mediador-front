@@ -31,7 +31,7 @@ const Container = styled.div`
       top: 3rem;
       right: 3rem;
   }
-  @media (width < 768px) {
+  @media (max-width: 768px) {
       p {
         font-size: 22rem;  
       }

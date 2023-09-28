@@ -23,7 +23,7 @@ const ForgotPasswordContainer = styled.div`
     padding: 2rem 3rem;
   }
 
-  @media (width < 1025px) {
+  @media (max-width: 1025px) {
     /* Tablet / Notebook */
     form {
       h4 {
@@ -32,7 +32,7 @@ const ForgotPasswordContainer = styled.div`
     }
   }
 
-  @media (width < 768px) {
+  @media (max-width: 768px) {
     /* Mobile */
     width: calc(100% - 30px);
     form {

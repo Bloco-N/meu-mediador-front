@@ -33,7 +33,7 @@ const FooterStyle = styled.div`
       border-radius: 1rem;
       padding: 1rem;
       height: 5rem;
-      @media (width < 768px) {
+      @media (max-width: 768px) {
         display: flex;
       }
     }

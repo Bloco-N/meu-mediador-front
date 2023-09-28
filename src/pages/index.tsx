@@ -25,7 +25,7 @@ form{
       padding: 2rem;
       text-align: center;
     }
-    @media (width < 768px) {
+    @media (max-width: 768px) {
       width: calc(100% - 4rem);
     }
     background: #E9E9E9;
@@ -35,7 +35,7 @@ form{
     margin-top: 15vh;
     backdrop-filter: blur(5px);
 
-    @media (width < 768px) {
+    @media (max-width: 768px) {
       input {
         border: 1px solid #3a2e2c5a;
       }
@@ -62,14 +62,14 @@ form{
         padding: 2rem 5rem;
         gap: 2rem;
         width: 100%;
-      @media (width < 768px) {
+      @media (max-width: 768px) {
         padding: 2rem 0rem; 
         gap: 3rem;
       }
     }
   }
 
-@media (width < 768px) {
+@media (max-width: 768px) {
   padding: 0 27px;
  
   .card {

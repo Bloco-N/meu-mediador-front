@@ -40,7 +40,7 @@ const Nav = styled.div`
         transform: translateY(calc(-100% + 30px));
         animation: fadeInProfile .4s;
 
-        @media (width < 501px) {
+        @media (max-width: 501px) {
           transform: translateY(calc(-100% + 52px));
         }
 
@@ -167,7 +167,7 @@ const Nav = styled.div`
       border-radius: 1rem;
       padding: 1rem;
       height: 5rem;
-      @media (width < 768px) {
+      @media (max-width: 768px) {
         display: none;
       }
     }
