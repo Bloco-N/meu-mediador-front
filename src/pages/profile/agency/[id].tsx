@@ -31,6 +31,11 @@ const Container = styled.div`
       top: 3rem;
       right: 3rem;
   }
+  @media (max-width: 768px) {
+      p {
+        font-size: 22rem;  
+      }
+    }
 `
 
 export default function Profile(){

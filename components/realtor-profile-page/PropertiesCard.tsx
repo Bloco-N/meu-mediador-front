@@ -20,6 +20,7 @@ import locales from "locales"
 
 const Container = styled.div`
   .properties{
+    background: #fff;
     display: flex;
     align-items: flex-start;
     gap: 2rem;
@@ -42,6 +43,9 @@ const Container = styled.div`
         right: 3rem;
       }
       .propertie{
+        @media only screen and (max-width: 450px){
+          width: 35rem;
+        }
         @media only screen and (max-width: 400px){
           width: 25rem;
         }

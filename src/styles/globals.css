@@ -13,11 +13,11 @@ a {
   cursor: pointer;
 }
 
-.border{
+.border {
   border: solid 0.1rem var(--border-color);
 }
 
-.special-link{
+.special-link {
   transition: .5s;
   font-weight: bold;
 }
@@ -39,10 +39,10 @@ a {
   --error: #c24343;
 
   font-family: 'Quicksand';
-  color: var(--surface-2); 
+  color: var(--surface-2);
 }
 
-textarea{
+textarea {
   font-family: 'Quicksand';
   background-color: var(--base);
   resize: none;
@@ -52,7 +52,7 @@ textarea{
   width: 85%;
 }
 
-textarea::placeholder{
+textarea::placeholder {
   opacity: 0.9;
 }
 
@@ -62,14 +62,25 @@ html {
   background: var(--base);
 }
 
-.home{
+.home {
   background-image: url('/bg.jpg');
+
+  @media (max-width: 768px) {
+    background: #CFCFCF;
+  }
+
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.text-error{
+@media (max-width: 768px) {
+  .home {
+    background-position: -65rem;
+  }
+}
+
+.text-error {
   color: var(--error);
 }
 
@@ -98,7 +109,7 @@ h5 {
   justify-content: center;
   align-items: center;
   border: solid 0.1rem var(--border-color);
-  background-color:var(--surface);
+  background-color: var(--surface);
   border-radius: 3rem;
 }
 
@@ -115,12 +126,12 @@ input[type='text'], input[type='email'], input[type='password'], input[type='num
   width: 100%;
 }
 
-input::placeholder{
+input::placeholder {
   opacity: 0.7;
   color: var(--surface-2);
 }
 
-input[type='checkbox']{
+input[type='checkbox'] {
   all: unset;
   height: 2rem;
   width: 2rem;
@@ -129,11 +140,11 @@ input[type='checkbox']{
   border-radius: 50%;
 }
 
-input:checked{
+input:checked {
   background-color: var(--highlight);
 }
 
-input[type='date']{
+input[type='date'] {
   border-radius: 1rem;
   padding: 2rem;
   border: none;
@@ -152,7 +163,7 @@ button {
   min-width: 10rem;
 }
 
-.button{
+.button {
   all: unset;
   color: #fff;
   font-size: 2rem;
@@ -188,7 +199,7 @@ button {
   display: block;
 }
 
-select{
+select {
 
   padding: 2rem;
   font-size: 2rem;
@@ -201,29 +212,30 @@ select{
   background-color: var(--base);
   border: solid 0.1rem var(--border-color);
   color: var(--surface-2);
-  
+
 }
 
 @keyframes apear {
-  from{
+  from {
     opacity: 0;
   }
-  to{
+
+  to {
     opacity: 1;
   }
 }
 
-.sub-text{
+.sub-text {
 
   color: var(--surface-2)
 }
 
-.elipses{
+.elipses {
   color: black;
   width: 100%;
   min-height: 2rem;
   max-height: 20rem;
-  display: block; 
+  display: block;
   display: -webkit-box;
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
@@ -231,13 +243,13 @@ select{
   text-overflow: ellipsis;
 }
 
-.close{
+.close {
   height: 2rem;
   width: 2rem;
   cursor: pointer;
 }
 
-.edit-main{
+.edit-main {
   position: absolute;
   height: 2rem;
   width: 2rem;
@@ -246,7 +258,7 @@ select{
   cursor: pointer;
 }
 
-input[type="file"]{
+input[type="file"] {
   display: none;
 }
 
@@ -256,14 +268,14 @@ input::-webkit-inner-spin-button {
   appearance: none;
 }
 
-.modal{
+.modal {
   background-color: #00000062;
 }
 
-.modal form{
-  background-color:#bababac7;
-  backdrop-filter: blur( 0.3rem );
-  -webkit-backdrop-filter: blur( 0.3rem );
+.modal form {
+  background-color: #bababac7;
+  backdrop-filter: blur(0.3rem);
+  -webkit-backdrop-filter: blur(0.3rem);
 }
 
 ::-webkit-scrollbar {
@@ -286,16 +298,16 @@ input::-webkit-inner-spin-button {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
-} 
+}
 
-@media only screen and (max-width: 1000px){
-  :root{
+@media only screen and (max-width: 1000px) {
+  :root {
     font-size: 50%;
   }
 }
 
-@media only screen and (max-width: 375px){
-  :root{
+@media only screen and (max-width: 375px) {
+  :root {
     font-size: 25%;
   }
 }

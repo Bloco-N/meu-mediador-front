@@ -12,25 +12,51 @@ import { useRouter } from "next/router";
 const Nav = styled.div`
     width: 100vw;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     padding: 3rem 6rem;
     position: relative;
-    @media only screen and (max-width: 450px){
-      padding: 1rem;
-      align-items: center;
+    @media only screen and (max-width: 500px){
+      padding: 47px;
+
     }
     .logo{
-      height: 5rem;
-      @media only screen and (max-width: 450px){
-        height: 3rem;
+      height: 20rem;
+      @media only screen and (max-width: 500px){
+        height: 8rem;
       }
     }
     .left-side{
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 3rem;
+      min-width: 100px;
+
+      &:has(.profile) { 
+          align-items: center;
+        }
+      &:has(.profile) ~ .card {
+        transform: translateY(calc(-100% + 30px));
+        animation: fadeInProfile .4s;
+
+        @media (max-width: 501px) {
+          transform: translateY(calc(-100% + 52px));
+        }
+
+      }
+
+      @keyframes fadeInProfile {
+        from {
+          transform: translateY(-125px);
+          opacity: 0;
+        } 
+        to {
+          transform: translateY(initial);
+          opacity: 1;
+        }
+      }
+
     }
     .locale{
       width: 5rem;
@@ -52,31 +78,87 @@ const Nav = styled.div`
       cursor: pointer;
     }
     .login{
+      position: relative;
       display: flex;
       flex-direction: column;
       gap: 2rem;
-      padding-top: 1rem;
-      position: absolute;
-      top: 3rem;
-      right: 6rem;
       transition: all .5s;
       background-color: var(--surface);
       border: solid 0.1rem var(--border-color );
       width: 15rem;
       text-align: center;
       border-radius: 1rem;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-      transition: all .5s;
+      transition: all .5s, border-radius 0s;
       z-index: 2;
+
+      &:has(div) {
+        border-radius: 1rem 1rem 0 0;
+      }
+
+      p {
+        z-index: 4;
+        padding: 1rem 0;
+        background-color: inherit;
+        border-radius: 1rem;
+        transition: border-radius .0s;
+        
+        &:hover {
+          border-radius: 1rem 1rem 0 0;
+          transition: border-radius .4s;
+        }
+      }
+
+      div {
+        position: absolute;
+        background: inherit;
+        width: calc(100% + 2px);
+        border-radius: 0 0 1rem 1rem;
+        top: 100%;
+        left: -1px;
+        border: solid 0.1rem var(--border-color );
+        border-top-color: transparent;
+        animation: fadeIn .3s;
+        z-index: -1;
+      }
+
+      @keyframes fadeIn {
+       from {
+        transform: translateY(-50px);
+        opacity: 1;
+       } 
+       to {
+        transform: translateY(0);
+        opacity: 1;
+       }
+      }
+
       @media only screen and (max-width: 500px){
         position: relative;
+        width: 15rem;
         top: 0;
         right: 0;
+        min-height: 100%;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .5s, border-radius 0s;
+
+        &:has(div) {
+          border-radius: 1rem 1rem 0 0;
+          div {
+            position: absolute;
+            background: #e8e8e8;
+            top: 100%;
+            width: 100%;
+            border-radius: 0 0 1rem 1rem;
+            animation: apear .5s forwards;
+          }
+        }
       }
     }
     .selection{
-      position: absolute;
+      /* position: absolute; */
       display: flex;
       align-items: center;
       right: 25rem;
@@ -85,18 +167,17 @@ const Nav = styled.div`
       border-radius: 1rem;
       padding: 1rem;
       height: 5rem;
-      @media (max-width: 500px) {
-        position: relative;
-        right: 0;
-
-      }
-      @media only screen and (max-width: 250px){
+      @media (max-width: 768px) {
+        display: none;
       }
     }
     .profile{
       cursor: pointer;
       border-radius: 50%;
       object-fit: cover;
+    }
+    .card {
+      top: 100%;
     }
 `
 
@@ -164,11 +245,11 @@ const Navbar = () => {
     return (
         <Nav>
             <Link href="/">
-                <h1><img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" /></h1>
+                <h1><img className="logo" src="/logo/5(1).png" alt="Meoagent-logo" /></h1>
             </Link>
             {pdfPage || <>
               <div className="left-side">
-                <div className="selection border">
+                <div className="locale-area selection border">
                   <Image
                     alt="United States"
                     src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}

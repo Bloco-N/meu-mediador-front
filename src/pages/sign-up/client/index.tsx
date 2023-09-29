@@ -10,24 +10,55 @@ const SignUpContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
   form{
     @media only screen and (max-width: 900px){
       width: 60%;
     }
     @media only screen and (max-width: 500px){
-      width: 80%;
+      width: calc(100% - 30px);
+      padding: 3rem 2rem;
+      gap: 3rem;
     }
     width: 30%;
-    height: 55rem;
+    min-height: 55rem;
     margin: auto;
     padding: 3rem 3.5rem;
     gap: 2.5rem;
 
     .full-name{
+      width: 100%;
       display: flex;
       gap: 2rem;
+      /* flex-direction: column; */
     }
+  }
 
+  @media (max-width: 768px) {
+    padding: 0 37px;
+
+    .card {
+      width: 100%;
+      min-height: 363px;
+      gap: 26px;
+      padding: 25px 27px 16px 27px;
+
+      .full-name {
+        gap: 18px;
+      }
+
+      input {
+        color: #3A2E2C;
+        opacity: 1;
+        font-weight: 600;
+      }
+
+      input::placeholder {
+        opacity: .8;
+        font-weight: 500;
+        color: #3A2E2C;
+      }
+    }
   }
 `
 

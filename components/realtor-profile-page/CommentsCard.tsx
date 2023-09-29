@@ -17,6 +17,7 @@ import AddReplyModalContext from "context/AddReplyModalContext"
 
 const Container = styled.div`
   .comments{
+    background: #fff;
     padding: 3rem;
     align-items: flex-start;
     gap: 2rem;
