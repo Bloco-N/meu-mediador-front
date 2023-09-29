@@ -23,7 +23,8 @@ const Nav = styled.div`
     .logo{
       height: 20rem;
       @media only screen and (max-width: 500px){
-        height: 8rem;
+        height: 100px;
+        transform: translateY(10px);
       }
     }
     .left-side{
