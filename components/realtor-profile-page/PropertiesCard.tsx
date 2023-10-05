@@ -43,11 +43,17 @@ const Container = styled.div`
         right: 3rem;
       }
       .propertie{
-        @media only screen and (max-width: 450px){
-          width: 35rem;
+        @media only screen and (max-width: 510px){
+          width: 280px;
         }
-        @media only screen and (max-width: 400px){
-          width: 25rem;
+        @media only screen and (max-width: 470px){
+          width: 256px;
+        }
+        @media only screen and (max-width: 420px){
+          width: 230px;
+        }
+        @media only screen and (max-width: 390px){
+          width: 210px;
         }
         flex-shrink: 0;
         scroll-snap-align: start;

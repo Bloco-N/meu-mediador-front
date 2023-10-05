@@ -17,15 +17,11 @@ const Nav = styled.div`
     padding: 3rem 6rem;
     position: relative;
     @media only screen and (max-width: 500px){
-      padding: 47px;
+      padding: 47px 47px 10px 47px;
 
     }
     .logo{
-      height: 20rem;
-      @media only screen and (max-width: 500px){
-        height: 100px;
-        transform: translateY(10px);
-      }
+      height: 5rem;
     }
     .left-side{
       display: flex;
@@ -86,7 +82,7 @@ const Nav = styled.div`
       transition: all .5s;
       background-color: var(--surface);
       border: solid 0.1rem var(--border-color );
-      width: 15rem;
+      width: 100px;
       text-align: center;
       border-radius: 1rem;
       transition: all .5s, border-radius 0s;
@@ -98,7 +94,7 @@ const Nav = styled.div`
 
       p {
         z-index: 4;
-        padding: 1rem 0;
+        padding: 8px 0;
         background-color: inherit;
         border-radius: 1rem;
         transition: border-radius .0s;
@@ -135,10 +131,10 @@ const Nav = styled.div`
 
       @media only screen and (max-width: 500px){
         position: relative;
-        width: 15rem;
+        width: 100px;
+        /* height: 24px; */
         top: 0;
         right: 0;
-        min-height: 100%;
         padding: 0;
         display: flex;
         align-items: center;
@@ -155,6 +151,10 @@ const Nav = styled.div`
             border-radius: 0 0 1rem 1rem;
             animation: apear .5s forwards;
           }
+        }
+
+        p {
+          padding: 4px 0;
         }
       }
     }
@@ -246,7 +246,7 @@ const Navbar = () => {
     return (
         <Nav>
             <Link href="/">
-                <h1><img className="logo" src="/logo/5(1).png" alt="Meoagent-logo" /></h1>
+                <h1><img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" /></h1>
             </Link>
             {pdfPage || <>
               <div className="left-side">

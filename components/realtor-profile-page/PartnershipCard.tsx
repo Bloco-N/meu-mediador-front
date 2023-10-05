@@ -32,8 +32,17 @@ const Container = styled.div`
         @media only screen and (max-width: 1000px){
           width: 100%;
         }
-        @media only screen and (max-width: 500px){
-          padding: 5rem;
+        @media only screen and (max-width: 510px){
+          padding: 24px;
+        }
+        @media only screen and (max-width: 470px){
+          padding: 20px;
+        }
+        @media only screen and (max-width: 420px){
+          padding: 16px 10px;
+        }
+        @media only screen and (max-width: 400px){
+          padding: 14px 8px;
         }
         position: relative;
         width: 80%;
