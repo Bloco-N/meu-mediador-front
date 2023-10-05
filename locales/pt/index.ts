@@ -1,7 +1,7 @@
 const pt = {
   home:{
-    welcome: "Encontre seu próximo consultor de imóveis aqui",
-    searchRealtorNamePlaceholder: "Nome do Consultor Imobiliário",
+    welcome: "Encontre seu próximo consultor imobiliário aqui",
+    searchRealtorNamePlaceholder: "Nome do Consultor",
     searchRealtorCityPlaceholder: "Cidade ou CEP",
     searchButton: "Buscar"
   },

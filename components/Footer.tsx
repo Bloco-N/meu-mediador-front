@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 const FooterStyle = styled.div`
     width: 100%;
-    height: 60px;
+    height: 90px;
     display: none;
     align-items: center;
     justify-content: center;
@@ -20,7 +20,7 @@ const FooterStyle = styled.div`
     @media (max-width: 768px) {
         display: flex;
       }
-
+    
     .selection{
       /* position: absolute; */
       display: flex;
@@ -33,6 +33,7 @@ const FooterStyle = styled.div`
       border-radius: 1rem;
       padding: 1rem;
       height: 5rem;
+      transform: translateY(-5px);
     }
     .locale{
       width: 5rem;
