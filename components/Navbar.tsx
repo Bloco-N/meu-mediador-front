@@ -24,10 +24,10 @@ const Nav = styled.div`
       height: 40px;
       
       @media only screen and (max-width: 420px){
-        height: 33px;
+        height: 35px;
       }
       @media only screen and (max-width: 390px){
-        height: 30px;
+        /* height: 30px; */
       }
     }
     .left-side{
@@ -147,7 +147,7 @@ const Nav = styled.div`
         border: solid 0.8px var(--border-color );
         border-top-color: transparent;
         animation: fadeIn .3s;
-        z-index: -1;
+        z-index: 1;
 
         a {
           display: flex;
@@ -223,11 +223,11 @@ const Nav = styled.div`
         }
       }
       @media only screen and (max-width: 420px) {
-        width: 75px;
+        /* width: 75px; */
         font-size: 1.65rem;
       }
       @media only screen and (max-width: 390px){
-        width: 65px;
+        width: 100px;
         font-size: 1.6rem;
       }
     }
@@ -260,7 +260,7 @@ const Navbar = () => {
     const { user } = useContext(UserContext) as UserContextType
 
     // const [open, setOpen] = useState(false)
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
 
     const [flag, setFlag] = useState('GB')
 
@@ -343,8 +343,7 @@ const Navbar = () => {
                     <div
                       onMouseEnter={() => setOpen(true)}
                       onMouseLeave={() => setOpen(false)}
-                      // className = { open ? 'login' : 'login closed'}
-                      className = { open ? 'login' : 'login close'}
+                      className = { open ? 'login' : 'login closed'}
                       >
                       <p>
                         LOGIN

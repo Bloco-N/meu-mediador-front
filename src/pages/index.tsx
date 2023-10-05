@@ -14,8 +14,9 @@ import locales from '../../locales'
 const SearchRealtor = styled.div`
 
 width: 100%;
-height: 500px;
+height: auto;
 padding: 0 37px;
+margin-bottom: 60px;
 
 form{
     @media only screen and (max-width: 1000px) {
@@ -26,6 +27,7 @@ form{
     }
     @media (max-width: 768px) {
       width: calc(100% - 4rem);
+      height: 136px;
     }
     background: #E9E9E9;
     width: 60%;
