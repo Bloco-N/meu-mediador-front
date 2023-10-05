@@ -75,6 +75,12 @@ const Container = styled.div`
                 margin-left: 1rem;
                 font-style: italic;
               }
+
+              @media only screen and (max-width: 768px) {
+                h4, p {
+                  margin-left: 0px;
+                }
+              }
             }
           }
         }

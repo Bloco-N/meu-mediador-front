@@ -5,6 +5,7 @@ import styled from "styled-components"
 import Pagination from "components/Pagination"
 import Link from "next/link"
 import MainInfo from "components/MainInfo"
+import { useEffect } from 'react';
 
 const Container = styled.div`
   height: 80%;

@@ -32,7 +32,7 @@ form{
     width: 60%;
     height: 17rem;
     margin: auto;
-    margin-top: 15vh;
+    margin-top: 60px;
     backdrop-filter: blur(5px);
 
     @media (max-width: 768px) {

@@ -37,7 +37,7 @@ export default function Layout({ children } : LayoutProps) {
       setPath(router.pathname)
     }, [router])
 
-    return (
+      return (
         <Container className={path === '/' ? 'home' : ''}>
           <Head>
               <title>Meoagent</title>

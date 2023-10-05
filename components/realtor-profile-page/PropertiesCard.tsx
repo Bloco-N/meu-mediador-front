@@ -50,10 +50,10 @@ const Container = styled.div`
           width: 256px;
         }
         @media only screen and (max-width: 420px){
-          width: 230px;
+          width: 200px;
         }
         @media only screen and (max-width: 390px){
-          width: 210px;
+          width: 180px;
         }
         flex-shrink: 0;
         scroll-snap-align: start;

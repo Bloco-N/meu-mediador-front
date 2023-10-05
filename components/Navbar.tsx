@@ -10,7 +10,7 @@ import profileIcon from '../public/profile.svg'
 import { useRouter } from "next/router";
 
 const Nav = styled.div`
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -21,10 +21,13 @@ const Nav = styled.div`
 
     }
     .logo{
-      height: 5rem;
-
+      height: 40px;
+      
       @media only screen and (max-width: 420px){
-        height: 40px;
+        height: 33px;
+      }
+      @media only screen and (max-width: 390px){
+        height: 28px;
       }
     }
     .left-side{
@@ -161,7 +164,10 @@ const Nav = styled.div`
         }
       }
       @media only screen and (max-width: 420px) {
-        width: 85px;
+        width: 75px;
+      }
+      @media only screen and (max-width: 390px){
+        width: 65px;
       }
     }
     .selection{
