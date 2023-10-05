@@ -22,6 +22,10 @@ const Nav = styled.div`
     }
     .logo{
       height: 5rem;
+
+      @media only screen and (max-width: 420px){
+        height: 40px;
+      }
     }
     .left-side{
       display: flex;
@@ -94,7 +98,6 @@ const Nav = styled.div`
 
       p {
         z-index: 4;
-        padding: 8px 0;
         background-color: inherit;
         border-radius: 1rem;
         transition: border-radius .0s;
@@ -156,6 +159,9 @@ const Nav = styled.div`
         p {
           padding: 4px 0;
         }
+      }
+      @media only screen and (max-width: 420px) {
+        width: 70px;
       }
     }
     .selection{
