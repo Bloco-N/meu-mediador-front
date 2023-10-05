@@ -161,7 +161,7 @@ const Nav = styled.div`
         }
       }
       @media only screen and (max-width: 420px) {
-        width: 70px;
+        width: 85px;
       }
     }
     .selection{
