@@ -11,19 +11,19 @@ import { useRouter } from "next/router";
 
 const FooterStyle = styled.div`
     width: 100%;
-    height: 100px;
-    display: flex;
+    height: 60px;
+    display: none;
     align-items: center;
     justify-content: center;
-    padding: 8px 0 30px 0;
+    padding: 25px 0 30px 0;
     position: relative;
-    @media only screen and (max-width: 500px){
-      padding: 45px;
+    @media (max-width: 768px) {
+        display: flex;
+      }
 
-    }
     .selection{
       /* position: absolute; */
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: space-between;
       min-width: 80px;
@@ -33,9 +33,6 @@ const FooterStyle = styled.div`
       border-radius: 1rem;
       padding: 1rem;
       height: 5rem;
-      @media (max-width: 768px) {
-        display: flex;
-      }
     }
     .locale{
       width: 5rem;
