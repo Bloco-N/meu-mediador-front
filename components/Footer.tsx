@@ -36,9 +36,10 @@ const FooterStyle = styled.div`
       transform: translateY(-5px);
     }
     .locale{
-      width: 5rem;
-      height: 5rem;
-      background-color: transparent;
+      position: relative;
+      width: 40px;
+      height: 100%;
+      background-color: #fff;
       border: none;
       padding: 0.2rem;
       font-size: 1.3rem;
@@ -118,7 +119,7 @@ const Footer = () => {
                     width={20}
                     height={20}
                   />
-                  <select id="locale-set" onChange={e => changeLocation(e)} className="locale">
+                  <select id="locale-set" name="language" onChange={e => changeLocation(e)} className="locale">
                     <option value="en">EN</option>
                     <option value="pt">PT</option>
                     <option value="es">ES</option>
