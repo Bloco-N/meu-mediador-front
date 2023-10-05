@@ -15,10 +15,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   main{
     width: 100%;
-    height: 100%;
+    height: auto;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
