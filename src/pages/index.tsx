@@ -24,6 +24,7 @@ form{
       height: 40rem;
       padding: 2rem;
       text-align: center;
+      margin-top: 0;
     }
     @media (max-width: 768px) {
       width: calc(100% - 4rem);
@@ -31,9 +32,9 @@ form{
     }
     background: #E9E9E9;
     width: 60%;
-    height: 136px;
     margin: auto;
-    margin-top: 60px;
+    height: 17rem;
+    margin-top: 18vh;
     backdrop-filter: blur(5px);
 
     @media (max-width: 768px) {

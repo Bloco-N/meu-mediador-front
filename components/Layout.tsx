@@ -16,15 +16,21 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: start;
+
   main{
     width: 100%;
-    height: auto;
+    height: 100%;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
-    padding-top: 20px;
+    
+    @media (max-width: 768px) {
+      height: auto;
+      justify-content: start;
+      padding-top: 20px;
+    }
   }
 `
 
