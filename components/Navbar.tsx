@@ -17,7 +17,9 @@ const Nav = styled.div`
     background-color: transparent;
     padding: 3rem 6rem;
     position: relative;
-    height: 268px;
+    @media only screen and (min-width: 1025px) {
+      height: 268px;
+    }
     @media only screen and (max-width: 500px){
       padding: 47px 47px 10px 47px;
     }
