@@ -8,7 +8,7 @@ const SignUpContainer = styled.div`
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: center;
 
   form{
@@ -22,7 +22,7 @@ const SignUpContainer = styled.div`
     }
     width: 30%;
     min-height: 55rem;
-    margin: auto;
+    margin: 0 auto;
     padding: 3rem 3.5rem;
     gap: 2.5rem;
 

@@ -14,7 +14,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  transform: translateY(-15px);
+  /* transform: translateY(-15px); */
 
   .list{
     height: 80%;

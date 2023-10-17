@@ -16,6 +16,10 @@ import locales from "locales"
 
 
 const Container = styled.div`
+  display: block;
+  width: 100%;
+  min-height: 300px;
+  background: red;
 
   .awards{
     background: #fff;
@@ -77,7 +81,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        const coursesData = await apiService.getRealtorCourses(id as string)
+        const coursesData = await apiService.getRealtorCourses(id as string)       
         setLoadingOpen(false)
 
         setCourses(coursesData)
@@ -104,7 +108,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
   }
 
   return (
-    (courses?.length && courses.length > 0) ?
+    (courses?.length && courses.length >= 0) ?
     <Container>
       <div className="card awards">
         <h2>{t.study.study}</h2>

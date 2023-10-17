@@ -178,7 +178,7 @@ const Nav = styled.div`
 
       @keyframes fadeIn {
        from {
-        transform: translateY(-50px);
+        transform: translateY(-30px);
         opacity: 1;
        } 
        to {
@@ -254,7 +254,7 @@ const Nav = styled.div`
       object-fit: cover;
     }
     .card {
-      top: 100%;
+      top: calc(100% + 20px);
     }
 `
 

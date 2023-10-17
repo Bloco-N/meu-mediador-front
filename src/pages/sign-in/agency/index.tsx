@@ -119,6 +119,8 @@ const SignIn = () => {
 
           localStorage.setItem('token', token)
           const user = decode(token) as { id:number, email:string, name: string}
+          console.log(user);
+          
 
           localStorage.setItem('id', String(user.id))
   
