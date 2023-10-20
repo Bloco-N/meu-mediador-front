@@ -5,7 +5,6 @@ import ModalWrapper from 'components/ModalWrapper'
 
 export default function App({ Component, pageProps }: AppProps) {
 
-
   return (
     <ModalWrapper>
       <Layout>

@@ -63,19 +63,16 @@ html {
 }
 
 .home {
-  background-image: url('/bg.jpg');
-
-  @media (max-width: 768px) {
-    background: #CFCFCF;
-  }
-
+  background-image: url('/novoBackground.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
 }
 
+
 @media (max-width: 768px) {
   .home {
+    background: #CFCFCF;
     background-position: -65rem;
   }
 }

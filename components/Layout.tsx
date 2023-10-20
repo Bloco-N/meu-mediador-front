@@ -15,7 +15,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+
   main{
     width: 100%;
     height: 100%;
@@ -23,7 +24,13 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
+    
+    @media (max-width: 768px) {
+      height: auto;
+      justify-content: start;
+      padding-top: 20px;
+    }
   }
 `
 
@@ -36,7 +43,7 @@ export default function Layout({ children } : LayoutProps) {
       setPath(router.pathname)
     }, [router])
 
-    return (
+      return (
         <Container className={path === '/' ? 'home' : ''}>
           <Head>
               <title>Meoagent</title>

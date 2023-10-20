@@ -11,19 +11,19 @@ import { useRouter } from "next/router";
 
 const FooterStyle = styled.div`
     width: 100%;
-    height: 100px;
-    display: flex;
+    height: 90px;
+    display: none;
     align-items: center;
     justify-content: center;
-    padding: 8px 0 30px 0;
+    padding: 25px 0 30px 0;
     position: relative;
-    @media only screen and (max-width: 500px){
-      padding: 45px;
-
-    }
+    @media (max-width: 768px) {
+        display: flex;
+      }
+    
     .selection{
       /* position: absolute; */
-      display: none;
+      display: flex;
       align-items: center;
       justify-content: space-between;
       min-width: 80px;
@@ -33,14 +33,13 @@ const FooterStyle = styled.div`
       border-radius: 1rem;
       padding: 1rem;
       height: 5rem;
-      @media (max-width: 768px) {
-        display: flex;
-      }
+      transform: translateY(-5px);
     }
     .locale{
-      width: 5rem;
-      height: 5rem;
-      background-color: transparent;
+      position: relative;
+      width: 40px;
+      height: 100%;
+      background-color: #fff;
       border: none;
       padding: 0.2rem;
       font-size: 1.3rem;
@@ -120,7 +119,7 @@ const Footer = () => {
                     width={20}
                     height={20}
                   />
-                  <select id="locale-set" onChange={e => changeLocation(e)} className="locale">
+                  <select id="locale-set" name="language" onChange={e => changeLocation(e)} className="locale">
                     <option value="en">EN</option>
                     <option value="pt">PT</option>
                     <option value="es">ES</option>

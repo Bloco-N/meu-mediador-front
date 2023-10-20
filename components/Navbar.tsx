@@ -10,20 +10,27 @@ import profileIcon from '../public/profile.svg'
 import { useRouter } from "next/router";
 
 const Nav = styled.div`
-    width: 100vw;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: transparent;
     padding: 3rem 6rem;
     position: relative;
+    @media only screen and (min-width: 1025px) {
+      height: 268px;
+    }
     @media only screen and (max-width: 500px){
-      padding: 47px;
-
+      padding: 47px 47px 10px 47px;
     }
     .logo{
-      height: 20rem;
-      @media only screen and (max-width: 500px){
-        height: 8rem;
+      height: 40px;
+      
+      @media only screen and (max-width: 420px){
+        height: 35px;
+      }
+      @media only screen and (max-width: 390px){
+        /* height: 30px; */
       }
     }
     .left-side{
@@ -79,13 +86,15 @@ const Nav = styled.div`
     }
     .login{
       position: relative;
+      width: 125px;
+      height: 35px;
       display: flex;
       flex-direction: column;
+      justify-content: center;
       gap: 2rem;
       transition: all .5s;
       background-color: var(--surface);
       border: solid 0.1rem var(--border-color );
-      width: 15rem;
       text-align: center;
       border-radius: 1rem;
       transition: all .5s, border-radius 0s;
@@ -93,11 +102,34 @@ const Nav = styled.div`
 
       &:has(div) {
         border-radius: 1rem 1rem 0 0;
+
+        /* & > p {
+          position: relative;
+          display: flex;
+          align-content: center;
+
+          &:last-child::after {
+            display: none;
+          }
+
+          &::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 1px;
+            background: rgba(0,0,0,.4);
+            top: calc(100% + 4px);
+          }
+        } */
       }
 
       p {
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: end;
+        justify-content: center;
         z-index: 4;
-        padding: 1rem 0;
         background-color: inherit;
         border-radius: 1rem;
         transition: border-radius .0s;
@@ -115,15 +147,38 @@ const Nav = styled.div`
         border-radius: 0 0 1rem 1rem;
         top: 100%;
         left: -1px;
-        border: solid 0.1rem var(--border-color );
+        border: solid 0.8px var(--border-color );
         border-top-color: transparent;
         animation: fadeIn .3s;
-        z-index: -1;
+        z-index: 1;
+
+        a {
+          display: flex;
+          position: relative;
+          justify-content: center;
+          align-items: end;
+          &:last-child::after {
+            display: none;
+          }
+
+          &::after {
+            content: '';
+            position: absolute;
+            width: 80%;
+            height: 1px;
+            background: rgba(0,0,0,.4);
+            top: 100%;
+          }
+        }
+
+        a p {
+          font-size: 1.8rem;
+        }
       }
 
       @keyframes fadeIn {
        from {
-        transform: translateY(-50px);
+        transform: translateY(-30px);
         opacity: 1;
        } 
        to {
@@ -134,10 +189,10 @@ const Nav = styled.div`
 
       @media only screen and (max-width: 500px){
         position: relative;
-        width: 15rem;
+        width: 100px;
+        /* height: 24px; */
         top: 0;
         right: 0;
-        min-height: 100%;
         padding: 0;
         display: flex;
         align-items: center;
@@ -150,11 +205,33 @@ const Nav = styled.div`
             position: absolute;
             background: #e8e8e8;
             top: 100%;
-            width: 100%;
             border-radius: 0 0 1rem 1rem;
             animation: apear .5s forwards;
+
+            a{
+              display: flex;
+              position: relative;
+              justify-content: center;
+              align-items: end;
+              img {
+                display: none;
+              }
+            }
           }
         }
+
+        p {
+          padding: 4px 0;
+          font-size: 1.7rem;
+        }
+      }
+      @media only screen and (max-width: 420px) {
+        /* width: 75px; */
+        font-size: 1.65rem;
+      }
+      @media only screen and (max-width: 390px){
+        width: 100px;
+        font-size: 1.6rem;
       }
     }
     .selection{
@@ -166,7 +243,7 @@ const Nav = styled.div`
       background-color: var(--surface);
       border-radius: 1rem;
       padding: 1rem;
-      height: 5rem;
+      height: 35px;
       @media (max-width: 768px) {
         display: none;
       }
@@ -177,7 +254,7 @@ const Nav = styled.div`
       object-fit: cover;
     }
     .card {
-      top: 100%;
+      top: calc(100% + 20px);
     }
 `
 
@@ -185,6 +262,7 @@ const Navbar = () => {
 
     const { user } = useContext(UserContext) as UserContextType
 
+    // const [open, setOpen] = useState(false)
     const [open, setOpen] = useState(false)
 
     const [flag, setFlag] = useState('GB')
@@ -245,7 +323,7 @@ const Navbar = () => {
     return (
         <Nav>
             <Link href="/">
-                <h1><img className="logo" src="/logo/5(1).png" alt="Meoagent-logo" /></h1>
+                <h1><img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" /></h1>
             </Link>
             {pdfPage || <>
               <div className="left-side">

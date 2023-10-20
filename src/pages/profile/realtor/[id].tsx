@@ -23,7 +23,8 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: 4rem;
+  /* transform: translateY(-15px); */
+  padding: 0px 32px 32px 32px;
   gap: 2rem;
   .plus{
       cursor: pointer;

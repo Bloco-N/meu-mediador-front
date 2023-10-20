@@ -18,6 +18,11 @@ const Container = styled.div`
     padding: 3rem;
     align-items: flex-start;
     position: relative;
+
+    h2 {
+      margin-bottom: 18px;
+    }
+
     p{
       @media only screen and (max-width: 500px){
         margin: 0;
@@ -28,6 +33,8 @@ const Container = styled.div`
     }
     .elipses-button{
       cursor: pointer;
+      margin-top: 9px;
+      font-weight: 600;
     }
   }
 `
