@@ -96,7 +96,9 @@ const en = {
     jobTitle:'Job Title',
     company:'Company',
     currentJob:'Current Job',
-    create:'Create'
+    create:'Create',
+    dateStart: 'Start',
+    dateEnd: 'End',
   },
   comments:{
     comments:'Reviews',

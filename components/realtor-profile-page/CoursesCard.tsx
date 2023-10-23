@@ -18,8 +18,6 @@ import locales from "locales"
 const Container = styled.div`
   display: block;
   width: 100%;
-  min-height: 300px;
-  background: red;
 
   .awards{
     background: #fff;
@@ -27,15 +25,22 @@ const Container = styled.div`
     align-items: flex-start;
     padding: 3rem;
     gap: 2rem;
-    .edit-icons{
+    .awards-title {
+      width: 100%;
       display: flex;
-      gap: 2rem;
-      position: absolute;
-      top: 3rem;
-      right: 3rem;
-      .plus{
-        position: unset;
-      }
+      gap: 1rem;
+      justify-content: space-between;
+      .edit-icons{
+        display: flex;
+        gap: 2rem;
+        flex-shrink: 0;
+        /* position: absolute; */
+        top: 3rem;
+        right: 3rem;
+        .plus{
+          position: unset;
+        }
+      } 
     }
     ul{
       all: unset;
@@ -111,13 +116,16 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
     (courses?.length && courses.length >= 0) ?
     <Container>
       <div className="card awards">
-        <h2>{t.study.study}</h2>
-        { sessionProfile ? (
-          <div className="edit-icons">
-            <Image onClick={() => setEditCourses(!editCourses)} className='plus' src={editIcon} alt='edit icon'/>
-            <Image onClick={() => addCourseSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
-          </div>
-        ): ''}
+        <div className="awards-title">
+          <h2>{t.study.study}</h2>
+          { sessionProfile ? (
+            <div className="edit-icons">
+              <Image onClick={() => setEditCourses(!editCourses)} className='plus' src={editIcon} alt='edit icon'/>
+              <Image onClick={() => addCourseSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+            </div>
+          ): ''}
+        </div>
+        
         <ul>
           {courses?.map(item => (
               <li key={item.id}>

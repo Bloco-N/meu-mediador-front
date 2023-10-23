@@ -95,7 +95,9 @@ const pt = {
     jobTitle:'Cargo',
     company:'Agência',
     currentJob:'Trabalha aqui atualmente',
-    create:'Criar'
+    create:'Criar',
+    dateStart: 'Início',
+    dateEnd: 'Fim',
   },
   comments:{
     comments:'Avaliações',

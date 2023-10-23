@@ -96,7 +96,9 @@ const es = {
     jobTitle:'Cargo',
     company:'Agencia',
     currentJob:'Trabajo Actual',
-    create:'Crear'
+    create:'Crear',
+    dateStart: 'Comenzar',
+    dateEnd: 'Fin',
   },
   comments:{
     comments:'Reseñas',
