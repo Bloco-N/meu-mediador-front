@@ -113,7 +113,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
   }
 
   return (
-    (courses?.length && courses.length >= 0) ?
+    (courses?.length && courses.length > 0 || sessionProfile) ?
     <Container>
       <div className="card awards">
         <div className="awards-title">

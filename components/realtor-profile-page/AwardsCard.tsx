@@ -117,7 +117,7 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
   }
 
   return (
-    (awards?.length && awards?.length > 0) ?
+    (awards?.length && awards?.length > 0 || sessionProfile) ?
     <Container >
       <div className="card awards">
         <div className="awards-title">
