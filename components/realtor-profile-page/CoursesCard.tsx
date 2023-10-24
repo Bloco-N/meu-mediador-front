@@ -30,6 +30,11 @@ const Container = styled.div`
       display: flex;
       gap: 1rem;
       justify-content: space-between;
+      @media only screen and (max-width: 395px) {
+        h2 {
+          font-size: 3rem;
+        }
+      }
       .edit-icons{
         display: flex;
         gap: 2rem;
@@ -44,15 +49,22 @@ const Container = styled.div`
     }
     ul{
       all: unset;
-      padding-left:3rem;
+      padding-left: 2.25rem;
       display: flex;
       flex-direction: column;
       gap: 1rem;
       li{
+
+        &::marker {
+          font-size: 2rem;
+        }
+
+        .awards-items {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
         color: var(--surface-2);
-        display: flex;
-        align-items: center;
-        gap: 1rem;
       }
     }
   }
@@ -118,7 +130,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
       <div className="card awards">
         <div className="awards-title">
           <h2>{t.study.study}</h2>
-          { sessionProfile ? (
+          { sessionProfile == false ? (
             <div className="edit-icons">
               <Image onClick={() => setEditCourses(!editCourses)} className='plus' src={editIcon} alt='edit icon'/>
               <Image onClick={() => addCourseSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
@@ -129,10 +141,12 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
         <ul>
           {courses?.map(item => (
               <li key={item.id}>
-                {sessionProfile && editCourses ? (
-                  <Image onClick={e => handleDeleteCourse(e)} id={String(item.id)} className="close" src={closeIcon} alt="close icon"/>
-                ): ''}
-                {item.name}
+                <div className="awards-items">
+                  {sessionProfile && editCourses ? (
+                    <Image onClick={e => handleDeleteCourse(e)} id={String(item.id)} className="close" src={closeIcon} alt="close icon"/>
+                  ): ''}
+                  {item.name}
+                </div>
               </li>
             )
           )}

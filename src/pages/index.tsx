@@ -19,15 +19,18 @@ padding: 0 37px;
 margin-bottom: 60px;
 
 form{
-    background: #e9e9e955;
-    width: 45%;
+    background: #e9e9e985;
+    max-width: 45%;
+    width: fit-content;
     margin: auto;
-    height: 17rem;
+    height: fit-content;
     margin-top: 20vh;
     backdrop-filter: blur(5px);
+    padding: 2rem 3rem;
  
     h4{
       font-weight: 600;
+      margin-top: 10px;
     }
     .search-row {
       display: flex;
@@ -35,18 +38,22 @@ form{
       justify-content: center;
       align-items: center;
       /* padding: 2rem 5rem; */
-      padding: 2rem 3rem;
       gap: 2rem;
       width: 100%;
 
-      @media only screen and (max-width: 1000px){
+      @media only screen and (max-width: 1190px){
         flex-direction: column;
+        input {
+
+        }
       }
       @media (max-width: 768px) {
         padding: 2rem 0rem; 
         gap: 3rem;
       }
     }
+
+
 
     @media only screen and (max-width: 1000px) {
       width: 90%;
@@ -140,8 +147,10 @@ export default function Home() {
 
       <form className="card" onSubmit={handleSubmit(onSubmit)}>
         <div className="search-row">
+
           <input type="text" className="input-realtor" placeholder={t.home.searchRealtorNamePlaceholder}
           {...register('search')} />
+
           <input list="cities" type="text" className="input-city-cep" placeholder={t.home.searchRealtorCityPlaceholder} 
           {...register('zipCode')}/>
           <datalist id="cities">
@@ -149,6 +158,7 @@ export default function Home() {
               <option key={index} value={item}/>
             ))}
           </datalist>
+
           <button className="searchButton">{t.home.searchButton}</button>
         </div>
         <h4>{t.home.welcome}</h4>
