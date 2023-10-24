@@ -50,11 +50,11 @@ const Nav = styled.div`
           align-items: center;
         }
       &:has(.profile) ~ .card {
-        transform: translateY(calc(-100% + 30px));
+        /* transform: translateY(calc(-100% + 30px)); */
         animation: fadeInProfile .4s;
 
         @media (max-width: 501px) {
-          transform: translateY(calc(-100% + 52px));
+          top: 100%;
         }
 
       }
@@ -77,6 +77,9 @@ const Nav = styled.div`
       .left-side {
         position: initial;
       }
+    }
+    .card {
+      /* top: calc(100% + 20px); */
     }
     .locale{
       width: 5rem;
@@ -266,9 +269,7 @@ const Nav = styled.div`
       border-radius: 50%;
       object-fit: cover;
     }
-    .card {
-      top: calc(100% + 20px);
-    }
+    
 `
 
 const Navbar = () => {
