@@ -21,15 +21,23 @@ const Container = styled.div`
     align-items: flex-start;
     padding: 3rem;
     gap: 2rem;
-    .edit-icons{
+    
+    .awards-title {
+      width: 100%;
       display: flex;
-      gap: 2rem;
-      position: absolute;
-      top: 3rem;
-      right: 3rem;
-      .plus{
-        position: unset;
+      gap: 1rem;
+      justify-content: space-between;
+        .edit-icons{
+        display: flex;
+        gap: 2rem;
+        flex-shrink: 0;
+        /* position: absolute; */
+        top: 3rem;
+        right: 3rem;
+        .plus{
+          position: unset;
       }
+    }
     }
     ul{
       all: unset;
@@ -37,11 +45,16 @@ const Container = styled.div`
       display: flex;
       flex-direction: column;
       gap: 1rem;
+      list-style: disc !important;
       li{
+
+        .awards-items {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
         color: var(--surface-2);
-        display: flex;
-        align-items: center;
-        gap: 1rem;
+        list-style: disc !important;
       }
     }
   }
@@ -107,20 +120,25 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
     (awards?.length && awards?.length > 0 || sessionProfile) ?
     <Container >
       <div className="card awards">
-        <h2>{t.awards.awards}</h2>
-        { sessionProfile ? (
-          <div className="edit-icons">
-            <Image onClick={() => setEditAwards(!editAwards)} className='plus' src={editIcon} alt='edit icon'/>
-            <Image onClick={() => addAwardSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
-          </div>
-        ): ''}
+        <div className="awards-title">
+          <h2>{t.awards.awards}</h2>
+          { sessionProfile ? (
+            <div className="edit-icons">
+              <Image onClick={() => setEditAwards(!editAwards)} className='plus' src={editIcon} alt='edit icon'/>
+              <Image onClick={() => addAwardSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+            </div>
+          ): ''}
+        </div>
+        
         <ul>
           {awards?.map(item => (
               <li key={item.id}>
-                {sessionProfile && editAwards ? (
-                  <Image onClick={e => handleDeleteAward(e)} id={String(item.id)} className="close" src={closeIcon} alt="close icon"/>
-                ): ''}
-                {item.title}
+                <div className="awards-items">
+                  {sessionProfile && editAwards ? (
+                    <Image onClick={e => handleDeleteAward(e)} id={String(item.id)} className="close" src={closeIcon} alt="close icon"/>
+                  ): ''}
+                  {item.title}
+                </div>
               </li>
             )
           )}

@@ -20,9 +20,9 @@ const Container = styled.div`
   justify-content: center;
   form{
     position: relative;
-    height: 50rem;
+    height: auto;
     width: 40%;
-    padding-top: 4rem;
+    padding: 4rem 0;
     border-radius: 3rem;
     display: flex;
     flex-direction: column;
@@ -37,7 +37,27 @@ const Container = styled.div`
       gap: 2rem;
       width: 80%;
       justify-content: center;
+      align-items: center;
+    }
+    .dates-inputs {
+      flex-wrap: wrap;
+      justify-content: center;
       
+      .dates-input-group {
+        gap: 1.125rem;
+        width: auto;
+      }
+
+      p.label-text-inputs {
+        cursor: pointer;
+        display: block;
+        height: auto;
+        width: auto;
+        position: initial;
+        background-color: transparent;
+        color: var(--surface2);
+        font-weight: bold;
+      }
     }
     input[type='text']{
       width: 80%;
@@ -146,11 +166,17 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
             <option key={item.id} value={item.name}/>
           ))}
         </datalist>
-        <div className="dates-inputs">          
-          <input  {...register('init', {required:true})} type="date" />
-          <input {...register('end')} id="end" disabled={workHere} type="date" />
+        <div className="dates-inputs">  
+          <div className="dates-input-group">
+            <p className="label-text-inputs">{t.addPartnership.dateStart}</p>
+            <input  {...register('init', {required:true})} type="date" />
+          </div>
+          <div className="dates-input-group">
+            <p className="label-text-inputs">{t.addPartnership.dateEnd}</p>
+            <input {...register('end')} id="end" disabled={workHere} type="date" />
+          </div>
         </div>
-        <div>
+        <div className="word-here">
           <label htmlFor="active">{t.addPartnership.currentJob}</label>
           <input onChange={() => setWorkHere(!workHere)} id="active" type="checkbox" />
         </div>

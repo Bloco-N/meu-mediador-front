@@ -21,11 +21,15 @@ import AboutCard from "components/realtor-profile-page/AboutCard"
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: fit-content;
   width: 100%;
   /* transform: translateY(-15px); */
   padding: 0px 32px 32px 32px;
   gap: 2rem;
+
+  @media only screen and (max-width: 768px){
+    padding: 0 32px;
+  }
   .plus{
       cursor: pointer;
       height: 3rem;

@@ -19,6 +19,35 @@ padding: 0 37px;
 margin-bottom: 60px;
 
 form{
+    background: #e9e9e955;
+    width: 45%;
+    margin: auto;
+    height: 17rem;
+    margin-top: 20vh;
+    backdrop-filter: blur(5px);
+ 
+    h4{
+      font-weight: 600;
+    }
+    .search-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      /* padding: 2rem 5rem; */
+      padding: 2rem 3rem;
+      gap: 2rem;
+      width: 100%;
+
+      @media only screen and (max-width: 1000px){
+        flex-direction: column;
+      }
+      @media (max-width: 768px) {
+        padding: 2rem 0rem; 
+        gap: 3rem;
+      }
+    }
+
     @media only screen and (max-width: 1000px) {
       width: 90%;
       height: 40rem;
@@ -26,18 +55,9 @@ form{
       text-align: center;
       margin-top: 0;
     }
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 768px) {
       width: calc(100% - 4rem);
       height: 136px;
-    }
-    background: #E9E9E9;
-    width: 60%;
-    margin: auto;
-    height: 17rem;
-    margin-top: 18vh;
-    backdrop-filter: blur(5px);
-
-    @media (max-width: 768px) {
       input {
         border: 1px solid #3a2e2c5a;
       }
@@ -49,29 +69,9 @@ form{
         opacity: 1;
       }
     }
- 
-    h4{
-      font-weight: 600;
-    }
-    .search-row {
-      @media only screen and (max-width: 1000px){
-        flex-direction: column;
-      }
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        padding: 2rem 5rem;
-        gap: 2rem;
-        width: 100%;
-      @media (max-width: 768px) {
-        padding: 2rem 0rem; 
-        gap: 3rem;
-      }
-    }
   }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   padding: 0 27px;
  
   .card {
