@@ -17,6 +17,7 @@ width: 100%;
 height: auto;
 padding: 0 37px;
 margin-bottom: 60px;
+margin-top: 12rem;
 
 form{
     background: #e9e9e985;
