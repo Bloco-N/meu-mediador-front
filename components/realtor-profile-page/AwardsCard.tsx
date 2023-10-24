@@ -27,7 +27,7 @@ const Container = styled.div`
       display: flex;
       gap: 1rem;
       justify-content: space-between;
-        .edit-icons{
+      .edit-icons{
         display: flex;
         gap: 2rem;
         flex-shrink: 0;
@@ -41,20 +41,21 @@ const Container = styled.div`
     }
     ul{
       all: unset;
-      padding-left:3rem;
+      padding-left: 2.25rem;
       display: flex;
       flex-direction: column;
       gap: 1rem;
       list-style: disc !important;
       li{
-
+        &::marker {
+          font-size: 2rem;
+        }
         .awards-items {
           display: flex;
           align-items: center;
           gap: 1rem;
         }
         color: var(--surface-2);
-        list-style: disc !important;
       }
     }
   }
@@ -122,7 +123,7 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
       <div className="card awards">
         <div className="awards-title">
           <h2>{t.awards.awards}</h2>
-          { sessionProfile ? (
+          { sessionProfile == false ? (
             <div className="edit-icons">
               <Image onClick={() => setEditAwards(!editAwards)} className='plus' src={editIcon} alt='edit icon'/>
               <Image onClick={() => addAwardSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>

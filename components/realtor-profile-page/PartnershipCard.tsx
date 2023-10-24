@@ -163,7 +163,7 @@ export default function PartnershipCard({localId, accType, sessionProfile}:Partn
     <Container>
       <div className="card expiriences">
         <h2>{t.partnership.partnership}</h2>
-        { sessionProfile == false ? (
+        { sessionProfile ? (
           <Image onClick={() => addPartnershipOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
         ): ''}
         <div className="list">

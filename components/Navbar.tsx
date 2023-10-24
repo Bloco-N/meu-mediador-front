@@ -10,21 +10,25 @@ import profileIcon from '../public/profile.svg'
 import { useRouter } from "next/router";
 
 const Nav = styled.div`
+    position: relative;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     background-color: transparent;
     padding: 3rem 6rem;
     position: relative;
-    @media only screen and (min-width: 1025px) {
-      height: 268px;
-    }
     @media only screen and (max-width: 500px){
       padding: 47px 47px 10px 47px;
     }
+    /* .logo-area {
+      height: 100%;
+      display: flex;
+      place-items: center;
+    } */
+
     .logo{
-      height: 40px;
+      height: 60px;
       
       @media only screen and (max-width: 420px){
         height: 35px;
@@ -34,6 +38,8 @@ const Nav = styled.div`
       }
     }
     .left-side{
+      position: absolute;
+      right: 6rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -64,6 +70,13 @@ const Nav = styled.div`
         }
       }
 
+    }
+    @media only screen and (max-width: 850px){
+      justify-content: space-between;
+
+      .left-side {
+        position: initial;
+      }
     }
     .locale{
       width: 5rem;
@@ -322,8 +335,8 @@ const Navbar = () => {
 
     return (
         <Nav>
-            <Link href="/">
-                <h1><img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" /></h1>
+            <Link href="/" className="logo-area">
+                <img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" />
             </Link>
             {pdfPage || <>
               <div className="left-side">
