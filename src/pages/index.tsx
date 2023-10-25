@@ -65,6 +65,7 @@ form{
     }
     @media only screen and (max-width: 768px) {
       width: calc(100% - 4rem);
+      max-width: 90%;
       height: 136px;
       input {
         border: 1px solid #3a2e2c5a;
