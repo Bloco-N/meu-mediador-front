@@ -56,7 +56,6 @@ const Nav = styled.div`
         @media (max-width: 501px) {
           top: 100%;
         }
-
       }
 
       @keyframes fadeInProfile {
