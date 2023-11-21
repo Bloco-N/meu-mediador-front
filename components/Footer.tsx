@@ -8,6 +8,27 @@ import ProfileMoldal from "./ProfileMoldal";
 import { UserContextType } from "@/types/UserContextType";
 import profileIcon from '../public/profile.svg'
 import { useRouter } from "next/router";
+import DenunciaMoldal from "./DenunciaModal";
+
+
+
+const InfoFooter = styled.div`
+width: 100%;
+align-items: left;
+
+position: absolute;
+bottom: -50px;
+.div-ajuda{
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.fonte{
+  font-weight: bolder !important;
+}
+`
+
+
 
 const FooterStyle = styled.div`
     width: 100%;
@@ -68,6 +89,8 @@ const Footer = () => {
 
     const { id } = router.query
 
+    const [showModal, setShowModal] = useState(false);
+
     useEffect(() => {
       let locale = localStorage.getItem('locale')
       if(!locale) locale = router.locale as string
@@ -111,6 +134,7 @@ const Footer = () => {
     }, [user])
 
     return (
+      <>
         <FooterStyle>
             <div className="selection border">
                   <Image
@@ -126,6 +150,16 @@ const Footer = () => {
                   </select>
                 </div>
         </FooterStyle>
+        <InfoFooter>
+          
+            <div className="div-ajuda">
+            <a className="fonte" target="_blank" rel="noopener noreferrer" href="/politica_privacidade.pdf">Política de Privacidade</a>
+                <span className="fonte">Contacto: <a href={"mailto: xxxxxx@meoagent.com"}>xxxxxx@meoagent.com</a></span>
+                <a className="fonte" target="_blank" rel="noopener noreferrer" href="termos.pdf">Termos e Condições</a>
+            </div>
+            
+        </InfoFooter>
+        </>
     );
 };
 

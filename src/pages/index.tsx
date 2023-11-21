@@ -141,6 +141,7 @@ export default function Home() {
   };
 
   return (
+    <>
     <SearchRealtor>
       <form className="card" onSubmit={handleSubmit(onSubmit)}>
         <div className="search-row">
@@ -169,5 +170,6 @@ export default function Home() {
         <h4>{t.home.welcome}</h4>
       </form>
     </SearchRealtor>
+    </>
   );
 }

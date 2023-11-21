@@ -160,6 +160,14 @@ const es = {
     city:'Ciudad',
     country:'País',
     zipCode:'Código Postal' 
+  },
+  reportDialog:{
+    close:'Fechar',
+    send:'Enviar',
+    description:'Describe el error encontrado.',
+    title: 'Cuéntanos qué error viste',
+    advertisement: 'Anuncio',
+    label:"¿Ves algún error? Háganos saber para que podamos hacer correcciones.Cuéntanos qué errores viste" 
   }
 }
 

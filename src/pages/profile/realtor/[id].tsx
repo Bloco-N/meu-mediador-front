@@ -17,7 +17,8 @@ import PropertiesCard from "components/realtor-profile-page/PropertiesCard"
 import { ApiService } from "@/services/ApiService"
 import PartnershipCard from "components/realtor-profile-page/PartnershipCard"
 import AboutCard from "components/realtor-profile-page/AboutCard"
-
+import DenunciaMoldal from "components/DenunciaModal"
+import locales from "locales";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,6 +49,9 @@ const Container = styled.div`
     top: 0;
     right: 0;
   }
+  .labelDialogReport{
+    maring: auto;
+  }
 
 `
 
@@ -67,10 +71,15 @@ export default function Profile(){
 
   const [accType, setAccType] = useState('')
 
+  const [showModalDenuncia, setShowModalDenuncia] = useState(false);
+
   const router = useRouter()
   const { id } = router.query
   const pdfPage = router.query.pdf?true:false;
   const apiService = new ApiService()
+
+  const { locale } = router;
+  const t = locales[locale as keyof typeof locales];
 
   useEffect(() => {
     const localStorageId = localStorage.getItem('id')
@@ -116,6 +125,8 @@ export default function Profile(){
       <ServicesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
       <AboutCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile} pdfPage={pdfPage}/>
       <PropertiesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile} pdfPage={pdfPage}/>
+      <a className="labelDialogReport" onClick={()=>setShowModalDenuncia(true)}>{t.reportDialog.label}</a>
+      {showModalDenuncia ? <DenunciaMoldal close={()=>setShowModalDenuncia(false)}/> : <></>}
       <AwardsCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
       <CoursesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
       <PartnershipCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>

@@ -160,6 +160,14 @@ const en = {
     city:'City',
     country:'Country',
     zipCode:'Zip Code' 
+  },
+  reportDialog:{
+    close:'Close',
+    send:'Send',
+    title: 'Tell us what error you saw',
+    description:'Describe the error encountered',
+    advertisement: 'Advertisement',
+    label:'Do you see any errors? Let us know so we can make corrections. Tell us what errors you saw' 
   }
 }
 
