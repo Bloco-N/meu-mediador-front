@@ -53,7 +53,8 @@ position: absolute;
   textarea{
     margin-top: 8px;
     min-height: 20rem;
-    width: 100%
+    width: 100%;
+    border: solid 0.1rem var(--border-color);
   }
   .redirect{
     position: absolute;
@@ -91,7 +92,7 @@ position: absolute;
     border-radius: 20px;
     border-color: var(--border-color);
     border-style: solid;
-    background-color: var(--base) !important;
+    /*background-color: var(--base) !important;*/
   }
 `;
 
