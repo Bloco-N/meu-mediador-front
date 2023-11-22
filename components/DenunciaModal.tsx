@@ -92,7 +92,10 @@ position: absolute;
     border-radius: 20px;
     border-color: var(--border-color);
     border-style: solid;
-    /*background-color: var(--base) !important;*/
+    background-color: var(--base) !important;
+  }
+  .text-center{
+    text-align: center;
   }
 `;
 
@@ -118,7 +121,7 @@ const DenunciaMoldal = (props: DenunciaModalProps) => {
       <div className="modal">
       <div className="form">
        
-          <h1>{t.reportDialog.title}</h1>
+          <h1 className="text-center">{t.reportDialog.title}</h1>
           <input type="text" placeholder={t.reportDialog.advertisement}/>
           <textarea placeholder={t.review.writeYourCommentHere}/>
         <div className="botoes">

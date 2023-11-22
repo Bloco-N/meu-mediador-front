@@ -50,7 +50,7 @@ const Container = styled.div`
     right: 0;
   }
   .labelDialogReport{
-    maring: auto;
+    text-align: center;
   }
 
 `
@@ -125,7 +125,7 @@ export default function Profile(){
       <ServicesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
       <AboutCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile} pdfPage={pdfPage}/>
       <PropertiesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile} pdfPage={pdfPage}/>
-      <a className="labelDialogReport" onClick={()=>setShowModalDenuncia(true)}>{t.reportDialog.label}</a>
+      <a className="labelDialogReport" onClick={()=>setShowModalDenuncia(true)} dangerouslySetInnerHTML={{ __html:t.reportDialog.label}}></a>
       {showModalDenuncia ? <DenunciaMoldal close={()=>setShowModalDenuncia(false)}/> : <></>}
       <AwardsCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
       <CoursesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>

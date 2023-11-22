@@ -167,7 +167,7 @@ const pt = {
     description:'Descreva o erro encontrado',
     title: 'Diz-nos qual foi o erro que viste',
     advertisement: 'Anúncio Errado',
-    label:'Vês algum erro? Informe o Meoagent para que possamos fazer as correções necessárias. Clique aqui e nos conte os erros que viste!' 
+    label:'<b>Vês algum erro?</b> Informe o Meoagent para que possamos fazer as correções necessárias. <b>Clique aqui</b> e nos conte os erros que viste!' 
   }
 }
 
