@@ -124,6 +124,7 @@ export default function Home() {
       let url = process.env.NEXT_PUBLIC_API_URL + "/realtor?";
       if (data.search) {
         url += "search=" + data.search;
+        console.log( url );
         setSearch(data.search);
       } else {
         setSearch("");

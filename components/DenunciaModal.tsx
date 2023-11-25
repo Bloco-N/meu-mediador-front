@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import realtorIcon from "../public/realtor.svg";
 import agencyIcon from "../public/agency.svg";
@@ -112,9 +112,34 @@ const DenunciaMoldal = (props: DenunciaModalProps) => {
   const { locale } = router;
   const t = locales[locale as keyof typeof locales];
  
+  const [name, setName] = useState('')
+const [email, setEmail] = useState('')
+const [message, setMessage] = useState('')
+const [title,setTitle] = useState('')
+const [submitted, setSubmitted] = useState(false)
 
 
 
+
+  async function handleSubmit(){ 
+    //e.preventDefault()
+    console.log('Sending');
+    console.log(process.env.NEXT_PUBLIC_API_URL);
+    let data = {
+      name,
+      email,
+      message
+    }
+    const profileType =  'perfil';
+    console.log(process.env.NEXT_PUBLIC_API_URL + '/denuncia');
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/denuncia/', {
+      method: 'POST',
+      body: JSON.stringify({"user":"henreke@hotmail.com","title":title,"message":message}),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+  }
 
   return (
     <Container >
@@ -122,11 +147,11 @@ const DenunciaMoldal = (props: DenunciaModalProps) => {
       <div className="form">
        
           <h1 className="text-center">{t.reportDialog.title}</h1>
-          <input type="text" placeholder={t.reportDialog.advertisement}/>
-          <textarea placeholder={t.review.writeYourCommentHere}/>
+          <input type="text" placeholder={t.reportDialog.advertisement} onChange={(value)=>setTitle(value.target.value)}/>
+          <textarea placeholder={t.review.writeYourCommentHere} onChange={(e)=>setMessage(e.target.value)}/>
         <div className="botoes">
           <button onClick={props.close}>{t.reportDialog.close}</button>
-          <button onClick={props.close}>{t.reportDialog.send}</button>
+          <button onClick={handleSubmit}>{t.reportDialog.send}</button>
         </div>
       </div>
       </div>
