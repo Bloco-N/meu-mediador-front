@@ -10,6 +10,7 @@ import { SearchForm } from "@/types/SearchForm";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import locales from "../../locales";
+import InfoFooter from "components/InfoFooter";
 
 const SearchRealtor = styled.div`
   width: 100%;
@@ -170,7 +171,9 @@ export default function Home() {
         </div>
         <h4>{t.home.welcome}</h4>
       </form>
+      
     </SearchRealtor>
+    <InfoFooter/>
     </>
   );
 }

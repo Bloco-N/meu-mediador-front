@@ -167,7 +167,8 @@ const en = {
     title: 'Tell us what error you saw',
     description:'Describe the error encountered',
     advertisement: 'Advertisement',
-    label:'<b>Do you see any errors?</b> Let us know so we can make corrections. <b>Click here</b> and tell us what errors you saw' 
+    label:'<b>Do you see any errors?</b> Let us know so we can make corrections. <b>Click here</b> and tell us what errors you saw',
+    warning:'Your complaint has been registered. Thanks!'  
   }
 }
 

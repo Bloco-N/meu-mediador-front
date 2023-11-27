@@ -167,7 +167,8 @@ const es = {
     description:'Describe el error encontrado.',
     title: 'Cuéntanos qué error viste',
     advertisement: 'Anuncio',
-    label:"<b>¿Ves algún error?</b> Háganos saber para que podamos hacer correcciones. <b>Haga clic aquí</b> y Cuéntanos qué errores viste" 
+    label:"<b>¿Ves algún error?</b> Háganos saber para que podamos hacer correcciones. <b>Haga clic aquí</b> y Cuéntanos qué errores viste",
+    warning:'Su queja ha sido registrada. ¡Gracias!'  
   }
 }
 

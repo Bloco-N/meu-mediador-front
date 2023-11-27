@@ -16,8 +16,7 @@ const InfoFooter = styled.div`
 width: 100%;
 align-items: left;
 backdrop-filter: blur(10px);
-position: absolute;
-bottom: 0px;
+
 .div-ajuda{
   padding: 10px 20px;
   display: flex;
@@ -150,7 +149,7 @@ const Footer = () => {
                   </select>
                 </div>
         </FooterStyle>
-        <InfoFooter>
+        {/*<InfoFooter>
           
             <div className="div-ajuda">
             <a className="fonte" target="_blank" rel="noopener noreferrer" href="/politica_privacidade.pdf">Política de Privacidade</a>
@@ -159,7 +158,7 @@ const Footer = () => {
                
             </div>
             
-        </InfoFooter>
+    </InfoFooter>*/}
         </>
     );
 };

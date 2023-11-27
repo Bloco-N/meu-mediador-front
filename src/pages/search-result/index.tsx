@@ -6,6 +6,7 @@ import Pagination from "components/Pagination"
 import Link from "next/link"
 import MainInfo from "components/MainInfo"
 import { useEffect } from 'react';
+import InfoFooter from "components/InfoFooter"
 
 const Container = styled.div`
   height: 80%;
@@ -71,6 +72,7 @@ export default function SearchResult(){
   const { searchResult } = useContext(SearchContext) as SearchResultContextType
 
   return (
+    <>
     <Container>
 
       <div className="list">
@@ -85,7 +87,11 @@ export default function SearchResult(){
         <div className="pagination">
           <Pagination currentPage={searchResult.currentPage} totalOfPages={searchResult.totalOfPages}/>
         </div>
+        <InfoFooter/>
       </div>
+      
     </Container>
+    
+    </>
   )
 }

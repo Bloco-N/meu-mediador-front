@@ -86,6 +86,7 @@ position: absolute;
     margin-top: 8px;
     display: flex !important;
     justify-content: space-between;
+    max-width: 100%;
   }
   .modal{
     padding: 10px;
@@ -97,10 +98,18 @@ position: absolute;
   .text-center{
     text-align: center;
   }
+  .aviso-msg{
+    max-width:100%;
+    text-align:center;
+    margin-top: 16px;
+  }
 `;
 
 type DenunciaModalProps = {
   close: () => void;
+  idProfile:string;
+  nameUser:string;
+ 
 };
 
 
@@ -113,32 +122,48 @@ const DenunciaMoldal = (props: DenunciaModalProps) => {
   const t = locales[locale as keyof typeof locales];
  
   const [name, setName] = useState('')
-const [email, setEmail] = useState('')
-const [message, setMessage] = useState('')
-const [title,setTitle] = useState('')
-const [submitted, setSubmitted] = useState(false)
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [title,setTitle] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const [enviado,setEnviado] = useState('')
 
-
-
-
+  function timeout(delay: number) {
+    return new Promise( res => setTimeout(res, delay) );
+  }
+  function mudar(){
+    if (enviado === ''){
+      setEnviado(t.reportDialog.warning);
+    } else{
+      setEnviado('');
+    }
+  }
   async function handleSubmit(){ 
     //e.preventDefault()
-    console.log('Sending');
-    console.log(process.env.NEXT_PUBLIC_API_URL);
+    
     let data = {
       name,
       email,
       message
     }
+    
     const profileType =  'perfil';
-    console.log(process.env.NEXT_PUBLIC_API_URL + '/denuncia');
+    
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/denuncia/', {
       method: 'POST',
-      body: JSON.stringify({"user":"henreke@hotmail.com","title":title,"message":message}),
+      body: JSON.stringify({"anuncio":title,"descricao":message,"name":props.nameUser,"idAnuncio":props.idProfile,"title":title,"profile":"perfil"}),
       headers:{
         'Content-Type': 'application/json'
       }
     })
+   
+    if (response.ok){
+      setEnviado(t.reportDialog.warning);
+      await timeout(3000);
+      props.close();
+
+    }
+   
   }
 
   return (
@@ -151,8 +176,10 @@ const [submitted, setSubmitted] = useState(false)
           <textarea placeholder={t.review.writeYourCommentHere} onChange={(e)=>setMessage(e.target.value)}/>
         <div className="botoes">
           <button onClick={props.close}>{t.reportDialog.close}</button>
+          
           <button onClick={handleSubmit}>{t.reportDialog.send}</button>
         </div>
+        <h3 className="aviso-msg">{enviado}</h3>
       </div>
       </div>
     </Container>

@@ -19,6 +19,8 @@ import PartnershipCard from "components/realtor-profile-page/PartnershipCard"
 import AboutCard from "components/realtor-profile-page/AboutCard"
 import DenunciaMoldal from "components/DenunciaModal"
 import locales from "locales";
+import Footer from "components/Footer"
+import InfoFooter from "components/InfoFooter"
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -126,11 +128,12 @@ export default function Profile(){
       <AboutCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile} pdfPage={pdfPage}/>
       <PropertiesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile} pdfPage={pdfPage}/>
       <a className="labelDialogReport" onClick={()=>setShowModalDenuncia(true)} dangerouslySetInnerHTML={{ __html:t.reportDialog.label}}></a>
-      {showModalDenuncia ? <DenunciaMoldal close={()=>setShowModalDenuncia(false)}/> : <></>}
+      {showModalDenuncia ? <DenunciaMoldal close={()=>setShowModalDenuncia(false)} idProfile={localId} nameUser={user.id?.toString() ?? 'anônimo'}/> : <></>}
       <AwardsCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
       <CoursesCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
       <PartnershipCard localId={localId} accType={accType} sessionProfile={pdfPage? false: sessionProfile}/>
       <CommentsCard localId={localId} accType={accType} sessionProfile={sessionProfile} pdfPage={pdfPage}/>
+      <InfoFooter/>
       {/* {pdfPage && <div className="hide-profile"></div>} */}
     </Container>
   ) 
