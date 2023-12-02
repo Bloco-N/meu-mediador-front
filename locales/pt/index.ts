@@ -69,7 +69,8 @@ const pt = {
     link:'Link',
     grossArea:'Área Bruta',
     usableArea:'Área Útil',
-    edit:'Editar'
+    edit:'Editar',
+    eficiencia:'Classificação Energética'
   },
   awards:{
     awards: 'Prêmios e distinções'
@@ -123,7 +124,8 @@ const pt = {
   },
   signUp:{
     signUp:"Cadastro",
-    confirmPassword:"Confirmar Senha"
+    confirmPassword:"Confirmar Senha",
+    check_police:"Eu li e concordo com os Termos de Serviço e Política de Privacidade do Meoagent."
   },
   forgotPassword:{
     recoverPassword:"Recuperar Senha",
@@ -169,6 +171,12 @@ const pt = {
     advertisement: 'Anúncio Errado',
     label:'<b>Vês algum erro?</b> Informe o Meoagent para que possamos fazer as correções necessárias. <b>Clique aqui</b> e nos conte os erros que viste!',
     warning:'Sua denúncia foi registrada. Obrigado!' 
+  },
+
+  infoFooter:{
+    privacy:"Política de Privacidade",
+    conditions:"Termos e Condições",
+    contact:"Contacto:"
   }
 }
 

@@ -3,7 +3,7 @@ import locales from "locales";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-
+import { useState } from "react";
 const SignUpContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -21,7 +21,7 @@ const SignUpContainer = styled.div`
       gap: 3rem;
     }
     width: 30%;
-    height: 55rem;
+    height: 60rem;
     margin: 0 auto;
     padding: 3rem 3.5rem;
     gap: 2.5rem;
@@ -29,6 +29,20 @@ const SignUpContainer = styled.div`
     .full-name{
       display: flex;
       gap: 2rem;
+    }
+
+    .check_box{
+      all: revert !important;
+    }
+    button:disabled,
+    button[disabled]{
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #666666;
+      cursor: not-allowed;
+    }
+    span{
+      text-align: center;
     }
   }
 
@@ -68,6 +82,10 @@ const SignUp = () => {
   const locale = router.locale
 
   const t = locales[locale as keyof typeof locales]
+  const [privacy_policy, setPrivacyPolicy] = useState(false);
+  const onPrivacyClick = () =>{
+    setPrivacyPolicy(!privacy_policy);
+  }
 
   const onSubmit = async (data:SignUpForm) => {
     const fetchData = async () => {
@@ -110,8 +128,8 @@ const SignUp = () => {
           {...register('password', {required:true})}/>
           <input className="input-sign-up" type="password" placeholder={t.signUp.confirmPassword}
           {...register('confirmPassword', {required:true})}/>
-
-          <button type="submit">{t.signUp.signUp}</button>
+          <span className="txt-center"> <input type="checkbox" className="check_box" checked={privacy_policy} onClick={onPrivacyClick}/>{t.signUp.check_police}</span>
+          <button type="submit" disabled={!privacy_policy}>{t.signUp.signUp}</button>
 
         </form>
 

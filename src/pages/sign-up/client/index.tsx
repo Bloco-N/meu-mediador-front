@@ -3,6 +3,8 @@ import locales from "locales";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import { Checkbox } from "@nextui-org/react";
+import { useState } from "react";
 
 const SignUpContainer = styled.div`
   height: 100%;
@@ -31,6 +33,19 @@ const SignUpContainer = styled.div`
       display: flex;
       gap: 2rem;
       /* flex-direction: column; */
+    }
+    .check_box{
+      all: revert !important;
+    }
+    button:disabled,
+    button[disabled]{
+      border: 1px solid #999999;
+      background-color: #cccccc;
+      color: #666666;
+      cursor: not-allowed;
+    }
+    span{
+      text-align: center;
     }
   }
 
@@ -65,11 +80,18 @@ const SignUpContainer = styled.div`
 const SignUp = () => {
 
   const { register, handleSubmit } = useForm<SignUpForm>()
+  const [privacy_policy, setPrivacyPolicy] = useState(false);
   const router = useRouter()
 
   const locale = router.locale
 
   const t = locales[locale as keyof typeof locales]
+
+  const onPrivacyClick = () =>{
+    setPrivacyPolicy(!privacy_policy);
+  }
+
+
 
   const onSubmit = async (data: SignUpForm) => {
     const fetchData = async () => {
@@ -112,11 +134,13 @@ const SignUp = () => {
           {...register('password', {required:true})}/>
           <input className="input-sign-up" type="password" placeholder={t.signUp.confirmPassword}
           {...register('confirmPassword', {required:true})}/>
-
-          <button type="submit">{t.signUp.signUp}</button>
-
+         
+          <span className="txt-center"> <input type="checkbox" className="check_box" checked={privacy_policy} onClick={onPrivacyClick}/>{t.signUp.check_police}</span>
+          
+          <button type="submit" disabled={!privacy_policy}>{t.signUp.signUp}</button>
+          
         </form>
-
+        
       </SignUpContainer>
 
     );

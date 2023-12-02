@@ -13,6 +13,7 @@ import AreaInput from './AreaInput';
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import LoadingContext from 'context/LoadingContext';
 import locales from 'locales';
+import EnergyEfficience from '@/types/EnergyEfficience';
 
 type AddPropertyModalProps = {
   open: boolean,
@@ -138,6 +139,9 @@ const Container = styled.div`
     border-radius: 1rem;
     font-weight: bold;
   }
+  input::placeholder {
+    text-align: center; 
+ 
 `
 
 const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
@@ -233,12 +237,23 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>{t.addPropertiesModal.uploadPropertie}</h3>
         <div className="all-infos">
+        <input {...register('title', {required: true})} type="text" placeholder={t.addPropertiesModal.title} />
+        </div>
+        <div className="all-infos">
+        
           <div className="infos">
+            
             <div className="inputs">
-              <input {...register('title', {required: true})} type="text" placeholder={t.addPropertiesModal.title} />
+            
               <input {...register('link', {required: true})} type="text" placeholder={t.addPropertiesModal.link}/>
               <CurrencyInput onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value)} placeholder="0.00 €"/>
               <AreaInput onChange={(e:React.ChangeEvent<HTMLInputElement>) => setGrossArea(e.target.value)} placeholder={t.addPropertiesModal.grossArea}/>
+              
+              <select {...register('energyefficience', { required: true})} name="energyefficience" id="energyefficience">
+                {Object.entries(EnergyEfficience[locale as keyof typeof EnergyEfficience]).map(([key, value]) => (
+                  <option key={key} value={key}>{value}</option>
+                  ))}
+              </select>
             </div>
             <div className="selections">
               <select {...register('propertyType')} name="propertyType" id="propertyType">
@@ -256,6 +271,7 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
                   <option key={key} value={key}>{value}</option>
                   ))}
               </select>
+              
               <AreaInput onChange={(e:React.ChangeEvent<HTMLInputElement>) => setUsefulArea(e.target.value)}  placeholder={t.addPropertiesModal.usableArea}/>
             </div>
           </div>

@@ -4,4 +4,5 @@ export type AddPropertyForm = {
   propertyType: string,
   rooms: string
   preservation: string
+  energyefficience: string
 }

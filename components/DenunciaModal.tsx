@@ -20,6 +20,7 @@ position: absolute;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-left: -32px;
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
