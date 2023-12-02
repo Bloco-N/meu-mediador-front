@@ -236,20 +236,20 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>{t.addPropertiesModal.uploadPropertie}</h3>
-        <div className="all-infos">
+        <div className="all-infos" style={{width:"100%"}}>
         <input {...register('title', {required: true})} type="text" placeholder={t.addPropertiesModal.title} />
         </div>
         <div className="all-infos">
         
           <div className="infos">
-            
+          
             <div className="inputs">
             
               <input {...register('link', {required: true})} type="text" placeholder={t.addPropertiesModal.link}/>
               <CurrencyInput onChange={(e:React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value)} placeholder="0.00 €"/>
               <AreaInput onChange={(e:React.ChangeEvent<HTMLInputElement>) => setGrossArea(e.target.value)} placeholder={t.addPropertiesModal.grossArea}/>
               
-              <select {...register('energyefficience', { required: true})} name="energyefficience" id="energyefficience">
+              <select placeholder='Selecione' {...register('energyefficience', { required: true})} name="energyefficience" id="energyefficience">
                 {Object.entries(EnergyEfficience[locale as keyof typeof EnergyEfficience]).map(([key, value]) => (
                   <option key={key} value={key}>{value}</option>
                   ))}

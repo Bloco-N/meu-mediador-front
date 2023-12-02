@@ -1,5 +1,6 @@
 const EnergyEfficience = {
     pt:{
+      G:'Certificação Energética',
       AP: "A+",
       A: "A",
       B: "B",
@@ -10,6 +11,7 @@ const EnergyEfficience = {
       F:"F"
     },
     en:{
+        G:'Energetic Certification',
         AP: "A+",
         A: "A",
         B: "B",
@@ -20,6 +22,7 @@ const EnergyEfficience = {
         F:"F"
     },
     es:{
+        G:'Certificación Energética',
         AP: "A+",
         A: "A",
         B: "B",
