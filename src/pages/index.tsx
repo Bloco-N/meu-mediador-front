@@ -78,6 +78,10 @@ const SearchRealtor = styled.div`
       }
     }
   }
+  .novo-botao{
+    color:blue;
+    text-decoration: underline;
+  }
 
   @media only screen and (max-width: 768px) {
     padding: 0 27px;
@@ -173,6 +177,9 @@ export default function Home() {
       </form>
       
     </SearchRealtor>
+    <div>
+    <h1 >Já Faz parte do Meoagent? <a className="novo-botao">Criar nova conta.</a></h1>
+    </div>
     <InfoFooter/>
     </>
   );

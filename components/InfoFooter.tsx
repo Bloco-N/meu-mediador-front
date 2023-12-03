@@ -24,6 +24,7 @@ margin-top: auto;
 }
 .fonte{
   font-weight: bolder !important;
+  color: #E5E4E2;
 }
 .meio{
     text-align:center;
