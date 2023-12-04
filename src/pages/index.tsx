@@ -92,8 +92,65 @@ const SearchRealtor = styled.div`
       padding: 0 27px;
     }
   }
+
 `;
 
+const NovoCadastro = styled.div`
+    margin-top:-50px;
+    width: 100%;
+  height: auto;
+  padding: 0 37px;
+  border-radius: 3rem;
+  
+
+  
+    background: #e9e9e985;
+    max-width: 45%;
+    width: fit-content;
+    
+    height: fit-content;
+   
+    backdrop-filter: blur(5px);
+    padding: 2rem 3rem;
+
+    h4 {
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+
+    @media only screen and (max-width: 1000px) {
+      width: 90%;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 0;
+    }
+    @media only screen and (max-width: 768px) {
+      width: calc(100% - 4rem);
+      max-width: 90%;
+      .searchButton,
+      h4 {
+        color: #3a2e2c;
+        opacity: 1;
+      }
+    }
+  
+  .novo-botao{
+    color:blue;
+    text-decoration: underline;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 0 27px;
+
+    .card {
+      width: 100%;
+      height: 332px;
+      padding: 0 27px;
+    }
+  }
+
+`;
 export default function Home() {
   const { register, handleSubmit } = useForm<SearchForm>();
 
@@ -177,9 +234,9 @@ export default function Home() {
       </form>
       
     </SearchRealtor>
-    <div>
-    <h1 >Já Faz parte do Meoagent? <a className="novo-botao">Criar nova conta.</a></h1>
-    </div>
+    <NovoCadastro className="novo-cadastro2">
+      <h4 >Já Faz parte do Meoagent? <a className="novo-botao">Criar nova conta.</a></h4>
+    </NovoCadastro>
     <InfoFooter/>
     </>
   );

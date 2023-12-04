@@ -1,6 +1,6 @@
 const EnergyEfficience = {
     pt:{
-      G:'Certificação Energética',
+      K:'Certificação Energética',
       AP: "A+",
       A: "A",
       B: "B",
@@ -8,10 +8,14 @@ const EnergyEfficience = {
       C:"C",
       D:"D",
       E:"E",
-      F:"F"
+      F:"F",
+      G:"G",
+      H:"Insento",
+      I:"Em processo",
+      J:"Não possui"
     },
     en:{
-        G:'Energy Certificate',
+        K:'Energy Certificate',
         AP: "A+",
         A: "A",
         B: "B",
@@ -19,10 +23,14 @@ const EnergyEfficience = {
         C:"C",
         D:"D",
         E:"E",
-        F:"F"
+        F:"F",
+        G:"G",
+        H:"Free",
+        I:"Em processo",
+        J:"Don't has"
     },
     es:{
-        G:'Clase energética',
+        K:'Clase energética',
         AP: "A+",
         A: "A",
         B: "B",
@@ -30,7 +38,11 @@ const EnergyEfficience = {
         C:"C",
         D:"D",
         E:"E",
-        F:"F"
+        F:"F",
+        G:"G",
+        H:"Libre",
+        I:"En proceso",
+        J:"No tiene"
     }
   }
   

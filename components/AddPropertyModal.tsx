@@ -121,6 +121,13 @@ const Container = styled.div`
   input{
     width: 100%;
   }
+  .input-titulo{
+    width: 1050px;
+    @media (max-width: 1500px) {
+      
+      width:100%;
+    }
+  }
   h3{
       margin-bottom: 2rem;
     }
@@ -236,7 +243,7 @@ const AddPropertyModal = ({open, setOpen}: AddPropertyModalProps) => {
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>{t.addPropertiesModal.uploadPropertie}</h3>
-        <div className="all-infos" style={{width:"100%"}}>
+        <div className="input-titulo">
         <input {...register('title', {required: true})} type="text" placeholder={t.addPropertiesModal.title} />
         </div>
         <div className="all-infos">
