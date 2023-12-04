@@ -9,6 +9,7 @@ export type Property = {
   rooms: string,
   grossArea: string,
   usefulArea: string,
+  energyefficience: string | null,
   realtorId: number | null
   agencyId: number | null
   createdAt: string

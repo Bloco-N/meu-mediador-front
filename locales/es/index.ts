@@ -70,7 +70,8 @@ const es = {
     link:'Enlace',
     grossArea:'Área Bruta',
     usableArea:'Área Útil',
-    edit:'Editar'
+    edit:'Editar',
+    eficiencia:'Calificación Energética'
   },
   awards:{
     awards: 'Premios y distinciones'
@@ -124,7 +125,8 @@ const es = {
   },
   signUp:{
     signUp:"Inscribirse",
-    confirmPassword:"Confirmar Contraseña"
+    confirmPassword:"Confirmar Contraseña",
+    check_police:"He leído y acepto los Términos de servicio y la Política de privacidad de Meoagent."
   },
   forgotPassword:{
     recoverPassword:"Recuperar Contraseña",
@@ -160,6 +162,21 @@ const es = {
     city:'Ciudad',
     country:'País',
     zipCode:'Código Postal' 
+  },
+  reportDialog:{
+    close:'Fechar',
+    send:'Enviar',
+    description:'Describe el error encontrado.',
+    title: 'Cuéntanos qué error viste',
+    advertisement: 'Anuncio',
+    label:"<b>¿Ves algún error?</b> Háganos saber para que podamos hacer correcciones. <b>Haga clic aquí</b> y Cuéntanos qué errores viste",
+    warning:'Su queja ha sido registrada. ¡Gracias!'  
+  },
+
+  infoFooter:{
+    privacy:"Política de privacidad",
+    conditions:"Términos y Condiciones",
+    contact:"Contacto:"
   }
 }
 

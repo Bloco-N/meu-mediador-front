@@ -17,6 +17,11 @@ import { timeSince } from "@/utils/timeSince"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
+import EnergyEfficience, { TEnergyEfficience } from "@/types/EnergyEfficience"
+import ClassEnergy2 from "components/classEnergy2"
+import Home from "@/pages"
+import { relative } from "path"
+import { TEnergyEfficienceColor } from "@/types/EnergyEfficienceColor"
 
 const Container = styled.div`
   .properties{
@@ -102,6 +107,21 @@ const Container = styled.div`
     .pdf-list{
       flex-wrap: wrap;
     }
+    .watermark { position: relative; }
+    .watermark::after {
+      content: "Meoagent";
+      position: absolute;
+      bottom: 40%;
+      left:35%;
+      text-align: center;
+      opacity: 0.5;
+      font-size: 1.5em;
+      color: white;
+    }
+
+    .same-line{
+      display:inline-block;
+    }
   }
 `
 
@@ -160,7 +180,16 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
     if(response === 'deleted') router.reload()
 
   }
-
+  const EnergyColors ={
+    "AP":"#01833b",
+    "A":"#3ea03d",
+    "B":"#76ac34",
+    "Bm":"#aac32a",
+    "C":"#c7cf1a",
+    "D":"#eadb02",
+    "E":"#eabb09",
+    "F":"#d81920"
+  }
   return (
     <Container >
       <div className="card properties">
@@ -171,12 +200,21 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
                 { sessionProfile && (
                   <Image onClick={ e => handleDeleteProperty(e)} id={String(item.id)} className="close" src={closeIcon} alt='close icon'/>
                 )}
+                <div className="watermark">
                 <Image className="property-img" src={item.profilePicture} width={200} height={100} alt="profile picture"/>
+                </div>
                 <h2>{item.price}</h2>
                 <h3>{item.title}</h3>
-                <p className="sub-text">
-                  {PropertyTypes[locale as keyof typeof PropertyTypes][item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]}, {t.addPropertiesModal.grossArea}: {item.grossArea}, {t.addPropertiesModal.usableArea}: {item.usefulArea}, {Preservations[locale as keyof typeof PropertyTypes][item.preservation as keyof TPreservations]}.
-                </p>
+               
+                <p className="sub-text" >
+                  {PropertyTypes[locale as keyof typeof PropertyTypes][item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]}, {t.addPropertiesModal.grossArea}: {item.grossArea}, {t.addPropertiesModal.usableArea}: {item.usefulArea}, {Preservations[locale as keyof typeof PropertyTypes][item.preservation as keyof TPreservations]}, {t.addPropertiesModal.eficiencia}:
+                  <a className="gg-home-alt" style={{color: EnergyColors[item.energyefficience], display:"inline-flex",height:"10px",marginBottom:"10px",marginLeft:"2px"}}><span style={{color:"white",marginTop:"-2px",zIndex:"1",position:"relative",marginLeft:"auto",marginRight:"auto",fontSize:"10px"}}>{EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}</span></a>
+                  .
+                  
+                  
+                  </p>
+                  
+                
                 <div className="footer">
                   <Link className="special-link" href={item.link} target='_blank'>
                     {t.properties.verify}

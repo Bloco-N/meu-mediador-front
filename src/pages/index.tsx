@@ -10,6 +10,7 @@ import { SearchForm } from "@/types/SearchForm";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import locales from "../../locales";
+import InfoFooter from "components/InfoFooter";
 
 const SearchRealtor = styled.div`
   width: 100%;
@@ -77,6 +78,10 @@ const SearchRealtor = styled.div`
       }
     }
   }
+  .novo-botao{
+    color:blue;
+    text-decoration: underline;
+  }
 
   @media only screen and (max-width: 768px) {
     padding: 0 27px;
@@ -87,8 +92,65 @@ const SearchRealtor = styled.div`
       padding: 0 27px;
     }
   }
+
 `;
 
+const NovoCadastro = styled.div`
+    margin-top:-50px;
+    width: 100%;
+  height: auto;
+  padding: 0 37px;
+  border-radius: 3rem;
+  
+
+  
+    background: #e9e9e985;
+    max-width: 45%;
+    width: fit-content;
+    
+    height: fit-content;
+   
+    backdrop-filter: blur(5px);
+    padding: 2rem 3rem;
+
+    h4 {
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+
+    @media only screen and (max-width: 1000px) {
+      width: 90%;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 0;
+    }
+    @media only screen and (max-width: 768px) {
+      width: calc(100% - 4rem);
+      max-width: 90%;
+      .searchButton,
+      h4 {
+        color: #3a2e2c;
+        opacity: 1;
+      }
+    }
+  
+  .novo-botao{
+    color:blue;
+    text-decoration: underline;
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 0 27px;
+
+    .card {
+      width: 100%;
+      height: 332px;
+      padding: 0 27px;
+    }
+  }
+
+`;
 export default function Home() {
   const { register, handleSubmit } = useForm<SearchForm>();
 
@@ -124,6 +186,7 @@ export default function Home() {
       let url = process.env.NEXT_PUBLIC_API_URL + "/realtor?";
       if (data.search) {
         url += "search=" + data.search;
+        console.log( url );
         setSearch(data.search);
       } else {
         setSearch("");
@@ -141,6 +204,7 @@ export default function Home() {
   };
 
   return (
+    <>
     <SearchRealtor>
       <form className="card" onSubmit={handleSubmit(onSubmit)}>
         <div className="search-row">
@@ -168,6 +232,12 @@ export default function Home() {
         </div>
         <h4>{t.home.welcome}</h4>
       </form>
+      
     </SearchRealtor>
+    <NovoCadastro className="novo-cadastro2">
+      <h4 >Já Faz parte do Meoagent? <a className="novo-botao">Criar nova conta.</a></h4>
+    </NovoCadastro>
+    <InfoFooter/>
+    </>
   );
 }

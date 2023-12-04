@@ -70,7 +70,8 @@ const en = {
     link:'Link',
     grossArea:'Gross Area',
     usableArea:'Usable Area',
-    edit:'Edit'
+    edit:'Edit',
+    eficiencia:'Energy Rating'
   },
   awards:{
     awards: 'Awards and distinctions'
@@ -124,7 +125,8 @@ const en = {
   },
   signUp:{
     signUp:"Sign Up",
-    confirmPassword:"Confirm Password"
+    confirmPassword:"Confirm Password",
+    check_police:"I have read and agree to Meoagent's Terms of Service and Privacy Policy."
   },
   forgotPassword:{
     recoverPassword:"Recover Password",
@@ -160,7 +162,23 @@ const en = {
     city:'City',
     country:'Country',
     zipCode:'Zip Code' 
+  },
+  reportDialog:{
+    close:'Close',
+    send:'Send',
+    title: 'Tell us what error you saw',
+    description:'Describe the error encountered',
+    advertisement: 'Advertisement',
+    label:'<b>Do you see any errors?</b> Let us know so we can make corrections. <b>Click here</b> and tell us what errors you saw',
+    warning:'Your complaint has been registered. Thanks!'  
+  },
+
+  infoFooter:{
+    privacy:"Privacy Policy",
+    conditions:"Terms and conditions",
+    contact:"Contact:"
   }
+
 }
 
 export default en
