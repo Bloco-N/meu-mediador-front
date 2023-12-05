@@ -18,7 +18,6 @@ import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
 import EnergyEfficience, { TEnergyEfficience } from "@/types/EnergyEfficience"
-import ClassEnergy2 from "components/classEnergy2"
 import Home from "@/pages"
 import { relative } from "path"
 import { TEnergyEfficienceColor } from "@/types/EnergyEfficienceColor"
@@ -208,7 +207,7 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
                
                 <p className="sub-text" >
                   {PropertyTypes[locale as keyof typeof PropertyTypes][item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]}, {t.addPropertiesModal.grossArea}: {item.grossArea}, {t.addPropertiesModal.usableArea}: {item.usefulArea}, {Preservations[locale as keyof typeof PropertyTypes][item.preservation as keyof TPreservations]}, {t.addPropertiesModal.eficiencia}:
-                  <a className="gg-home-alt" style={{color: EnergyColors[item.energyefficience], display:"inline-flex",height:"10px",marginBottom:"10px",marginLeft:"2px"}}><span style={{color:"white",marginTop:"-2px",zIndex:"1",position:"relative",marginLeft:"auto",marginRight:"auto",fontSize:"10px"}}>{EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}</span></a>
+                  <a className="gg-home-alt" style={{color: EnergyColors[item.energyefficience as keyof TEnergyEfficience], display:"inline-flex",height:"10px",marginBottom:"10px",marginLeft:"2px"}}><span style={{color:"white",marginTop:"-2px",zIndex:"1",position:"relative",marginLeft:"auto",marginRight:"auto",fontSize:"10px"}}>{EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}</span></a>
                   .
                   
                   

@@ -45,12 +45,11 @@ const InfoFooter = () => {
         <>
             <InfoFooterDiv>
                 <div className="div-ajuda" >
-                    <a className="fonte" target="_blank" rel="noopener noreferrer" href="/politica_privacidade.pdf">{t.infoFooter.privacy}</a>
+                <a className="fonte" target="_blank" rel="noopener noreferrer" href="/politica_privacidade.pdf">{t.infoFooter.privacy}</a>
                     <a className="fonte meio" target="_blank" rel="noopener noreferrer" href="termos.pdf">{t.infoFooter.conditions}</a>
-                    <a className="fonte final">{t.infoFooter.contact} <a href={"mailto: xxxxxx@meoagent.com"}>xxxxxx@meoagent.com</a></a>
+                    <span className="fonte final">{t.infoFooter.contact} <a href={"mailto: xxxxxx@meoagent.com"}>xxxxxx@meoagent.com</a></span>
                     <Link href="https://www.instagram.com/meoagent" target="_blank">
-                    <Image
-                        
+                    <Image                    
                         priority
                         src={instragramIcon}
                         height={30}
