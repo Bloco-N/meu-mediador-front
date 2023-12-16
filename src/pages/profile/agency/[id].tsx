@@ -15,6 +15,7 @@ import ServicesAgencyCard from "./components/ServicesAgencyCard";
 import AboutAgencyCard from "./components/AboutAgencyCard";
 import CommentsAgencyCard from "./components/CommentsAgencyCard";
 import AgencyRealtorsPropertiesCard from "./components/AgencyRealtorsPropertiesCard";
+import TrashButton from '../../../../components/DeleteButton'
 
 const Container = styled.div`
   display: flex;
@@ -89,6 +90,7 @@ export default function Profile(){
 
   return (
     <Container>
+      
       <MainInfoAgency userSigned={agency as AgencyProfile} isProfile={true}/>
       <ServicesAgencyCard localId={localId} accType={accType}/>
       <AboutAgencyCard localId={localId} accType={accType}/>

@@ -11,6 +11,11 @@ import locales from "locales";
 import { useState } from 'react'
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import { GetServerSideProps } from "next";
+import {getSession, signIn,useSession} from 'next-auth/react'
+import GoogleLoginButton from '../../../../components/ButtonAuth'
+import iconGoogle from '../../../../public/icon-google.png'
+import iconFacebook from '../../../../public/icons-facebook.png'
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -18,11 +23,11 @@ const SignInContainer = styled.div`
   align-items: center;
   justify-content: center;
 
-  form{
-    @media only screen and (max-width: 800px){
+  form {
+    @media only screen and (max-width: 800px) {
       width: 60%;
     }
-    @media only screen and (max-width: 500px){
+    @media only screen and (max-width: 500px) {
       width: 90%;
       
       .bottom-cta, h5, .forgot-password {
@@ -38,10 +43,22 @@ const SignInContainer = styled.div`
     gap: 2rem;
     padding: 2rem;
   }
-  .bottom-cta{
+
+  .bottom-cta {
     display: flex;
     gap: 0.5rem;
+
+    @media only screen and (max-width: 400px) {
+      flex-direction: column;
+      align-items: center;
+
+      h5,
+      .create-account {
+        margin-top: 0.5rem; /* Adicione espaçamento entre os elementos em um layout de coluna, se necessário */
+      }
+    }
   }
+
   @media (max-width: 768px) {
     padding: 0 37px;
 
@@ -58,19 +75,21 @@ const SignInContainer = styled.div`
       }
 
       input::placeholder {
-        opacity: .8;
+        opacity: 0.8;
         font-weight: 500;
         color: #3A2E2C;
       }
 
-      input[type="email"]{
+      input[type="email"] {
         margin-bottom: 19px;
       }
     }
   }
-`
+`;
 
 const SignIn = () => {
+
+    const {data: session} = useSession()
 
     const { register, handleSubmit } = useForm<SignInForm>()
 
@@ -87,23 +106,38 @@ const SignIn = () => {
     const t = locales[locale as keyof typeof locales]
 
     useEffect(() => {
+      if(session){
+        onSubmit(null)
+      }
       const token = localStorage.getItem('token')
       if(token){
         router.push('/')
       }
     }, [router])
 
-    const onSubmit = async (data:SignInForm) => {
+    const onSubmit = async (data:SignInForm | null) => {
+       const partesDoNome = session?.user?.name?.split(" ");
+         const firstName = partesDoNome ? partesDoNome[0] : null;
+        const lastName = partesDoNome?.slice(1).join(" ");
+      
+        const dataGoogle = {
+          email: session?.user?.email,
+          firstName:firstName,
+          lastName: lastName
+
+        }
+
+        const urlFetch = process.env.NEXT_PUBLIC_API_URL + '/client' + '/sign-in'
+        const urlFetchGoogle = process.env.NEXT_PUBLIC_API_URL + '/client' + '/sign-in' + '/google'
 
       const fetchData = async () => {
         
         setLoadingOpen(true)
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client' + '/sign-in', {
+        const response = await fetch(!data ? urlFetchGoogle : urlFetch, {
           method: 'POST',
-          body: JSON.stringify(data),
+          body: JSON.stringify(!data ? dataGoogle : data),
           headers: {"Content-type": "application/json; charset=UTF-8"}
         })
-
           
         if(!response.ok){
           setLoginError(true)
@@ -137,9 +171,13 @@ const SignIn = () => {
     }
 
     return (
-      <SignInContainer>
+      <SignInContainer> 
+
+        
 
         <form className="card" onSubmit={handleSubmit(onSubmit)}>
+
+       
 
           <h2>{t.signIn.signIn}</h2>
 
@@ -158,6 +196,24 @@ const SignIn = () => {
 
           <button>{t.signIn.enter}</button>
 
+          <div className="orSeparator">
+              <div className="borderTop"></div>
+              <div className="orText">ou</div>
+              <div className="borderTop"></div>
+          </div>
+
+          <GoogleLoginButton 
+          icon={iconGoogle.src} 
+          onClick={() => signIn("google")}
+          text={t.signIn.google}
+          />
+
+          <GoogleLoginButton 
+            icon={iconFacebook.src} 
+            onClick={() => signIn("facebook")}
+            text={t.signIn.facebook}
+          />
+
           <div className="bottom-cta">
             <h5>{t.signIn.notHaveAnAccount}</h5>
             <Link className="create-account special-link" href="/sign-up/profile">{t.signIn.here}</Link>
@@ -169,5 +225,14 @@ const SignIn = () => {
 
     );
 };
+
+export const getServerSideProps:GetServerSideProps = async (context) => {
+    const session = await getSession(context)
+    return {
+      props:{
+        session
+      }
+    }
+}
 
 export default SignIn;
