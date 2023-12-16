@@ -86,7 +86,7 @@ const Container = styled.div`
           color: var(--surface-2);
         }
         .property-img{
-          margin-top: 3rem;
+          /*margin-top: 3rem;*/
           object-fit: cover;
           opacity: 1;
           border-radius: 3rem;
@@ -106,7 +106,7 @@ const Container = styled.div`
     .pdf-list{
       flex-wrap: wrap;
     }
-    .watermark { position: relative; }
+    .watermark { position: relative; margin-top: 3rem;}
     .watermark::after {
       content: "Meoagent";
       position: absolute;
