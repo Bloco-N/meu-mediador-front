@@ -130,7 +130,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
       <div className="card awards">
         <div className="awards-title">
           <h2>{t.study.study}</h2>
-          { sessionProfile == false ? (
+          { sessionProfile ? (
             <div className="edit-icons">
               <Image onClick={() => setEditCourses(!editCourses)} className='plus' src={editIcon} alt='edit icon'/>
               <Image onClick={() => addCourseSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>

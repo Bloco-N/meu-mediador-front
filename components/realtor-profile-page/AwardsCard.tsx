@@ -123,7 +123,7 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
       <div className="card awards">
         <div className="awards-title">
           <h2>{t.awards.awards}</h2>
-          { sessionProfile == false ? (
+          { sessionProfile  ? (
             <div className="edit-icons">
               <Image onClick={() => setEditAwards(!editAwards)} className='plus' src={editIcon} alt='edit icon'/>
               <Image onClick={() => addAwardSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
