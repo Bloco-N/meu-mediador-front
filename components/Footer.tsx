@@ -104,7 +104,7 @@ const Footer = () => {
       if(id && typeof id === 'string'){
         const finalPath = router.asPath.replace('[id]', id)
         router.push(finalPath, finalPath, { locale })
-      }else{
+      }else if(id){
         router.push(router.asPath, router.asPath, { locale })
       }
 
