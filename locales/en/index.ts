@@ -149,7 +149,8 @@ const en = {
     addCity:"Add Work Area",
     placeWhere:"Places where you work:",
     add:"Add",
-    youHaveNoMore:"You have no more cities to add"
+    youHaveNoMore:"You have no more cities to add",
+    save:"Save"
   },
   addLanguage:{
     languagesYou:"Languages ​​you speak:"

@@ -149,7 +149,8 @@ const es = {
     addCity:"Añadir Área de Actuación",
     placeWhere:"Lugares donde trabaja:",
     add:"Añadir",
-    youHaveNoMore:"No tienes más ciudades para agregar"
+    youHaveNoMore:"No tienes más ciudades para agregar",
+    save:"Ahorrar"
   },
   addLanguage:{
     languagesYou:"Idiomas que hablas:"

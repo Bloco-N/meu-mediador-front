@@ -81,6 +81,12 @@ const Container = styled.div`
     font-style: italic;
     color: var(--surface-2);
   }
+  .divButton{
+
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+  }
 `
 
 type AddCityModalProps = {
@@ -143,6 +149,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
   }
 
   const onSubmit = async (data: AddCityForm) => {
+    
     const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
     setLoadingOpen(true)
@@ -183,7 +190,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     reload()
 
   }
-
+  console.log(cities)
   return (
     open ?
     <Container className='modal'>
@@ -213,9 +220,11 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
                 <option key={index} value={item}>{item}</option>
               ))}
             </select>
-            <button type='submit'>{t.addCity.add}</button>
+            <div className='divButton'>
+              <button type='submit'>{t.addCity.add}</button>
+              <button onClick={() => setOpen(false)}>{t.addCity.save}</button>
+            </div>
           </>
-
         )}
         <p className='close' onClick={() => setOpen(false)}>X</p>
       </form>

@@ -1,4 +1,4 @@
-import { AddCityForm } from '@/types/AddCityForm';
+import { AddLanguageForm } from '@/types/AddLanguageForm';
 import { RealtorProfile } from '@/types/RealtorProfile';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -91,17 +91,18 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
 
   const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
 
-  const { register, handleSubmit } = useForm<AddCityForm>()
+  const { register, handleSubmit } = useForm<AddLanguageForm>()
 
   const [user, setUser] = useState<any>()
 
-  const [cities, setCities] = useState<Array<string>>()
+  const [language, setLanguage] = useState<Array<{id:number , name:string}>>([])
 
   const router = useRouter()
 
   const locale = router.locale
 
   const t = locales[locale as keyof typeof locales]
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,33 +113,58 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
         const userData = await response.json()
         setUser(userData)
+        
+        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/language/' + localId)
+        const data = await responseCities.json()
+        setLanguage(data)
       }
     }
 
     fetchData()
   }, [open])
 
-  const onSubmit = async (data: AddCityForm) => {
+  function reload() {
+    const fetchData = async () => {
+      const localId = localStorage.getItem('id')
+      const accType = localStorage.getItem('accountType')
+      if(localId){
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
+        const userData = await response.json()
+        setUser(userData)
+
+        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/language/' + localId)
+        const data = await responseCities.json()
+        setLanguage(data)
+      }
+    }
+    fetchData()
+  }
+
+  const onSubmit = async (data: AddLanguageForm) => {
+    const newLanguage = language?.filter(item => item.id == data.id);
+    const newData = {
+      name: newLanguage?.[0]?.name,
+      idLanguageName: newLanguage?.[0]?.id
+    };
 
     const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
 
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/'+accType, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/' + accType, {
       method: 'POST',
       body: JSON.stringify({
-        ...data
+      ...newData
       }),
-      headers:{
+      headers: {
         'Content-Type': 'application/json',
         authorization: 'Bearer ' + token,
-      }
-    })
+      },
+    });
 
     const text = await response.text()
     setLoadingOpen(false)
-    if(text === 'updated') router.reload()
-
+    reload()
   }
 
   const handleDeleteLanguage = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
@@ -157,8 +183,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
     })
 
     const text = await response.text()
-    if(text === 'deleted') router.reload()
-
+    reload()
   }
 
   return (
@@ -181,10 +206,18 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
             </p>
           ))}
         </div>
-
-        <input placeholder={t.mainInfoEditModal.language} type="text" {...register('name', {required: true})} />
+        {language?.length === 0 ? (
+          <h4>{t.addCity.youHaveNoMore}</h4>
+        ): (
+          <>
+        <select {...register('id', { required: true})}>
+            {language?.map((item, index) => (
+              <option key={index} value={item.id}>{item.name}</option>
+            ))}
+        </select>
         <button type='submit'>{t.addCity.add}</button>
-
+        </>
+        )}
         <p className='close' onClick={() => setOpen(false)}>X</p>
       </form>
     </Container>

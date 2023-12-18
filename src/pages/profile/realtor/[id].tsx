@@ -152,8 +152,6 @@ export default function Profile(){
   
   const [childSize, setChildSize] = useState({ width: "auto", height: "auto" });
 
-  const modalContainerRef = useRef<HTMLDivElement | null>(null);
-
 
   const router = useRouter()
   const { id } = router.query

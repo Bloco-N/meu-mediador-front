@@ -148,7 +148,8 @@ const pt = {
     addCity:"Adicionar Local de Atuação",
     placeWhere:"Lugares onde você atua:",
     add:"Adicionar",
-    youHaveNoMore:"Você não tem mais cidades para adicionar"
+    youHaveNoMore:"Você não tem mais cidades para adicionar",
+    save:"Salvar"
   },
   addLanguage:{
     languagesYou:"Idiomas que você fala:"

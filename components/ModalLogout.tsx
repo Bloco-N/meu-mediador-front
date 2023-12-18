@@ -55,7 +55,7 @@ const Modal = forwardRef((props: IModalProps, ref: ForwardedRef<HTMLDivElement>)
 
   return (
     <Overlay onClick={onClose} isOpen={isOpen} {...rest}>
-      <ModalContainer ref={ref as React.MutableRefObject<HTMLDivElement>} style={{ width: childSize.width, height: childSize.height }} onClick={(e) => e.stopPropagation()}>
+      <ModalContainer ref={ref as React.MutableRefObject<HTMLDivElement>} style={{ width: "auto", height:"auto" }} onClick={(e) => e.stopPropagation()}>
         {children}
       </ModalContainer>
     </Overlay>
