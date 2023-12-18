@@ -289,7 +289,6 @@ const Navbar = () => {
     const router = useRouter()
 
     const { id } = router.query
-    console.log("router.query: ", router.query)
     const pdfPage = router.query.pdf?true:false;
     useEffect(() => {
       let locale = localStorage.getItem('locale')
@@ -325,12 +324,9 @@ const Navbar = () => {
     }
 
     useEffect(() => {
-      console.log("teste leak2")
       console.log(defaultLocale)}, [defaultLocale])
 
     useEffect(() => {
-      console.log("teste leak2")
-
       const profilePicture = localStorage.getItem('pic')
       if(profilePicture === "undefined") return
       if(user.profilePicture) setPic(user.profilePicture)
