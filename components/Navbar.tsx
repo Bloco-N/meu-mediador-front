@@ -27,9 +27,10 @@ const Nav = styled.div`
     justify-content: center;
     background-color: transparent;
     padding: 3rem 6rem;
-    position: relative;
     @media only screen and (max-width: 500px){
-      padding: 47px 47px 10px 47px;
+      position: relative;
+      flex-direction: column;
+      padding: 3rem 6rem;
     }
     /* .logo-area {
       height: 100%;
@@ -41,9 +42,12 @@ const Nav = styled.div`
       height: 60px;
       
       @media only screen and (max-width: 420px){
-        height: 35px;
+        height: 50px;
+        padding: 5px;
       }
       @media only screen and (max-width: 390px){
+        height: 50px;
+        padding: 5px;
         /* height: 30px; */
       }
     }
@@ -215,11 +219,6 @@ const Nav = styled.div`
       @media only screen and (max-width: 500px){
         position: relative;
         width: 100px;
-        /* height: 24px; */
-        top: 0;
-        right: 0;
-        padding: 0;
-        display: flex;
         align-items: center;
         justify-content: center;
         transition: all .5s, border-radius 0s;
@@ -299,36 +298,48 @@ const SearchRealtor = styled.div`
       align-items: center;
       gap: 2rem;
       width: 100%;
-
       @media only screen and (max-width: 1190px) {
         flex-direction: column;
-        input {
-        }
+        gap: 2rem;
+        padding: 0;
       }
       @media (max-width: 768px) {
-        padding: 2rem 0rem;
-        gap: 3rem;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 0;
       }
     }
     @media only screen and (max-width: 1000px) {
       width: 90%;
-      height: 40rem;
-      padding: 2rem;
       text-align: center;
-      margin-top: 0;
+      padding: 0;
     }
     @media only screen and (max-width: 768px) {
-      width: calc(100% - 4rem);
-      max-width: 90%;
       height: 136px;
-      input {
-        border: 1px solid #3a2e2c5a;
-      }
-      input,
+      gap: 2rem;
+      padding: 0;
       .searchButton {
-        background: #fff;
+        position: relative;
+        background: #454545;
+        width: 90%;
+        font-size: 16px;
       }
-      .searchButton,
+      .input-city-cep{
+        margin: 0;
+        position: relative;
+        width: 90%;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #3a2e2c5a;
+        font-size: 16px;
+      }
+      .input-realtor{
+        width: 90%;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #3a2e2c5a;
+        font-size: 16px;
+      }
     }
   }
   .novo-botao{
@@ -337,10 +348,8 @@ const SearchRealtor = styled.div`
   }
 
   @media only screen and (max-width: 768px) {
-    margin-top: 4rem;
-    .card {
-      width: 100%;
-    }
+    position: relative;
+    width: 100%;
   }
   .input-city-cep{
     height: 50px;
@@ -494,6 +503,9 @@ const Navbar = ({showSearchBar}: NavBarInterface) => {
     
     return (
         <Nav>
+            <Link href="/" className="logo-area">
+                <img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" />
+            </Link>
             {showSearchBar && 
               <>
                 <SearchRealtor >
@@ -526,9 +538,6 @@ const Navbar = ({showSearchBar}: NavBarInterface) => {
                 </SearchRealtor>
               </>
             }
-            <Link href="/" className="logo-area">
-                <img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" />
-            </Link>
             {pdfPage || <>
               <div className="left-side">
                 <div className="locale-area selection border">
