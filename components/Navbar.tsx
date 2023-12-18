@@ -1,16 +1,26 @@
 import Link from "next/link";
 import Image from "next/image";
 import styled from 'styled-components';
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import LoginMoldal from "./LoginMoldal";
 import UserContext from "context/UserContext";
 import ProfileMoldal from "./ProfileMoldal";
 import { UserContextType } from "@/types/UserContextType";
 import profileIcon from '../public/profile.svg'
 import { useRouter } from "next/router";
+import { SearchForm } from "@/types/SearchForm";
+import { useForm } from "react-hook-form";
+import locales from "locales";
+import SearchContext from "context/SearchContext";
+import { SearchContextType } from "@/types/SearchContextType";
+import SearchResultContext from "context/SearchResultContext";
+import { SearchResultContextType } from "@/types/SearchResultContextType";
+import LoadingContext from "context/LoadingContext";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 
 const Nav = styled.div`
     position: relative;
+    flex-direction: row;
     width: 100%;
     display: flex;
     align-items: center;
@@ -270,8 +280,87 @@ const Nav = styled.div`
     }
     
 `
+const SearchRealtor = styled.div`
+  position: absolute;
+  left: 3%;
+  display: flex;
+  width: 600px;
+  height: 70px;
+  form {
+    background: #e9e9e985;
+    max-width: 100%;
+    backdrop-filter: blur(5px);
+    padding: 1rem 1rem;
+    border-radius: 10px;
+    .search-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
 
-const Navbar = () => {
+      @media only screen and (max-width: 1190px) {
+        flex-direction: column;
+        input {
+        }
+      }
+      @media (max-width: 768px) {
+        padding: 2rem 0rem;
+        gap: 3rem;
+      }
+    }
+    @media only screen and (max-width: 1000px) {
+      width: 90%;
+      height: 40rem;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 0;
+    }
+    @media only screen and (max-width: 768px) {
+      width: calc(100% - 4rem);
+      max-width: 90%;
+      height: 136px;
+      input {
+        border: 1px solid #3a2e2c5a;
+      }
+      input,
+      .searchButton {
+        background: #fff;
+      }
+      .searchButton,
+    }
+  }
+  .novo-botao{
+    color:blue;
+    text-decoration: underline;
+  }
+
+  @media only screen and (max-width: 768px) {
+    margin-top: 4rem;
+    .card {
+      width: 100%;
+    }
+  }
+  .input-city-cep{
+    height: 50px;
+    border-radius: 10px;
+  }
+  .input-realtor{
+    height: 50px;
+    border-radius: 10px;
+  }
+  .searchButton{
+    height: 20px;
+  }
+
+`;
+
+interface NavBarInterface{
+  showSearchBar: boolean
+}
+
+const Navbar = ({showSearchBar}: NavBarInterface) => {
 
     const { user } = useContext(UserContext) as UserContextType
 
@@ -291,6 +380,7 @@ const Navbar = () => {
     const { id } = router.query
 
     const pdfPage = router.query.pdf?true:false;
+    
     useEffect(() => {
       let locale = localStorage.getItem('locale')
       if(!locale) locale = router.locale as string
@@ -332,9 +422,110 @@ const Navbar = () => {
       if(user.profilePicture) setPic(user.profilePicture)
       else if(profilePicture && profilePicture !== 'null') setPic(profilePicture)
     }, [user])
+    
+    const { register, handleSubmit } = useForm<SearchForm>();
 
+    const [cities, setCities] = useState<Array<string>>();
+
+
+    const { locale } = router;
+
+    const t = locales[locale as keyof typeof locales];
+
+    const { setSearch } = useContext(SearchContext) as SearchContextType;
+    const { setSearchResult } = useContext(
+      SearchResultContext
+    ) as SearchResultContextType;
+
+    const { setOpen: setLoadingOpen } = useContext(
+      LoadingContext
+    ) as ModalOpenContextType;
+
+    const inputRef = useRef<any>(null);
+    const [size2, setSize2] = useState(200);
+    useEffect(() => {
+      window.addEventListener("resize", handleResize);
+
+      return () => {
+        window.addEventListener("resize", handleResize);
+      };
+    }, []); 
+    useEffect(() => {
+          handleResize();
+      });
+
+  function handleResize(){
+    if (window.innerWidth < 770){
+          setSize2(inputRef.current == null ? 200 : inputRef.current.clientWidth);
+    }else{
+      setSize2(inputRef.current == null ? 200 : inputRef.current.clientWidth*0.7);
+    }
+  }
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/city");
+      const data = await response.json();
+      setCities(data);
+    };
+
+    fetchData();
+  }, []);
+    const onSubmit = async (data: SearchForm) => {
+      const fetchData = async () => {
+        let url = process.env.NEXT_PUBLIC_API_URL + "/realtor?";
+        if (data.search) {
+          url += "search=" + data.search;
+          console.log( url );
+          setSearch(data.search);
+        } else {
+          setSearch("");
+        }
+        const response = await fetch(url, {
+          method: "GET",
+        });
+        const json = await response.json();
+        setSearchResult(json);
+        router.push("/search-result");
+      };
+      setLoadingOpen(true);
+      await fetchData();
+      setLoadingOpen(false);
+    };
+    
     return (
         <Nav>
+            {showSearchBar && 
+              <>
+                <SearchRealtor >
+                  <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
+                    <div className="search-row">
+                      <input
+                        type="text"
+                        className="input-realtor"
+                        placeholder={t.home.searchRealtorNamePlaceholder}
+                        {...register("search")}
+                      />
+
+                      <input
+                        list="cities"
+                        type="text"
+                        className="input-city-cep"
+                        placeholder={t.home.searchRealtorCityPlaceholder}
+                        {...register("zipCode")}
+                      />
+                      <datalist id="cities">
+                        {cities?.map((item, index) => (
+                          <option key={index} value={item} />
+                        ))}
+                      </datalist>
+
+                      <button className="searchButton">{t.home.searchButton}</button>
+                    </div>
+                  </form>
+                  
+                </SearchRealtor>
+              </>
+            }
             <Link href="/" className="logo-area">
                 <img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" />
             </Link>
@@ -371,8 +562,7 @@ const Navbar = () => {
               </div>
 
               <ProfileMoldal open={openProfile} setOpen={setOpenProfile}/>
-            </>
-              }
+            </>}
         </Nav>
     );
 };
