@@ -146,7 +146,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
     const fetchData = async () => {
 
       const localId = localStorage.getItem('id')
-      if(localId !== undefined){
+      if(localId && accountType){
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/${accountType}/` + localId, {
           method: 'GET'
         })
