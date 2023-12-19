@@ -18,13 +18,15 @@ width: 100%;
 backdrop-filter: blur(10px);
 margin-top: auto;
 .div-ajuda{
-  padding: 10px 20px;
+  padding: 0px 10px;
   display: flex;
   justify-content: space-evenly;
 }
 .fonte{
   font-weight: bolder !important;
   color: #E5E4E2;
+  vertical-align: middle;
+  padding: 10px 0px;
 }
 .meio{
     text-align:center;
@@ -32,6 +34,28 @@ margin-top: auto;
 .final{
     text-align:center;
 }
+@media only screen and (max-width: 768px) {
+    .div-ajuda{
+        padding: 0px 10px;
+        display: flex;
+        flex-direction: column;
+        text-align:center;
+
+        .instagram-icone{
+            order:2;
+        }
+        .contato{
+            order:1;
+        }
+      }
+      
+    .fonte{
+        font-weight: bolder !important;
+        color: black;
+        vertical-align: middle;
+        padding: 10px 0px;
+      }
+  }
 `
 
 
@@ -47,8 +71,8 @@ const InfoFooter = () => {
                 <div className="div-ajuda" >
                 <a className="fonte" target="_blank" rel="noopener noreferrer" href="/politica_privacidade.pdf">{t.infoFooter.privacy}</a>
                     <a className="fonte meio" target="_blank" rel="noopener noreferrer" href="termos.pdf">{t.infoFooter.conditions}</a>
-                    <span className="fonte final">{t.infoFooter.contact} <a href={"mailto: xxxxxx@meoagent.com"}>xxxxxx@meoagent.com</a></span>
-                    <Link href="https://www.instagram.com/meoagent" target="_blank">
+                    
+                    <Link className="instagram-icone" href="https://www.instagram.com/meoagent" target="_blank" style={{marginTop:"2px"}}>
                     <Image                    
                         priority
                         src={instragramIcon}
@@ -57,6 +81,7 @@ const InfoFooter = () => {
                         alt="Follow us on Instagram"
                     />
                     </Link>
+                    <span className="fonte final contato">{t.infoFooter.contact} <a href={"mailto: contato@meoagent.com"}>contato@meoagent.com</a></span>
                 </div>
 
             </InfoFooterDiv>
