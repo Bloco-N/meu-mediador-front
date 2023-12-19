@@ -120,7 +120,6 @@ const SignIn = () => {
       const fetchData = async () => {
         try {
           setLoadingOpen(true)
-          console.log(urlFetchGoogle)
           const response = await fetch(!data ? urlFetchGoogle : urlFetch, {
             method: 'POST',
             body: JSON.stringify(!data ? dataGoogle : data),
@@ -132,7 +131,6 @@ const SignIn = () => {
             setLoadingOpen(false)
             return
           }
-          console.log(response)
           const token = await response.text()
           localStorage.setItem('token', token)
           const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
@@ -218,7 +216,6 @@ const SignIn = () => {
 
 export const getServerSideProps:GetServerSideProps = async (context) => {
   const session = await getSession(context)
-  console.log(session)
   return {
     props:{
       session
