@@ -175,8 +175,6 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     
     const { id } = target
 
-    console.log(id)
-
     const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + id, {
@@ -190,7 +188,6 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     reload()
 
   }
-  console.log(cities)
   return (
     open ?
     <Container className='modal'>

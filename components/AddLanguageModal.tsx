@@ -80,6 +80,11 @@ const Container = styled.div`
     font-style: italic;
     color: var(--surface-2);
   }
+  .divButton{
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+  }
 `
 
 type AddLanguageModalProps = {
@@ -95,7 +100,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
 
   const [user, setUser] = useState<any>()
 
-  const [language, setLanguage] = useState<Array<{id:number , name:string}>>([])
+  const [language, setLanguage] = useState<Array<string>>([])
 
   const router = useRouter()
 
@@ -141,20 +146,13 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
   }
 
   const onSubmit = async (data: AddLanguageForm) => {
-    const newLanguage = language?.filter(item => item.id == data.id);
-    const newData = {
-      name: newLanguage?.[0]?.name,
-      idLanguageName: newLanguage?.[0]?.id
-    };
-
     const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
-
     setLoadingOpen(true)
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/' + accType, {
       method: 'POST',
       body: JSON.stringify({
-      ...newData
+      ...data
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -210,12 +208,15 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
           <h4>{t.addCity.youHaveNoMore}</h4>
         ): (
           <>
-        <select {...register('id', { required: true})}>
+        <select {...register('name', { required: true})}>
             {language?.map((item, index) => (
-              <option key={index} value={item.id}>{item.name}</option>
+              <option key={index} value={item}>{item}</option>
             ))}
         </select>
-        <button type='submit'>{t.addCity.add}</button>
+        <div className='divButton'>
+            <button type='submit'>{t.addCity.add}</button>
+            <button onClick={() => setOpen(false)}>{t.addCity.save}</button>
+        </div>
         </>
         )}
         <p className='close' onClick={() => setOpen(false)}>X</p>

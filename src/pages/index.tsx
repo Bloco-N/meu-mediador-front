@@ -182,15 +182,21 @@ export default function Home() {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
+    console.log(data, "Teste")
     const fetchData = async () => {
       let url = process.env.NEXT_PUBLIC_API_URL + "/realtor?";
       if (data.search) {
         url += "search=" + data.search;
-        console.log( url );
+        console.log( url , "Teste" );
         setSearch(data.search);
-      } else {
-        setSearch("");
-      }
+      } 
+
+      if (data.zipCode) {
+        url += "search=" + data.zipCode;
+        console.log( url , "Teste" );
+        setSearch(data.search);
+      } 
+
       const response = await fetch(url, {
         method: "GET",
       });
