@@ -34,6 +34,7 @@ const ModalContainer = styled.div`
 const Modal = forwardRef((props: IModalProps, ref: ForwardedRef<HTMLDivElement>) => {
   const { children, isOpen, onClose, setChildSize, childSize, ...rest } = props;
 
+  
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
@@ -43,16 +44,17 @@ const Modal = forwardRef((props: IModalProps, ref: ForwardedRef<HTMLDivElement>)
         });
       }
     });
-
+    
     if (ref && 'current' in ref && ref.current) {
       resizeObserver.observe(ref.current);
     }
-
+    
     return () => {
       resizeObserver.disconnect();
     };
   }, [ref, setChildSize]);
-
+  
+  Modal.displayName = 'Modal';
   return (
     <Overlay onClick={onClose} isOpen={isOpen} {...rest}>
       <ModalContainer ref={ref as React.MutableRefObject<HTMLDivElement>} style={{ width: "auto", height:"auto" }} onClick={(e) => e.stopPropagation()}>
