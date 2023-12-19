@@ -24,7 +24,7 @@ margin-top: auto;
 }
 .fonte{
   font-weight: bolder !important;
-  color: #E5E4E2;
+  
   vertical-align: middle;
   padding: 10px 0px;
 }
@@ -57,10 +57,13 @@ margin-top: auto;
       }
   }
 `
+type InfoProps = {
+    home?: boolean;  
+  };
 
 
-
-const InfoFooter = () => {
+const InfoFooter = (props: InfoProps) => {
+    //#E5E4E2
     const router = useRouter();
 
     const { locale } = router;
@@ -68,7 +71,7 @@ const InfoFooter = () => {
     return (
         <>
             <InfoFooterDiv>
-                <div className="div-ajuda" >
+                <div className="div-ajuda" style={{color: props.home ? "#E5E4E2" :"white"}}>
                 <a className="fonte" target="_blank" rel="noopener noreferrer" href="/politica_privacidade.pdf">{t.infoFooter.privacy}</a>
                     <a className="fonte meio" target="_blank" rel="noopener noreferrer" href="termos.pdf">{t.infoFooter.conditions}</a>
                     
