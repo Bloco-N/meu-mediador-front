@@ -25,7 +25,11 @@ const Container = styled.div`
     flex-wrap: wrap;
     .service{
       @media only screen and (max-width: 400px){
-        font-size: 1.3rem;
+        font-size: 1.6rem;
+        
+        .p{
+          overflow-wrap: break-word;
+        }
       }
       flex-shrink: 0;
       scroll-snap-align: start;

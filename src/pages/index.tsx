@@ -120,8 +120,8 @@ const NovoCadastro = styled.div`
 
 
 
-    @media only screen and (max-width: 990px) {
-      
+    @media only screen and (max-width: 768px) {
+      border: solid 0.1rem var(--border-color);
       
     }
   
@@ -240,7 +240,7 @@ export default function Home() {
     <NovoCadastro className="novo-cadastro2" style={{ width: `${size2}px` }}>
       <h4 >Já faz parte do Meoagent? <a className="novo-botao">Criar nova conta.</a></h4>
     </NovoCadastro>
-    <InfoFooter/>
+    <InfoFooter home={true}/>
     </>
   );
 }
