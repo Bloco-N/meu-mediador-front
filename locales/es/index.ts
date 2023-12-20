@@ -164,6 +164,8 @@ const es = {
     professionalismAndCommunication:"Profesionalidad y Comunicación:",
     writeYourCommentHere:"Escribe tu comentario aqui",
     writeYourReplyHere:"Escribe tu respuesta aqui",
+    soldAndBought: "¿Ha vendido o comprado una propiedad con el asesor inmobiliario?",
+    dateOfTheDeed: "¿Cuál es la fecha de la escritura?"
   },
   clientProfile:{
     adress:'Dirección',

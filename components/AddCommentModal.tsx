@@ -17,43 +17,52 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  form{
+  
+  form {
     position: relative;
-    height: 65rem;
+    height: 60rem;
     width: 40%;
     border-radius: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: 2rem;
-    padding-top: 4rem;
+    gap: 1.5rem;
+    padding-top: 2.5rem; 
+    
     @media (max-width: 600px) {
       width: 80%;
+      height: auto;
+      padding-top: 2rem;
     }
-    div{
+    
+    div {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 2rem;
+      gap: 1.5rem;
       width: 80%;
-      p{
+      
+      p {
         font-weight: bold;
       }
     }
   }
-  textarea{
-    min-height: 20rem;
+  
+  textarea {
+    min-height: 10rem;
   }
-  .redirect{
+  
+  .redirect {
     position: absolute;
     top: 50%;
     font-weight: bold;
   }
-  .close{
+  
+  .close {
     cursor: pointer;
     position: absolute;
-    top: 3rem;
+    top: 2.5rem;
     right: 3rem;
     height: 3rem;
     width: 3rem;
@@ -64,8 +73,46 @@ const Container = styled.div`
     color: var(--surface);
     border-radius: 1rem;
     font-weight: bold;
+    
+    @media (max-width: 600px) {
+      top: 2.5%;
+    }
   }
-`
+
+  select {
+  width: 35%;
+  height: 3.5rem;
+  padding: 0.5rem;
+  font-size: 16px;
+  text-align: center;
+  overflow: auto;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    font-size: 12px;
+  }
+}
+
+  input {
+    width: 35%;
+    height: 3.5rem;
+    text-align: center;
+    font-size: 16px;
+    
+    @media (max-width: 600px) {
+      width: 100%;
+      font-size: 12px;
+    }
+  }
+  
+  button {
+    margin-bottom: 8em;
+    
+    @media (max-width: 600px) {
+      margin-bottom: 2em;
+    }
+  }
+`;
 
 type AddCommentModalProps = {
   open: boolean,
@@ -77,8 +124,24 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const [responsivenessRating, setResponsivenessRating] = useState(0)
   const [negotiationSkillsRating, setNegotiationSkillsRating] = useState(0)
   const [profissionalismAndComunicationRating, setProfissionalismAndComunicationRating] = useState(0)
+  const [size, setSize] = useState(50);
 
   const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 600) {
+        setSize(30);
+      } else {
+        setSize(40);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleMarketRating = (rate: number) => {
     setMarketExpertiseRating(rate)
@@ -166,25 +229,40 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
               <p>{t.review.marketKnowledge} </p>
               <Rating
                 onClick={handleMarketRating}
+                size={size}
               />
             </div>
             <div>
               <p>{t.review.responsiveness} </p>
               <Rating
                 onClick={handleResponsiveRating}
+                size={size}
               />
             </div>
             <div>
               <p>{t.review.negotiation} </p>
               <Rating
                 onClick={handleNegotiationRating}
+                size={size}
               />
             </div>
             <div>
               <p>{t.review.professionalismAndCommunication} </p>
               <Rating
                 onClick={handleProfissionalismRating}
+                size={size}
               />
+            </div>
+            <div>
+              <p>{t.review.soldAndBought} </p>
+              <select name="select+" id="">
+                  <option key={1} value={1}>Vendi</option>
+                  <option key={2} value={2}>Comprei</option>
+              </select>
+            </div>
+            <div>
+              <p>{t.review.dateOfTheDeed} </p>
+              <input type="date" />
             </div>
             <textarea placeholder={t.review.writeYourCommentHere} {...register('text', {required: true})}/>
             <p className="close" onClick={() => setOpen(false)}>X</p>

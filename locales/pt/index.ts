@@ -160,9 +160,11 @@ const pt = {
     marketKnowledge: "Conhecimento de mercado:",
     responsiveness:"Capacidade de resposta:",
     negotiation:"Negociação:",
-    professionalismAndCommunication:"Porfissionalismo e Comunicação:",
+    professionalismAndCommunication:"Profissionalismo e Comunicação:",
     writeYourCommentHere:"Escreva seu comentário aqui",
-    writeYourReplyHere:"Escreva sua resposta aqui"
+    writeYourReplyHere:"Escreva sua resposta aqui",
+    soldAndBought: "Vendeu ou comprou imóvel com o consultor?",
+    dateOfTheDeed: "Qual a data da escritura?"
   },
   clientProfile:{
     adress:'Morada',

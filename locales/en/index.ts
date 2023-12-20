@@ -164,6 +164,8 @@ const en = {
     professionalismAndCommunication:"Professionalism and Communication:",
     writeYourCommentHere:"Write your comment here",
     writeYourReplyHere:"Write your reply here",
+    soldAndBought: "Did you sell or buy property with the agent?",
+    dateOfTheDeed: "Date of the deed"
   },
   clientProfile:{
     adress:'Adress',
