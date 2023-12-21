@@ -102,6 +102,7 @@ const Container = styled.div<ContainerProps>`
       margin-left: ${porps => porps.isProfile ? '2rem': '2rem'};
       display: flex;
       gap: 5rem;
+      width: 70%;
     }
     .about{
       position: relative;
@@ -208,6 +209,9 @@ const Container = styled.div<ContainerProps>`
       text-overflow: ellipsis;
     } */
     background: #fff;
+  }
+  .about-3{
+    margin-left: 10%;
   }
 `
 
@@ -427,8 +431,13 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
         <div className="about-3">
           <p>
             <b>
-              Imoveis: 
-            </b> <strong>Vendidos:</strong> 10 / <strong>Comprados:</strong> 20
+              Imoveis vendidos: 
+            </b> 10
+          </p>   
+          <p>
+            <b>
+              Compradores acompanhados: 
+            </b> 20
           </p>  
 
         </div>
