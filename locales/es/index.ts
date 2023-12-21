@@ -174,11 +174,15 @@ const es = {
     label:"<b>¿Ves algún error?</b> Háganos saber para que podamos hacer correcciones. <b>Haga clic aquí</b> y Cuéntanos qué errores viste",
     warning:'Su queja ha sido registrada. ¡Gracias!'  
   },
-
   infoFooter:{
     privacy:"Política de privacidad",
     conditions:"Términos y Condiciones",
     contact:"Contacto:"
+  },
+  coverPicAdjust:{
+    title: "Ajustar foto de portada",
+    btnAccept: "Añadir",
+    btnDiscard: "Descartar",
   }
 }
 

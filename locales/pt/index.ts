@@ -164,7 +164,6 @@ const pt = {
     country:'País',
     zipCode:'Código Postal' 
   },
-
   reportDialog:{
     close:'Fechar',
     send:'Enviar',
@@ -174,11 +173,15 @@ const pt = {
     label:'<b>Vês algum erro?</b> Informe o Meoagent para que possamos fazer as correções necessárias. <b>Clique aqui</b> e nos conte os erros que viste!',
     warning:'Sua denúncia foi registrada. Obrigado!' 
   },
-
   infoFooter:{
     privacy:"Política de Privacidade",
     conditions:"Termos e Condições",
     contact:"Contacto:"
+  },
+  coverPicAdjust:{
+    title: "Ajustar foto de capa",
+    btnAccept: "Adicionar",
+    btnDiscard: "Descartar",
   }
 }
 

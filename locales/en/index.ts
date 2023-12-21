@@ -174,11 +174,15 @@ const en = {
     label:'<b>Do you see any errors?</b> Let us know so we can make corrections. <b>Click here</b> and tell us what errors you saw',
     warning:'Your complaint has been registered. Thanks!'  
   },
-
   infoFooter:{
     privacy:"Privacy Policy",
     conditions:"Terms and conditions",
     contact:"Contact:"
+  },
+  coverPicAdjust:{
+    title: "Adjust cover pic",
+    btnAccept: "Add",
+    btnDiscard: "Discard",
   }
 
 }

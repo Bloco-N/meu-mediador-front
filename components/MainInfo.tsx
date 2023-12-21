@@ -24,6 +24,7 @@ import { LastExp } from '@/types/LastExp';
 import locales from 'locales';
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
+import CoverPicAdjustModalContext, { CoverPicAdjustModalContextType } from 'context/CoverPicAdjustModalContext';
 
 type ContainerProps = {
   isProfile: boolean
@@ -255,7 +256,11 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
 
   const { setOpen: mainInfoSetOpen } = useContext(MainInfoProfileEditModalContext) as ModalOpenContextType
 
+  const { setOpen: coverPicAdjustModalSetOpen, setSrcImg: setCoverPicSrcImage, srcImg: coverPicSrcImage } = useContext(CoverPicAdjustModalContext) as CoverPicAdjustModalContextType
+  
   const [sessionProfile, setSessionProfile] = useState(false)
+
+  const [fullProfilePic, setFullProfilePic] = useState("")
 
   const router = useRouter()
 
@@ -285,22 +290,25 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
 
     if(FileReader && file){
       const fr = new FileReader()
-      const token = localStorage.getItem('token')
-      const accountType = localStorage.getItem('accountType')
+      // const token = localStorage.getItem('token')
+      // const accountType = localStorage.getItem('accountType')
 
       const onload = async () => {
         const img = document.getElementById('cover-pic') as HTMLImageElement
-        const apiService = new ApiService()
+        // const apiService = new ApiService()
 
         img.src = fr.result as string
 
-        const text = await apiService.updateCoverPicture(accountType as string, fr, token as string)
+        setFullProfilePic(img.src)
+        setCoverPicSrcImage(img.src)
+        coverPicAdjustModalSetOpen(true)
+        // const text = await apiService.updateCoverPicture(accountType as string, fr, token as string)
         
-        if(text === 'updated'){
+        // if(text === 'updated'){
 
-          setUser({id: user.id, token: user.token, coverPicture: fr.result as string, profilePicture: user.profilePicture, accountType: user.accountType})
-          router.reload()
-        }
+        //   setUser({id: user.id, token: user.token, coverPicture: fr.result as string, profilePicture: user.profilePicture, accountType: user.accountType})
+        //   router.reload()
+        // }
       }
 
       fr.onload = onload
@@ -309,6 +317,11 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
     }
 
   }
+
+  useEffect(() => {
+    // console.log("fullProfilePic: ", fullProfilePic)
+    // console.log("coverPicSrcImage: ", coverPicSrcImage)
+  },[coverPicSrcImage])
 
   function printCities(){
     const cities = userSigned.RealtorCities.map(city=>city.City.name)
