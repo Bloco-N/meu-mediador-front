@@ -125,6 +125,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const [negotiationSkillsRating, setNegotiationSkillsRating] = useState(0)
   const [profissionalismAndComunicationRating, setProfissionalismAndComunicationRating] = useState(0)
   const [size, setSize] = useState(50);
+  const [dateOftTheDeed, setDateOftTheDeed] = useState("");
 
   const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
 
@@ -173,7 +174,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const { id:profileId } = router.query
   
   const onSubmit = async (data: AddCommentForm) => {
-
+    console.log(data,dateOftTheDeed,"Pedro" )
     const localId = localStorage.getItem('id')
 
     setLoadingOpen(true)
@@ -255,14 +256,14 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
             </div>
             <div>
               <p>{t.review.soldAndBought} </p>
-              <select name="select+" id="">
+              <select {...register('id', { required: true})}>
                   <option key={1} value={1}>Vendi</option>
                   <option key={2} value={2}>Comprei</option>
               </select>
             </div>
             <div>
               <p>{t.review.dateOfTheDeed} </p>
-              <input type="date" />
+              <input onChange={(e) => setDateOftTheDeed(e.target.value)} type="date" />
             </div>
             <textarea placeholder={t.review.writeYourCommentHere} {...register('text', {required: true})}/>
             <p className="close" onClick={() => setOpen(false)}>X</p>
