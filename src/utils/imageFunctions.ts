@@ -49,9 +49,7 @@ export function getBase64ImageSize(base64: string) {
       const canvas: any = document.getElementById('canvas');
       const context = canvas.getContext('2d');
       const aspectRatio = img.height / img.width;
-      console.log("window: ", img.width*targetHeight/targetWidth, "recuo: ", dyTop)
-      context.drawImage(img, 0, dyTop, img.width, img.height, 0, 0, targetWidth, targetHeight/aspectRatio);
-
+      context.drawImage(img, 0, dyTop, targetWidth, aspectRatio*targetWidth);
       callback(canvas.toDataURL());
     };
   

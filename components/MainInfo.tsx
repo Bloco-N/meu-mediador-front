@@ -290,25 +290,15 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
 
     if(FileReader && file){
       const fr = new FileReader()
-      // const token = localStorage.getItem('token')
-      // const accountType = localStorage.getItem('accountType')
 
       const onload = async () => {
         const img = document.getElementById('cover-pic') as HTMLImageElement
-        // const apiService = new ApiService()
 
         img.src = fr.result as string
 
         setFullProfilePic(img.src)
         setCoverPicSrcImage(img.src)
         coverPicAdjustModalSetOpen(true)
-        // const text = await apiService.updateCoverPicture(accountType as string, fr, token as string)
-        
-        // if(text === 'updated'){
-
-        //   setUser({id: user.id, token: user.token, coverPicture: fr.result as string, profilePicture: user.profilePicture, accountType: user.accountType})
-        //   router.reload()
-        // }
       }
 
       fr.onload = onload
