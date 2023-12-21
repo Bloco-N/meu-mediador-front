@@ -24,8 +24,6 @@ const Nav = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    background-color: transparent;
     padding: 3rem 6rem;
     @media only screen and (max-width: 500px){
       position: relative;
@@ -39,8 +37,6 @@ const Nav = styled.div`
     } */
 
     .logo{
-      height: 60px;
-      
       @media only screen and (max-width: 420px){
         height: 50px;
         padding: 5px;
@@ -281,7 +277,7 @@ const Nav = styled.div`
 `
 const SearchRealtor = styled.div`
   position: absolute;
-  left: 3%;
+  left: 30rem;
   display: flex;
   width: 600px;
   height: 70px;
@@ -349,7 +345,13 @@ const SearchRealtor = styled.div`
 
   @media only screen and (max-width: 768px) {
     position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-bottom: 10px;
     width: 100%;
+    height: auto;
+    right: 0;
   }
   .input-city-cep{
     height: 50px;
@@ -502,7 +504,7 @@ const Navbar = ({showSearchBar}: NavBarInterface) => {
     };
     
     return (
-        <Nav>
+    <Nav style={{justifyContent: showSearchBar ? "flex-start" : "center"}}>
             <Link href="/" className="logo-area">
                 <img className="logo" src="/meoagent-logo.png" alt="Meoagent-logo" />
             </Link>
