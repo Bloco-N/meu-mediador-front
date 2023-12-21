@@ -220,24 +220,24 @@ type ToolTipContainerProps = {
 
 
 const ToolTipContainer = styled.div<ToolTipContainerProps>`
-cursor: default;
-background-color:#D3D2D2;
-padding:10px;
-position:fixed;
-min-width: 150px;
-  top:${porps => `${porps.posY}px`};
-  left:${porps => `${porps.posX}px`};
-  z-index:15;
-  display:${porps => porps.show ? 'flex': 'none'};
-  flex-direction:column;
-  gap:3px;
-  border-radius:5px;
-  list-style-type: none;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  .cities-list{
-    overflow-y:auto;
-    max-height:290px;
-  }
+  cursor: default;
+  background-color:#D3D2D2;
+  padding:10px;
+  position:fixed;
+  min-width: 150px;
+    top:${porps => `${porps.posY}px`};
+    left:${porps => `${porps.posX}px`};
+    z-index:15;
+    display:${porps => porps.show ? 'flex': 'none'};
+    flex-direction:column;
+    gap:3px;
+    border-radius:5px;
+    list-style-type: none;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    .cities-list{
+      overflow-y:auto;
+      max-height:290px;
+    }
   `
 
 type MainInfoProps = {
