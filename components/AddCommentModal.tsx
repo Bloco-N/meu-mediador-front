@@ -129,7 +129,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const [negotiationSkillsRating, setNegotiationSkillsRating] = useState(0)
   const [profissionalismAndComunicationRating, setProfissionalismAndComunicationRating] = useState(0)
   const [size, setSize] = useState(50);
-  const [dateOftTheDeed, setDateOftTheDeed] = useState("");
+  const [dateOftheDeed, setDateOftTheDeed] = useState("");
 
   const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
 
@@ -178,18 +178,20 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const { id:profileId } = router.query
   
   const onSubmit = async (data: AddCommentForm) => {
-    console.log(data,dateOftTheDeed,"Pedro" )
     const localId = localStorage.getItem('id')
 
     setLoadingOpen(true)
     const realtorBody = {
-      ...data,
+      text: data.text,
+      sold: data.id == 1 ? 1 : 0,
+      bought: data.id == 2 ? 1 : 0,
       marketExpertiseRating,
       responsivenessRating,
       negotiationSkillsRating,
       profissionalismAndComunicationRating,
       clientId: Number(localId),
-      realtorId: Number(profileId)
+      realtorId: Number(profileId),
+      dateOftheDeed
     }
     const agencyBody = {
       ...data,

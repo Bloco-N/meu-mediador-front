@@ -394,8 +394,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
             <b>
               {t.mainInfo.experience}
             </b> {userSigned?.expTime} Anos
-          </p>
-
+          </p>  
           <p>
             <b>
             {t.mainInfo.languages}
@@ -405,7 +404,11 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
               ))}
           </p>
           <p>{userSigned?.email}</p>
+          <p>{userSigned?.phone}</p> 
+          
+          <p>{userSigned?.phone}</p> 
           <p>{userSigned?.phone}</p>
+
           {/* <div className="bottom">
             <div className="bottom-1">
             <p>
@@ -420,6 +423,14 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
             <div className="bottom-2">  
             </div>
             </div> */}
+        </div>
+        <div className="about-3">
+          <p>
+            <b>
+              Imoveis: 
+            </b> <strong>Vendidos:</strong> 10 / <strong>Comprados:</strong> 20
+          </p>  
+
         </div>
       </div>
 

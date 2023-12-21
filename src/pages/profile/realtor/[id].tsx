@@ -121,7 +121,7 @@ const Container = styled.div`
 }
 
 .buttonNo {
-  background-color: #f47d7d;
+  background-color: #c14341;
 
   @media (max-width: 768px) {
     font-size: 14px;
