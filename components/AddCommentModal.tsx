@@ -46,6 +46,10 @@ const Container = styled.div`
       p {
         font-weight: bold;
       }
+
+      @media (max-width: 600px) {
+        width: 85%;
+      }
     }
   }
   
@@ -80,7 +84,7 @@ const Container = styled.div`
   }
 
   select {
-  width: 35%;
+  width: 26%;
   height: 3.5rem;
   padding: 0.5rem;
   font-size: 16px;
@@ -88,20 +92,20 @@ const Container = styled.div`
   overflow: auto;
 
   @media (max-width: 600px) {
-    width: 100%;
+    width: 40%;
     font-size: 12px;
   }
 }
 
   input {
-    width: 35%;
+    width: 26%;
     height: 3.5rem;
-    text-align: center;
-    font-size: 16px;
+    text-align: left;
+    font-size: 10px;
     
     @media (max-width: 600px) {
-      width: 100%;
-      font-size: 12px;
+      width: 27%;
+      font-size: 10px;
     }
   }
   
