@@ -212,6 +212,11 @@ const Container = styled.div<ContainerProps>`
   }
   .about-3{
     margin-left: 10%;
+    gap: 0.5rem;
+
+    p{
+      margin-bottom: 0.5rem;
+    }
   }
 `
 
@@ -432,12 +437,12 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
           <p>
             <b>
               Imoveis vendidos: 
-            </b> 10
+            </b> {userSigned?.sold}
           </p>   
           <p>
             <b>
               Compradores acompanhados: 
-            </b> 20
+            </b> {userSigned?.bought}
           </p>  
 
         </div>

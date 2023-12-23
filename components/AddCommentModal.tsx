@@ -167,6 +167,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const { register, handleSubmit } = useForm<AddCommentForm>()
 
   const [accType, setAccType] = useState('')
+  const [validateClient, setValidateClient] = useState(true)
 
   const router = useRouter()
 
@@ -211,6 +212,12 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
     })
 
     const text = await response.text()
+    console.log(text, "Text")
+    if(text == "false"){
+      console.log("Entrou")
+      setValidateClient(false)
+    }
+    console.log(validateClient, "Teste")
     setLoadingOpen(false)
     if(text === 'created') router.reload()
 
@@ -229,7 +236,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
     (open) ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
-        {accType === 'client' ? (
+        {accType === 'client' && validateClient? (
           <>
             <h3>{t.review.createAReview}</h3>
             <div>
@@ -279,7 +286,11 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
         ): (
           <>
             <p className="close" onClick={() => setOpen(false)}>X</p>
+            {validateClient?
             <p className="redirect">Faça login como cliente</p>
+              :
+            <p className="redirect">Preencha todos os seus dados antes de avaliar um consultor!</p>
+            }
           </>
         ) }
       </form>
