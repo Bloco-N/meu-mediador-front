@@ -2,6 +2,7 @@ import styles from '../../styles/lp.module.css'
 import Image from 'next/image'
 
 import man from '../../../public/man-form.webp'
+import finalMan from '../../../public/man-final.webp'
 
 const LP = () => {
   return(
@@ -108,6 +109,27 @@ const LP = () => {
               <span>Consultor imobiliário</span>
             </div>
           </div>
+        </div>
+      </div>
+      <div className={styles.finalDiv} >
+        <div className={styles.textFinal} >
+          <h3>O que é o Meoagent?</h3>
+          <p>
+            O Meoagent é uma plataforma criada em Portugal, especializada no setor imobiliário que visa facilitar a conexão, visibilidade e troca de informação entre consultores, agências e clientes em todo o mundo.
+          </p>
+
+          <h4>O site é para qual público?</h4>
+          <ul>
+            <li>Para o consultor que quer levar sua credibilidade para outro nível.</li>
+            <li>Para o consultor que quer aumentar seu faturamento.</li>
+            <li>Para a agência que quer encontrar e recrutar os melhores consultores.</li>
+            <li>Para a agência que quer levar sua credibilidade para outro nível.</li>
+            <li>Para clientes que querem contratar serviços dos melhores consultores e agências imobiliárias.</li>
+          </ul>
+        </div>
+        <div className={styles.finalImage} >
+          <Image src={finalMan} alt='man with a laptop' />
+          <a href="#">Quero me cadastrar no Meoagent agora!</a>
         </div>
       </div>
     </div>
