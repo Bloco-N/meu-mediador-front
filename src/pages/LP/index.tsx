@@ -61,6 +61,55 @@ const LP = () => {
           </div>
         </div>
       </div>
+      <div className={styles.diagonalDiv} >
+        <div className={styles.title2} >
+          <h2>O que os consultores imobiliários falam do Meoagent</h2>
+        </div>
+        <div className={styles.carouselDepositions} >
+          <div className={styles.card} >
+            <div className={styles.photo} >
+
+            </div>
+
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, dolor illo itaque perferendis officiis, voluptatibus repellendus similique quas doloribus qui modi aliquam recusandae natus alias pariatur odit, laborum dolore magnam?
+            </p>
+
+            <div>
+              <p>John Doe</p>
+              <span>Consultor imobiliário</span>
+            </div>
+          </div>
+          <div className={styles.card} >
+            <div className={styles.photo} >
+
+            </div>
+
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, dolor illo itaque perferendis officiis, voluptatibus repellendus similique quas doloribus qui modi aliquam recusandae natus alias pariatur odit, laborum dolore magnam?
+            </p>
+
+            <div>
+              <p>John Doe</p>
+              <span>Consultor imobiliário</span>
+            </div>
+          </div>
+          <div className={styles.card} >
+            <div className={styles.photo} >
+
+            </div>
+
+            <p>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, dolor illo itaque perferendis officiis, voluptatibus repellendus similique quas doloribus qui modi aliquam recusandae natus alias pariatur odit, laborum dolore magnam?
+            </p>
+
+            <div>
+              <p>John Doe</p>
+              <span>Consultor imobiliário</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
