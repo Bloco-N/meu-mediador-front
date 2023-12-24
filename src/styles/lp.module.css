@@ -146,8 +146,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
+  margin-bottom: 60px;
 }
 
 .textFinal {
@@ -164,6 +165,7 @@
   line-height: 30px;
   font-weight: 600;
   margin-bottom: 50px;
+  width: 90%;
 }
 
 .textFinal h4 {
@@ -191,8 +193,8 @@
 }
 
 .finalImage img {
-  width: 600px;
-  height: 700px;
+  width: 550px;
+  height: 650px;
   margin-bottom: 60px;
 }
 
@@ -207,4 +209,14 @@
   border-radius: 8px;
   font-size: 20px;
   margin-bottom: 42px;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #454545;
+  height: 60px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

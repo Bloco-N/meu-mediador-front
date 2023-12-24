@@ -132,6 +132,7 @@ const LP = () => {
           <a href="#">Quero me cadastrar no Meoagent agora!</a>
         </div>
       </div>
+      <footer className={styles.footer} >Copyright © 2023 Meoagent – Todos os direitos reservados</footer>
     </div>
   )
 }
