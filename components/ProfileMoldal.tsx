@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import {signOut as singOutGoogle} from 'next-auth/react'
 
 type ProfileMoldalProps = {
   open: boolean
@@ -59,7 +60,8 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
 
   const [id, setId] = useState('')
 
-  const signOut = () => {
+  const signOut = async () => {
+    await singOutGoogle()
     localStorage.removeItem('token')
     localStorage.removeItem('id')
     localStorage.removeItem('pic')

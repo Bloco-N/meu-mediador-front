@@ -115,7 +115,9 @@ const en = {
     enter: "Sign In",
     notHaveAnAccount: "Don't have an account yet?",
     here: "Sign up here",
-    error:"Incorrect email or password"
+    error:"Incorrect email or password",
+    google:"Continue with Google",
+    facebook:"Continue with Facebook",
   },
   createProfile:{
     selectTheType: "Select the type of profile you want to create",
@@ -127,6 +129,11 @@ const en = {
     signUp:"Sign Up",
     confirmPassword:"Confirm Password",
     check_police:"I have read and agree to Meoagent's Terms of Service and Privacy Policy."
+  },
+  signOut:{
+    delete:"Do you want to permanently delete your account?",
+    yes: "Yes",
+    no: "No"
   },
   forgotPassword:{
     recoverPassword:"Recover Password",
@@ -142,7 +149,8 @@ const en = {
     addCity:"Add Work Area",
     placeWhere:"Places where you work:",
     add:"Add",
-    youHaveNoMore:"You have no more cities to add"
+    youHaveNoMore:"You have no more cities to add",
+    save:"Save"
   },
   addLanguage:{
     languagesYou:"Languages ​​you speak:"
@@ -177,7 +185,8 @@ const en = {
     privacy:"Privacy Policy",
     conditions:"Terms and conditions",
     contact:"Contact:"
-  }
+  },
+  
 
 }
 

@@ -11,6 +11,11 @@ import locales from "locales";
 import { useState } from 'react'
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import GoogleLoginButton from "components/ButtonAuth";
+import iconGoogle from '../../../../public/icon-google.png'
+import iconFacebook from '../../../../public/icons-facebook.png'
+import { getSession, signIn, useSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -73,6 +78,8 @@ const SignInContainer = styled.div`
 
 const SignIn = () => {
 
+    const {data: session} = useSession()
+
     const { register, handleSubmit } = useForm<SignInForm>()
 
     const { setUser } = useContext(UserContext) as UserContextType
@@ -81,7 +88,6 @@ const SignIn = () => {
 
     const [loginError, setLoginError] = useState(false)
 
-
     const router = useRouter()
 
     const locale = router.locale
@@ -89,13 +95,25 @@ const SignIn = () => {
     const t = locales[locale as keyof typeof locales]
 
     useEffect(() => {
+      if(session){
+        onSubmit(null)
+      }
       const token = localStorage.getItem('token')
       if(token){
         router.push('/')
       }
     }, [router])
 
-    const onSubmit = async (data:SignInForm) => {
+    const onSubmit = async (data:SignInForm | null) => {
+      
+     const dataGoogle = {
+       email: session?.user?.email,
+       name: session?.user?.name
+     }
+
+     const urlFetch = process.env.NEXT_PUBLIC_API_URL + '/agency' + '/sign-in'
+      const urlFetchGoogle = process.env.NEXT_PUBLIC_API_URL + '/agency' + '/sign-in' + '/google'
+
 
       const fetchData = async () => {
 
@@ -103,9 +121,9 @@ const SignIn = () => {
 
           setLoadingOpen(true)
           
-          const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency' + '/sign-in', {
+          const response = await fetch(!data ? urlFetchGoogle : urlFetch, {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(!data ? dataGoogle : data),
             headers: {"Content-type": "application/json; charset=UTF-8"}
           })
 
@@ -119,8 +137,6 @@ const SignIn = () => {
 
           localStorage.setItem('token', token)
           const user = decode(token) as { id:number, email:string, name: string}
-          console.log(user);
-          
 
           localStorage.setItem('id', String(user.id))
   
@@ -171,6 +187,24 @@ const SignIn = () => {
 
           <button>{t.signIn.enter}</button>
 
+          <div className="orSeparator">
+              <div className="borderTop"></div>
+              <div className="orText">ou</div>
+              <div className="borderTop"></div>
+          </div>
+
+          <GoogleLoginButton 
+          icon={iconGoogle.src} 
+          onClick={() => signIn("google")}
+          text={t.signIn.google}
+          />
+
+          <GoogleLoginButton 
+            icon={iconFacebook.src} 
+            onClick={() => signIn("facebook")}
+            text={t.signIn.facebook}
+          />
+
           <div className="bottom-cta">
             <h5>{t.signIn.notHaveAnAccount}</h5>
             <Link className="create-account special-link" href="/sign-up/profile">{t.signIn.here}</Link>
@@ -182,5 +216,14 @@ const SignIn = () => {
 
     );
 };
+
+export const getServerSideProps:GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+  return {
+    props:{
+      session
+    }
+  }
+}
 
 export default SignIn;
