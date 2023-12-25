@@ -205,9 +205,13 @@ const Nav = styled.div`
       display: none;
     }
     .logo-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30%;
     }
     .logo {
-      height: 100%;
+      height: 90%;
     }
     .profile{
     }
@@ -452,10 +456,10 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
       justifyContent: showSearchBar ? "flex-start" : width < 768 ? "space-between" : "center",
       backgroundColor: showSearchBar ? "#dedddd" : "transparent",
       marginBottom: showSearchBar ? 50 : 0,
-      paddingTop: showSearchBar ? '1rem' : '3rem',
-      paddingBottom: showSearchBar ? '1rem' : '3rem',
-      paddingRight: showSearchBar ? '1rem' : '5rem',
-      paddingLeft: showSearchBar ? '1rem' : '5rem',
+      paddingTop: showSearchBar ? '1rem' : '1rem',
+      paddingBottom: showSearchBar ? '1rem' : '1rem',
+      paddingRight: showSearchBar ? '1rem' : '0rem',
+      paddingLeft: showSearchBar ? '1rem' : '0rem',
     }}>
       <Link href="/" className="logo-area">
         <img className="logo" src={width > 768 ? "/meoagent-logo.png" : "/sublogo.png"} alt="Meoagent-logo" />
