@@ -28,8 +28,17 @@ const Container = styled.div`
     justify-content: flex-start;
     gap: 2rem;
     padding-top: 4rem;
-    @media (max-width: 600px) {
+    @media (max-width: 1000px) {
+      width: 60%;
+      height: 70rem;
+    }
+    @media (max-width: 654px) {
       width: 80%;
+      gap: 1rem;
+      height: 65rem;
+    }
+    @media (max-width: 376px) {
+      gap: 0.1rem;
     }
     div{
       display: flex;
@@ -40,10 +49,14 @@ const Container = styled.div`
       p{
         font-weight: bold;
       }
+      @media (max-width: 376px) {
+        height: 8rem;
+      }
     }
   }
   textarea{
     min-height: 20rem;
+    
   }
   .redirect{
     position: absolute;
@@ -65,12 +78,23 @@ const Container = styled.div`
     border-radius: 1rem;
     font-weight: bold;
   }
+
+  .star-svg{
+    @media (max-width: 900px) {
+      width: 3.5rem !important;
+    }
+    @media (max-width: 400px) {
+      width: 3.5rem !important;
+    }
+  }
 `
 
 type AddCommentModalProps = {
   open: boolean,
   setOpen: Dispatch<SetStateAction<boolean>>
 }
+
+
 
 const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const [marketExpertiseRating, setMarketExpertiseRating] = useState(0)
@@ -155,6 +179,30 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
 
   }, [open])
 
+  const hasWindow = typeof window !== 'undefined';
+
+  function getWindowDimensions() {
+    const width = hasWindow ? window.innerWidth : null;
+    const height = hasWindow ? window.innerHeight : null;
+    return {
+      width,
+      height,
+    };
+  }
+
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  function handleResize() {
+    setWindowDimensions(getWindowDimensions());
+  }
+  useEffect(() => {
+    if (hasWindow) {
+      
+
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, [hasWindow]);
+
   return (
     (open) ?
     <Container className='modal'>
@@ -164,8 +212,8 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
             <h3>{t.review.createAReview}</h3>
             <div>
               <p>{t.review.marketKnowledge} </p>
-              <Rating
-                onClick={handleMarketRating}
+              <Rating className="estrela"
+                onClick={handleMarketRating}            
               />
             </div>
             <div>

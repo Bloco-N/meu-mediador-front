@@ -226,6 +226,9 @@ position:fixed;
 min-width: 150px;
   top:${porps => `${porps.posY}px`};
   left:${porps => `${porps.posX}px`};
+  @media (max-width: 654px) {
+    left:${porps => `${porps.posX-150}px`};
+  }
   z-index:15;
   display:${porps => porps.show ? 'flex': 'none'};
   flex-direction:column;
@@ -373,7 +376,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
         </div>
         <div className="about-2">
         {userSigned?.RealtorCities && (
-          <p>
+          <>
             <ToolTipContainer onMouseOver={()=>tooltipStill()} onMouseLeave={()=>tooltipHide()} show={tooltip.show} posX={tooltip.posX} posY={tooltip.posY}>
               <b>Cidades que atua:</b>
               <ul className="cities-list">
@@ -387,7 +390,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
             </b>
               {printCities()}{userSigned.RealtorCities.length>3?
                 <span> e outras <b onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>)=>tooltipShow(e)} onMouseLeave={()=>tooltipHide()}>{userSigned.RealtorCities.length-2}</b> cidades</span>:""}
-          </p>
+          </>
           
         )}
           <p>
