@@ -10,7 +10,7 @@ const SignUpContainer = styled.div`
   display: flex;
   align-items: start;
   justify-content: center;
-
+  
   form{
     @media only screen and (max-width: 900px){
       width: 60%;
@@ -25,7 +25,9 @@ const SignUpContainer = styled.div`
     margin: 0 auto;
     padding: 3rem 3.5rem;
     gap: 2.5rem;
-
+    @media (max-width: 769px) {
+      height: 65rem;
+    }
     .full-name{
       display: flex;
       gap: 2rem;
@@ -44,7 +46,7 @@ const SignUpContainer = styled.div`
     span{
       text-align: center;
     }
-
+    
   }
 
   @media (max-width: 768px) {
@@ -73,6 +75,7 @@ const SignUpContainer = styled.div`
       }
     }
   }
+  
 `
 
 const SignUp = () => {
