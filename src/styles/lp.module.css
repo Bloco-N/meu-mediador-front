@@ -220,3 +220,123 @@
   justify-content: center;
   align-items: center;
 }
+
+@media(max-width: 1600px) {
+  .textDiv p {
+    width: 90% !important;
+  }
+}
+
+@media(max-width: 1400px) {
+  .textDiv p {
+    width: 100% !important;
+  }
+}
+
+@media(max-width: 1380px) {
+  .contentSection1 {
+    width: 90% !important;
+  }
+
+  .textDiv h1 {
+    font-size: 32px;
+  }
+
+  .textDiv p {
+    font-size: 18px;
+  }
+
+  .form select {
+    height: 60px !important;
+    font-size: 14px !important;
+  }
+
+  .form input {
+    height: 45px;
+  }
+
+  .divImage img {
+    width: 170px;
+    height: 200px;
+  }
+}
+
+@media(max-width: 1170px) {
+  .contentSection1 {
+    padding-top: 4%;
+  }
+
+  .hero {
+    margin-bottom: -100px !important;
+  }
+
+  .textDiv h1 {
+    font-size: 28px;
+  }
+}
+
+@media(max-width: 1080px) {
+  .container {
+    width: 100% !important;
+  }
+
+  .contentSection1 {
+    width: 95% !important;
+  }
+
+  .textDiv p {
+    font-size: 16px;
+    width: 100% !important;
+  }
+
+  .textDiv a {
+    width: 350px;
+    font-size: 16px;
+  }
+
+  .submitButton {
+    font-size: 16px;
+  }
+}
+
+@media(max-width: 800px) {
+  .hero {
+    margin-bottom: 20px !important;
+  }
+
+  .contentSection1 {
+    flex-direction: column;
+  }
+
+  .form {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .textDiv {
+    width: 90%;
+    padding: 0;
+  }
+
+  .textDiv a {
+    width: 100%;
+  }
+
+  .textDiv p {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .formDiv {
+    width: 100%;
+  }
+
+  .divImage {
+    width: 100% !important;
+    margin-top: 40px;
+  }
+
+  .form input {
+    font-size: 16px;
+  }
+}
