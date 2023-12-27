@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-left: 10px !important;
+  margin-left: 20px;
 }
 
 .photo {
@@ -25,7 +25,7 @@
 }
 
 .carouselComponent {
-  width: 65%;
+  width: 70%;
   margin: 0 auto;
 }
 
@@ -48,9 +48,5 @@
 @media(max-width: 600px) {
   .carouselComponent {
     width: 90% ;
-  }
-
-  .card {
-    margin-left: 0.5px !important;
   }
 }

@@ -34,9 +34,7 @@ export const Carousel = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    centerPadding: '380px',
     draggable: true,
-    arrows: true
   };
 
   return(
