@@ -22,7 +22,9 @@ const pt = {
     experience: 'Experiência:',
     languages: 'Idiomas:',
     salesResult: 'Resultado de Vendas: ',
-    clientsHelped:'Clientes Ajudados: '
+    clientsHelped:'Clientes Ajudados: ',
+    propertiesSold: "Imoveis vendidos: ",
+    accompaniedBuyers:"Compradores acompanhados: "
   },
   mainInfoEditModal:{
     language:"Idioma",
@@ -106,7 +108,7 @@ const pt = {
     addComment:'Adicionar Comentário',
     reply:"Responder",
     completeData: "Preencha todos os seus dados antes de avaliar um consultor!",
-    link: "Clique aqui!",
+    link: "Clique aqui ",
     endRegistration:"e finalize seu cadastro.",
     login: "Faça login como cliente."
   },

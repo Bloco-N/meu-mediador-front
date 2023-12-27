@@ -23,7 +23,9 @@ const en = {
     experience: 'Experience:',
     languages: 'Languages:',
     salesResult: 'Sales Result: ',
-    clientsHelped:'Clients Helped: '
+    clientsHelped:'Clients Helped: ',
+    propertiesSold: "Properties sold: ",
+    accompaniedBuyers:"Accompanied buyers: "
   },
   mainInfoEditModal:{
     language:"Language",
@@ -107,7 +109,7 @@ const en = {
     addComment:'Upload Review',
     reply:"Reply",
     completeData: "Complete your registration to review a agent.",
-    link: "Click here",
+    link: "Click here ",
     endRegistration:"and complete your registration.",
     login: "Log in as a customer."
   },

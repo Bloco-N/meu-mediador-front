@@ -23,7 +23,9 @@ const es = {
     experience: 'Experiencia:',
     languages: 'Idiomas:',
     salesResult: 'Resultado de ventas: ',
-    clientsHelped:'Clientes ayudados: '
+    clientsHelped:'Clientes ayudados: ',
+    propertiesSold: "Propiedades vendidas: ",
+    accompaniedBuyers:"Compradores acompañados: "
   },
   mainInfoEditModal:{
     language:"Idioma",
@@ -107,7 +109,7 @@ const es = {
     addComment:'Adicionar Reseña',
     reply:"Responder",
     completeData: "Complete su registro para revisar un agente.",
-    link: "Haz clic aquí",
+    link: "Haz clic aquí ",
     endRegistration:"y completa tu registro.",
     login: "Iniciar sesión como cliente"
   },

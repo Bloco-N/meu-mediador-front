@@ -437,12 +437,12 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
         <div className="about-3">
           <p>
             <b>
-              Imoveis vendidos: 
+            {t.mainInfo.propertiesSold}
             </b> {userSigned?.sold}
           </p>   
           <p>
             <b>
-              Compradores acompanhados: 
+            {t.mainInfo.accompaniedBuyers}
             </b> {userSigned?.bought}
           </p>  
 

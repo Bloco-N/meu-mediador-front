@@ -329,10 +329,13 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
               <p className="redirectMessage">{t.comments.completeData}</p>
               
               <div className="divLabel">
-                <Link  onClick={() => setOpen(false)} className="styledLink" href={"/profile/client/1"}>
+                
+                  
+                <p> <a onClick={() => setOpen(false)} className="styledLink" href={`/profile/client/${profileId}`}>
                   <strong className="link">{t.comments.link}</strong>
-                </Link> 
-                <p>{t.comments.endRegistration}</p>
+                  </a> 
+                  {t.comments.endRegistration}
+                </p>
               </div>
              
              
