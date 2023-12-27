@@ -2,6 +2,7 @@ import { AddCommentForm } from "@/types/AddCommentForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
 import locales from "locales";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -17,9 +18,10 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  form{
+  
+  form {
     position: relative;
-    height: 65rem;
+    height: 60rem;
     width: 40%;
     border-radius: 3rem;
     display: flex;
@@ -39,14 +41,23 @@ const Container = styled.div`
     }
     @media (max-width: 376px) {
       gap: 0.1rem;
+    gap: 1.5rem;
+    padding-top: 2.5rem; 
+    
+    @media (max-width: 600px) {
+      width: 80%;
+      height: auto;
+      padding-top: 2rem;
     }
-    div{
+    
+    div {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 2rem;
+      gap: 1.5rem;
       width: 80%;
-      p{
+      
+      p {
         font-weight: bold;
       }
       @media (max-width: 376px) {
@@ -57,16 +68,33 @@ const Container = styled.div`
   textarea{
     min-height: 20rem;
     
+
+      @media (max-width: 600px) {
+        width: 85%;
+      }
+    }
   }
-  .redirect{
+  
+  .desableForm{
+      height: 20rem;
+    }
+
+
+  textarea {
+    min-height: 10rem;
+  }
+  
+  .redirect {
     position: absolute;
     top: 50%;
     font-weight: bold;
+    display: flex;
   }
-  .close{
+  
+  .close {
     cursor: pointer;
     position: absolute;
-    top: 3rem;
+    top: 2.5rem;
     right: 3rem;
     height: 3rem;
     width: 3rem;
@@ -77,6 +105,10 @@ const Container = styled.div`
     color: var(--surface);
     border-radius: 1rem;
     font-weight: bold;
+    
+    @media (max-width: 600px) {
+      top: 2.5%;
+    }
   }
 
   .star-svg{
@@ -87,7 +119,66 @@ const Container = styled.div`
       width: 3.5rem !important;
     }
   }
-`
+  select {
+  width: 26%;
+  height: 3.5rem;
+  padding: 0.5rem;
+  font-size: 16px;
+  text-align: center;
+  overflow: auto;
+
+  @media (max-width: 600px) {
+    width: 40%;
+    font-size: 12px;
+  }
+}
+
+  input {
+    width: 26%;
+    height: 3.5rem;
+    text-align: left;
+    font-size: 10px;
+    
+    @media (max-width: 600px) {
+      width: 27%;
+      font-size: 10px;
+    }
+  }
+  
+  button {
+    margin-bottom: 8em;
+    
+    @media (max-width: 600px) {
+      margin-bottom: 2em;
+    }
+  }
+
+  .redirectContainer{
+    position: absolute;
+    top: 47%;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column; /* Adicione esta linha para garantir que os elementos fiquem em coluna */
+    align-items: center; /* Adicione esta linha para centralizar os elementos */
+
+    .styledLink{
+      margin-left: 5px;
+      margin-right: 0;
+    }
+    
+    .redirectMessage{
+      display: inline;
+    }
+    .divLabel{
+      display: flex;
+      justify-content: center;
+      width: 70%;
+    }
+    .link{
+      text-decoration: underline;
+    }
+  }
+`;
 
 type AddCommentModalProps = {
   open: boolean,
@@ -101,8 +192,25 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const [responsivenessRating, setResponsivenessRating] = useState(0)
   const [negotiationSkillsRating, setNegotiationSkillsRating] = useState(0)
   const [profissionalismAndComunicationRating, setProfissionalismAndComunicationRating] = useState(0)
+  const [size, setSize] = useState(50);
+  const [dateOftheDeed, setDateOftTheDeed] = useState("");
 
   const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 600) {
+        setSize(30);
+      } else {
+        setSize(40);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const handleMarketRating = (rate: number) => {
     setMarketExpertiseRating(rate)
@@ -123,6 +231,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const { register, handleSubmit } = useForm<AddCommentForm>()
 
   const [accType, setAccType] = useState('')
+  const [validateClient, setValidateClient] = useState(false)
 
   const router = useRouter()
 
@@ -134,18 +243,20 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const { id:profileId } = router.query
   
   const onSubmit = async (data: AddCommentForm) => {
-
     const localId = localStorage.getItem('id')
 
     setLoadingOpen(true)
     const realtorBody = {
-      ...data,
+      text: data.text,
+      sold: data.id == 1 ? 1 : 0,
+      bought: data.id == 2 ? 1 : 0,
       marketExpertiseRating,
       responsivenessRating,
       negotiationSkillsRating,
       profissionalismAndComunicationRating,
       clientId: Number(localId),
-      realtorId: Number(profileId)
+      realtorId: Number(profileId),
+      dateOftheDeed
     }
     const agencyBody = {
       ...data,
@@ -165,6 +276,12 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
     })
 
     const text = await response.text()
+    console.log(text, "Text")
+    if(text == "false"){
+      console.log("Entrou")
+      setValidateClient(false)
+    }
+    console.log(validateClient, "Teste")
     setLoadingOpen(false)
     if(text === 'created') router.reload()
 
@@ -175,6 +292,9 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
 
     if(accountType){
       setAccType(accountType)
+      setValidateClient(false)
+    }else{
+      setValidateClient(true)
     }
 
   }, [open])
@@ -206,33 +326,48 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   return (
     (open) ?
     <Container className='modal'>
-      <form onSubmit={handleSubmit(onSubmit)} action="">
-        {accType === 'client' ? (
+      <form className={accType === 'client' && validateClient ? "" : "desableForm"} onSubmit={handleSubmit(onSubmit)} action="">
+        {accType === 'client' && validateClient? (
           <>
             <h3>{t.review.createAReview}</h3>
             <div>
               <p>{t.review.marketKnowledge} </p>
-              <Rating className="estrela"
-                onClick={handleMarketRating}            
+              <Rating
+                onClick={handleMarketRating}
+                size={size}
               />
             </div>
             <div>
               <p>{t.review.responsiveness} </p>
               <Rating
                 onClick={handleResponsiveRating}
+                size={size}
               />
             </div>
             <div>
               <p>{t.review.negotiation} </p>
               <Rating
                 onClick={handleNegotiationRating}
+                size={size}
               />
             </div>
             <div>
               <p>{t.review.professionalismAndCommunication} </p>
               <Rating
                 onClick={handleProfissionalismRating}
+                size={size}
               />
+            </div>
+            <div>
+              <p>{t.review.soldAndBought} </p>
+              <select {...register('id', { required: true})}>
+                  <option key={1} value={1}>Vendi</option>
+                  <option key={2} value={2}>Comprei</option>
+              </select>
+            </div>
+            <div>
+              <p>{t.review.dateOfTheDeed} </p>
+              <input onChange={(e) => setDateOftTheDeed(e.target.value)} type="date" />
             </div>
             <textarea placeholder={t.review.writeYourCommentHere} {...register('text', {required: true})}/>
             <p className="close" onClick={() => setOpen(false)}>X</p>
@@ -242,7 +377,25 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
         ): (
           <>
             <p className="close" onClick={() => setOpen(false)}>X</p>
-            <p className="redirect">Faça login como cliente</p>
+            {validateClient?
+            <p className="redirect">{t.comments.login}</p>
+              :
+            <div className="redirectContainer">
+              <p className="redirectMessage">{t.comments.completeData}</p>
+              
+              <div className="divLabel">
+                
+                  
+                <p> <a onClick={() => setOpen(false)} className="styledLink" href={`/profile/client/${profileId}`}>
+                  <strong className="link">{t.comments.link}</strong>
+                  </a> 
+                  {t.comments.endRegistration}
+                </p>
+              </div>
+             
+             
+            </div>
+            }
           </>
         ) }
       </form>

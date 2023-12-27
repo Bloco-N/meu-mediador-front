@@ -19,11 +19,13 @@ const es = {
     button: 'Convertir perfil a PDF'
   },
   mainInfo:{
-    workArea: 'Área de actuación:',
+    workArea: 'Área de actuación: ',
     experience: 'Experiencia:',
     languages: 'Idiomas:',
     salesResult: 'Resultado de ventas: ',
-    clientsHelped:'Clientes ayudados: '
+    clientsHelped:'Clientes ayudados: ',
+    propertiesSold: "Propiedades vendidas: ",
+    accompaniedBuyers:"Compradores acompañados: "
   },
   mainInfoEditModal:{
     language:"Idioma",
@@ -105,7 +107,11 @@ const es = {
     comments:'Reseñas',
     thisAgentHasNoReviews:'Este consultor no tiene reseñas',
     addComment:'Adicionar Reseña',
-    reply:"Responder"
+    reply:"Responder",
+    completeData: "Complete su registro para revisar un agente.",
+    link: "Haz clic aquí ",
+    endRegistration:"y completa tu registro.",
+    login: "Iniciar sesión como cliente"
   },
   signIn:{
     signIn: "Iniciar Sesión",
@@ -164,6 +170,8 @@ const es = {
     professionalismAndCommunication:"Profesionalidad y Comunicación:",
     writeYourCommentHere:"Escribe tu comentario aqui",
     writeYourReplyHere:"Escribe tu respuesta aqui",
+    soldAndBought: "¿Ha vendido o comprado una propiedad con el asesor inmobiliario?",
+    dateOfTheDeed: "¿Cuál es la fecha de la escritura?"
   },
   clientProfile:{
     adress:'Dirección',

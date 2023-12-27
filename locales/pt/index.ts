@@ -18,11 +18,13 @@ const pt = {
     button: 'Converter Perfil em PDF'
   },
   mainInfo:{
-    workArea: 'Atua em:',
+    workArea: 'Atua em: ',
     experience: 'Experiência:',
     languages: 'Idiomas:',
     salesResult: 'Resultado de Vendas: ',
-    clientsHelped:'Clientes Ajudados: '
+    clientsHelped:'Clientes Ajudados: ',
+    propertiesSold: "Imoveis vendidos: ",
+    accompaniedBuyers:"Compradores acompanhados: "
   },
   mainInfoEditModal:{
     language:"Idioma",
@@ -104,7 +106,11 @@ const pt = {
     comments:'Avaliações',
     thisAgentHasNoReviews:'Esse consultor não possui avaliações',
     addComment:'Adicionar Comentário',
-    reply:"Responder"
+    reply:"Responder",
+    completeData: "Preencha todos os seus dados antes de avaliar um consultor!",
+    link: "Clique aqui ",
+    endRegistration:"e finalize seu cadastro.",
+    login: "Faça login como cliente."
   },
   signIn:{
     signIn: "Entrar",
@@ -160,9 +166,11 @@ const pt = {
     marketKnowledge: "Conhecimento de mercado:",
     responsiveness:"Capacidade de resposta:",
     negotiation:"Negociação:",
-    professionalismAndCommunication:"Porfissionalismo e Comunicação:",
+    professionalismAndCommunication:"Profissionalismo e Comunicação:",
     writeYourCommentHere:"Escreva seu comentário aqui",
-    writeYourReplyHere:"Escreva sua resposta aqui"
+    writeYourReplyHere:"Escreva sua resposta aqui",
+    soldAndBought: "Vendeu ou comprou imóvel com o consultor?",
+    dateOfTheDeed: "Qual a data da escritura?"
   },
   clientProfile:{
     adress:'Morada',

@@ -1,3 +1,4 @@
 export type AddCommentForm = {
-  text:string
+  text:string,
+  id: number
 }

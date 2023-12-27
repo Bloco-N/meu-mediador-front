@@ -26,4 +26,6 @@ export class RealtorProfile {
   RealtorCities!: RealtorCity[]
   RealtorLanguages!: RealtorLanguage[]
   address?: string | null
+  sold?: number | null
+  bought?: number | null
 }
