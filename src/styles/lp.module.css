@@ -1,3 +1,7 @@
+.container {
+  width: 100%;
+}
+
 .hero {
   background-image: url('../../public/hero.webp');
   background-position: center;
