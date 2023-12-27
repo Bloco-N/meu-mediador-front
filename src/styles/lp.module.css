@@ -84,14 +84,13 @@
 .diagonalDiv {
   background-image: url('../../public/rectangle.webp');
   min-height: 715px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
+  background-repeat: no-repeat;
 }
 
 .title2 {
   margin: 0 auto;
+  padding-top: 100px;
+  margin-bottom: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,32 +112,6 @@
   width: 70%;
   margin: 0 auto;
   margin-top: -30px;
-}
-
-
-.card {
-  padding: 1%;
-  background-color: #D9D9D9;
-  width: 380px;
-  height: 340px;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.photo {
-  border: 1px solid #ccc;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-}
-
-.card p {
-  margin-top: 22px;
-  font-weight: 600;
 }
 
 /* FINAL DIV */
@@ -244,6 +217,11 @@
     width: 90%;
   }
 
+  .carouselDiv {
+    width: 90%;
+    margin: 0 auto;
+  }
+
   .contentSection1 {
     width: 90% !important;
   }
@@ -345,6 +323,10 @@
     width: 100%;
     font-size: 16px;
   }
+
+  .title2 {
+    padding-top: 70px !important;
+  }
 }
 
 @media(max-width: 820px) {
@@ -421,6 +403,13 @@
   }
 
   .finalImage {
+    width: 100%;
+  }
+}
+
+@media(max-width: 600px) {
+  .title2 h2 {
+    font-size: 28px !important;
     width: 100%;
   }
 }

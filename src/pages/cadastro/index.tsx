@@ -1,11 +1,13 @@
-import styles from '../../styles/lp.module.css'
+import styles from '../../../src/styles/lp.module.css'
 import Image from 'next/image'
 
 import man from '../../../public/man-form.webp'
 import finalMan from '../../../public/man-final.webp'
+import { Carousel } from 'components/Carousel'
 
-const LP = () => {
-  return(
+export default function Cadastro() {
+  return (
+    <>
     <div className={styles.container} >
       <div className={styles.hero} >
         <div className={styles.contentSection1} >
@@ -62,53 +64,12 @@ const LP = () => {
           </div>
         </div>
       </div>
-      <div className={styles.diagonalDiv} >
+      <div className={styles.diagonalDiv}>
         <div className={styles.title2} >
           <h2>O que os consultores imobiliários falam do Meoagent</h2>
         </div>
-        <div className={styles.carouselDepositions} >
-          <div className={styles.card} >
-            <div className={styles.photo} >
-
-            </div>
-
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, dolor illo itaque perferendis officiis, voluptatibus repellendus similique quas doloribus qui modi aliquam recusandae natus alias pariatur odit, laborum dolore magnam?
-            </p>
-
-            <div>
-              <p>John Doe</p>
-              <span>Consultor imobiliário</span>
-            </div>
-          </div>
-          <div className={styles.card} >
-            <div className={styles.photo} >
-
-            </div>
-
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, dolor illo itaque perferendis officiis, voluptatibus repellendus similique quas doloribus qui modi aliquam recusandae natus alias pariatur odit, laborum dolore magnam?
-            </p>
-
-            <div>
-              <p>John Doe</p>
-              <span>Consultor imobiliário</span>
-            </div>
-          </div>
-          <div className={styles.card} >
-            <div className={styles.photo} >
-
-            </div>
-
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem, dolor illo itaque perferendis officiis, voluptatibus repellendus similique quas doloribus qui modi aliquam recusandae natus alias pariatur odit, laborum dolore magnam?
-            </p>
-
-            <div>
-              <p>John Doe</p>
-              <span>Consultor imobiliário</span>
-            </div>
-          </div>
+        <div className={styles.carouselDiv} >
+          <Carousel />
         </div>
       </div>
       <div className={styles.finalDiv} >
@@ -134,7 +95,6 @@ const LP = () => {
       </div>
       <footer className={styles.footer} >Copyright © 2023 Meoagent – Todos os direitos reservados</footer>
     </div>
+    </>
   )
 }
-
-export default LP
