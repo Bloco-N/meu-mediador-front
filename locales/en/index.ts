@@ -105,7 +105,11 @@ const en = {
     comments:'Reviews',
     thisAgentHasNoReviews:'This agent has no Reviews',
     addComment:'Upload Review',
-    reply:"Reply"
+    reply:"Reply",
+    completeData: "Complete your registration to review a agent.",
+    link: "Click here",
+    endRegistration:"and complete your registration.",
+    login: "Log in as a customer."
   },
   signIn:{
     signIn: "Sign In",

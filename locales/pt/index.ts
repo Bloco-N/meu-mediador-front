@@ -104,7 +104,11 @@ const pt = {
     comments:'Avaliações',
     thisAgentHasNoReviews:'Esse consultor não possui avaliações',
     addComment:'Adicionar Comentário',
-    reply:"Responder"
+    reply:"Responder",
+    completeData: "Preencha todos os seus dados antes de avaliar um consultor!",
+    link: "Clique aqui!",
+    endRegistration:"e finalize seu cadastro.",
+    login: "Faça login como cliente."
   },
   signIn:{
     signIn: "Entrar",

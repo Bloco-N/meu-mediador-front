@@ -2,6 +2,7 @@ import { AddCommentForm } from "@/types/AddCommentForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
 import locales from "locales";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -53,6 +54,11 @@ const Container = styled.div`
     }
   }
   
+  .desableForm{
+      height: 20rem;
+    }
+
+
   textarea {
     min-height: 10rem;
   }
@@ -61,6 +67,7 @@ const Container = styled.div`
     position: absolute;
     top: 50%;
     font-weight: bold;
+    display: flex;
   }
   
   .close {
@@ -116,6 +123,32 @@ const Container = styled.div`
       margin-bottom: 2em;
     }
   }
+
+  .redirectContainer{
+    position: absolute;
+    top: 47%;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column; /* Adicione esta linha para garantir que os elementos fiquem em coluna */
+    align-items: center; /* Adicione esta linha para centralizar os elementos */
+
+    .styledLink{
+      margin-left: 5px;
+      margin-right: 0;
+    }
+    
+    .redirectMessage{
+      display: inline;
+    }
+    .divLabel{
+      display: flex;
+      justify-content: center;
+      width: 70%;
+    }
+    .link{
+      text-decoration: underline;
+    }
+  }
 `;
 
 type AddCommentModalProps = {
@@ -167,7 +200,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const { register, handleSubmit } = useForm<AddCommentForm>()
 
   const [accType, setAccType] = useState('')
-  const [validateClient, setValidateClient] = useState(true)
+  const [validateClient, setValidateClient] = useState(false)
 
   const router = useRouter()
 
@@ -228,6 +261,9 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
 
     if(accountType){
       setAccType(accountType)
+      setValidateClient(false)
+    }else{
+      setValidateClient(true)
     }
 
   }, [open])
@@ -235,7 +271,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   return (
     (open) ?
     <Container className='modal'>
-      <form onSubmit={handleSubmit(onSubmit)} action="">
+      <form className={accType === 'client' && validateClient ? "" : "desableForm"} onSubmit={handleSubmit(onSubmit)} action="">
         {accType === 'client' && validateClient? (
           <>
             <h3>{t.review.createAReview}</h3>
@@ -287,9 +323,20 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
           <>
             <p className="close" onClick={() => setOpen(false)}>X</p>
             {validateClient?
-            <p className="redirect">Faça login como cliente</p>
+            <p className="redirect">{t.comments.login}</p>
               :
-            <p className="redirect">Preencha todos os seus dados antes de avaliar um consultor!</p>
+            <div className="redirectContainer">
+              <p className="redirectMessage">{t.comments.completeData}</p>
+              
+              <div className="divLabel">
+                <Link  onClick={() => setOpen(false)} className="styledLink" href={"/profile/client/1"}>
+                  <strong className="link">{t.comments.link}</strong>
+                </Link> 
+                <p>{t.comments.endRegistration}</p>
+              </div>
+             
+             
+            </div>
             }
           </>
         ) }

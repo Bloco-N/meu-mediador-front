@@ -105,7 +105,11 @@ const es = {
     comments:'Reseñas',
     thisAgentHasNoReviews:'Este consultor no tiene reseñas',
     addComment:'Adicionar Reseña',
-    reply:"Responder"
+    reply:"Responder",
+    completeData: "Complete su registro para revisar un agente.",
+    link: "Haz clic aquí",
+    endRegistration:"y completa tu registro.",
+    login: "Iniciar sesión como cliente"
   },
   signIn:{
     signIn: "Iniciar Sesión",
