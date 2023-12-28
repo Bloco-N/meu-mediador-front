@@ -85,7 +85,9 @@ const SignUpContainer = styled.div`
 const SignUp = () => {
   const { register, handleSubmit } = useForm<SignUpForm>();
   const [privacy_policy, setPrivacyPolicy] = useState(false);
-  const router = useRouter()
+
+  const [userExist, setUserExist] = useState(false);
+  const router = useRouter();
 
   const locale = router.locale;
   const { data: session } = useSession();
@@ -102,7 +104,16 @@ const SignUp = () => {
     }
   }, []);
 
-  const onSubmit = async (data: SignUpForm) => {
+  const onSubmit = async (data: SignUpForm | null) => {
+    const partesDoNome = session?.user?.name?.split(" ");
+    const firstName = partesDoNome ? partesDoNome[0] : null;
+    const lastName = partesDoNome?.slice(1).join(" ");
+    setUserExist(false);
+    const dataGoogle = {
+      email: session?.user?.email,
+      firstName: firstName,
+      lastName: lastName,
+    };
     const fetchData = async () => {
       let body;
 
@@ -122,9 +133,14 @@ const SignUp = () => {
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
 
-      if(response.ok) router.push('/sign-in/client')
-
-    }
+      if (response.ok){ 
+        router.push("/sign-in/client");
+      } else{
+        if (response.status === 400){
+          setUserExist(true);
+        }
+      }
+    };
 
     await fetchData();
   };
@@ -155,6 +171,12 @@ const SignUp = () => {
           placeholder={t.signIn.email}
           {...register("email", { required: true })}
         />
+        {
+          userExist ?
+          <label style={{color:"red"}}>{t.signUp.check_email}</label>
+          :
+          <></>
+        }
         <input
           className="input-sign-up"
           type="password"
@@ -174,22 +196,35 @@ const SignUp = () => {
           <div className="borderTop"></div>
         </div>
 
-          <input className="input-sign-up" type="email" placeholder={t.signIn.email}
-          {...register('email', {required:true})}/>
-          <input className="input-sign-up" type="password" placeholder={t.signIn.password}
-          {...register('password', {required:true})}/>
-          <input className="input-sign-up" type="password" placeholder={t.signUp.confirmPassword}
-          {...register('confirmPassword', {required:true})}/>
-         
-          <span className="txt-center"> <input type="checkbox" className="check_box" checked={privacy_policy} onClick={onPrivacyClick}/>{t.signUp.check_police}</span>
-          
-          <button type="submit" disabled={!privacy_policy}>{t.signUp.signUp}</button>
-          
-        </form>
-        
-      </SignUpContainer>
+        <GoogleLoginButton
+          icon={iconGoogle.src}
+          onClick={() => signIn("google")}
+          text={t.signIn.google}
+        />
 
-    );
+        <GoogleLoginButton
+          icon={iconFacebook.src}
+          onClick={() => signIn("facebook")}
+          text={t.signIn.facebook}
+        />
+
+        <span className="txt-center">
+          {" "}
+          <input
+            type="checkbox"
+            className="check_box"
+            checked={privacy_policy}
+            onClick={onPrivacyClick}
+          />
+          {t.signUp.check_police}
+        </span>
+
+        <button type="submit" disabled={!privacy_policy}>
+          {t.signUp.signUp}
+        </button>
+      </form>
+    </SignUpContainer>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

@@ -128,7 +128,8 @@ const en = {
   signUp:{
     signUp:"Sign Up",
     confirmPassword:"Confirm Password",
-    check_police:"I have read and agree to Meoagent's Terms of Service and Privacy Policy."
+    check_police:"I have read and agree to Meoagent's Terms of Service and Privacy Policy.",
+    check_email:"e-mail already registered"
   },
   signOut:{
     delete:"Do you want to permanently delete your account?",

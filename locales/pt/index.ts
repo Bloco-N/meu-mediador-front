@@ -127,7 +127,8 @@ const pt = {
   signUp:{
     signUp:"Cadastro",
     confirmPassword:"Confirmar Senha",
-    check_police:"Eu li e concordo com os Termos de Serviço e Política de Privacidade do Meoagent."
+    check_police:"Eu li e concordo com os Termos de Serviço e Política de Privacidade do Meoagent.",
+    check_email:"e-mail já cadastrado"
   },
   signOut:{
     delete:"Deseja excluir permanentemente sua conta ?",
