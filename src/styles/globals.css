@@ -375,3 +375,11 @@ input::-webkit-inner-spin-button {
     font-size: 1rem; 
   }
 }
+
+.slick-next {
+  right: -65px !important;
+}
+
+.slick-prev {
+  left: -65px !important;
+}
