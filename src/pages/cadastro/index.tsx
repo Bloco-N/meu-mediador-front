@@ -18,13 +18,10 @@ export default function Cadastro() {
   const onSubmit = (e: any) => {
     if(type === "agência") {
       fetchAgencyData()
-      e.preventDefault()
     } else if(type === "cliente") {
       fetchClientData()
-      e.preventDefault()
     } else if(type === "consultor") {
       fetchRealtorData()
-      e.preventDefault()
     } else {
       alert("Ops, algo errado!")
       e.preventDefault()
@@ -128,7 +125,6 @@ export default function Cadastro() {
               <form onSubmit={(e) => onSubmit(e)}>
                 <div>
                   <select value={type} onChange={(e: any) => setType(e.target.value)} name="type">
-                    <option value="" disabled selected>Sou consultor</option>
                     <option value="consultor">Consultor</option>
                     <option value="agência">Agência</option>
                     <option value="cliente">Cliente</option>
@@ -136,6 +132,7 @@ export default function Cadastro() {
                 </div>
                 <div>
                   <input 
+                    required
                     type="text" 
                     name='name' 
                     id='name' 
@@ -144,18 +141,22 @@ export default function Cadastro() {
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
+                { type === "agência" ? '' : (
+                  <div>
+                    <input 
+                      required
+                      type="text" 
+                      name='lastname' 
+                      id='lastname' 
+                      placeholder='Sobrenome' 
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </div>
+                ) }
                 <div>
                   <input 
-                    type="text" 
-                    name='lastname' 
-                    id='lastname' 
-                    placeholder='Sobrenome' 
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <input 
+                    required
                     type="text" 
                     name='email' 
                     id='email' 
@@ -166,6 +167,7 @@ export default function Cadastro() {
                 </div>
                 <div>
                   <input 
+                    required
                     type="password" 
                     name='password' 
                     id='password' 
@@ -176,6 +178,7 @@ export default function Cadastro() {
                 </div>
                 <div>
                   <input 
+                    required
                     type="password" 
                     name='confirmPassword' 
                     id='confirmPassword' 
