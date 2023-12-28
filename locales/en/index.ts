@@ -4,7 +4,8 @@ const en = {
     welcome: "Find your next Real Estate Agent here",
     searchRealtorNamePlaceholder:"Realtor Name",
     searchRealtorCityPlaceholder: "City or zip-code",
-    searchButton: "Search"
+    searchButton: "Search",
+    cad_bar:"Already part of Meoagent?"
   },
   loginModal:{
     client: 'Client',
@@ -134,7 +135,8 @@ const en = {
   signUp:{
     signUp:"Sign Up",
     confirmPassword:"Confirm Password",
-    check_police:"I have read and agree to Meoagent's Terms of Service and Privacy Policy."
+    check_police:"I have read and agree to Meoagent's Terms of Service and Privacy Policy.",
+    check_email:"e-mail already registered"
   },
   signOut:{
     delete:"Do you want to permanently delete your account?",
@@ -177,7 +179,10 @@ const en = {
     adress:'Adress',
     city:'City',
     country:'Country',
-    zipCode:'Zip Code' 
+    zipCode:'Zip Code',
+    nif:'NIF',
+    passport:'Passaport',
+    choice_nif:"Passaport or NIF" 
   },
   reportDialog:{
     close:'Close',
@@ -193,8 +198,7 @@ const en = {
     privacy:"Privacy Policy",
     conditions:"Terms and conditions",
     contact:"Contact:"
-  },
-  
+  }
 
 }
 

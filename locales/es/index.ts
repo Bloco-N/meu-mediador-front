@@ -4,7 +4,8 @@ const es = {
     welcome: "Encuentra aquí a tu asesor inmobiliario.",
     searchRealtorNamePlaceholder:"Nombre del agente",
     searchRealtorCityPlaceholder: "Ciudad o Código Postal",
-    searchButton: "Buscar"
+    searchButton: "Buscar",
+    cad_bar:"¿Ya eres parte de Meoagent?"
   },
   loginModal:{
     client: 'Cliente',
@@ -134,7 +135,8 @@ const es = {
   signUp:{
     signUp:"Inscribirse",
     confirmPassword:"Confirmar Contraseña",
-    check_police:"He leído y acepto los Términos de servicio y la Política de privacidad de Meoagent."
+    check_police:"He leído y acepto los Términos de servicio y la Política de privacidad de Meoagent.",
+    check_email:"Correo electrónico ya registrado"
   },
   signOut:{
     delete:"¿Quieres eliminar permanentemente tu cuenta?",
@@ -177,7 +179,10 @@ const es = {
     adress:'Dirección',
     city:'Ciudad',
     country:'País',
-    zipCode:'Código Postal' 
+    zipCode:'Código Postal',
+    nif:'NIF',
+    passport:'Pasaporte',
+    choice_nif:"Pasaporte o NIF"
   },
   reportDialog:{
     close:'Fechar',
@@ -185,14 +190,14 @@ const es = {
     description:'Describe el error encontrado.',
     title: 'Cuéntanos qué error viste',
     advertisement: 'Anuncio',
-    label:"<b>¿Ves algún error?</b> Háganos saber para que podamos hacer correcciones. <b>Haga clic aquí</b> y Cuéntanos qué errores viste",
+    label:"<b>¿Ves algún error?</b> Háganos saber para que podamos hacer correcciones. <b>Haga&nbspclic&nbspaquí</b>&nbspy&nbspCuéntanos&nbspqué&nbsperrores viste",
     warning:'Su queja ha sido registrada. ¡Gracias!'  
   },
 
   infoFooter:{
     privacy:"Política de privacidad",
     conditions:"Términos y Condiciones",
-    contact:"Contacto:"
+    contact:"Contacto"
   }
 }
 

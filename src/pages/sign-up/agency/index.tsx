@@ -21,7 +21,7 @@ const SignUpContainer = styled.div`
       gap: 3rem;
     }
     width: 30%;
-    height: 60rem;
+    min-height: 60rem;
     margin: 0 auto;
     padding: 3rem 3.5rem;
     gap: 2.5rem;
@@ -82,6 +82,9 @@ const SignUp = () => {
 
   const { register, handleSubmit } = useForm<SignUpFormAgency>()
   const [privacy_policy, setPrivacyPolicy] = useState(false);
+  const [userExist, setUserExist] = useState(false);
+
+
   const onPrivacyClick = () =>{
     setPrivacyPolicy(!privacy_policy);
   }
@@ -103,8 +106,14 @@ const SignUp = () => {
         body: JSON.stringify(body),
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
-
-      if(response.ok) router.push('/sign-in/agency')
+      if (response.ok){ 
+        router.push('/sign-in/agency');
+      } else{
+        if (response.status === 400){
+          setUserExist(true);
+        }
+      }
+      
 
     }
 
@@ -123,6 +132,12 @@ const SignUp = () => {
           {...register('name', {required:true, })} />
           <input className="input-sign-up" type="email" placeholder={t.signIn.email}
           {...register('email', {required:true})}/>
+          {
+            userExist ?
+            <label style={{color:"red"}}>{t.signUp.check_email}</label>
+            :
+            <></>
+          }
           <input className="input-sign-up" type="password" placeholder={t.signIn.password}
           {...register('password', {required:true})}/>
           <input className="input-sign-up" type="password" placeholder={t.signUp.confirmPassword}
