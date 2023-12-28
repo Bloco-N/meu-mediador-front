@@ -103,7 +103,7 @@ export default function Cadastro() {
         <div className={styles.contentSection1} >
           <div className={styles.textDiv} >
             <h1>A ferramenta obrigatória para todo consultor imobiliário</h1>
-            <a href="#">100% gratuito - Cadastre-se agora!</a>
+            <a href="/sign-up/profile">100% gratuito - Cadastre-se agora!</a>
             <p>
             Tenha mais negócios e eleve sua faturação, seja encontrado por mais clientes, consultores e tenha toda sua trajetória vitoriosa no imobiliário registrada!
             </p>
@@ -116,7 +116,7 @@ export default function Cadastro() {
             O Meoagent é um site feito para consultores, agências e clientes. Solução completa, fácil de usar e meritocrática!
             </p>
           </div>
-          <div className={styles.formDiv} >
+          <div id='cadastro' className={styles.formDiv} >
             <div className={styles.divImage} >
               <Image src={man} alt='man pointing' />
               <p>Preencha o formulário abaixo e crie seu cadastro!</p>
@@ -221,7 +221,7 @@ export default function Cadastro() {
         </div>
         <div className={styles.finalImage} >
           <Image src={finalMan} alt='man with a laptop' />
-          <a href="#">Quero me cadastrar no Meoagent agora!</a>
+          <a href="#cadastro">Quero me cadastrar no Meoagent agora!</a>
         </div>
       </div>
       <footer className={styles.footer} >Copyright © 2023 Meoagent – Todos os direitos reservados</footer>
