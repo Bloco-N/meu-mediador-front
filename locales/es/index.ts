@@ -4,7 +4,8 @@ const es = {
     welcome: "Encuentra aquí a tu asesor inmobiliario.",
     searchRealtorNamePlaceholder:"Nombre del agente",
     searchRealtorCityPlaceholder: "Ciudad o Código Postal",
-    searchButton: "Buscar"
+    searchButton: "Buscar",
+    cad_bar:"¿Ya eres parte de Meoagent?"
   },
   loginModal:{
     client: 'Cliente',

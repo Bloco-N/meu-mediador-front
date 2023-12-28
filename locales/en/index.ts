@@ -4,7 +4,8 @@ const en = {
     welcome: "Find your next Real Estate Agent here",
     searchRealtorNamePlaceholder:"Realtor Name",
     searchRealtorCityPlaceholder: "City or zip-code",
-    searchButton: "Search"
+    searchButton: "Search",
+    cad_bar:"Already part of Meoagent?"
   },
   loginModal:{
     client: 'Client',
