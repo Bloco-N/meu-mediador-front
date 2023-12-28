@@ -167,6 +167,12 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
 
   const [zipCode, setZipCode] = useState(userSigned?.zipCode)
 
+  const [nif_passport, setNifPassport] = useState(userSigned?.nif_passport)
+
+  const [choiceNif, setChoiceNif] = useState(userSigned?.choiceNif)
+
+  const [nifInvalido,setNifInvalido] = useState(false);
+
   const {setOpen: setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
   const [sessionProfile, setSessionProfile] = useState(false)
 
@@ -224,6 +230,15 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
     e.preventDefault() 
     const token = localStorage.getItem('token')
     setLoadingOpen(true)
+    var nifValidado = true;
+    setNifInvalido(false);
+    console.log("nif valido " + validateNIF(nif_passport));
+    if (choiceNif){
+      nifValidado = validateNIF(nif_passport);
+      setNifInvalido(!nifValidado);
+    }
+
+    if (nifValidado){
     await fetch(process.env.NEXT_PUBLIC_API_URL + '/client', {
         method:'PUT',
         body: JSON.stringify({
@@ -234,6 +249,8 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
           city,
           country,
           zipCode,
+          nif_passport,
+          choiceNif: choiceNif,
         }),
         headers:{
           authorization: 'Bearer ' + token,
@@ -242,11 +259,34 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
     })
     setLoadingOpen(false)
     router.reload()
+  }else{
+    setLoadingOpen(false)
   }
+    
+    
+    
+  }
+
+  
 
   function startEditing(e: any){
     e.preventDefault() 
     setEditing(!editing)
+  }
+
+  function validateNIF(value: any) {
+    const nif = typeof value === 'string' ? value : value.toString();
+    const validationSets = {
+      one: ['1', '2', '3', '5', '6', '8'],
+      two: ['45', '70', '71', '72', '74', '75', '77', '79', '90', '91', '98', '99']
+    };
+    if (nif.length !== 9) return false;
+    if (!validationSets.one.includes(nif.substr(0, 1)) && !validationSets.two.includes(nif.substr(0, 2))) return false;
+    const total = nif[0] * 9 + nif[1] * 8 + nif[2] * 7 + nif[3] * 6 + nif[4] * 5 + nif[5] * 4 + nif[6] * 3 + nif[7] * 2;
+    const modulo11 = (Number(total) % 11);
+    const checkDigit = modulo11 < 2 ? 0 : 11 - modulo11;
+    console.log(checkDigit === Number(nif[8]));
+    return checkDigit === Number(nif[8]);
   }
 
   return (
@@ -298,7 +338,7 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
           <li>
             <label>{t.clientProfile.city}: </label>
             {editing?
-              <input type="text" value={city} onChange={(e)=>setCity(e.target.value)}/>
+              <input  type="text" value={city} onChange={(e)=>setCity(e.target.value)}/>
               :<p>{city}</p> 
             }
           </li>
@@ -314,6 +354,35 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
             {editing?
               <input type="text" value={zipCode} onChange={(e)=>setZipCode(e.target.value)}/>
               :<p>{zipCode}</p> 
+            }
+          </li>
+
+          <li>
+            
+            {editing?
+            <>
+              <div style={{alignItems:'flex-start',verticalAlign:"middle"}}>
+                <label>
+                {t.clientProfile.nif}
+                <input style={{width:"auto",verticalAlign:"sub",marginLeft:"0.4rem"}} type='radio' value="true" checked={choiceNif} onChange={(e)=>setChoiceNif(e.target.value === "true")}/>
+                
+                </label>
+                <label style={{marginLeft:"0.8rem"}}>
+                {t.clientProfile.passport}
+                <input style={{width:"auto",verticalAlign:"sub",marginLeft:"0.4rem"}} type='radio' value="false" checked={!choiceNif} onChange={(e)=>setChoiceNif(e.target.value === "true")}/>
+                
+                </label>
+              </div>  
+              <input maxLength={choiceNif ? 9 : 28}  type={choiceNif ? "tel":"text" }value={nif_passport} onChange={(e)=>setNifPassport(e.target.value)}/>
+              {
+                choiceNif && nifInvalido ? <label style={{color:"red"}}>Nif Inválido</label> : <></> 
+              }
+              </>
+              :
+              <>
+              <label>{choiceNif ? t.clientProfile.nif : t.clientProfile.passport}: </label>
+              <p>{nif_passport}</p> 
+              </>
             }
           </li>
 

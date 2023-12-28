@@ -238,7 +238,7 @@ export default function Home() {
       
     </SearchRealtor>
     <NovoCadastro className="novo-cadastro2" style={{ width: `${size2}px` }}>
-      <h4 >Já faz parte do Meoagent? <a className="novo-botao">Criar nova conta.</a></h4>
+      <h4 >Já faz parte do Meoagent? <a className="novo-botao" href="/sign-up/profile">Criar nova conta.</a></h4>
     </NovoCadastro>
     <InfoFooter home={true}/>
     </>

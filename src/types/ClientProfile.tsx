@@ -8,4 +8,6 @@ export class ClientProfile{
     city!: string
     country!: string
     zipCode!: string
+    choiceNif!: boolean
+    nif_passport!: string
   }

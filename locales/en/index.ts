@@ -161,7 +161,10 @@ const en = {
     adress:'Adress',
     city:'City',
     country:'Country',
-    zipCode:'Zip Code' 
+    zipCode:'Zip Code',
+    nif:'NIF',
+    passport:'Passaport',
+    choice_nif:"Passaport or NIF" 
   },
   reportDialog:{
     close:'Close',
@@ -176,7 +179,7 @@ const en = {
   infoFooter:{
     privacy:"Privacy Policy",
     conditions:"Terms and conditions",
-    contact:"Contact:"
+    contact:"Contact"
   }
 
 }

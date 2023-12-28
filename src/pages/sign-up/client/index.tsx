@@ -81,6 +81,9 @@ const SignUp = () => {
 
   const { register, handleSubmit } = useForm<SignUpForm>()
   const [privacy_policy, setPrivacyPolicy] = useState(false);
+
+  const [cadastroExiste, setCadastroExiste] = useState(false);
+
   const router = useRouter()
 
   const locale = router.locale
@@ -94,6 +97,9 @@ const SignUp = () => {
 
 
   const onSubmit = async (data: SignUpForm) => {
+
+    setCadastroExiste(false);
+
     const fetchData = async () => {
 
       if(data.password !== data.confirmPassword) return
@@ -106,7 +112,16 @@ const SignUp = () => {
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
 
-      if(response.ok) router.push('/sign-in/client')
+      if(response.ok) {
+        router.push('/sign-in/client')
+      }
+      else {
+        if (response.status == 400){
+          console.log("Cliente já cadastrado")
+          alert("Cliente já cadastrado com esse e-mail")
+          setCadastroExiste(true);
+        }
+      }
 
     }
 
@@ -130,6 +145,9 @@ const SignUp = () => {
 
           <input className="input-sign-up" type="email" placeholder={t.signIn.email}
           {...register('email', {required:true})}/>
+          {
+            cadastroExiste ? <label style={{color:"red"}}>Cadastro já existe com esse email</label> : <></>
+          }
           <input className="input-sign-up" type="password" placeholder={t.signIn.password}
           {...register('password', {required:true})}/>
           <input className="input-sign-up" type="password" placeholder={t.signUp.confirmPassword}

@@ -191,7 +191,8 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
     "C":"#c7cf1a",
     "D":"#eadb02",
     "E":"#eabb09",
-    "F":"#d81920"
+    "F":"#d81920",
+    "G":"#a22529",
   }
   return (
     <Container >
@@ -208,10 +209,15 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
                 </div>
                 <h2>{item.price}</h2>
                 <h3>{item.title}</h3>
-               
+                  
                 <p className="sub-text" >
                   {PropertyTypes[locale as keyof typeof PropertyTypes][item.propertyType as keyof TPropertyTypes]} {Rooms[item.rooms as keyof TRooms]}, {t.addPropertiesModal.grossArea}: {item.grossArea}, {t.addPropertiesModal.usableArea}: {item.usefulArea}, {Preservations[locale as keyof typeof PropertyTypes][item.preservation as keyof TPreservations]}, {t.addPropertiesModal.eficiencia}:
+                  {
+                  ["H","I","J"].includes(item.energyefficience) ?
+                   <a> {EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}</a>
+                   : 
                   <a className="gg-home-alt" style={{color: EnergyColors[item.energyefficience as keyof TEnergyEfficience], display:"inline-flex",height:"10px",marginBottom:"10px",marginLeft:"2px"}}><span style={{color:"white",marginTop:"-2px",zIndex:"1",position:"relative",marginLeft:"auto",marginRight:"auto",fontSize:"10px"}}>{EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}</span></a>
+                  }
                   .
                   
                   

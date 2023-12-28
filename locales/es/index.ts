@@ -161,7 +161,10 @@ const es = {
     adress:'Dirección',
     city:'Ciudad',
     country:'País',
-    zipCode:'Código Postal' 
+    zipCode:'Código Postal',
+    nif:'NIF',
+    passport:'Pasaporte',
+    choice_nif:"Pasaporte o NIF"
   },
   reportDialog:{
     close:'Fechar',
@@ -169,14 +172,14 @@ const es = {
     description:'Describe el error encontrado.',
     title: 'Cuéntanos qué error viste',
     advertisement: 'Anuncio',
-    label:"<b>¿Ves algún error?</b> Háganos saber para que podamos hacer correcciones. <b>Haga clic aquí</b> y Cuéntanos qué errores viste",
+    label:"<b>¿Ves algún error?</b> Háganos saber para que podamos hacer correcciones. <b>Haga&nbspclic&nbspaquí</b>&nbspy&nbspCuéntanos&nbspqué&nbsperrores viste",
     warning:'Su queja ha sido registrada. ¡Gracias!'  
   },
 
   infoFooter:{
     privacy:"Política de privacidad",
     conditions:"Términos y Condiciones",
-    contact:"Contacto:"
+    contact:"Contacto"
   }
 }
 

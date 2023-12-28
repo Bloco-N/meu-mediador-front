@@ -158,9 +158,12 @@ const pt = {
   },
   clientProfile:{
     adress:'Morada',
-    city:'Cidade',
+    city:'Concelho/Cidade',
     country:'País',
-    zipCode:'Código Postal' 
+    zipCode:'Código Postal' ,
+    nif:'NIF',
+    passport:'Passaporte',
+    choice_nif:"Passaporte ou NIF"
   },
 
   reportDialog:{
@@ -169,14 +172,14 @@ const pt = {
     description:'Descreva o erro encontrado',
     title: 'Diz-nos qual foi o erro que viste',
     advertisement: 'Anúncio Errado',
-    label:'<b>Vês algum erro?</b> Informe o Meoagent para que possamos fazer as correções necessárias. <b>Clique aqui</b> e nos conte os erros que viste!',
+    label:'<b>Vês algum erro?</b> Informe o Meoagent para que possamos fazer as correções necessárias. <b>Clique&nbspaqui</b>&nbspe&nbspnos&nbspconte&nbspos&nbsperros que viste!',
     warning:'Sua denúncia foi registrada. Obrigado!' 
   },
 
   infoFooter:{
     privacy:"Política de Privacidade",
     conditions:"Termos e Condições",
-    contact:"Contacto:"
+    contact:'Contacto'
   }
 }
 
