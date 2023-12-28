@@ -4,8 +4,101 @@ import Image from 'next/image'
 import man from '../../../public/man-form.webp'
 import finalMan from '../../../public/man-final.webp'
 import { Carousel } from 'components/Carousel'
+import { useState } from 'react'
+import router from 'next/router'
 
 export default function Cadastro() {
+  const [type, setType] = useState<"consultor" | "cliente" | "agência">("consultor")
+  const [name, setName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+
+  const onSubmit = (e: any) => {
+    if(type === "agência") {
+      fetchAgencyData()
+      e.preventDefault()
+    } else if(type === "cliente") {
+      fetchClientData()
+      e.preventDefault()
+    } else if(type === "consultor") {
+      fetchRealtorData()
+      e.preventDefault()
+    } else {
+      alert("Ops, algo errado!")
+      e.preventDefault()
+    }
+  }
+
+  const fetchAgencyData = async() => {
+    if(password != confirmPassword) {
+      alert("As senhas não coincidem")
+      return
+    }
+
+    const urlFetch = process.env.NEXT_PUBLIC_API_URL + "/agency/sign-up";
+    const body = {
+      name,
+      email,
+      password,
+    }
+
+    const response = await fetch(urlFetch, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    });
+
+    if (response.ok) router.push("/sign-in/agency");
+  }
+
+  const fetchClientData = async() => {
+    if(password != confirmPassword) {
+      alert("As senhas não coincidem")
+      return
+    }
+
+    const urlFetch = process.env.NEXT_PUBLIC_API_URL + "/client/sign-up";
+    const body = {
+      name,
+      lastName,
+      email,
+      password,
+    }
+
+    const response = await fetch(urlFetch, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    });
+
+    if (response.ok) router.push("/sign-in/client");
+  }
+
+  const fetchRealtorData = async() => {
+    if(password != confirmPassword) {
+      alert("As senhas não coincidem")
+      return
+    }
+
+    const urlFetch = process.env.NEXT_PUBLIC_API_URL + '/realtor/sign-up'
+    const body = {
+      name,
+      lastName,
+      email,
+      password,
+    }
+
+    const response = await fetch(urlFetch, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: { "Content-type": "application/json; charset=UTF-8" },
+    });
+
+    if(response.ok) router.push('/sign-in/realtor')
+  }
+
   return (
     <>
     <div className={styles.container} >
@@ -32,29 +125,64 @@ export default function Cadastro() {
               <p>Preencha o formulário abaixo e crie seu cadastro!</p>
             </div>
             <div className={styles.form} >
-              <form action="">
+              <form onSubmit={(e) => onSubmit(e)}>
                 <div>
-                  <select name="type">
+                  <select value={type} onChange={(e: any) => setType(e.target.value)} name="type">
                     <option value="" disabled selected>Sou consultor</option>
-                    <option value="Consultor">Consultor</option>
-                    <option value="Agência">Agência</option>
-                    <option value="Cliente">Cliente</option>
+                    <option value="consultor">Consultor</option>
+                    <option value="agência">Agência</option>
+                    <option value="cliente">Cliente</option>
                   </select>
                 </div>
                 <div>
-                  <input type="text" name='name' id='name' placeholder='Nome' />
+                  <input 
+                    type="text" 
+                    name='name' 
+                    id='name' 
+                    placeholder='Nome' 
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </div>
                 <div>
-                  <input type="text" name='lastname' id='lastname' placeholder='Sobrenome' />
+                  <input 
+                    type="text" 
+                    name='lastname' 
+                    id='lastname' 
+                    placeholder='Sobrenome' 
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
                 </div>
                 <div>
-                  <input type="text" name='email' id='email' placeholder='Email' />
+                  <input 
+                    type="text" 
+                    name='email' 
+                    id='email' 
+                    placeholder='Email' 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
                 <div>
-                  <input type="password" name='password' id='password' placeholder='Senha' />
+                  <input 
+                    type="password" 
+                    name='password' 
+                    id='password' 
+                    placeholder='Senha' 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
                 <div>
-                  <input type="password" name='confirmPassword' id='confirmPassword' placeholder='Confirme sua senha' />
+                  <input 
+                    type="password" 
+                    name='confirmPassword' 
+                    id='confirmPassword' 
+                    placeholder='Confirme sua senha' 
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
                 </div>
                 <div >
                   <input className={styles.submitButton} type="submit" value="Criar meu cadastro no Meoagent agora!" />
