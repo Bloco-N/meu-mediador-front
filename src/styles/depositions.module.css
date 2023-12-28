@@ -47,6 +47,14 @@
 
 @media(max-width: 600px) {
   .carouselComponent {
-    width: 90% ;
+    width: 90%;
+  }
+
+  .card {
+    margin-left: 8px;
+  }
+
+  .card span {
+    font-size: 12px;
   }
 }
