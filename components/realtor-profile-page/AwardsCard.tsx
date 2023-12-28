@@ -54,6 +54,7 @@ const Container = styled.div`
           display: flex;
           align-items: center;
           gap: 1rem;
+          font-size: 1.6rem;
         }
         color: var(--surface-2);
       }

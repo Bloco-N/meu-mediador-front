@@ -86,8 +86,8 @@ export default function SearchResult(){
         ))}
         <div className="pagination">
           <Pagination currentPage={searchResult.currentPage} totalOfPages={searchResult.totalOfPages}/>
-        </div>
-        <InfoFooter/>
+        </div>       
+          <InfoFooter/>     
       </div>
       
     </Container>

@@ -11,6 +11,7 @@ import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import locales from "../../locales";
 import InfoFooter from "components/InfoFooter";
+import Link from "next/link";
 
 const SearchRealtor = styled.div`
   width: 100%;
@@ -238,7 +239,7 @@ export default function Home() {
       
     </SearchRealtor>
     <NovoCadastro className="novo-cadastro2" style={{ width: `${size2}px` }}>
-      <h4 >Já faz parte do Meoagent? <a className="novo-botao">Criar nova conta.</a></h4>
+      <h4 >{t.home.cad_bar}<Link style={{color:"blue"}} className="create-account special-link" href="/sign-up/profile"> {t.signIn.here}</Link></h4>
     </NovoCadastro>
     <InfoFooter home={true}/>
     </>
