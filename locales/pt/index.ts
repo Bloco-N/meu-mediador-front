@@ -3,7 +3,8 @@ const pt = {
     welcome: "Encontre seu próximo consultor imobiliário aqui",
     searchRealtorNamePlaceholder: "Nome do Consultor",
     searchRealtorCityPlaceholder: "Cidade ou CEP",
-    searchButton: "Buscar"
+    searchButton: "Buscar",
+    cad_bar:"Já faz parte do Meoagent?"
   },
   loginModal:{
     client: 'Cliente',
@@ -18,11 +19,13 @@ const pt = {
     button: 'Converter Perfil em PDF'
   },
   mainInfo:{
-    workArea: 'Atua em:',
+    workArea: 'Atua em: ',
     experience: 'Experiência:',
     languages: 'Idiomas:',
     salesResult: 'Resultado de Vendas: ',
-    clientsHelped:'Clientes Ajudados: '
+    clientsHelped:'Clientes Ajudados: ',
+    propertiesSold: "Imoveis vendidos: ",
+    accompaniedBuyers:"Compradores acompanhados: "
   },
   mainInfoEditModal:{
     language:"Idioma",
@@ -104,7 +107,11 @@ const pt = {
     comments:'Avaliações',
     thisAgentHasNoReviews:'Esse consultor não possui avaliações',
     addComment:'Adicionar Comentário',
-    reply:"Responder"
+    reply:"Responder",
+    completeData: "Preencha todos os seus dados antes de avaliar um consultor!",
+    link: "Clique aqui ",
+    endRegistration:"e finalize seu cadastro.",
+    login: "Faça login como cliente."
   },
   signIn:{
     signIn: "Entrar",
@@ -127,7 +134,8 @@ const pt = {
   signUp:{
     signUp:"Cadastro",
     confirmPassword:"Confirmar Senha",
-    check_police:"Eu li e concordo com os Termos de Serviço e Política de Privacidade do Meoagent."
+    check_police:"Eu li e concordo com os Termos de Serviço e Política de Privacidade do Meoagent.",
+    check_email:"e-mail já cadastrado"
   },
   signOut:{
     delete:"Deseja excluir permanentemente sua conta ?",
@@ -160,15 +168,20 @@ const pt = {
     marketKnowledge: "Conhecimento de mercado:",
     responsiveness:"Capacidade de resposta:",
     negotiation:"Negociação:",
-    professionalismAndCommunication:"Porfissionalismo e Comunicação:",
+    professionalismAndCommunication:"Profissionalismo e Comunicação:",
     writeYourCommentHere:"Escreva seu comentário aqui",
-    writeYourReplyHere:"Escreva sua resposta aqui"
+    writeYourReplyHere:"Escreva sua resposta aqui",
+    soldAndBought: "Vendeu ou comprou imóvel com o consultor?",
+    dateOfTheDeed: "Qual a data da escritura?"
   },
   clientProfile:{
     adress:'Morada',
-    city:'Cidade',
+    city:'Concelho/Cidade',
     country:'País',
-    zipCode:'Código Postal' 
+    zipCode:'Código Postal' ,
+    nif:'NIF',
+    passport:'Passaporte',
+    choice_nif:"Passaporte ou NIF"
   },
 
   reportDialog:{
@@ -177,14 +190,14 @@ const pt = {
     description:'Descreva o erro encontrado',
     title: 'Diz-nos qual foi o erro que viste',
     advertisement: 'Anúncio Errado',
-    label:'<b>Vês algum erro?</b> Informe o Meoagent para que possamos fazer as correções necessárias. <b>Clique aqui</b> e nos conte os erros que viste!',
+    label:'<b>Vês algum erro?</b> Informe o Meoagent para que possamos fazer as correções necessárias. <b>Clique&nbspaqui</b>&nbspe&nbspnos&nbspconte&nbspos&nbsperros que viste!',
     warning:'Sua denúncia foi registrada. Obrigado!' 
   },
 
   infoFooter:{
     privacy:"Política de Privacidade",
     conditions:"Termos e Condições",
-    contact:"Contacto:"
+    contact:'Contacto'
   }
 }
 

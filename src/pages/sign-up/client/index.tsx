@@ -85,6 +85,8 @@ const SignUpContainer = styled.div`
 const SignUp = () => {
   const { register, handleSubmit } = useForm<SignUpForm>();
   const [privacy_policy, setPrivacyPolicy] = useState(false);
+
+  const [userExist, setUserExist] = useState(false);
   const router = useRouter();
 
   const locale = router.locale;
@@ -106,7 +108,7 @@ const SignUp = () => {
     const partesDoNome = session?.user?.name?.split(" ");
     const firstName = partesDoNome ? partesDoNome[0] : null;
     const lastName = partesDoNome?.slice(1).join(" ");
-
+    setUserExist(false);
     const dataGoogle = {
       email: session?.user?.email,
       firstName: firstName,
@@ -131,7 +133,13 @@ const SignUp = () => {
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
 
-      if (response.ok) router.push("/sign-in/client");
+      if (response.ok){ 
+        router.push("/sign-in/client");
+      } else{
+        if (response.status === 400){
+          setUserExist(true);
+        }
+      }
     };
 
     await fetchData();
@@ -163,6 +171,12 @@ const SignUp = () => {
           placeholder={t.signIn.email}
           {...register("email", { required: true })}
         />
+        {
+          userExist ?
+          <label style={{color:"red"}}>{t.signUp.check_email}</label>
+          :
+          <></>
+        }
         <input
           className="input-sign-up"
           type="password"

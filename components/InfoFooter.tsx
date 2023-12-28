@@ -18,6 +18,7 @@ width: 100%;
 backdrop-filter: blur(10px);
 margin-top: auto;
 .div-ajuda{
+  width: 94%;
   padding: 0px 10px;
   display: flex;
   justify-content: space-evenly;
@@ -33,6 +34,9 @@ margin-top: auto;
 }
 .final{
     text-align:center;
+}
+.span{
+    width: fit-content;
 }
 @media only screen and (max-width: 768px) {
     .div-ajuda{
@@ -55,6 +59,7 @@ margin-top: auto;
         vertical-align: middle;
         padding: 10px 0px;
       }
+      
   }
 `
 type InfoProps = {
@@ -84,7 +89,9 @@ const InfoFooter = (props: InfoProps) => {
                         alt="Follow us on Instagram"
                     />
                     </Link>
-                    <span className="fonte final contato">{t.infoFooter.contact} <a href={"mailto: contato@meoagent.com"}>contato@meoagent.com</a></span>
+                    
+                        <a className="fonte final contato" href={"mailto: contato@meoagent.com"}>{t.infoFooter.contact}: <span className="" >contato@meoagent.com</span></a>
+                    
                 </div>
 
             </InfoFooterDiv>
