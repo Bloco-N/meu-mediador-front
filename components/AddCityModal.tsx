@@ -31,7 +31,7 @@ const Container = styled.div`
     justify-content: center;
     gap: 2rem;
     select{
-      width: 70%;
+      width: 50%;
     }
     @media (max-width: 600px) {
       width: 80%;
@@ -45,8 +45,8 @@ const Container = styled.div`
   .close{
     cursor: pointer;
     position: absolute;
-    top: 3rem;
-    right: 3rem;
+    top: 1em;
+    right: 1em;
     height: 3rem;
     width: 3rem;
     display: flex;
@@ -74,12 +74,25 @@ const Container = styled.div`
     }
   }
   h3{
+    margin-top: 1em;
     margin-bottom: 2rem;
   }
   h4{
     font-size: 2rem;
     font-style: italic;
     color: var(--surface-2);
+  }
+  .divButton{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 1em;
+    gap:100px;
+
+    @media (max-width: 600px) {
+      width: 80%;
+      gap:50px
+    }
   }
 `
 
@@ -143,6 +156,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
   }
 
   const onSubmit = async (data: AddCityForm) => {
+    
     const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
     setLoadingOpen(true)
@@ -168,8 +182,6 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     
     const { id } = target
 
-    console.log(id)
-
     const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + id, {
@@ -183,7 +195,6 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     reload()
 
   }
-
   return (
     open ?
     <Container className='modal'>
@@ -213,9 +224,11 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
                 <option key={index} value={item}>{item}</option>
               ))}
             </select>
-            <button type='submit'>{t.addCity.add}</button>
+            <div className='divButton'>
+              <button type='submit'>{t.addCity.add}</button>
+              <button onClick={() => setOpen(false)}>{t.addCity.save}</button>
+            </div>
           </>
-
         )}
         <p className='close' onClick={() => setOpen(false)}>X</p>
       </form>

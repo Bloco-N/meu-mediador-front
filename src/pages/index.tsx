@@ -130,9 +130,6 @@ const NovoCadastro = styled.div`
     text-decoration: underline;
   }
 
-  
-  }
-
 `;
 export default function Home() {
   const { register, handleSubmit } = useForm<SearchForm>();
@@ -189,11 +186,14 @@ export default function Home() {
       let url = process.env.NEXT_PUBLIC_API_URL + "/realtor?";
       if (data.search) {
         url += "search=" + data.search;
-        console.log( url );
         setSearch(data.search);
-      } else {
-        setSearch("");
-      }
+      } 
+
+      if (data.zipCode) {
+        url += "search=" + data.zipCode;
+        setSearch(data.search);
+      } 
+
       const response = await fetch(url, {
         method: "GET",
       });

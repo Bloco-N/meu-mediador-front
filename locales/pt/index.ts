@@ -114,7 +114,9 @@ const pt = {
     enter: "Entrar",
     notHaveAnAccount: "Não possúi uma conta ainda?",
     here: "Cadastre-se aqui",
-    error:"Email ou senha incorretos"
+    error:"Email ou senha incorretos",
+    google:"Continuar com google",
+    facebook:"Continuar com facebook"
   },
   createProfile:{
     selectTheType: "Selecione o tipo de perfil que deseja criar",
@@ -126,6 +128,11 @@ const pt = {
     signUp:"Cadastro",
     confirmPassword:"Confirmar Senha",
     check_police:"Eu li e concordo com os Termos de Serviço e Política de Privacidade do Meoagent."
+  },
+  signOut:{
+    delete:"Deseja excluir permanentemente sua conta ?",
+    yes: "Sim",
+    no: "Não"
   },
   forgotPassword:{
     recoverPassword:"Recuperar Senha",
@@ -141,7 +148,8 @@ const pt = {
     addCity:"Adicionar Local de Atuação",
     placeWhere:"Lugares onde você atua:",
     add:"Adicionar",
-    youHaveNoMore:"Você não tem mais cidades para adicionar"
+    youHaveNoMore:"Você não tem mais cidades para adicionar",
+    save:"Salvar"
   },
   addLanguage:{
     languagesYou:"Idiomas que você fala:"

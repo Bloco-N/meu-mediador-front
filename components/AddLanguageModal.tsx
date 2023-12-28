@@ -1,4 +1,4 @@
-import { AddCityForm } from '@/types/AddCityForm';
+import { AddLanguageForm } from '@/types/AddLanguageForm';
 import { RealtorProfile } from '@/types/RealtorProfile';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -19,6 +19,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  
   form{
     position: relative;
     min-height: 50rem;
@@ -29,8 +30,8 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    input{
-      width: 70%;
+    select{
+      width: 50%;
     }
     @media (max-width: 600px) {
       width: 80%;
@@ -44,8 +45,8 @@ const Container = styled.div`
   .close{
     cursor: pointer;
     position: absolute;
-    top: 3rem;
-    right: 3rem;
+    top: 1em;
+    right: 1em;
     height: 3rem;
     width: 3rem;
     display: flex;
@@ -73,12 +74,25 @@ const Container = styled.div`
     }
   }
   h3{
+    margin-top: 1em;
     margin-bottom: 2rem;
   }
   h4{
     font-size: 2rem;
     font-style: italic;
     color: var(--surface-2);
+  }
+  .divButton{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 1em;
+    gap:100px;
+
+    @media (max-width: 600px) {
+      width: 80%;
+      gap:50px
+    }
   }
 `
 
@@ -91,17 +105,18 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
 
   const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
 
-  const { register, handleSubmit } = useForm<AddCityForm>()
+  const { register, handleSubmit } = useForm<AddLanguageForm>()
 
   const [user, setUser] = useState<any>()
 
-  const [cities, setCities] = useState<Array<string>>()
+  const [language, setLanguage] = useState<Array<string>>([])
 
   const router = useRouter()
 
   const locale = router.locale
 
   const t = locales[locale as keyof typeof locales]
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -112,33 +127,51 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
         const userData = await response.json()
         setUser(userData)
+        
+        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/language/' + localId)
+        const data = await responseCities.json()
+        setLanguage(data)
       }
     }
 
     fetchData()
   }, [open])
 
-  const onSubmit = async (data: AddCityForm) => {
+  function reload() {
+    const fetchData = async () => {
+      const localId = localStorage.getItem('id')
+      const accType = localStorage.getItem('accountType')
+      if(localId){
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
+        const userData = await response.json()
+        setUser(userData)
 
+        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/language/' + localId)
+        const data = await responseCities.json()
+        setLanguage(data)
+      }
+    }
+    fetchData()
+  }
+
+  const onSubmit = async (data: AddLanguageForm) => {
     const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
-
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/'+accType, {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/' + accType, {
       method: 'POST',
       body: JSON.stringify({
-        ...data
+      ...data
       }),
-      headers:{
+      headers: {
         'Content-Type': 'application/json',
         authorization: 'Bearer ' + token,
-      }
-    })
+      },
+    });
 
     const text = await response.text()
     setLoadingOpen(false)
-    if(text === 'updated') router.reload()
-
+    reload()
   }
 
   const handleDeleteLanguage = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
@@ -157,8 +190,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
     })
 
     const text = await response.text()
-    if(text === 'deleted') router.reload()
-
+    reload()
   }
 
   return (
@@ -181,10 +213,21 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
             </p>
           ))}
         </div>
-
-        <input placeholder={t.mainInfoEditModal.language} type="text" {...register('name', {required: true})} />
-        <button type='submit'>{t.addCity.add}</button>
-
+        {language?.length === 0 ? (
+          <h4>{t.addCity.youHaveNoMore}</h4>
+        ): (
+          <>
+        <select {...register('name', { required: true})}>
+            {language?.map((item, index) => (
+              <option key={index} value={item}>{item}</option>
+            ))}
+        </select>
+        <div className='divButton'>
+            <button type='submit'>{t.addCity.add}</button>
+            <button onClick={() => setOpen(false)}>{t.addCity.save}</button>
+        </div>
+        </>
+        )}
         <p className='close' onClick={() => setOpen(false)}>X</p>
       </form>
     </Container>
