@@ -14,7 +14,7 @@ const DivButton = styled.div`
     margin-left: 1em;
     cursor: pointer;
 
-    @media (max-width: 768px) {
+    @media (max-width: 760px) {
       height: 50px;
     width:50px;
   }
