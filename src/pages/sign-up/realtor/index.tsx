@@ -87,7 +87,7 @@ const SignUp = () => {
   const { register, handleSubmit } = useForm<SignUpForm>()
   const router = useRouter()
   const {data: session} = useSession()
-
+  const [userExist, setUserExist] = useState(false);
   const locale = router.locale
 
   const t = locales[locale as keyof typeof locales]
@@ -130,8 +130,14 @@ const SignUp = () => {
         body: JSON.stringify(session ? dataGoogle : body),
         headers: {"Content-type": "application/json; charset=UTF-8"}
       })
-
-      if(response.ok) router.push('/sign-in/realtor')
+      if (response.ok){ 
+        router.push('/sign-in/realtor')
+      } else{
+        if (response.status === 400){
+          setUserExist(true);
+        }
+      }
+      
 
     }
 
@@ -155,6 +161,12 @@ const SignUp = () => {
 
           <input className="input-sign-up" type="email" placeholder={t.signIn.email}
           {...register('email', {required:true})}/>
+          {
+            userExist ?
+            <label style={{color:"red"}}>{t.signUp.check_email}</label>
+            :
+            <></>
+          }
           <input className="input-sign-up" type="password" placeholder={t.signIn.password}
           {...register('password', {required:true})}/>
           <input className="input-sign-up" type="password" placeholder={t.signUp.confirmPassword}
