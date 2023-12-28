@@ -155,11 +155,18 @@ const Container = styled.div`
 
   .redirectContainer{
     position: absolute;
-    top: 47%;
+    top: 40%;
     font-weight: bold;
+    font-size: 18px;
     display: flex;
-    flex-direction: column; /* Adicione esta linha para garantir que os elementos fiquem em coluna */
-    align-items: center; /* Adicione esta linha para centralizar os elementos */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 50%;
+
+    @media (max-width: 600px) {
+      font-size: 10px;
+    }
 
     .styledLink{
       margin-left: 5px;
@@ -172,7 +179,7 @@ const Container = styled.div`
     .divLabel{
       display: flex;
       justify-content: center;
-      width: 70%;
+      width: 100%;
     }
     .link{
       text-decoration: underline;
@@ -198,6 +205,9 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
 
   useEffect(() => {
+    const localId = localStorage.getItem('id')
+    setIdClient(localId)
+
     const handleResize = () => {
       if (window.innerWidth <= 600) {
         setSize(30);
@@ -210,6 +220,8 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
+
+   
   }, []);
 
   const handleMarketRating = (rate: number) => {
@@ -232,6 +244,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
 
   const [accType, setAccType] = useState('')
   const [validateClient, setValidateClient] = useState(false)
+  const [idClient, setIdClient] = useState<string | null>()
 
   const router = useRouter()
 
@@ -243,8 +256,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   const { id:profileId } = router.query
   
   const onSubmit = async (data: AddCommentForm) => {
-    const localId = localStorage.getItem('id')
-
+  
     setLoadingOpen(true)
     const realtorBody = {
       text: data.text,
@@ -254,7 +266,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       responsivenessRating,
       negotiationSkillsRating,
       profissionalismAndComunicationRating,
-      clientId: Number(localId),
+      clientId: Number(idClient),
       realtorId: Number(profileId),
       dateOftheDeed
     }
@@ -264,7 +276,7 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       responsivenessRating,
       negotiationSkillsRating,
       profissionalismAndComunicationRating,
-      clientId: Number(localId),
+      clientId: Number(idClient),
       agencyId: Number(profileId)
     }
     const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/'+profileType, {
@@ -382,11 +394,8 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
               :
             <div className="redirectContainer">
               <p className="redirectMessage">{t.comments.completeData}</p>
-              
               <div className="divLabel">
-                
-                  
-                <p> <a onClick={() => setOpen(false)} className="styledLink" href={`/profile/client/${profileId}`}>
+                <p> <a onClick={() => setOpen(false)} className="styledLink" href={`/profile/client/${idClient}`}>
                   <strong className="link">{t.comments.link}</strong>
                   </a> 
                   {t.comments.endRegistration}

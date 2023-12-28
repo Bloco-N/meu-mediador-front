@@ -149,6 +149,7 @@ const SignIn = () => {
         const token = await response.text()
         localStorage.setItem('token', token)
         const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
+        console.log(user.id, "Id do usuario")
         localStorage.setItem('id', String(user.id))
 
         const clientResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client/' + user.id)

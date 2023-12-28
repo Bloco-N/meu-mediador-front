@@ -121,10 +121,6 @@ const Container = styled.div`
     .same-line{
       display:inline-block;
     }
-
-    
-        
-    }
   }
 `
 
