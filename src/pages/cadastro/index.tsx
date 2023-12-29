@@ -6,6 +6,7 @@ import finalMan from '../../../public/man-final.webp'
 import { Carousel } from 'components/Carousel'
 import { useState } from 'react'
 import router from 'next/router'
+import Link from 'next/link'
 
 export default function Cadastro() {
   const [type, setType] = useState<"consultor" | "cliente" | "agência">("consultor")
@@ -103,7 +104,7 @@ export default function Cadastro() {
         <div className={styles.contentSection1} >
           <div className={styles.textDiv} >
             <h1>A ferramenta obrigatória para todo consultor imobiliário</h1>
-            <a href="/sign-up/profile">100% gratuito - Cadastre-se agora!</a>
+            <Link href="/sign-up/profile">100% gratuito - Cadastre-se agora!</Link>
             <p>
             Tenha mais negócios e eleve sua faturação, seja encontrado por mais clientes, consultores e tenha toda sua trajetória vitoriosa no imobiliário registrada!
             </p>
