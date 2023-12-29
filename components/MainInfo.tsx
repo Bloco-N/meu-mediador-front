@@ -25,6 +25,7 @@ import locales from 'locales';
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
 
+
 type ContainerProps = {
   isProfile: boolean
 }
@@ -102,6 +103,7 @@ const Container = styled.div<ContainerProps>`
       margin-left: ${porps => porps.isProfile ? '2rem': '2rem'};
       display: flex;
       gap: 5rem;
+      width: 70%;
     }
     .about{
       position: relative;
@@ -209,6 +211,14 @@ const Container = styled.div<ContainerProps>`
     } */
     background: #fff;
   }
+  .about-3{
+    margin-left: 10%;
+    gap: 0.5rem;
+
+    p{
+      margin-bottom: 0.5rem;
+    }
+  }
 `
 
 type ToolTipContainerProps = {
@@ -226,6 +236,9 @@ position:fixed;
 min-width: 150px;
   top:${porps => `${porps.posY}px`};
   left:${porps => `${porps.posX}px`};
+  @media (max-width: 654px) {
+    left:${porps => `${porps.posX-150}px`};
+  }
   z-index:15;
   display:${porps => porps.show ? 'flex': 'none'};
   flex-direction:column;
@@ -373,7 +386,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
         </div>
         <div className="about-2">
         {userSigned?.RealtorCities && (
-          <p>
+          <>
             <ToolTipContainer onMouseOver={()=>tooltipStill()} onMouseLeave={()=>tooltipHide()} show={tooltip.show} posX={tooltip.posX} posY={tooltip.posY}>
               <b>Cidades que atua:</b>
               <ul className="cities-list">
@@ -382,20 +395,22 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
               ))}</ul>
             </ToolTipContainer>
             <div className="tt"></div>
+            <div>
             <b>
               {t.mainInfo.workArea}
             </b>
               {printCities()}{userSigned.RealtorCities.length>3?
                 <span> e outras <b onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>)=>tooltipShow(e)} onMouseLeave={()=>tooltipHide()}>{userSigned.RealtorCities.length-2}</b> cidades</span>:""}
-          </p>
+            </div>
+          
+          </>
           
         )}
           <p>
             <b>
               {t.mainInfo.experience}
             </b> {userSigned?.expTime} Anos
-          </p>
-
+          </p>  
           <p>
             <b>
             {t.mainInfo.languages}
@@ -405,7 +420,11 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
               ))}
           </p>
           <p>{userSigned?.email}</p>
+          <p>{userSigned?.phone}</p> 
+          
+          <p>{userSigned?.phone}</p> 
           <p>{userSigned?.phone}</p>
+
           {/* <div className="bottom">
             <div className="bottom-1">
             <p>
@@ -420,6 +439,19 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
             <div className="bottom-2">  
             </div>
             </div> */}
+        </div>
+        <div className="about-3">
+          <p>
+            <b>
+            {t.mainInfo.propertiesSold}
+            </b> {userSigned?.sold}
+          </p>   
+          <p>
+            <b>
+            {t.mainInfo.accompaniedBuyers}
+            </b> {userSigned?.bought}
+          </p>  
+
         </div>
       </div>
 

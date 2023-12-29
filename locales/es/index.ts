@@ -4,7 +4,8 @@ const es = {
     welcome: "Encuentra aquí a tu asesor inmobiliario.",
     searchRealtorNamePlaceholder:"Nombre del agente",
     searchRealtorCityPlaceholder: "Ciudad o Código Postal",
-    searchButton: "Buscar"
+    searchButton: "Buscar",
+    cad_bar:"¿Ya eres parte de Meoagent?"
   },
   loginModal:{
     client: 'Cliente',
@@ -19,11 +20,13 @@ const es = {
     button: 'Convertir perfil a PDF'
   },
   mainInfo:{
-    workArea: 'Área de actuación:',
+    workArea: 'Área de actuación: ',
     experience: 'Experiencia:',
     languages: 'Idiomas:',
     salesResult: 'Resultado de ventas: ',
-    clientsHelped:'Clientes ayudados: '
+    clientsHelped:'Clientes ayudados: ',
+    propertiesSold: "Propiedades vendidas: ",
+    accompaniedBuyers:"Compradores acompañados: "
   },
   mainInfoEditModal:{
     language:"Idioma",
@@ -105,7 +108,11 @@ const es = {
     comments:'Reseñas',
     thisAgentHasNoReviews:'Este consultor no tiene reseñas',
     addComment:'Adicionar Reseña',
-    reply:"Responder"
+    reply:"Responder",
+    completeData: "Complete su registro para revisar un agente.",
+    link: "Haz clic aquí ",
+    endRegistration:"y completa tu registro.",
+    login: "Iniciar sesión como cliente"
   },
   signIn:{
     signIn: "Iniciar Sesión",
@@ -128,7 +135,8 @@ const es = {
   signUp:{
     signUp:"Inscribirse",
     confirmPassword:"Confirmar Contraseña",
-    check_police:"He leído y acepto los Términos de servicio y la Política de privacidad de Meoagent."
+    check_police:"He leído y acepto los Términos de servicio y la Política de privacidad de Meoagent.",
+    check_email:"Correo electrónico ya registrado"
   },
   signOut:{
     delete:"¿Quieres eliminar permanentemente tu cuenta?",
@@ -164,12 +172,17 @@ const es = {
     professionalismAndCommunication:"Profesionalidad y Comunicación:",
     writeYourCommentHere:"Escribe tu comentario aqui",
     writeYourReplyHere:"Escribe tu respuesta aqui",
+    soldAndBought: "¿Ha vendido o comprado una propiedad con el asesor inmobiliario?",
+    dateOfTheDeed: "¿Cuál es la fecha de la escritura?"
   },
   clientProfile:{
     adress:'Dirección',
     city:'Ciudad',
     country:'País',
-    zipCode:'Código Postal' 
+    zipCode:'Código Postal',
+    nif:'NIF',
+    passport:'Pasaporte',
+    choice_nif:"Pasaporte o NIF"
   },
   reportDialog:{
     close:'Fechar',
@@ -177,14 +190,14 @@ const es = {
     description:'Describe el error encontrado.',
     title: 'Cuéntanos qué error viste',
     advertisement: 'Anuncio',
-    label:"<b>¿Ves algún error?</b> Háganos saber para que podamos hacer correcciones. <b>Haga clic aquí</b> y Cuéntanos qué errores viste",
+    label:"<b>¿Ves algún error?</b> Háganos saber para que podamos hacer correcciones. <b>Haga&nbspclic&nbspaquí</b>&nbspy&nbspCuéntanos&nbspqué&nbsperrores viste",
     warning:'Su queja ha sido registrada. ¡Gracias!'  
   },
 
   infoFooter:{
     privacy:"Política de privacidad",
     conditions:"Términos y Condiciones",
-    contact:"Contacto:"
+    contact:"Contacto"
   }
 }
 

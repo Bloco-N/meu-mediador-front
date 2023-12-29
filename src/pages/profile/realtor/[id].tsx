@@ -121,7 +121,7 @@ const Container = styled.div`
 }
 
 .buttonNo {
-  background-color: #f47d7d;
+  background-color: #c14341;
 
   @media (max-width: 768px) {
     font-size: 14px;
@@ -219,7 +219,7 @@ export default function Profile(){
     <Container>
       <div className="divButton">
       {!pdfPage && <ConvertToPDF localId={localId} accType={accType} sessionProfile={sessionProfile}/>}
-      <TrashButton onClick={() => {setModalOpen(true)}}/>
+      {accType == "realtor" ? <TrashButton onClick={() => {setModalOpen(true)}}/> : <></>}
       </div>
 
       <MainInfo isRealtor={true} lastExp={lastExp as LastExp} userSigned={realtor as RealtorProfile} isProfile={true} pdfPage={pdfPage}/>

@@ -4,7 +4,8 @@ const en = {
     welcome: "Find your next Real Estate Agent here",
     searchRealtorNamePlaceholder:"Realtor Name",
     searchRealtorCityPlaceholder: "City or zip-code",
-    searchButton: "Search"
+    searchButton: "Search",
+    cad_bar:"Already part of Meoagent?"
   },
   loginModal:{
     client: 'Client',
@@ -19,11 +20,13 @@ const en = {
     button: 'Convert profile to PDF'
   },
   mainInfo:{
-    workArea: 'Work Area:',
+    workArea: 'Work Area: ',
     experience: 'Experience:',
     languages: 'Languages:',
     salesResult: 'Sales Result: ',
-    clientsHelped:'Clients Helped: '
+    clientsHelped:'Clients Helped: ',
+    propertiesSold: "Properties sold: ",
+    accompaniedBuyers:"Accompanied buyers: "
   },
   mainInfoEditModal:{
     language:"Language",
@@ -105,7 +108,11 @@ const en = {
     comments:'Reviews',
     thisAgentHasNoReviews:'This agent has no Reviews',
     addComment:'Upload Review',
-    reply:"Reply"
+    reply:"Reply",
+    completeData: "Complete your registration to review a agent.",
+    link: "Click here ",
+    endRegistration:"and complete your registration.",
+    login: "Log in as a customer."
   },
   signIn:{
     signIn: "Sign In",
@@ -128,7 +135,8 @@ const en = {
   signUp:{
     signUp:"Sign Up",
     confirmPassword:"Confirm Password",
-    check_police:"I have read and agree to Meoagent's Terms of Service and Privacy Policy."
+    check_police:"I have read and agree to Meoagent's Terms of Service and Privacy Policy.",
+    check_email:"e-mail already registered"
   },
   signOut:{
     delete:"Do you want to permanently delete your account?",
@@ -164,12 +172,17 @@ const en = {
     professionalismAndCommunication:"Professionalism and Communication:",
     writeYourCommentHere:"Write your comment here",
     writeYourReplyHere:"Write your reply here",
+    soldAndBought: "Did you sell or buy property with the agent?",
+    dateOfTheDeed: "Date of the deed"
   },
   clientProfile:{
     adress:'Adress',
     city:'City',
     country:'Country',
-    zipCode:'Zip Code' 
+    zipCode:'Zip Code',
+    nif:'NIF',
+    passport:'Passaport',
+    choice_nif:"Passaport or NIF" 
   },
   reportDialog:{
     close:'Close',
@@ -185,8 +198,7 @@ const en = {
     privacy:"Privacy Policy",
     conditions:"Terms and conditions",
     contact:"Contact:"
-  },
-  
+  }
 
 }
 
