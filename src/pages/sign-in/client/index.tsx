@@ -108,7 +108,7 @@ const SignIn = () => {
     useEffect(() => {
       console.log("Entrou")
       const checkAndSubmit = async () => {
-        if (session) {
+        if (status === 'authenticated') {
           console.log("Entro2")
           await onSubmit(null);
         } else {
@@ -120,7 +120,7 @@ const SignIn = () => {
       };
   
       checkAndSubmit();
-    }, [router, session]);
+    }, [router, session, status]);
 
     const onSubmit = async (data:SignInForm | null) => {
         const partesDoNome = session?.user?.name?.split(" ");

@@ -76,7 +76,7 @@ const SignIn = () => {
 
     const { register, handleSubmit } = useForm<SignInForm>()
 
-    const {data: session} = useSession()
+    const {data: session, status} = useSession()
 
     const { setUser } = useContext(UserContext) as UserContextType
 
@@ -93,7 +93,8 @@ const SignIn = () => {
     useEffect(() => {
       const checkAndSubmit = async () => {
         console.log("Entrou")
-        if (session) {
+        if (status === 'authenticated') {
+          console.log("Entro2")
           await onSubmit(null);
         } else {
           const token = localStorage.getItem("token");
@@ -104,7 +105,7 @@ const SignIn = () => {
       };
   
       checkAndSubmit();
-    }, [router, session]);
+    }, [router, session, status]);
 
     const onSubmit = async (data:SignInForm | null) => {
 

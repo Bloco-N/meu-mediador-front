@@ -78,7 +78,7 @@ const SignInContainer = styled.div`
 
 const SignIn = () => {
 
-    const {data: session} = useSession()
+    const {data: session, status} = useSession()
 
     const { register, handleSubmit } = useForm<SignInForm>()
 
@@ -95,10 +95,8 @@ const SignIn = () => {
     const t = locales[locale as keyof typeof locales]
 
     useEffect(() => {
-      console.log("Entrou")
       const checkAndSubmit = async () => {
-        if (session) {
-          console.log("Entrou 2")
+        if (status === 'authenticated') {
           await onSubmit(null);
         } else {
           const token = localStorage.getItem("token");
@@ -109,7 +107,7 @@ const SignIn = () => {
       };
   
       checkAndSubmit();
-    }, [router, session]);
+    }, [router, status, session]);
 
     const onSubmit = async (data:SignInForm | null) => {
       
