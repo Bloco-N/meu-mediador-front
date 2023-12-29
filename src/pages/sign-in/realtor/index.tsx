@@ -98,7 +98,7 @@ const SignIn = () => {
       if(token){
         router.push('/')
       }
-    }, [router])
+    }, [router, session])
 
     const onSubmit = async (data:SignInForm | null) => {
 

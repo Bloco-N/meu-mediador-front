@@ -113,11 +113,11 @@ const SignIn = () => {
       if(token){
         router.push('/')
       }
-    }, [router])
+    }, [router, session])
 
     const onSubmit = async (data:SignInForm | null) => {
-       const partesDoNome = session?.user?.name?.split(" ");
-         const firstName = partesDoNome ? partesDoNome[0] : null;
+        const partesDoNome = session?.user?.name?.split(" ");
+        const firstName = partesDoNome ? partesDoNome[0] : null;
         const lastName = partesDoNome?.slice(1).join(" ");
       
         const dataGoogle = {
@@ -160,6 +160,7 @@ const SignIn = () => {
 
         setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
         setLoadingOpen(false)
+
         if(clientData.verified === false){
           router.push('/verify/client')
         }else{
