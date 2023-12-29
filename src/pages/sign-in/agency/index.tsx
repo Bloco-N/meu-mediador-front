@@ -95,8 +95,10 @@ const SignIn = () => {
     const t = locales[locale as keyof typeof locales]
 
     useEffect(() => {
+      console.log("Entrou")
       const checkAndSubmit = async () => {
         if (session) {
+          console.log("Entrou 2")
           await onSubmit(null);
         } else {
           const token = localStorage.getItem("token");

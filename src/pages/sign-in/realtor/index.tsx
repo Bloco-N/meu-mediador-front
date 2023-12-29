@@ -92,6 +92,7 @@ const SignIn = () => {
 
     useEffect(() => {
       const checkAndSubmit = async () => {
+        console.log("Entrou")
         if (session) {
           await onSubmit(null);
         } else {
