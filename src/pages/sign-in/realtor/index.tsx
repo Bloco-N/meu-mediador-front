@@ -91,8 +91,10 @@ const SignIn = () => {
     const t = locales[locale as keyof typeof locales]
 
     useEffect(() => {
-      const checkAndSubmit = async () => {
+      (async() => {
         console.log("Entrou")
+        console.log(session, status , "Pedro")
+        
         if (status === 'authenticated') {
           console.log("Entro2")
           await onSubmit(null);
@@ -102,9 +104,8 @@ const SignIn = () => {
             router.push("/");
           }
         }
-      };
+      })()
   
-      checkAndSubmit();
     }, [router, session, status]);
 
     const onSubmit = async (data:SignInForm | null) => {
