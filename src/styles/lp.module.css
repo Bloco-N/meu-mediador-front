@@ -523,7 +523,7 @@
 
 @media(max-width: 500px) {
   .hero {
-    margin-bottom: 200px !important;
+    margin-bottom: 150px !important;
   }
 
   .title2 h2 {
@@ -534,6 +534,12 @@
 @media(max-width: 471px) {
   .title2 h2 {
     font-size: 16px !important;
+  }
+}
+
+@media(max-width: 450px) {
+  .hero {
+    margin-bottom: 180px !important;
   }
 }
 
