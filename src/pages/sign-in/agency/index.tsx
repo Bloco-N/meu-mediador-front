@@ -2,7 +2,7 @@ import { SignInForm } from "@/types/SignInForm";
 import UserContext from "context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { decode } from "jsonwebtoken";
@@ -78,7 +78,7 @@ const SignInContainer = styled.div`
 
 const SignIn = () => {
 
-    const {data: session} = useSession()
+    const {data: session, status} = useSession()
 
     const { register, handleSubmit } = useForm<SignInForm>()
 
@@ -95,16 +95,21 @@ const SignIn = () => {
     const t = locales[locale as keyof typeof locales]
 
     useEffect(() => {
-      if(session){
-        onSubmit(null)
-      }
-      const token = localStorage.getItem('token')
-      if(token){
-        router.push('/')
-      }
-    }, [router, session])
+      const checkAndSubmit = async () => {
+        if (status === "authenticated") {
+          await onSubmit(null);
+        } else {
+          const token = localStorage.getItem("token");
+          if (token) {
+            router.push("/");
+          }
+        }
+      };
+  
+      checkAndSubmit();
+    }, [router, status]);
 
-    const onSubmit = async (data:SignInForm | null) => {
+    const onSubmit = useCallback( async (data:SignInForm | null) => {
       
      const dataGoogle = {
        email: session?.user?.email,
@@ -163,7 +168,7 @@ const SignIn = () => {
       }
       
       await fetchData()
-    }
+    }, [router, setLoadingOpen, setLoginError, setUser])
 
     return (
       <SignInContainer>
