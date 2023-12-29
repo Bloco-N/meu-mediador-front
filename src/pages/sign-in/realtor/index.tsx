@@ -76,7 +76,7 @@ const SignIn = () => {
 
     const { register, handleSubmit } = useForm<SignInForm>()
 
-    const {data: session, status} = useSession()
+    const {data: session} = useSession()
 
     const { setUser } = useContext(UserContext) as UserContextType
 
@@ -92,7 +92,7 @@ const SignIn = () => {
 
     useEffect(() => {
       const checkAndSubmit = async () => {
-        if (status === "authenticated") {
+        if (session) {
           await onSubmit(null);
         } else {
           const token = localStorage.getItem("token");
@@ -103,9 +103,9 @@ const SignIn = () => {
       };
   
       checkAndSubmit();
-    }, [router, status]);
+    }, [router, session]);
 
-    const onSubmit = useCallback(async (data:SignInForm | null) => {
+    const onSubmit = async (data:SignInForm | null) => {
 
       const partesDoNome = session?.user?.name?.split(" ");
       const firstName = partesDoNome ? partesDoNome[0] : null;
@@ -165,7 +165,7 @@ const SignIn = () => {
       }
 
       await fetchData()
-    }, [router, setLoadingOpen, setLoginError, setUser])
+    }
 
     return (
       <SignInContainer>

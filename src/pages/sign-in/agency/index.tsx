@@ -78,7 +78,7 @@ const SignInContainer = styled.div`
 
 const SignIn = () => {
 
-    const {data: session, status} = useSession()
+    const {data: session} = useSession()
 
     const { register, handleSubmit } = useForm<SignInForm>()
 
@@ -96,7 +96,7 @@ const SignIn = () => {
 
     useEffect(() => {
       const checkAndSubmit = async () => {
-        if (status === "authenticated") {
+        if (session) {
           await onSubmit(null);
         } else {
           const token = localStorage.getItem("token");
@@ -107,9 +107,9 @@ const SignIn = () => {
       };
   
       checkAndSubmit();
-    }, [router, status]);
+    }, [router, session]);
 
-    const onSubmit = useCallback( async (data:SignInForm | null) => {
+    const onSubmit = async (data:SignInForm | null) => {
       
      const dataGoogle = {
        email: session?.user?.email,
@@ -168,7 +168,7 @@ const SignIn = () => {
       }
       
       await fetchData()
-    }, [router, setLoadingOpen, setLoginError, setUser])
+    }
 
     return (
       <SignInContainer>
