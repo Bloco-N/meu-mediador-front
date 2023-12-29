@@ -200,13 +200,13 @@ const SignIn = () => {
 
           <GoogleLoginButton 
           icon={iconGoogle.src} 
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "https://www.meoagent.com/sign-in/agency" })}
           text={t.signIn.google}
           />
 
           <GoogleLoginButton 
             icon={iconFacebook.src} 
-            onClick={() => signIn("facebook")}
+            onClick={() => signIn("facebook", { callbackUrl: "https://www.meoagent.com/sign-in/agency" })}
             text={t.signIn.facebook}
           />
 
