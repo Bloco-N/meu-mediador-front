@@ -3,6 +3,8 @@ import { Dispatch, SetStateAction } from "react"
 export type ModalOpenContextType = {
   open: boolean,
   setOpen:  Dispatch<SetStateAction<boolean>>
+  propertyToUpdate:  any
+  setPropertyToUpdate:  Dispatch<SetStateAction<any>>
 }
 
 export type ModalOpenContextAddReply = {
