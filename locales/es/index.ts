@@ -68,7 +68,9 @@ const es = {
     verify: 'Verificar Inmueble'
   },
   addPropertiesModal:{
+    deleteProperty: 'borrar',
     uploadPropertie:'Adicionar Inmueble',
+    updatePropertie:'Actualizar Inmueble',
     title:'Título',
     link:'Enlace',
     grossArea:'Área Bruta',

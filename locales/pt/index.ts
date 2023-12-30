@@ -67,7 +67,9 @@ const pt = {
     verify: 'Conferir Imóvel'
   },
   addPropertiesModal:{
+    deleteProperty: 'excluir',
     uploadPropertie:'Adicionar Imóvel',
+    updatePropertie:'Atualizar Imóvel',
     title:'Título',
     link:'Link',
     grossArea:'Área Bruta',

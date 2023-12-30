@@ -68,7 +68,9 @@ const en = {
     verify: 'Check Property'
   },
   addPropertiesModal:{
+    deleteProperty: 'delete',
     uploadPropertie:'Upload Property',
+    updatePropertie:'Update Property',
     title:'Title',
     link:'Link',
     grossArea:'Gross Area',

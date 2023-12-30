@@ -45,6 +45,8 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
   })
 
   const [openAddPropertyModal, setOpenAddPropertyModal] = useState(false)
+  
+  const [propertyToUpdatePropertyModal, setPropertyToUpdatePropertyModal] = useState(false)
 
   const [openAddServiceModal, setOpenAddServiceModal] = useState(false)
 
@@ -109,7 +111,7 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
       <UserContext.Provider value = {{user, setUser}}>
       <PictureModalContext.Provider value = {{data: dataPictureModal, setData: setDataPictureModal}}>
       <MainInfoProfileEditModalContext.Provider value= {{open:openMainInfoModal, setOpen:setOpenMainInfoModal}}>
-      <AddPropertyModalContext.Provider value={{open: openAddPropertyModal, setOpen: setOpenAddPropertyModal}}>
+      <AddPropertyModalContext.Provider value={{open: openAddPropertyModal, setOpen: setOpenAddPropertyModal, propertyToUpdate: propertyToUpdatePropertyModal, setPropertyToUpdate: setPropertyToUpdatePropertyModal}}>
       <AddServiceModalContext.Provider value={{open: openAddServiceModal, setOpen: setOpenAddServiceModal}}>
       <AddAwardModalContext.Provider value={{open: openAwardModal, setOpen: setOpenAwardModal}}>
       <AddPartnershipModalContext.Provider value={{open: openPartnershipModal, setOpen: setOpenPartnershipModal}} >

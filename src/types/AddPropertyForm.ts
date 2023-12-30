@@ -1,4 +1,5 @@
 export type AddPropertyForm = {
+  id?: number,
   title: string,
   link: string,
   propertyType: string,
