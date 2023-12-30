@@ -52,8 +52,8 @@ export default function Layout({ children } : LayoutProps) {
               <link rel="icon" href="/meoagent-favicon.png" />
           </Head>
 
-          <Navbar />
-          <main>{children}</main>
+          <Navbar showSearchBar={path !== '/'}/>
+            <main>{children}</main>
           <Footer />
         </Container>
         
