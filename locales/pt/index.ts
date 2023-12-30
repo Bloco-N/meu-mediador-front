@@ -185,7 +185,6 @@ const pt = {
     passport:'Passaporte',
     choice_nif:"Passaporte ou NIF"
   },
-
   reportDialog:{
     close:'Fechar',
     send:'Enviar',
@@ -195,11 +194,15 @@ const pt = {
     label:'<b>Vês algum erro?</b> Informe o Meoagent para que possamos fazer as correções necessárias. <b>Clique&nbspaqui</b>&nbspe&nbspnos&nbspconte&nbspos&nbsperros que viste!',
     warning:'Sua denúncia foi registrada. Obrigado!' 
   },
-
   infoFooter:{
     privacy:"Política de Privacidade",
     conditions:"Termos e Condições",
-    contact:'Contacto'
+    contact:"Contacto:"
+  },
+  coverPicAdjust:{
+    title: "Ajustar foto de capa",
+    btnAccept: "Adicionar",
+    btnDiscard: "Descartar",
   }
 }
 
