@@ -19,11 +19,13 @@ const pt = {
     button: 'Converter Perfil em PDF'
   },
   mainInfo:{
-    workArea: 'Atua em:',
+    workArea: 'Atua em: ',
     experience: 'Experiência:',
     languages: 'Idiomas:',
     salesResult: 'Resultado de Vendas: ',
-    clientsHelped:'Clientes Ajudados: '
+    clientsHelped:'Clientes Ajudados: ',
+    propertiesSold: "Imoveis vendidos: ",
+    accompaniedBuyers:"Compradores acompanhados: "
   },
   mainInfoEditModal:{
     language:"Idioma",
@@ -65,7 +67,9 @@ const pt = {
     verify: 'Conferir Imóvel'
   },
   addPropertiesModal:{
+    deleteProperty: 'excluir',
     uploadPropertie:'Adicionar Imóvel',
+    updatePropertie:'Atualizar Imóvel',
     title:'Título',
     link:'Link',
     grossArea:'Área Bruta',
@@ -105,7 +109,11 @@ const pt = {
     comments:'Avaliações',
     thisAgentHasNoReviews:'Esse consultor não possui avaliações',
     addComment:'Adicionar Comentário',
-    reply:"Responder"
+    reply:"Responder",
+    completeData: "Preencha todos os seus dados antes de avaliar um consultor!",
+    link: "Clique aqui ",
+    endRegistration:"e finalize seu cadastro.",
+    login: "Faça login como cliente."
   },
   signIn:{
     signIn: "Entrar",
@@ -162,9 +170,11 @@ const pt = {
     marketKnowledge: "Conhecimento de mercado:",
     responsiveness:"Capacidade de resposta:",
     negotiation:"Negociação:",
-    professionalismAndCommunication:"Porfissionalismo e Comunicação:",
+    professionalismAndCommunication:"Profissionalismo e Comunicação:",
     writeYourCommentHere:"Escreva seu comentário aqui",
-    writeYourReplyHere:"Escreva sua resposta aqui"
+    writeYourReplyHere:"Escreva sua resposta aqui",
+    soldAndBought: "Vendeu ou comprou imóvel com o consultor?",
+    dateOfTheDeed: "Qual a data da escritura?"
   },
   clientProfile:{
     adress:'Morada',
@@ -175,7 +185,6 @@ const pt = {
     passport:'Passaporte',
     choice_nif:"Passaporte ou NIF"
   },
-
   reportDialog:{
     close:'Fechar',
     send:'Enviar',
@@ -185,11 +194,15 @@ const pt = {
     label:'<b>Vês algum erro?</b> Informe o Meoagent para que possamos fazer as correções necessárias. <b>Clique&nbspaqui</b>&nbspe&nbspnos&nbspconte&nbspos&nbsperros que viste!',
     warning:'Sua denúncia foi registrada. Obrigado!' 
   },
-
   infoFooter:{
     privacy:"Política de Privacidade",
     conditions:"Termos e Condições",
-    contact:'Contacto'
+    contact:"Contacto:"
+  },
+  coverPicAdjust:{
+    title: "Ajustar foto de capa",
+    btnAccept: "Adicionar",
+    btnDiscard: "Descartar",
   }
 }
 

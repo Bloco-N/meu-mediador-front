@@ -7,13 +7,14 @@ const DivButton = styled.div`
     overflow: hidden;
     height: 60px;
     width:60px;
-    background:#454545;
+    background:#c14341;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 1em;
+    cursor: pointer;
 
-    @media (max-width: 768px) {
+    @media (max-width: 760px) {
       height: 50px;
     width:50px;
   }

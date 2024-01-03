@@ -7,7 +7,7 @@ import styled from "styled-components"
 import plusIcon from '@/../public/plus.svg'
 import closeIcon from '@/../public/close.svg'
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
-import AddPropertyModalContext from "context/AddPropertyModalContext"
+import AddPropertyModalContext, { ModalPropertyOpenContextType } from "context/AddPropertyModalContext"
 import { Property } from "@/types/Property"
 import Link from "next/link"
 import PropertyTypes, { TPropertyTypes } from "@/types/PropertyTypes"
@@ -21,7 +21,11 @@ import EnergyEfficience, { TEnergyEfficience } from "@/types/EnergyEfficience"
 import Home from "@/pages"
 import { relative } from "path"
 import { TEnergyEfficienceColor } from "@/types/EnergyEfficienceColor"
+
 import IconEnergy from "./IconEnergy"
+
+import editIcon from '../public/edit.svg'
+
 
 const Container = styled.div`
   .properties{
@@ -122,10 +126,6 @@ const Container = styled.div`
     .same-line{
       display:inline-block;
     }
-
-    
-        
-    }
   }
 `
 
@@ -142,7 +142,10 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
 
   const { user } = useContext(UserContext) as UserContextType
 
-  const { setOpen: addPropertySetOpen } = useContext(AddPropertyModalContext) as ModalOpenContextType
+  const { 
+    setOpen: addPropertySetOpen,
+    setPropertyToUpdate: setPropertyToUpdate
+   } = useContext(AddPropertyModalContext) as ModalPropertyOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -170,20 +173,18 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
 
   }, [id, user.id, accType, setLoadingOpen])
 
-  const handleDeleteProperty = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+  const handleViewProperty = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLElement
     
     const { id } = target
 
-    const token = localStorage.getItem('token')
+    const property = properties?.find(property => property.id === parseInt(id))
+    setPropertyToUpdate(property)
 
-    setLoadingOpen(true)
-    const response = await apiService.deleteRealtorProperty(token as string, id, 'realtor')
-    setLoadingOpen(false)
-    
-    if(response === 'deleted') router.reload()
+    addPropertySetOpen(true)
 
   }
+  
   const EnergyColors ={
     "AP":"#01833b",
     "A":"#3ea03d",
@@ -203,7 +204,7 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
           {properties?.map(item => (
             <div key={item.id} className="propertie">
                 { sessionProfile && (
-                  <Image onClick={ e => handleDeleteProperty(e)} id={String(item.id)} className="close" src={closeIcon} alt='close icon'/>
+                  <Image onClick={ e => handleViewProperty(e)} id={String(item.id)} className="close" src={editIcon} alt='edit icon'/>
                 )}
                 <div className="watermark">
                 <Image className="property-img" src={item.profilePicture} width={200} height={100} alt="profile picture"/>
@@ -245,7 +246,10 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
 
           ))}
           { sessionProfile ? (
-          <Image onClick={() => addPropertySetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+          <Image onClick={() => {
+            addPropertySetOpen(true)
+            setPropertyToUpdate(undefined)
+          }} className='plus' src={plusIcon} alt='edit icon'/>
       ): ''}
         </div>
       </div>

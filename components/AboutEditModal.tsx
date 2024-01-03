@@ -77,7 +77,7 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
 
       const localId = localStorage.getItem('id')
       const accountType = localStorage.getItem('accountType')
-      if(localId !== undefined){
+      if(localId && accountType){
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accountType+'/' + localId, {
           method: 'GET'
         })

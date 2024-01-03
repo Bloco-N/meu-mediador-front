@@ -2,7 +2,7 @@ import { SignInForm } from "@/types/SignInForm";
 import UserContext from "context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { decode } from "jsonwebtoken";
@@ -89,7 +89,7 @@ const SignInContainer = styled.div`
 
 const SignIn = () => {
 
-    const {data: session} = useSession()
+    const { data: session, status } = useSession();
 
     const { register, handleSubmit } = useForm<SignInForm>()
 
@@ -104,20 +104,27 @@ const SignIn = () => {
     const locale = router.locale
 
     const t = locales[locale as keyof typeof locales]
-
+   
     useEffect(() => {
-      if(session){
-        onSubmit(null)
-      }
-      const token = localStorage.getItem('token')
-      if(token){
-        router.push('/')
-      }
-    }, [router])
+      console.log("Entrou")
+      const checkAndSubmit = async () => {
+        if (status === 'authenticated') {
+          console.log("Entro2")
+          await onSubmit(null);
+        } else {
+          const token = localStorage.getItem("token");
+          if (token) {
+            router.push("/");
+          }
+        }
+      };
+  
+      checkAndSubmit();
+    }, [router, session, status]);
 
     const onSubmit = async (data:SignInForm | null) => {
-       const partesDoNome = session?.user?.name?.split(" ");
-         const firstName = partesDoNome ? partesDoNome[0] : null;
+        const partesDoNome = session?.user?.name?.split(" ");
+        const firstName = partesDoNome ? partesDoNome[0] : null;
         const lastName = partesDoNome?.slice(1).join(" ");
       
         const dataGoogle = {
@@ -149,6 +156,7 @@ const SignIn = () => {
         const token = await response.text()
         localStorage.setItem('token', token)
         const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
+        console.log(user.id, "Id do usuario")
         localStorage.setItem('id', String(user.id))
 
         const clientResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client/' + user.id)
@@ -159,6 +167,7 @@ const SignIn = () => {
 
         setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
         setLoadingOpen(false)
+
         if(clientData.verified === false){
           router.push('/verify/client')
         }else{
@@ -204,13 +213,13 @@ const SignIn = () => {
 
           <GoogleLoginButton 
           icon={iconGoogle.src} 
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "https://www.meoagent.com/sign-in/client" })}
           text={t.signIn.google}
           />
 
           <GoogleLoginButton 
             icon={iconFacebook.src} 
-            onClick={() => signIn("facebook")}
+            onClick={() => signIn("facebook", { callbackUrl: "https://www.meoagent.com/sign-in/client" })}
             text={t.signIn.facebook}
           />
 

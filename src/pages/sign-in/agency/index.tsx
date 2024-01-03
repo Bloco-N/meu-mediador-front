@@ -2,7 +2,7 @@ import { SignInForm } from "@/types/SignInForm";
 import UserContext from "context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { decode } from "jsonwebtoken";
@@ -78,7 +78,7 @@ const SignInContainer = styled.div`
 
 const SignIn = () => {
 
-    const {data: session} = useSession()
+    const {data: session, status} = useSession()
 
     const { register, handleSubmit } = useForm<SignInForm>()
 
@@ -95,14 +95,19 @@ const SignIn = () => {
     const t = locales[locale as keyof typeof locales]
 
     useEffect(() => {
-      if(session){
-        onSubmit(null)
-      }
-      const token = localStorage.getItem('token')
-      if(token){
-        router.push('/')
-      }
-    }, [router])
+      const checkAndSubmit = async () => {
+        if (status === 'authenticated') {
+          await onSubmit(null);
+        } else {
+          const token = localStorage.getItem("token");
+          if (token) {
+            router.push("/");
+          }
+        }
+      };
+  
+      checkAndSubmit();
+    }, [router, status, session]);
 
     const onSubmit = async (data:SignInForm | null) => {
       
@@ -195,13 +200,13 @@ const SignIn = () => {
 
           <GoogleLoginButton 
           icon={iconGoogle.src} 
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", { callbackUrl: "https://www.meoagent.com/sign-in/agency" })}
           text={t.signIn.google}
           />
 
           <GoogleLoginButton 
             icon={iconFacebook.src} 
-            onClick={() => signIn("facebook")}
+            onClick={() => signIn("facebook", { callbackUrl: "https://www.meoagent.com/sign-in/agency" })}
             text={t.signIn.facebook}
           />
 
