@@ -14,7 +14,7 @@ import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import LoadingContext from 'context/LoadingContext';
 import locales from 'locales';
 import EnergyEfficience from '@/types/EnergyEfficience';
-import AddPropertyModalContext from 'context/AddPropertyModalContext';
+import AddPropertyModalContext, { ModalPropertyOpenContextType } from 'context/AddPropertyModalContext';
 import { ApiService } from '@/services/ApiService';
 
 type AddPropertyModalProps = {
@@ -171,7 +171,7 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
   const {
     propertyToUpdate: propertyToUpdate,
     setPropertyToUpdate: setPropertyToUpdate,
-  } = useContext(AddPropertyModalContext) as ModalOpenContextType
+  } = useContext(AddPropertyModalContext) as ModalPropertyOpenContextType
 
   const { register, handleSubmit, setValue } = useForm<AddPropertyForm>()
 

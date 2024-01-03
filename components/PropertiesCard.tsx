@@ -7,7 +7,7 @@ import styled from "styled-components"
 import plusIcon from '@/../public/plus.svg'
 import closeIcon from '@/../public/close.svg'
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
-import AddPropertyModalContext from "context/AddPropertyModalContext"
+import AddPropertyModalContext, { ModalPropertyOpenContextType } from "context/AddPropertyModalContext"
 import { Property } from "@/types/Property"
 import Link from "next/link"
 import PropertyTypes, { TPropertyTypes } from "@/types/PropertyTypes"
@@ -141,7 +141,7 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
   const { 
     setOpen: addPropertySetOpen,
     setPropertyToUpdate: setPropertyToUpdate
-   } = useContext(AddPropertyModalContext) as ModalOpenContextType
+   } = useContext(AddPropertyModalContext) as ModalPropertyOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
