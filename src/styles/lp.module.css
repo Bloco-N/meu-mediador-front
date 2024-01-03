@@ -238,6 +238,10 @@
     width: 90%;
   }
 
+  .textDiv {
+    margin-top: -50px;
+  }
+
   .carouselDiv {
     width: 90%;
     margin: 0 auto;
@@ -301,7 +305,7 @@
   }
 }
 
-@media(max-width: 1170px) {
+@media(max-width: 1190px) {
   .contentSection1 {
     padding-top: 4%;
   }
@@ -406,6 +410,7 @@
 
   .textDiv { 
     margin-top: -30px !important;
+    padding-top: 0px !important;
   }
 }
 
@@ -552,6 +557,10 @@
 @media(max-width: 419px) {
   .title2 h2 {
     font-size: 14px !important;
+  }
+
+  .finalImage a {
+    font-size: 12px !important;
   }
 }
 

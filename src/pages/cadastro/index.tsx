@@ -7,8 +7,12 @@ import { Carousel } from 'components/Carousel'
 import { useState } from 'react'
 import router from 'next/router'
 import Link from 'next/link'
+import { useMediaQuery } from 'usehooks-ts'
 
 export default function Cadastro() {
+  const matches = useMediaQuery('(min-width: 1400px)')
+  const matchesTablet = useMediaQuery('(max-width: 1180px)')
+
   const [type, setType] = useState<"consultor" | "cliente" | "agência">("consultor")
   const [name, setName] = useState("")
   const [lastName, setLastName] = useState("")
@@ -102,7 +106,7 @@ export default function Cadastro() {
     <div className={styles.container} >
       <div className={styles.hero} >
         <div className={styles.contentSection1} >
-          <div className={styles.textDiv} >
+          <div className={styles.textDiv} style={{ paddingTop: type === "agência" && matches ? '100px' : type === "agência" && matchesTablet ? '80px' : '' }} >
             <h1>A ferramenta obrigatória para todo consultor imobiliário</h1>
             <Link href="/sign-up/profile">100% gratuito - Cadastre-se agora!</Link>
             <p>
