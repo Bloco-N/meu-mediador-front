@@ -347,6 +347,10 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
     setTooltip({...tooltip, show: false})
   }
 
+  function goAgency(){
+    console.log(lastExp?.agencyId)
+  }
+
   return (
 
   <Container isProfile={isProfile}>
@@ -489,10 +493,12 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
       ): ''}
 
       {isRealtor && (
-        <div className="current-agency border">
+        <Link href={'/profile/agency/' + lastExp?.agencyId}>
+        <div className="current-agency border" onClick={goAgency}>
           {lastExp?.name}
           <Image width={10} height={10} className="agency" src={lastExp?.pic ? lastExp.pic : agencyIcon} alt='agency icon'/>
         </div>
+        </Link>
       ) }
       
     </div>
