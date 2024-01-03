@@ -184,8 +184,8 @@ export default function Profile(){
 
   
         const responsePartnerships = await apiService.getRealtorPartnership(id as string)
-
-        setLastExp({name: responsePartnerships[0]?.name, pic: responsePartnerships[0]?.pic })
+        
+        setLastExp({name: responsePartnerships[0]?.name, pic: responsePartnerships[0]?.pic,agencyId: responsePartnerships[0]?.agencyId })
         setLoadingOpen(false)
         window.scrollTo(0, 0);
       }

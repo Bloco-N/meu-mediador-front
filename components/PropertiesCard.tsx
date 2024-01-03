@@ -21,6 +21,7 @@ import EnergyEfficience, { TEnergyEfficience } from "@/types/EnergyEfficience"
 import Home from "@/pages"
 import { relative } from "path"
 import { TEnergyEfficienceColor } from "@/types/EnergyEfficienceColor"
+import IconEnergy from "./IconEnergy"
 
 const Container = styled.div`
   .properties{
@@ -215,8 +216,16 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
                   {
                   ["H","I","J"].includes(item.energyefficience) ?
                    <a> {EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}</a>
-                   : 
+                   :
+                   <>
                   <a className="gg-home-alt" style={{color: EnergyColors[item.energyefficience as keyof TEnergyEfficience], display:"inline-flex",height:"10px",marginBottom:"10px",marginLeft:"2px"}}><span style={{color:"white",marginTop:"-2px",zIndex:"1",position:"relative",marginLeft:"auto",marginRight:"auto",fontSize:"10px"}}>{EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}</span></a>
+                  {/* <IconEnergy
+                  cor = {EnergyColors[item.energyefficience as keyof TEnergyEfficience]}
+                  cor_fonte="#000"
+                  tamanho_casa="18px"
+                  texto={EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}
+                  /> */}
+                  </> 
                   }
                   .
                   

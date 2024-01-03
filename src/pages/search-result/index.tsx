@@ -80,7 +80,8 @@ export default function SearchResult(){
           <Link href={'/profile/realtor/' + item.id} key={item.id }>
             <MainInfo lastExp={{
               name: item.agencyName,
-              pic: item.agencyPic
+              pic: item.agencyPic,
+              agencyId: item.agencyName
             }} isRealtor={true} userSigned={item} isProfile={false} pdfPage={false}/>
           </Link>
         ))}
