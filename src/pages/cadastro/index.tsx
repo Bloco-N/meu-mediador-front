@@ -202,7 +202,7 @@ export default function Cadastro() {
       </div>
       <div className={styles.diagonalDiv}>
         <div className={styles.title2} >
-          <h2>O que os consultores imobiliários falam do Meoagent</h2>
+          <h2>O que consultores imobiliários falam do Meoagent</h2>
         </div>
         <div className={styles.carouselDiv} >
           <Carousel />
