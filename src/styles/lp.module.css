@@ -538,6 +538,16 @@
   .title2 {
     width: 100% !important;
   }
+
+  .submitButton {
+    font-size: 14px !important;
+  }
+}
+
+@media(max-width: 330px) {
+  .submitButton {
+    font-size: 13px !important;
+  }
 }
 
 @media(max-width: 320px) {
