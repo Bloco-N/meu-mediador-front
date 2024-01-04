@@ -530,6 +530,13 @@
   }
 }
 
+@media(max-width: 380px) {
+  .submitButton {
+    font-size: 14px !important;
+    text-align: center !important;
+  }
+}
+
 @media(max-width: 360px) {
   .hero {
     margin-bottom: 250px !important;
@@ -541,12 +548,14 @@
 
   .submitButton {
     font-size: 14px !important;
+    text-align: center !important;
   }
 }
 
 @media(max-width: 330px) {
   .submitButton {
     font-size: 13px !important;
+    text-align: center !important;
   }
 }
 
@@ -559,7 +568,8 @@
   }
 
   .submitButton {
-    font-size: 13px !important;
+    font-size: 12px !important;
+    text-align: center !important;
   }
 
   .title2 h2 {
