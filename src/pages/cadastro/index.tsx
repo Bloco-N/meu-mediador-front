@@ -108,7 +108,7 @@ export default function Cadastro() {
         <div className={styles.contentSection1} >
           <div className={styles.textDiv} style={{ paddingTop: type === "agência" && matches ? '100px' : type === "agência" && matchesTablet ? '80px' : '' }} >
             <h1>A ferramenta obrigatória para todo consultor imobiliário</h1>
-            <Link href="/sign-up/profile">100% gratuito - Cadastre-se agora!</Link>
+            <a href="#cadastro">100% gratuito - Cadastre-se agora!</a>
             <p>
             Tenha mais negócios e eleve sua faturação, seja encontrado por mais clientes, consultores e tenha toda sua trajetória vitoriosa no imobiliário registrada!
             </p>
