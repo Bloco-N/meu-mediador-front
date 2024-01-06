@@ -48,6 +48,7 @@ const Nav = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   .logo-area {
     height: 100%;
   }
@@ -211,7 +212,7 @@ const Nav = styled.div`
       width: 30%;
     }
     .logo {
-      height: 90%;
+      height: 80px;
     }
     .profile{
     }
@@ -223,6 +224,21 @@ const Nav = styled.div`
       justify-content: center;
       gap: 0rem;
       min-width: 100px;
+    }
+  }
+  @media only screen and (max-width: 900px) {
+    height: 150px;
+    .locale-area{
+    }
+    .logo-area {
+      display: flex;
+      height: 50px;
+    }
+    .logo {
+    }
+    .profile{
+    }
+    .left-side{
     }
   }
 `
@@ -273,7 +289,7 @@ const SearchRealtor = styled.div`
       }
     }
   }
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 900px) {
     position: relative;
     left: 0rem;
     display: flex;
@@ -306,6 +322,22 @@ const SearchRealtor = styled.div`
         .searchButton{
           width: 140px;
           height: 25px;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 1200px) {
+    width: 450px;
+    form {
+      .search-row {
+        .input-city-cep{
+          width: 160px;
+        }
+        .input-realtor{
+          width: 160px;
+        }
+        .searchButton{
+          width: 160px;
         }
       }
     }
