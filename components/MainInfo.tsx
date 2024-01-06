@@ -294,7 +294,6 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
 
   const handleChangeCover = (e:React.ChangeEvent) => {
 
-
     const target = e.target as HTMLInputElement
 
     const files = target.files as FileList
@@ -320,11 +319,6 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
     }
 
   }
-
-  useEffect(() => {
-    // console.log("fullProfilePic: ", fullProfilePic)
-    // console.log("coverPicSrcImage: ", coverPicSrcImage)
-  },[coverPicSrcImage])
 
   function printCities(){
     const cities = userSigned.RealtorCities.map(city=>city.City.name)
