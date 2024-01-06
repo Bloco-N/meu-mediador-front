@@ -23,10 +23,13 @@ export default function Cadastro() {
   const onSubmit = (e: any) => {
     if(type === "agência") {
       fetchAgencyData()
+      e.preventDefault()
     } else if(type === "cliente") {
       fetchClientData()
+      e.preventDefault()
     } else if(type === "consultor") {
       fetchRealtorData()
+      e.preventDefault()
     } else {
       alert("Ops, algo errado!")
       e.preventDefault()
@@ -52,7 +55,11 @@ export default function Cadastro() {
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
 
-    if (response.ok) router.push("/sign-in/agency");
+    if(response.ok){
+      router.push('/sign-in/agency')
+    } else {
+      console.log('algo deu errado')  
+    }
   }
 
   const fetchClientData = async() => {
@@ -75,7 +82,11 @@ export default function Cadastro() {
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
 
-    if (response.ok) router.push("/sign-in/client");
+    if(response.ok){
+      router.push('/sign-in/client')
+    } else {
+      console.log('algo deu errado')
+    }
   }
 
   const fetchRealtorData = async() => {
@@ -98,7 +109,11 @@ export default function Cadastro() {
       headers: { "Content-type": "application/json; charset=UTF-8" },
     });
 
-    if(response.ok) router.push('/sign-in/realtor')
+    if(response.ok){
+      router.push('/sign-in/realtor')
+    } else {
+      console.log('algo deu errado')
+    }
   }
 
   return (

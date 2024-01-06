@@ -85,6 +85,10 @@
   font-size: 20px;
 }
 
+.submitButton:hover {
+  cursor: pointer;
+}
+
 /* DEPOSITIONS */
 .diagonalDiv {
   background-image: url('../../public/rectangle.webp');
