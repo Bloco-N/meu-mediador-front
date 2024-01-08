@@ -10,6 +10,7 @@ import { Comment } from "@/types/Comment"
 import AddCommentModalContext from "context/AddCommentModalContext"
 import LoadingContext from "context/LoadingContext"
 import locales from "locales"
+import api from "@/services/api"
 
 const Container = styled.div`
   .comments{
@@ -80,19 +81,23 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
       if(id){
         setLoadingOpen(true)
 
-        const responseComments = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/agency/' + id)
-        const commentData = await responseComments.json()
-        let reverseComments = commentData.reverse()
-        // if(pdfPage){
-        //   reverseComments = reverseComments.filter((comment: any, index: number) => {
-        //     if(index<5){
-        //       return comment
-        //     }
-        //   })
-        // }
-        setComments(reverseComments)
-
-        setLoadingOpen(false)
+        await api.get(`/comment/agency/${id}`)
+        .then((response) => {
+          let reverseComments = response.data.reverse()
+          setComments(reverseComments)
+          setLoadingOpen(false)
+            // if(pdfPage){
+            //   reverseComments = reverseComments.filter((comment: any, index: number) => {
+            //     if(index<5){
+            //       return comment
+            //     }
+            //   })
+            // }
+        })
+        .catch((error) => {
+          setLoadingOpen(true)
+          return error
+        })
       }
     }
     const localId = localStorage.getItem('id') as string
@@ -118,10 +123,16 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
       }
     })
 
-    setLoadingOpen(false)
+    api.delete(`/comment/${id}`)
+    .then((response) => {
+      setLoadingOpen(false)
+      if(response.data === 'deleted') router.reload()
+    })
+    .catch((error) => {
+      return error
+    })
 
-    const text = await response.text()
-    if(text === 'deleted') router.reload()
+    
 
   }
 

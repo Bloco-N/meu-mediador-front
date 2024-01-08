@@ -1,3 +1,4 @@
+import api from '@/services/api';
 import { SearchContextType } from '@/types/SearchContextType';
 import { SearchResultContextType } from '@/types/SearchResultContextType';
 import { UserCard } from '@/types/UserCard';
@@ -57,16 +58,19 @@ const Pagination = ({ currentPage, totalOfPages}: PaginationProps) => {
     let url = process.env.NEXT_PUBLIC_API_URL + '/realtor?'
     if(search) url += 'search=' + search
     if(page) url += '&page=' + page
-    const response = await fetch(url, {
-      method:'GET'
+
+    await api.get(url)
+    .then((response) => {
+      setSearchResult({
+        list: response.data.list,
+        currentPage: response.data.currentPage,
+        totalOfPages: response.data.totalOfPages
+      })
+      router.push('/search-result')
     })
-    const json = await response.json()
-    setSearchResult({
-      list: json.list,
-      currentPage: json.currentPage,
-      totalOfPages: json.totalOfPages
+    .catch((error) => {
+      return error
     })
-    router.push('/search-result')
   }
   const handlePageClick = async (e:React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
     const target = e.target as HTMLElement

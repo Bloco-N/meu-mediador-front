@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import ForgotPasswordContainer from "../style/ForgotPasswordContainer";
+import api from "@/services/api";
 
 const ForgotPassword = () => {
 
@@ -22,18 +23,18 @@ const ForgotPassword = () => {
 
   const onSubmit = async (data:{email:string}) => {
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/recover-password', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {"Content-type": "application/json; charset=UTF-8"}
+
+    api.post('/realtor/recover-password', data)
+    .then((response) => {
+      if(response.data === 'email sended') {
+        setSended(true)
+      }
+      setLoadingOpen(false)
     })
-
-    const text = await response.text()
-
-    if(text === 'email sended') {
-      setSended(true)
-    }
-    setLoadingOpen(false)
+    .catch((error) => {
+      setLoadingOpen(false)
+      return error
+    })
   }
 
     return (

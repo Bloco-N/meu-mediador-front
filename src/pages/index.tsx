@@ -12,6 +12,7 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import locales from "../../locales";
 import InfoFooter from "components/InfoFooter";
 import Link from "next/link";
+import api from "@/services/api";
 
 const SearchRealtor = styled.div`
   width: 100%;
@@ -174,9 +175,14 @@ export default function Home() {
   }
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/city");
-      const data = await response.json();
-      setCities(data);
+   
+      await api.get("/city")
+      .then((response) => {
+        setCities(response.data);
+      })
+      .catch((error) => {
+        return error
+      })
     };
 
     fetchData();
@@ -194,13 +200,17 @@ export default function Home() {
         url += "search=" + data.zipCode;
         setSearch(data.search);
       } 
+      
+      await api.get(url)
+      .then((response) => {
+        setSearchResult(response.data);
+        router.push("/search-result");
+      })
+      .catch((error) => {
+        return error
+      })
 
-      const response = await fetch(url, {
-        method: "GET",
-      });
-      const json = await response.json();
-      setSearchResult(json);
-      router.push("/search-result");
+     
     };
     setLoadingOpen(true);
     await fetchData();
