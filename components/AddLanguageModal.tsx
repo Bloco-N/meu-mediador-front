@@ -9,6 +9,8 @@ import closeIcon from '../public/close.svg'
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import LoadingContext from 'context/LoadingContext';
 import locales from 'locales';
+import api from '@/services/api';
+import { toast } from 'react-toastify';
 
 const Container = styled.div`
   position: absolute;
@@ -124,13 +126,21 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
       const accType = localStorage.getItem('accountType')
       if(localId){
 
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
-        const userData = await response.json()
-        setUser(userData)
-        
-        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/language/' + localId)
-        const data = await responseCities.json()
-        setLanguage(data)
+        await api.get(`/${accType}/${localId}`)
+        .then((response) => {
+          setUser(response.data)
+        })
+        .catch((error) => {
+          return error
+        })
+
+        await api.get(`/service/language/${localId}`)
+        .then((response) => {
+          setLanguage(response.data)
+        })
+        .catch((error) => {
+          return error
+        })
       }
     }
 
@@ -142,55 +152,56 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
       const localId = localStorage.getItem('id')
       const accType = localStorage.getItem('accountType')
       if(localId){
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
-        const userData = await response.json()
-        setUser(userData)
+        await api.get(`/${accType}/${localId}`)
+        .then((response) => {
+          setUser(response.data)
+        })
+        .catch((error) => {
+          return error
+        })
 
-        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/language/' + localId)
-        const data = await responseCities.json()
-        setLanguage(data)
+        await api.get(`/service/language/${localId}`)
+        .then((response) => {
+          setLanguage(response.data)
+        })
+        .catch((error) => {
+          return error
+        })
       }
     }
     fetchData()
   }
 
   const onSubmit = async (data: AddLanguageForm) => {
-    const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/' + accType, {
-      method: 'POST',
-      body: JSON.stringify({
-      ...data
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: 'Bearer ' + token,
-      },
-    });
 
-    const text = await response.text()
-    setLoadingOpen(false)
-    reload()
+    await api.post(`/language/${accType}`, {...data})
+    .then((response) => {
+      setLoadingOpen(false)
+      reload()
+    })
+    .catch((error) => {
+      toast.error("Error ao adicionar idioma!")
+      setLoadingOpen(false)
+    })
   }
 
   const handleDeleteLanguage = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLElement
     
     const { id } = target
-
-    const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
 
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/language/'+accType+'/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
+    await api.delete(`/language/${accType}/${id}`)
+    .then((response) => {
+      setLoadingOpen(false)
+      reload()
     })
-
-    const text = await response.text()
-    reload()
+    .catch((error) => {
+      setLoadingOpen(false)
+      toast.error("Error ao remover idioma!")
+    })
   }
 
   return (
@@ -224,7 +235,10 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
         </select>
         <div className='divButton'>
             <button type='submit'>{t.addCity.add}</button>
-            <button onClick={() => setOpen(false)}>{t.addCity.save}</button>
+            <button onClick={() => {
+              setOpen(false)
+              toast.success("Idiomas adicionados com sucesso!")
+              }}>{t.addCity.save}</button>
         </div>
         </>
         )}

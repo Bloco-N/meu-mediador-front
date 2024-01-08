@@ -16,6 +16,9 @@ import { useRouter } from 'next/router';
 import { ClientProfile } from '@/types/ClientProfile';
 import LoadingContext from 'context/LoadingContext';
 import locales from 'locales';
+import api from '@/services/api';
+import { toast } from 'react-toastify';
+import { error } from 'console';
 
 type ContainerProps = {
   isProfile: boolean
@@ -230,41 +233,39 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
     e.preventDefault() 
     const token = localStorage.getItem('token')
     setLoadingOpen(true)
-    var nifValidado = true;
+    var nifValidado: boolean | null = true;
     setNifInvalido(false);
     console.log("nif valido " + validateNIF(nif_passport));
     if (choiceNif){
       nifValidado = validateNIF(nif_passport);
-      setNifInvalido(!nifValidado);
+      if(nifValidado != null){
+        setNifInvalido(!nifValidado);
+      }
+      
     }
 
-    if (nifValidado){
-    await fetch(process.env.NEXT_PUBLIC_API_URL + '/client', {
-        method:'PUT',
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          phone,
-          address,
-          city,
-          country,
-          zipCode,
-          nif_passport,
-          choiceNif: choiceNif,
-        }),
-        headers:{
-          authorization: 'Bearer ' + token,
-          'Content-Type': 'application/json'
-        }
+    if (nifValidado ||nifValidado == null ){
+   await api.put("/client", {
+      firstName,
+      lastName,
+      phone,
+      address,
+      city,
+      country,
+      zipCode,
+      nif_passport,
+      choiceNif: choiceNif,
+    }).then((response) => {
+      toast.success("Dados atualizados com sucesso!")
+      setLoadingOpen(false)
+      router.reload()
     })
-    setLoadingOpen(false)
-    router.reload()
+    .catch((error) => {
+      toast.error("Erro ao atualizar os dados!")
+    })
   }else{
     setLoadingOpen(false)
-  }
-    
-    
-    
+  } 
   }
 
   
@@ -275,18 +276,21 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
   }
 
   function validateNIF(value: any) {
-    const nif = typeof value === 'string' ? value : value.toString();
+    if(value){
+    const nif = typeof value === 'string' ? value : value?.toString();
     const validationSets = {
       one: ['1', '2', '3', '5', '6', '8'],
       two: ['45', '70', '71', '72', '74', '75', '77', '79', '90', '91', '98', '99']
     };
-    if (nif.length !== 9) return false;
+    if (nif?.length !== 9) return false;
     if (!validationSets.one.includes(nif.substr(0, 1)) && !validationSets.two.includes(nif.substr(0, 2))) return false;
     const total = nif[0] * 9 + nif[1] * 8 + nif[2] * 7 + nif[3] * 6 + nif[4] * 5 + nif[5] * 4 + nif[6] * 3 + nif[7] * 2;
     const modulo11 = (Number(total) % 11);
     const checkDigit = modulo11 < 2 ? 0 : 11 - modulo11;
-    console.log(checkDigit === Number(nif[8]));
     return checkDigit === Number(nif[8]);
+    }
+
+    return null
   }
 
   return (

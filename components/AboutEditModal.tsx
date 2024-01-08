@@ -1,12 +1,15 @@
+import api from "@/services/api";
 import { AddCourseForm } from "@/types/AddCourseForm";
 import { EditAboutForm } from "@/types/EditAboutForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import { RealtorProfile } from "@/types/RealtorProfile";
+import { error } from "console";
 import LoadingContext from "context/LoadingContext";
 import locales from "locales";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -78,34 +81,35 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
       const localId = localStorage.getItem('id')
       const accountType = localStorage.getItem('accountType')
       if(localId && accountType){
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accountType+'/' + localId, {
-          method: 'GET'
+        await api.get(`/${accountType}/${localId}`)
+        .then((response) => {
+          const data = response.data
+          setIntroduction(accountType==="agency"?data.description : data.introduction)
         })
-        const json = await response.json()
-        setIntroduction(accountType==="agency"?json.description:json.introduction)
-
+        .catch((error) => {
+          toast.error("Error ao carregar dados!")
+        })
       }
     }
     fetchData()
   }, [])
 
   const onSubmit = async (data: EditAboutForm) => {
-    const token = localStorage.getItem('token')
     const accountType = localStorage.getItem('accountType')
     const realtorBody = {introduction: data.introduction}
     const agencyBody = {description: data.introduction}
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accountType+'/', {
-      method:'PUT',
-      body: JSON.stringify(accountType==="agency"?agencyBody:realtorBody),
-      headers:{
-        authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
+  
+    await api.put(`/${accountType}/` , accountType==="agency"? agencyBody : realtorBody)
+    .then((response) =>{
+      toast.success("Dados atualizados com sucesso!")
+      setLoadingOpen(false)
+      router.reload()
     })
-    const text = await response.text()
-    setLoadingOpen(false)
-    router.reload()
+    .catch((error) => {
+      toast.error("Error ao atualziar dados!")
+      setLoadingOpen(false)
+    })
   }
 
   return (

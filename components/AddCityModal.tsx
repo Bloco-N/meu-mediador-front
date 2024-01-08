@@ -9,6 +9,8 @@ import closeIcon from '../public/close.svg'
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import LoadingContext from 'context/LoadingContext';
 import locales from 'locales';
+import api from '@/services/api';
+import { toast } from 'react-toastify';
 
 const Container = styled.div`
   position: absolute;
@@ -123,14 +125,21 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
       const accType = localStorage.getItem('accountType')
       if(localId){
 
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
-        const userData = await response.json()
-        setUser(userData)
+        await api.get(`/${accType}/${localId}`)
+        .then((response) => {
+          setUser(response.data)
+        })
+        .catch((error) => {
+          // toast.error("Error ao carregar dados do usuário!")
+        })
 
-        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + localId)
-        const data = await responseCities.json()
-        setCities(data)
-
+        await api.get(`/city/${accType}/${localId}`)
+        .then((response) => {
+          setCities(response.data)
+        })
+        .catch((error) => {
+          // toast.error("Error ao carregar dados das cidades!")
+        })
       }
 
     }
@@ -143,13 +152,21 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
       const localId = localStorage.getItem('id')
       const accType = localStorage.getItem('accountType')
       if(localId){
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/'+accType+'/' + localId)
-        const userData = await response.json()
-        setUser(userData)
+        await api.get(`/${accType}/${localId}`)
+        .then((response) => {
+          setUser(response.data)
+        })
+        .catch((error) => {
+          // toast.error("Error ao carregar dados do usuário!")
+        })
 
-        const responseCities = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + localId)
-        const data = await responseCities.json()
-        setCities(data)
+        await api.get(`/city/${accType}/${localId}`)
+        .then((response) => {
+          setCities(response.data)
+        })
+        .catch((error) => {
+          // toast.error("Error ao carregar dados das cidades!")
+        })
       }
     }
     fetchData()
@@ -157,44 +174,36 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
 
   const onSubmit = async (data: AddCityForm) => {
     
-    const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType, {
-      method: 'POST',
-      body: JSON.stringify({
-        ...data
-      }),
-      headers:{
-        'Content-Type': 'application/json',
-        authorization: 'Bearer ' + token,
-      }
+    await api.post(`/city/${accType}`, {
+      ...data
     })
-
-    const text = await response.text()
-    setLoadingOpen(false)
-    reload()
-
+    .then((response) => {
+      setLoadingOpen(false)
+      reload()
+    })
+    .catch((error) => {
+      toast.error("Error ao adicionar cidade!")
+      setLoadingOpen(false)
+    })
   }
 
   const handleDeleteCity = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLElement
-    
     const { id } = target
-
-    const token = localStorage.getItem('token')
     const accType = localStorage.getItem('accountType')
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/city/'+accType+'/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
+
+    await api.delete(`/city/${accType}/${id}`)
+    .then((response) => {
+      toast.success("Cidade removida com sucesso!")
+      reload()
     })
-
-    const text = await response.text()
-    reload()
-
+    .catch((error) => {
+      toast.error("Erro ao remover a cidade!")
+    })
   }
+
   return (
     open ?
     <Container className='modal'>
@@ -226,7 +235,11 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
             </select>
             <div className='divButton'>
               <button type='submit'>{t.addCity.add}</button>
-              <button onClick={() => setOpen(false)}>{t.addCity.save}</button>
+              <button onClick={() => {
+                setOpen(false) 
+                toast.success("Cidades adicionado com sucesso!")}}>
+                  {t.addCity.save}
+                </button>
             </div>
           </>
         )}

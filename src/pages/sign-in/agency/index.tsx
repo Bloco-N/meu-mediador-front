@@ -16,6 +16,8 @@ import iconGoogle from '../../../../public/icon-google.png'
 import iconFacebook from '../../../../public/icons-facebook.png'
 import { getSession, signIn, useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
+import api from "@/services/api";
+import { toast } from "react-toastify";
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -116,55 +118,39 @@ const SignIn = () => {
        name: session?.user?.name
      }
 
-     const urlFetch = process.env.NEXT_PUBLIC_API_URL + '/agency' + '/sign-in'
-      const urlFetchGoogle = process.env.NEXT_PUBLIC_API_URL + '/agency' + '/sign-in' + '/google'
+      const urlFetch = '/agency/sign-in'
+      const urlFetchGoogle ='/agency/sign-in/google'
 
 
       const fetchData = async () => {
-
-        try {
-
           setLoadingOpen(true)
-          
-          const response = await fetch(!data ? urlFetchGoogle : urlFetch, {
-            method: 'POST',
-            body: JSON.stringify(!data ? dataGoogle : data),
-            headers: {"Content-type": "application/json; charset=UTF-8"}
+          await api.post(!data ? urlFetchGoogle : urlFetch, !data ? dataGoogle : data)
+          .then(async (response) => {
+            const token = response.data
+            localStorage.setItem('token', token)
+            const user = decode(token) as { id:number, email:string, name: string}
+  
+            localStorage.setItem('id', String(user.id))
+    
+            const agencyResponse = await api.get(`/agency/${user.id}`)
+            const agencyData = agencyResponse.data
+            
+            localStorage.setItem('pic', agencyData.profilePicture)
+            localStorage.setItem('accountType', 'agency')
+    
+            setUser({ token, id: user.id, profilePicture: agencyData.profilePicture, coverPicture: agencyData.coverPicture, accountType: 'agency' })
+            setLoadingOpen(false)
+            if(agencyData.verified === false){
+              router.push('/verify/agency')
+            }else{
+              router.reload()
+            }
+            toast.success(`Seja bem vindo`);
           })
-
-          if(!response.ok){
+          .catch((error) => {
             setLoginError(true)
             setLoadingOpen(false)
-            return
-          }
-
-          const token = await response.text()
-
-          localStorage.setItem('token', token)
-          const user = decode(token) as { id:number, email:string, name: string}
-
-          localStorage.setItem('id', String(user.id))
-  
-          const agencyResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + user.id)
-  
-          const agencyData = await agencyResponse.json()
-          
-          localStorage.setItem('pic', agencyData.profilePicture)
-          localStorage.setItem('accountType', 'agency')
-  
-          setUser({ token, id: user.id, profilePicture: agencyData.profilePicture, coverPicture: agencyData.coverPicture, accountType: 'agency' })
-          setLoadingOpen(false)
-          if(agencyData.verified === false){
-            router.push('/verify/agency')
-          }else{
-            router.reload()
-          }
-
-        } catch (error) {
-          console.log(error)
-        }
-        
-        
+          })
       }
       
       await fetchData()

@@ -4,6 +4,12 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useState } from "react";
+import { getSession, useSession } from "next-auth/react";
+import { GetServerSideProps } from "next";
+import api from "@/services/api";
+import { toast } from "react-toastify";
+import { SignUpForm } from "@/types/SignUpForm";
+
 const SignUpContainer = styled.div`
   height: 100%;
   width: 100%;
@@ -89,31 +95,52 @@ const SignUp = () => {
     setPrivacyPolicy(!privacy_policy);
   }
   const router = useRouter()
+  const {data: session} = useSession()
 
   const locale = router.locale
 
   const t = locales[locale as keyof typeof locales]
 
   const onSubmit = async (data:SignUpFormAgency) => {
+    const partesDoNome = session?.user?.name?.split(" ");
+    const firstName = partesDoNome ? partesDoNome[0] : null;
+   const lastName = partesDoNome?.slice(1).join(" ");
+ 
+   const dataGoogle = {
+     email: session?.user?.email,
+     firstName:firstName,
+     lastName: lastName
+
+   }
+
     const fetchData = async () => {
+      let body
+      const urlFetch = '/agency/sign-up'
+      const urlFetchGoogle = '/agency/sign-up/google'
 
-      if(data.password !== data.confirmPassword) return
+      if(!session){
+        if(data?.password !== data?.confirmPassword) return
+        const { confirmPassword, ...bodyData } = data as SignUpFormAgency;
+        body = bodyData
+      }
 
-      const { confirmPassword, ...body} = data
-
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/sign-up', {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
+      api.post(session ? urlFetchGoogle : urlFetch, session ? dataGoogle : body)
+      .then((response) => {
+        if (response.data){ 
+          toast.success(`Usuário criado com sucesso!`);
+          router.push("/sign-in/agency");
+        } else{
+          if (response.status === 400){
+            setUserExist(true);
+          }
+        }
       })
-      if (response.ok){ 
-        router.push('/sign-in/agency');
-      } else{
-        if (response.status === 400){
+      .catch((error) => {
+        console.log(error)
+        if (error.response.status == 400){
           setUserExist(true);
         }
-      }
-      
+      }) 
 
     }
 
@@ -151,5 +178,13 @@ const SignUp = () => {
 
     );
 };
-
 export default SignUp;
+
+export const getServerSideProps:GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+  return {
+    props:{
+      session
+    }
+  }
+}

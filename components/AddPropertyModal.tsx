@@ -16,6 +16,8 @@ import locales from 'locales';
 import EnergyEfficience from '@/types/EnergyEfficience';
 import AddPropertyModalContext, { ModalPropertyOpenContextType } from 'context/AddPropertyModalContext';
 import { ApiService } from '@/services/ApiService';
+import api from '@/services/api';
+import { toast } from 'react-toastify';
 
 type AddPropertyModalProps = {
   open: boolean,
@@ -158,7 +160,7 @@ const Container = styled.div`
   }
   input::placeholder {
     text-align: center; 
- 
+  }
 `
 
 const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
@@ -225,28 +227,33 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
       agencyId: Number(localId)
     }
     setLoadingOpen(true)
-    let response;
+    let dataResponse;
     if (!(propertyToUpdate && propertyToUpdate.id)) {
-      response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/' + accountType, {
-        method: 'POST',
-        body: JSON.stringify(accountType === "agency" ? agencyBody : realtorBody),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      await api.post(`/property/${accountType}`, accountType === "agency" ? agencyBody : realtorBody)
+      .then((response) => {
+        dataResponse = response.data
       })
+      .catch((error) => {
+        setLoadingOpen(false)
+        toast.error("Error ao adicionar dados do imóvel!")
+        return error
+      })
+
     } else {
-      response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/property/${propertyToUpdate.id}/${accountType}`, {
-        method: 'PUT',
-        body: JSON.stringify(accountType === "agency" ? agencyBody : realtorBody),
-        headers: {
-          'Content-Type': 'application/json'
-        }
+      await api.put(`/property/${propertyToUpdate.id}/${accountType}`, accountType === "agency" ? agencyBody : realtorBody)
+      .then((response) => {
+        dataResponse = response.data
+      })
+      .catch((error) => {
+        setLoadingOpen(false)
+        toast.error("Error ao atualizar dados do imóvel!")
+        return error
       })
     }
 
     setLoadingOpen(false)
-    const text = await response.text()
-    if (text === 'created' || text === 'updated') router.reload()
+    const response = dataResponse
+    if (response === 'created' || response === 'updated') router.reload()
 
   }
 

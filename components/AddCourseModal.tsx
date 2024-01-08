@@ -1,10 +1,13 @@
+import api from "@/services/api";
 import { AddCourseForm } from "@/types/AddCourseForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import { error } from "console";
 import LoadingContext from "context/LoadingContext";
 import locales from "locales";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -70,22 +73,19 @@ const AddCourseModal = ({open, setOpen}: AddCourseModalProps) => {
   const onSubmit = async (data: AddCourseForm) => {
 
     const localId = localStorage.getItem('id')
-
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/course', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: data.name,
-        realtorId: Number(localId)
-      }),
-      headers:{
-        'Content-Type': 'application/json'
-      }
+    await api.post('/course', {
+      name: data.name,
+      realtorId: Number(localId)
     })
-
-    const text = await response.text()
-    setLoadingOpen(false)
-    if(text === 'created') router.reload()
+    .then((response) => {
+      toast.success("Curso adicionado com sucesso!")
+      setLoadingOpen(false)
+      if(response.data === 'created') router.reload()
+    })
+    .catch((error) => {
+      toast.error("Erro ao adicionar curso!")
+    })
 
   }
 

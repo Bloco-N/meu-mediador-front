@@ -10,6 +10,8 @@ import iconGoogle from "../../../../public/icon-google.png";
 import iconFacebook from "../../../../public/icons-facebook.png";
 import { getSession, signIn, useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
+import api from "@/services/api";
+import { toast } from "react-toastify";
 
 const SignUpContainer = styled.div`
   height: 100%;
@@ -108,7 +110,7 @@ const SignUp = () => {
     const partesDoNome = session?.user?.name?.split(" ");
     const firstName = partesDoNome ? partesDoNome[0] : null;
     const lastName = partesDoNome?.slice(1).join(" ");
-    setUserExist(false);
+
     const dataGoogle = {
       email: session?.user?.email,
       firstName: firstName,
@@ -123,23 +125,26 @@ const SignUp = () => {
         body = bodyData;
       }
 
-      const urlFetch = process.env.NEXT_PUBLIC_API_URL + "/client/sign-up";
-      const urlFetchGoogle =
-        process.env.NEXT_PUBLIC_API_URL + "/client/sign-in/google";
+      const urlFetch = "/client/sign-up";
+      const urlFetchGoogle = "/client/sign-in/google";
 
-      const response = await fetch(session ? urlFetchGoogle : urlFetch, {
-        method: "POST",
-        body: JSON.stringify(session ? dataGoogle : body),
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      });
-
-      if (response.ok){ 
-        router.push("/sign-in/client");
-      } else{
-        if (response.status === 400){
+      api.post(session ? urlFetchGoogle : urlFetch, session ? dataGoogle : body)
+      .then((response) => {
+        if (response.data){ 
+          toast.success(`Usuário criado com sucesso!`);
+          router.push("/sign-in/client");
+        } else{
+          if (response.status === 400){
+            setUserExist(true);
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+        if (error.response.status == 400){
           setUserExist(true);
         }
-      }
+      })  
     };
 
     await fetchData();
