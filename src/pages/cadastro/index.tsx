@@ -77,7 +77,7 @@ export default function Cadastro() {
 
     const urlFetch = process.env.NEXT_PUBLIC_API_URL + "/client/sign-up";
     const body = {
-      name,
+      firstName: name,
       lastName,
       email,
       password,
@@ -104,7 +104,7 @@ export default function Cadastro() {
 
     const urlFetch = process.env.NEXT_PUBLIC_API_URL + '/realtor/sign-up'
     const body = {
-      name,
+      firstName: name,
       lastName,
       email,
       password,
