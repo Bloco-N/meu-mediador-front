@@ -11,6 +11,8 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AddAwardModalContext from "context/AddAwardModalContext"
 import { Award } from "@/types/Award"
 import LoadingContext from "context/LoadingContext"
+import api from "@/services/api"
+import { toast } from "react-toastify"
 
 const Container = styled.div`
   .awards{
@@ -69,11 +71,15 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
       if(id){
         setLoadingOpen(true)
 
-        const responseAwards = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/realtor/' + 1)
-        const awardsData = await responseAwards.json()
-        setAwards(awardsData)
-
-        setLoadingOpen(false)
+        await api.get(`/award/realtor/${1}`)
+        .then((response) => {
+          setAwards(response.data)
+          setLoadingOpen(false)
+        })
+        .catch((error) => {
+          setLoadingOpen(false)
+          return error
+        })
       }
 
     }
@@ -93,20 +99,19 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    
-    //DELETE AGENCY AWARD
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
+
+    await api.delete(`/award/${id}`)
+    .then((response) => {
+      console.log("Passou aqui")
+      toast.success("Prêmio removido com sucesso!")
+      setLoadingOpen(false)
+      if(response.data === 'deleted') router.reload()
     })
-
-    setLoadingOpen(false)
-    
-    const text = await response.text()
-    if(text === 'deleted') router.reload()
-
+    .catch((error) => {
+      toast.error("Erro ao remover prêmio!")
+      setLoadingOpen(false)
+      return error
+    })
   }
 
   return (

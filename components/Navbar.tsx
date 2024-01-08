@@ -17,6 +17,7 @@ import SearchResultContext from "context/SearchResultContext";
 import { SearchResultContextType } from "@/types/SearchResultContextType";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import api from "@/services/api";
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState<any>({
@@ -451,9 +452,14 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
   }
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + "/city");
-      const data = await response.json();
-      setCities(data);
+      await api.get(`/city`)
+      .then((response) => {
+        setCities(response.data);
+      })
+      .catch((error) => {
+        return error
+      })       
+     
     };
 
     fetchData();
@@ -469,12 +475,16 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
       } else {
         setSearch("");
       }
-      const response = await fetch(url, {
-        method: "GET",
-      });
-      const json = await response.json();
-      setSearchResult(json);
-      router.push("/search-result");
+
+      await api.get(url)
+      .then((response) => {
+        setSearchResult(response.data);
+        router.push("/search-result");
+      })
+      .catch((error) => {
+        return error
+      })       
+      
     };
     setLoadingOpen(true);
     await fetchData();
