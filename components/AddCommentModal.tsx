@@ -285,13 +285,13 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       if(response.data == false){
         setValidateClient(false)
       }
-      toast.error("Avaliação enviada com sucesso!")
+      toast.error(t.toast.sendReview)
       setLoadingOpen(false)
       console.log(response.data)
       if(response.data === 'created') router.reload()
     })
     .catch((error) => {
-      toast.error("Error ao avaliar consultor!")
+      toast.error(t.toast.errorSendReview)
       setLoadingOpen(false)
     })
     

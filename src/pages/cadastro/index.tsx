@@ -5,7 +5,7 @@ import man from "../../../public/man-form.webp";
 import finalMan from "../../../public/man-final.webp";
 import { Carousel } from "components/Carousel";
 import { useState, useContext } from "react";
-import router from "next/router";
+import router, {useRouter} from "next/router";
 import { useMediaQuery } from "usehooks-ts";
 
 import UserContext from "context/UserContext";
@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import api from "@/services/api";
 import { AgencyProfile } from "@/types/AgencyProfile";
 import { error } from "console";
+import locales from "locales";
 
 export default function Cadastro() {
   const matches = useMediaQuery("(min-width: 1400px)");
@@ -30,6 +31,10 @@ export default function Cadastro() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const routerLocale = useRouter()
+  const locale = routerLocale.locale
+  const t = locales[locale as keyof typeof locales]
+
   const { setUser } = useContext(UserContext) as UserContextType;
   const { setOpen: setLoadingOpen } = useContext(
     LoadingContext
@@ -53,7 +58,7 @@ export default function Cadastro() {
 
   const fetchAgencyData = async () => {
     if (password != confirmPassword) {
-      toast.error("As senhas não coincidem");
+      toast.error(t.toast.errorPassword);
       return;
     }
 
@@ -71,13 +76,13 @@ export default function Cadastro() {
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Erro ao cadastra!");
+        toast.error(t.toast.errorRegistration);
       });
   };
 
   const fetchClientData = async () => {
     if (password != confirmPassword) {
-      toast.error("As senhas não coincidem");
+      toast.error(t.toast.errorPassword);
       return;
     }
 
@@ -95,13 +100,13 @@ export default function Cadastro() {
         loginClient();
       })
       .catch((error) => {
-        toast.error("Erro ao cadastra!");
+        toast.error(t.toast.errorRegistration);
       });
   };
 
   const fetchRealtorData = async () => {
     if (password != confirmPassword) {
-      toast.error("As senhas não coincidem");
+      toast.error(t.toast.errorPassword);
       return;
     }
 
@@ -119,7 +124,7 @@ export default function Cadastro() {
         realtorLogin();
       })
       .catch((error) => {
-        toast.error("Erro ao cadastra!");
+        toast.error(t.toast.errorRegistration);
       });
   };
 
@@ -134,7 +139,7 @@ export default function Cadastro() {
     await api.post(urlFetch, body)
       .then(async (response) => {
         if (!response.data) {
-          toast.error("Erro ao logar!");
+          toast.error(t.toast.errorLogin);
           setLoadingOpen(false);
           return;
         }
@@ -169,16 +174,16 @@ export default function Cadastro() {
             } else {
               router.reload();
             }
-            toast.success(`Seja bem vindo!`);
+            toast.success(t.toast.welcome);
           })
           .catch((error) => {
             setLoadingOpen(false);
-            toast.error(`Erro ao logar!`);
+            toast.error(t.toast.errorLogin);
           });
       })
       .catch((error) => {
         setLoadingOpen(false);
-        toast.error(`Erro ao logar!`);
+        toast.error(t.toast.errorLogin);
       });
   };
 
@@ -194,7 +199,7 @@ export default function Cadastro() {
     await api.post(urlFetch, body)
     .then(async (response) => {
       if (!response.data) {
-        toast.error("Erro ao logar!");
+        toast.error(t.toast.errorLogin);
         setLoadingOpen(false);
         return;
       }
@@ -221,7 +226,7 @@ export default function Cadastro() {
           });
           setLoadingOpen(false);
           if (clientData.verified === false) {
-            toast.success(`Seja bem vindo ${clientData.firstName}`)
+            toast.success(`${t.toast.welcome} ${clientData.firstName}!`)
             router.push("/verify/client");
           } else {
             router.reload();
@@ -229,12 +234,12 @@ export default function Cadastro() {
         })
         .catch((error) => {
           setLoadingOpen(false);
-          toast.error(`Erro ao logar!`);
+          toast.error(t.toast.errorLogin);
         })
     })
     .catch((error) => {
       setLoadingOpen(false);
-      toast.error(`Erro ao logar!`);
+      toast.error(t.toast.errorLogin);
     })
   };
 
@@ -250,7 +255,6 @@ export default function Cadastro() {
       await api.post(urlFetch , body)
       .then(async (response) => {
         if (!response.data) {
-          console.log("algo deu errado login");
           setLoadingOpen(false);
           return;
         }
@@ -278,7 +282,7 @@ export default function Cadastro() {
           });
           setLoadingOpen(false);
           if (realtorData.verified === false) {
-            toast.success(`Seja bem vindo ${realtorData.firstName}`)
+            toast.success(`${t.toast.welcome} ${realtorData.firstName}`)
             router.push("/verify/realtor");
           } else {
             router.reload();
@@ -286,13 +290,13 @@ export default function Cadastro() {
         })
         .catch((error) => {
           setLoadingOpen(false);
-          toast.error(`Erro ao logar!`);
+          toast.error(t.toast.errorLogin);
         })
   
       })
       .catch((error) => {
         setLoadingOpen(false);
-        toast.error(`Erro ao logar!`);
+        toast.error(t.toast.errorLogin);
       })
   };
 

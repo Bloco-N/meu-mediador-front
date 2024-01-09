@@ -182,7 +182,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
       reload()
     })
     .catch((error) => {
-      toast.error("Error ao adicionar idioma!")
+      toast.error(t.toast.errorAddLanguage)
       setLoadingOpen(false)
     })
   }
@@ -200,7 +200,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
     })
     .catch((error) => {
       setLoadingOpen(false)
-      toast.error("Error ao remover idioma!")
+      toast.error(t.toast.errorRemoveLanguage)
     })
   }
 
@@ -237,7 +237,7 @@ const AddLanguageModal = ({open, setOpen}: AddLanguageModalProps) => {
             <button type='submit'>{t.addCity.add}</button>
             <button onClick={() => {
               setOpen(false)
-              toast.success("Idiomas adicionados com sucesso!")
+              toast.success(t.toast.addLanguage)
               }}>{t.addCity.save}</button>
         </div>
         </>

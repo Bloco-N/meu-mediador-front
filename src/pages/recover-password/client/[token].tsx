@@ -42,12 +42,12 @@ const RecoverPassword = () => {
     if(data.password !== data.confirmPassword) return;
     await api.put('/client/recover-password/update-password', {password: data.password})
     .then((response) => {
-      toast.success("Senha alterado com sucesso!")
+      toast.success(t.toast.updatePassword)
       if(response.data === 'updated') router.push('/sign-in/client')
       setLoadingOpen(false)
     })
     .catch((error) => {
-      toast.error("Erro ao alterar senha!")
+      toast.error(t.toast.errorUpdatePassword)
       setLoadingOpen(false)
       return error
     })

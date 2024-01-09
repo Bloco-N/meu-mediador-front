@@ -13,6 +13,7 @@ import { Award } from "@/types/Award"
 import LoadingContext from "context/LoadingContext"
 import api from "@/services/api"
 import { toast } from "react-toastify"
+import locales from "locales"
 
 const Container = styled.div`
   .awards{
@@ -64,6 +65,8 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
   const router = useRouter()
+  const { locale } = router;
+  const t = locales[locale as keyof typeof locales];
   const { id } = router.query
   
   useEffect(() => {
@@ -96,19 +99,16 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
     
     const { id } = target
 
-    const token = localStorage.getItem('token')
-
     setLoadingOpen(true)
 
     await api.delete(`/award/${id}`)
     .then((response) => {
-      console.log("Passou aqui")
-      toast.success("Prêmio removido com sucesso!")
+      toast.success(t.toast.removeAward)
       setLoadingOpen(false)
       if(response.data === 'deleted') router.reload()
     })
     .catch((error) => {
-      toast.error("Erro ao remover prêmio!")
+      toast.error(t.toast.errorRemoveAward)
       setLoadingOpen(false)
       return error
     })

@@ -155,7 +155,7 @@ const DenunciaMoldal = (props: DenunciaModalProps) => {
         profile: "perfil",
       })
       .then(async (response) => {
-        toast.success("Denuncia adicionado com sucesso!");
+        toast.success(t.toast.reportAdded);
         if (response.data) {
           setEnviado(t.reportDialog.warning);
           await timeout(3000);
@@ -163,7 +163,7 @@ const DenunciaMoldal = (props: DenunciaModalProps) => {
         }
       })
       .catch((error) => {
-        toast.success("Erro ao enviar a denúncia!");
+        toast.success(t.toast.errorReportAdded);
       });
   }
 

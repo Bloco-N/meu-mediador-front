@@ -157,7 +157,7 @@ const SignIn = () => {
             router.reload();
           }
 
-          toast.success(`Seja bem vindo ${realtorData.firstName}`);
+          toast.success(`${t.toast.welcome} ${realtorData.firstName}!`);
         })
         .catch((error) => {
           setLoginError(true);

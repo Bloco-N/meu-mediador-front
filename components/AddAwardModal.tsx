@@ -77,12 +77,12 @@ const AddAwardModal = ({open, setOpen}: AddAwardModalProps) => {
       realtorId: Number(localId)
     })
     .then((response) => {
-      toast.success("Prêmio adicionado com sucesso!")
+      toast.success(t.toast.prizeCreated)
       setLoadingOpen(false)
       if(response.data === 'created') router.reload()
     })
     .catch((error) => {
-      toast.success("Erro ao adicionar prêmio!")
+      toast.success(t.toast.errorAward)
     })
    
   }

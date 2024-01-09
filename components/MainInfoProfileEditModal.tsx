@@ -157,7 +157,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
           setPhone(response.data.phone)
         })
         .catch((error) => {
-          toast.error("Erro ao buscar dados")
+        return error
         })       
       }
 
@@ -179,12 +179,13 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
           phone
       })
         .then((response) => {
-          toast.success("Dados atualizados com sucesso!")
+          toast.success(t.toast.dataSuccess)
           setLoadingOpen(false)
           router.reload()
         })
         .catch((error) => {
-          toast.error("Erro ao atualizar os dados!")
+          toast.error(t.toast.dataError)
+          setLoadingOpen(false)
         })
       
     }else if(accType === 'agency'){
@@ -203,12 +204,13 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
           phone
         })
         .then((response) => {
-          toast.success("Dados atualizados com sucesso!")
+          toast.success(t.toast.dataSuccess)
           setLoadingOpen(false)
           router.reload()
         })
         .catch((error) => {
-          toast.error("Erro ao atualizar os dados!")
+          toast.error(t.toast.dataError)
+          setLoadingOpen(false)
         })
     }
   }

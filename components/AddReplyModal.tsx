@@ -84,7 +84,7 @@ export default function AddReplyModal({state, setOpen}:AddReplyModalProps){
     })
     .catch((error) => {
       setLoadingOpen(false)
-      toast.error("Error ao atualizar comentario!")
+      toast.error(t.toast.errorUpdateComment)
       return error
     })
 

@@ -162,7 +162,7 @@ const SignIn = () => {
               router.reload()
             }
             
-            toast.success(`Seja bem vindo ${clientData.firstName}`)
+            toast.success(`${t.toast.welcome} ${clientData.firstName}!`)
           })
           .catch((error) => {
             setLoginError(true)

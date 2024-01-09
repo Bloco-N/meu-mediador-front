@@ -13,6 +13,7 @@ import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import AddLanguageModalContext from 'context/AddLanguageModalContext';
 import api from '@/services/api';
 import { toast } from 'react-toastify';
+import locales from 'locales';
 
 type MainInfoProfileEditModalProps = {
   open: boolean,
@@ -94,6 +95,9 @@ const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps)
   const [phoneMask, setPhoneMask] = useState('')
 
   const router = useRouter()
+  const { locale } = router;
+  const t = locales[locale as keyof typeof locales];
+
 
   const handleAddCity = () => {
     setCityModalOpen(true)
@@ -144,11 +148,11 @@ const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps)
           phone
         })
     .then((response) => {
-      toast.success("Dados da agencia atualizados!")
+      toast.success(t.toast.updateAgency)
       router.reload()
     })
     .catch((error) => {
-      toast.error("Erro ao atualizar dados da agencia!")
+      toast.error(t.toast.errorUpdateAgency)
       return error
     })       
 

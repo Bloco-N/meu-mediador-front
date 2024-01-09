@@ -1,6 +1,7 @@
 import api from "@/services/api";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
+import locales from "locales";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
@@ -14,6 +15,9 @@ const Verify = () => {
   const { setOpen:setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
   const router = useRouter()
+  const locale = router.locale
+
+  const t = locales[locale as keyof typeof locales]
   const { token } = router.query
 
   useEffect(() => {
@@ -26,7 +30,7 @@ const Verify = () => {
       })
       .catch((error) => {
         setLoadingOpen(false)
-        toast.error("Erro ao verificar email!")
+        toast.error(t.toast.errorVerifyEmail)
         return error
       })
     } 

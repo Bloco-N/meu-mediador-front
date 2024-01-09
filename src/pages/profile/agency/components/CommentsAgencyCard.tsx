@@ -119,12 +119,12 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
     
     await api.delete(`/comment/${id}`)
     .then((response) => {
-      toast.success("Comentario removido com sucesso!")
+      toast.success(t.toast.removeComment)
       setLoadingOpen(false)
       if(response.data === 'deleted') router.reload()
     })
     .catch((error) => {
-      toast.error("Erro ao remover comentario!")
+      toast.error(t.toast.errorRemoveComment)
       return error
     })
 

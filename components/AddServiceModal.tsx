@@ -132,12 +132,12 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
 
     await api.post(`/service/${accountType}`, accountType==="agency"?agencyBody:realtorBody )
     .then((response) => {
-      toast.success("Serviço adicionado com sucesso!")
+      toast.success(t.toast.addService)
       setLoadingOpen(false)
       if(response.data === 'created') router.reload()
     })
     .catch((error) => {
-      toast.success("Erro ao adicionar o serviço!")
+      toast.success(t.toast.errorAddService)
       setLoadingOpen(false)
     })
   }

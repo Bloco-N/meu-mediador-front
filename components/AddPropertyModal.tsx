@@ -235,7 +235,7 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
       })
       .catch((error) => {
         setLoadingOpen(false)
-        toast.error("Error ao adicionar dados do imóvel!")
+        toast.error(t.toast.errorAddProperty)
         return error
       })
 
@@ -246,7 +246,7 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
       })
       .catch((error) => {
         setLoadingOpen(false)
-        toast.error("Error ao atualizar dados do imóvel!")
+        toast.error(t.toast.errorUpdateProperty)
         return error
       })
     }

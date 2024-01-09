@@ -131,7 +131,7 @@ const SignUp = () => {
       api.post(session ? urlFetchGoogle : urlFetch, session ? dataGoogle : body)
       .then((response) => {
         if (response.data){ 
-          toast.success(`Usuário criado com sucesso!`);
+          toast.success(t.toast.addUser);
           router.push("/sign-in/client");
         } else{
           if (response.status === 400){

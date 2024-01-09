@@ -145,7 +145,7 @@ const SignIn = () => {
             }else{
               router.reload()
             }
-            toast.success(`Seja bem vindo`);
+            toast.success(t.toast.welcome);
           })
           .catch((error) => {
             setLoginError(true)

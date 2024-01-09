@@ -87,7 +87,7 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
           setIntroduction(accountType==="agency"?data.description : data.introduction)
         })
         .catch((error) => {
-          toast.error("Error ao carregar dados!")
+          toast.error(t.toast.dataError)
         })
       }
     }
@@ -102,12 +102,12 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
   
     await api.put(`/${accountType}/` , accountType==="agency"? agencyBody : realtorBody)
     .then((response) =>{
-      toast.success("Dados atualizados com sucesso!")
+      toast.success(t.toast.dataSuccess)
       setLoadingOpen(false)
       router.reload()
     })
     .catch((error) => {
-      toast.error("Error ao atualziar dados!")
+      toast.error(t.toast.dataError)
       setLoadingOpen(false)
     })
   }

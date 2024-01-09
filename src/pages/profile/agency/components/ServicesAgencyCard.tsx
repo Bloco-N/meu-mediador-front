@@ -94,12 +94,12 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
 
     await api.delete(`/service/agency/${id}`)
     .then((response) => {
-      toast.success("Serviço removido com sucesso!")
+      toast.success(t.toast.removeService)
       setLoadingOpen(false)
       router.reload()
     })
     .catch((error) => {
-      toast.error("Erro ao remover serviço!")
+      toast.error(t.toast.errorRemoveService)
       setLoadingOpen(false)
     })
 

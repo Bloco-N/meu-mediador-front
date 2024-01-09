@@ -130,7 +130,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
           setUser(response.data)
         })
         .catch((error) => {
-          // toast.error("Error ao carregar dados do usuário!")
+          return error
         })
 
         await api.get(`/city/${accType}/${localId}`)
@@ -138,8 +138,8 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
           setCities(response.data)
         })
         .catch((error) => {
-          // toast.error("Error ao carregar dados das cidades!")
-        })
+          return error       
+         })
       }
 
     }
@@ -157,7 +157,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
           setUser(response.data)
         })
         .catch((error) => {
-          // toast.error("Error ao carregar dados do usuário!")
+          return error
         })
 
         await api.get(`/city/${accType}/${localId}`)
@@ -165,7 +165,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
           setCities(response.data)
         })
         .catch((error) => {
-          // toast.error("Error ao carregar dados das cidades!")
+          return error
         })
       }
     }
@@ -184,7 +184,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
       reload()
     })
     .catch((error) => {
-      toast.error("Error ao adicionar cidade!")
+      toast.error(t.toast.errorCity)
       setLoadingOpen(false)
     })
   }
@@ -196,11 +196,11 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
 
     await api.delete(`/city/${accType}/${id}`)
     .then((response) => {
-      toast.success("Cidade removida com sucesso!")
+      toast.success(t.toast.removeCity)
       reload()
     })
     .catch((error) => {
-      toast.error("Erro ao remover a cidade!")
+      toast.error(t.toast.errorRemoveCity)
     })
   }
 
@@ -237,7 +237,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
               <button type='submit'>{t.addCity.add}</button>
               <button onClick={() => {
                 setOpen(false) 
-                toast.success("Cidades adicionado com sucesso!")}}>
+                toast.success(t.toast.addCity)}}>
                   {t.addCity.save}
                 </button>
             </div>

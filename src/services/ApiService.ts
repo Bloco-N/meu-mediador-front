@@ -1,4 +1,3 @@
-import { toast } from "react-toastify"
 import api from "./api"
 
 export class ApiService{
@@ -8,7 +7,6 @@ export class ApiService{
       return data.data
       
     } catch (error) {
-      toast.error("Erro ao atualizar imagem de perfil!")
       console.log(error)
     }
 
@@ -21,7 +19,6 @@ export class ApiService{
       return data.data
       
     } catch (error) {
-      toast.error("Erro ao atualizar imagem da capa!")
       console.log(error)
     }
 
@@ -33,7 +30,6 @@ export class ApiService{
      return data.data
       
     } catch (error) {
-      toast.error("Erro ao atualizar imagem da capa!")
       console.log(error)
     }
 
@@ -136,7 +132,6 @@ export class ApiService{
       const data = await api.delete(`/service/${accountType}/${serviceId}`)
       return data.data
     } catch (error) {
-      toast.error("Erro ao remover serviço!")
       console.log(error)
     }
   }
@@ -148,7 +143,6 @@ export class ApiService{
       const data = await api.delete(`/property/${entity}/${propertyId}`)
       return data.data
     } catch (error) {
-      toast.error("Erro ao remover propriedade!")
       console.log(error)
     }
   }
@@ -160,7 +154,6 @@ export class ApiService{
       const data = await api.delete(`/award/${awardId}`)
       return data.data
     } catch (error) {
-      toast.error("Erro ao remover prêmio!")
       console.log(error)
     }
   }
@@ -172,7 +165,6 @@ export class ApiService{
       const data = await api.delete(`/course/${courseId}`)
       return data.data
     } catch (error) {
-      toast.error("Erro ao remover curso!")
       console.log(error)
     }
   }
@@ -184,7 +176,6 @@ export class ApiService{
       const data = await api.delete(`/partnership/${partnershipId}`)
       return data.data
     } catch (error) {
-      toast.error("Erro ao remover parceria!")
       console.log(error)
     }
   }
@@ -194,7 +185,6 @@ export class ApiService{
       const data = await api.delete(`/comment/realtor/${commentId}`)
       return data.data
     } catch (error) {
-      toast.error("Erro ao remover comentario!")
       console.log(error)
     }
   }
@@ -211,7 +201,6 @@ export class ApiService{
       })
       return data.data
     } catch (error) {
-      toast.error("Erro ao criar serviço!")
       console.log(error)
     }
   }

@@ -185,11 +185,11 @@ export default function Profile() {
         coverPicture: null,
         accountType: null,
       });
-      toast.success("Conta excluida com sucesso!")
+      toast.success(t.toast.removeAccount)
       router.push("/");
     })
     .catch((error) => {
-      toast.error("Erro ao excluir conta!")
+      toast.error(t.toast.errorRemoveAccount)
       return error
     })
    

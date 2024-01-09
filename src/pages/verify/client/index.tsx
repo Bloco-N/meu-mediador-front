@@ -56,7 +56,7 @@ const VerifyRealtor = () => {
           setLoadingOpen(false)
         })
         .catch((error) =>{
-          toast.error("Erro ao enviar email!")
+          toast.error(t.toast.errorVerifyEmail)
           setLoadingOpen(false)
         })
       }

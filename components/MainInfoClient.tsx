@@ -256,12 +256,13 @@ const MainInfoClient = ({ userSigned , isProfile}: MainInfoClientProps) => {
       nif_passport,
       choiceNif: choiceNif,
     }).then((response) => {
-      toast.success("Dados atualizados com sucesso!")
+      toast.success(t.toast.dataSuccess)
       setLoadingOpen(false)
       router.reload()
     })
     .catch((error) => {
-      toast.error("Erro ao atualizar os dados!")
+      toast.error(t.toast.dataError)
+      setLoadingOpen(false)
     })
   }else{
     setLoadingOpen(false)
