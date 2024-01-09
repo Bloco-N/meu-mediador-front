@@ -20,11 +20,11 @@ const SignUpContainer = styled.div`
   align-items: start;
   justify-content: center;
 
-  form{
-    @media only screen and (max-width: 900px){
+  form {
+    @media only screen and (max-width: 900px) {
       width: 60%;
     }
-    @media only screen and (max-width: 500px){
+    @media only screen and (max-width: 500px) {
       width: calc(100% - 30px);
       padding: 3rem 2rem;
       gap: 3rem;
@@ -35,23 +35,23 @@ const SignUpContainer = styled.div`
     padding: 3rem 3.5rem;
     gap: 2.5rem;
 
-    .full-name{
+    .full-name {
       width: 100%;
       display: flex;
       gap: 2rem;
       /* flex-direction: column; */
     }
-    .check_box{
+    .check_box {
       all: revert !important;
     }
     button:disabled,
-    button[disabled]{
+    button[disabled] {
       border: 1px solid #999999;
       background-color: #cccccc;
       color: #666666;
       cursor: not-allowed;
     }
-    span{
+    span {
       text-align: center;
     }
   }
@@ -70,19 +70,19 @@ const SignUpContainer = styled.div`
       }
 
       input {
-        color: #3A2E2C;
+        color: #3a2e2c;
         opacity: 1;
         font-weight: 600;
       }
 
       input::placeholder {
-        opacity: .8;
+        opacity: 0.8;
         font-weight: 500;
-        color: #3A2E2C;
+        color: #3a2e2c;
       }
     }
   }
-`
+`;
 
 const SignUp = () => {
 

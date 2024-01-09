@@ -4,11 +4,14 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useState } from "react";
-import { getSession, useSession } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import api from "@/services/api";
 import { toast } from "react-toastify";
 import { SignUpForm } from "@/types/SignUpForm";
+import GoogleLoginButton from "components/ButtonAuth";
+import iconGoogle from "../../../../public/icon-google.png";
+import iconFacebook from "../../../../public/icons-facebook.png";
 
 const SignUpContainer = styled.div`
   height: 100%;
@@ -16,12 +19,12 @@ const SignUpContainer = styled.div`
   display: flex;
   align-items: start;
   justify-content: center;
-  
-  form{
-    @media only screen and (max-width: 900px){
+
+  form {
+    @media only screen and (max-width: 900px) {
       width: 60%;
     }
-    @media only screen and (max-width: 500px){
+    @media only screen and (max-width: 500px) {
       width: calc(100% - 30px);
       padding: 3rem 2rem;
       gap: 3rem;
@@ -34,25 +37,24 @@ const SignUpContainer = styled.div`
     @media (max-width: 769px) {
       height: 65rem;
     }
-    .full-name{
+    .full-name {
       display: flex;
       gap: 2rem;
     }
 
-    .check_box{
+    .check_box {
       all: revert !important;
     }
     button:disabled,
-    button[disabled]{
+    button[disabled] {
       border: 1px solid #999999;
       background-color: #cccccc;
       color: #666666;
       cursor: not-allowed;
     }
-    span{
+    span {
       text-align: center;
     }
-    
   }
 
   @media (max-width: 768px) {
@@ -69,121 +71,156 @@ const SignUpContainer = styled.div`
       }
 
       input {
-        color: #3A2E2C;
+        color: #3a2e2c;
         opacity: 1;
         font-weight: 600;
       }
 
       input::placeholder {
-        opacity: .8;
+        opacity: 0.8;
         font-weight: 500;
-        color: #3A2E2C;
+        color: #3a2e2c;
       }
     }
   }
-  
-`
+`;
 
 const SignUp = () => {
-
-  const { register, handleSubmit } = useForm<SignUpFormAgency>()
+  const { register, handleSubmit } = useForm<SignUpFormAgency>();
   const [privacy_policy, setPrivacyPolicy] = useState(false);
   const [userExist, setUserExist] = useState(false);
 
-
-  const onPrivacyClick = () =>{
+  const onPrivacyClick = () => {
     setPrivacyPolicy(!privacy_policy);
-  }
-  const router = useRouter()
-  const {data: session} = useSession()
+  };
+  const router = useRouter();
+  const { data: session } = useSession();
 
-  const locale = router.locale
+  const locale = router.locale;
 
-  const t = locales[locale as keyof typeof locales]
+  const t = locales[locale as keyof typeof locales];
 
-  const onSubmit = async (data:SignUpFormAgency) => {
+  const onSubmit = async (data: SignUpFormAgency) => {
     const partesDoNome = session?.user?.name?.split(" ");
     const firstName = partesDoNome ? partesDoNome[0] : null;
-   const lastName = partesDoNome?.slice(1).join(" ");
- 
-   const dataGoogle = {
-     email: session?.user?.email,
-     firstName:firstName,
-     lastName: lastName
+    const lastName = partesDoNome?.slice(1).join(" ");
 
-   }
+    const dataGoogle = {
+      email: session?.user?.email,
+      firstName: firstName,
+      lastName: lastName,
+    };
 
     const fetchData = async () => {
-      let body
-      const urlFetch = '/agency/sign-up'
-      const urlFetchGoogle = '/agency/sign-up/google'
+      let body;
+      const urlFetch = "/agency/sign-up";
+      const urlFetchGoogle = "/agency/sign-up/google";
 
-      if(!session){
-        if(data?.password !== data?.confirmPassword) return
+      if (!session) {
+        if (data?.password !== data?.confirmPassword) return;
         const { confirmPassword, ...bodyData } = data as SignUpFormAgency;
-        body = bodyData
+        body = bodyData;
       }
 
-      api.post(session ? urlFetchGoogle : urlFetch, session ? dataGoogle : body)
-      .then((response) => {
-        if (response.data){ 
-          toast.success(t.toast.addUser);
-          router.push("/sign-in/agency");
-        } else{
-          if (response.status === 400){
+      api
+        .post(session ? urlFetchGoogle : urlFetch, session ? dataGoogle : body)
+        .then((response) => {
+          if (response.data) {
+            toast.success(t.toast.addUser);
+            router.push("/sign-in/agency");
+          } else {
+            if (response.status === 400) {
+              setUserExist(true);
+            }
+          }
+        })
+        .catch((error) => {
+          if (error.response.status == 400) {
             setUserExist(true);
           }
-        }
-      })
-      .catch((error) => {
-        if (error.response.status == 400){
-          setUserExist(true);
-        }
-      }) 
+        });
+    };
 
-    }
+    await fetchData();
+  };
 
-    await fetchData()
-  }
-  
-    return (
+  return (
+    <SignUpContainer>
+      <form className="card" onSubmit={handleSubmit(onSubmit)}>
+        <h2>{t.signUp.signUp}</h2>
 
-      <SignUpContainer>
+        <input
+          type="text"
+          className="input-name"
+          placeholder={t.mainInfoEditModal.agencyName}
+          {...register("name", { required: true })}
+        />
+        <input
+          className="input-sign-up"
+          type="email"
+          placeholder={t.signIn.email}
+          {...register("email", { required: true })}
+        />
+        {userExist ? (
+          <label style={{ color: "red" }}>{t.signUp.check_email}</label>
+        ) : (
+          <></>
+        )}
+        <input
+          className="input-sign-up"
+          type="password"
+          placeholder={t.signIn.password}
+          {...register("password", { required: true })}
+        />
+        <input
+          className="input-sign-up"
+          type="password"
+          placeholder={t.signUp.confirmPassword}
+          {...register("confirmPassword", { required: true })}
+        />
 
-        <form className="card" onSubmit={handleSubmit(onSubmit)}>
+        <div className="orSeparator">
+          <div className="borderTop"></div>
+          <div className="orText">ou</div>
+          <div className="borderTop"></div>
+        </div>
 
-          <h2>{t.signUp.signUp}</h2>
+        <GoogleLoginButton
+          icon={iconGoogle.src}
+          onClick={() => signIn("google")}
+          text={t.signIn.google}
+        />
 
-          <input type="text" className="input-name" placeholder={t.mainInfoEditModal.agencyName}
-          {...register('name', {required:true, })} />
-          <input className="input-sign-up" type="email" placeholder={t.signIn.email}
-          {...register('email', {required:true})}/>
-          {
-            userExist ?
-            <label style={{color:"red"}}>{t.signUp.check_email}</label>
-            :
-            <></>
-          }
-          <input className="input-sign-up" type="password" placeholder={t.signIn.password}
-          {...register('password', {required:true})}/>
-          <input className="input-sign-up" type="password" placeholder={t.signUp.confirmPassword}
-          {...register('confirmPassword', {required:true})}/>
-          <span className="txt-center"> <input type="checkbox" className="check_box" checked={privacy_policy} onClick={onPrivacyClick}/>{t.signUp.check_police}</span>
-          <button type="submit" disabled={!privacy_policy}>{t.signUp.signUp}</button>
+        <GoogleLoginButton
+          icon={iconFacebook.src}
+          onClick={() => signIn("facebook")}
+          text={t.signIn.facebook}
+        />
 
-        </form>
-
-      </SignUpContainer>
-
-    );
+        <span className="txt-center">
+          {" "}
+          <input
+            type="checkbox"
+            className="check_box"
+            checked={privacy_policy}
+            onClick={onPrivacyClick}
+          />
+          {t.signUp.check_police}
+        </span>
+        <button type="submit" disabled={!privacy_policy}>
+          {t.signUp.signUp}
+        </button>
+      </form>
+    </SignUpContainer>
+  );
 };
 export default SignUp;
 
-export const getServerSideProps:GetServerSideProps = async (context) => {
-  const session = await getSession(context)
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
   return {
-    props:{
-      session
-    }
-  }
-}
+    props: {
+      session,
+    },
+  };
+};
