@@ -76,7 +76,7 @@ export default function SearchResult(){
     <Container>
 
       <div className="list">
-        {searchResult.list.map(item => (
+        {searchResult?.list?.map(item => (
           <Link href={'/profile/realtor/' + item.id} key={item.id }>
             <MainInfo lastExp={{
               name: item.agencyName,

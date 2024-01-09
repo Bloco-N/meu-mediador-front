@@ -1,7 +1,10 @@
+import api from "@/services/api";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
+import locales from "locales";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const VerifyContainer = styled.div`
@@ -12,23 +15,23 @@ const Verify = () => {
   const { setOpen:setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
   const router = useRouter()
+  const locale = router.locale
+  const t = locales[locale as keyof typeof locales]
   const { token } = router.query
 
   useEffect(() => {
     const fetchData = async () => {
       setLoadingOpen(true)
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client' + '/verify', {
-        method: 'PUT',
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          authorization: 'Bearer ' + token
-        }
+      await api.put('/client/verify')
+      .then((response) => {
+        if(response.data === 'updated') router.push('/')
+        setLoadingOpen(false)
       })
-  
-      const text = await response.text()
-  
-      if(text === 'updated') router.push('/')
-      setLoadingOpen(false)
+      .catch((error) => {
+        setLoadingOpen(false)
+        toast.error(t.toast.errorVerifyEmail)
+        return error
+      })
     } 
     fetchData()
   }, [router, token, setLoadingOpen])

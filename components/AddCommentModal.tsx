@@ -1,5 +1,7 @@
+import api from "@/services/api";
 import { AddCommentForm } from "@/types/AddCommentForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import { error } from "console";
 import LoadingContext from "context/LoadingContext";
 import locales from "locales";
 import Link from "next/link";
@@ -7,6 +9,7 @@ import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Rating } from "react-simple-star-rating";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -19,9 +22,10 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   
+  
   form {
     position: relative;
-    height: 60rem;
+    height: 65rem;
     width: 40%;
     border-radius: 3rem;
     display: flex;
@@ -30,6 +34,7 @@ const Container = styled.div`
     justify-content: flex-start;
     gap: 2rem;
     padding-top: 4rem;
+    /* border: 1px solid tomato; */
     @media (max-width: 1000px) {
       width: 60%;
       height: 70rem;
@@ -48,42 +53,37 @@ const Container = styled.div`
       width: 80%;
       height: auto;
       padding-top: 2rem;
+    }    
+  }
+
+  textarea{
+    min-height: 10rem;
+      @media (max-width: 600px) {
+        width: 85%;
+        min-height: 20rem;
+      }
     }
-    
-    div {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      width: 80%;
+  }
+
+  div {
+       display: flex; 
+       flex-direction: row; 
+       align-items: center; 
+       justify-content: space-between; 
+       gap: 1.5rem; 
+       width: 80%;
       
-      p {
+       p {
         font-weight: bold;
       }
       @media (max-width: 376px) {
         height: 8rem;
-      }
+      } 
     }
-  }
-  textarea{
-    min-height: 20rem;
-    
-
-      @media (max-width: 600px) {
-        width: 85%;
-      }
-    }
-  }
   
   .desableForm{
       height: 20rem;
     }
-
-
-  textarea {
-    min-height: 10rem;
-  }
-  
   .redirect {
     position: absolute;
     top: 50%;
@@ -279,24 +279,22 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       clientId: Number(idClient),
       agencyId: Number(profileId)
     }
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/'+profileType, {
-      method: 'POST',
-      body: JSON.stringify(profileType==="agency"?agencyBody:realtorBody),
-      headers:{
-        'Content-Type': 'application/json'
+
+    await api.post(`/comment/${profileType}`, profileType === "agency"? agencyBody : realtorBody)
+    .then((response) => {
+      if(response.data == false){
+        setValidateClient(false)
       }
+      toast.error(t.toast.sendReview)
+      setLoadingOpen(false)
+      console.log(response.data)
+      if(response.data === 'created') router.reload()
     })
-
-    const text = await response.text()
-    console.log(text, "Text")
-    if(text == "false"){
-      console.log("Entrou")
-      setValidateClient(false)
-    }
-    console.log(validateClient, "Teste")
-    setLoadingOpen(false)
-    if(text === 'created') router.reload()
-
+    .catch((error) => {
+      toast.error(t.toast.errorSendReview)
+      setLoadingOpen(false)
+    })
+    
   }
 
   useEffect(() => {
@@ -338,8 +336,8 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
   return (
     (open) ?
     <Container className='modal'>
-      <form className={accType === 'client' && validateClient ? "" : "desableForm"} onSubmit={handleSubmit(onSubmit)} action="">
-        {accType === 'client' && validateClient? (
+      <form  onSubmit={handleSubmit(onSubmit)} action="">
+        {accType === 'client'? (
           <>
             <h3>{t.review.createAReview}</h3>
             <div>

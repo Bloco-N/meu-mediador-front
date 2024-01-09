@@ -1,9 +1,11 @@
+import api from "@/services/api";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
 import locales from "locales";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -74,17 +76,19 @@ export default function AddReplyModal({state, setOpen}:AddReplyModalProps){
 
   const onSubmit = async (data:{reply:string}) => {
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/realtor/' + state.commentId, {
-      method: 'PUT',
-      body: JSON.stringify({...data}),
-      headers:{
-        'Content-Type': 'application/json'
-      }
+
+    await api.put(`/comment/realtor/${state.commentId}`, {...data})
+    .then((response) => {
+      setLoadingOpen(false)
+      if(response.data === 'updated') router.reload()
+    })
+    .catch((error) => {
+      setLoadingOpen(false)
+      toast.error(t.toast.errorUpdateComment)
+      return error
     })
 
-    const text = await response.text()
-    setLoadingOpen(false)
-    if(text === 'updated') router.reload()
+   
   }
 
   return (

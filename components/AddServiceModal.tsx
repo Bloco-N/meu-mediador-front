@@ -1,3 +1,4 @@
+import api from '@/services/api';
 import { AddServiceForm } from '@/types/AddServiceForm';
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import { RealtorService } from '@/types/RealtorService';
@@ -7,6 +8,7 @@ import locales, { servicesLocales } from 'locales';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -83,20 +85,30 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
       const accountType = localStorage.getItem('accountType')
+      let data : Service [] = []
+      let realtorServicesData : RealtorService [] = []
+
       if(localId){
-        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service')
-  
-        let data = await responseServices.json() as Service []
-  
-        const responseRealtorServices = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/service/${accountType==="agency"?"agenct":"realtor"}/${localId}`)
-  
-        const realtorServicesData = await responseRealtorServices.json() as RealtorService []
-  
-        const realtorServicesNames = realtorServicesData.map( item => item.service.title )
-  
+        await api.get("/service")
+        .then((response) => {
+          data = response.data as Service []
+        })  
+        .catch((error) => {
+          return error
+        })
+        
+        await api.get(`/service/${accountType==="agency"?"agenct":"realtor"}/${localId}`)
+        .then((response) => {
+          realtorServicesData = response.data as RealtorService []
+        })  
+        .catch((error) => {
+          return error
+        })
+
+        const realtorServicesNames = realtorServicesData?.map( item => item.service.title )  
         const deleteSet = new Set(realtorServicesNames)
   
-        data = data.filter(item => !deleteSet.has(item.title))
+        data = data?.filter(item => !deleteSet.has(item.title))
         setServices(data)
       }
     }
@@ -117,17 +129,17 @@ const AddServiceModal = ({open, setOpen}: AddServiceModalProps) => {
     }
 
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/'+accountType, {
-      method: 'POST',
-      body: JSON.stringify(accountType==="agency"?agencyBody:realtorBody),
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
-    setLoadingOpen(false)
-    const text = await response.text()
-    if(text === 'created') router.reload()
 
+    await api.post(`/service/${accountType}`, accountType==="agency"?agencyBody:realtorBody )
+    .then((response) => {
+      toast.success(t.toast.addService)
+      setLoadingOpen(false)
+      if(response.data === 'created') router.reload()
+    })
+    .catch((error) => {
+      toast.success(t.toast.errorAddService)
+      setLoadingOpen(false)
+    })
   }
 
   return (

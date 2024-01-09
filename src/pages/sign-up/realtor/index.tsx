@@ -10,6 +10,8 @@ import iconFacebook from '../../../../public/icons-facebook.png'
 import { getSession, signIn, useSession } from "next-auth/react";
 import GoogleLoginButton from "components/ButtonAuth";
 import { GetServerSideProps } from "next";
+import api from "@/services/api";
+import { toast } from "react-toastify";
 
 const SignUpContainer = styled.div`
   height: 100%;
@@ -122,23 +124,26 @@ const SignUp = () => {
         body = bodyData
       }
       
-      const urlFetch = process.env.NEXT_PUBLIC_API_URL + '/realtor/sign-up'
-      const urlFetchGoogle = process.env.NEXT_PUBLIC_API_URL + '/realtor/sign-in/google'
+      const urlFetch = '/realtor/sign-up'
+      const urlFetchGoogle = '/realtor/sign-in/google'
 
-      const response = await fetch(session ? urlFetchGoogle : urlFetch, {
-        method: 'POST',
-        body: JSON.stringify(session ? dataGoogle : body),
-        headers: {"Content-type": "application/json; charset=UTF-8"}
+      api.post(session ? urlFetchGoogle : urlFetch, session ? dataGoogle : body)
+      .then((response) => {
+        if (response.data){ 
+          toast.success(t.toast.addUser);
+          router.push("/sign-in/realtor");
+        } else{
+          if (response.status === 400){
+            setUserExist(true);
+          }
+        }
       })
-      if (response.ok){ 
-        router.push('/sign-in/realtor')
-      } else{
-        if (response.status === 400){
+      .catch((error) => {
+        console.log(error)
+        if (error.response.status == 400){
           setUserExist(true);
         }
-      }
-      
-
+      }) 
     }
 
     await fetchData()

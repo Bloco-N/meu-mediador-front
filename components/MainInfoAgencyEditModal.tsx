@@ -11,6 +11,9 @@ import { AgencyProfile } from '@/types/AgencyProfile';
 import AddCityModalContext from 'context/AddCityModalContext';
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import AddLanguageModalContext from 'context/AddLanguageModalContext';
+import api from '@/services/api';
+import { toast } from 'react-toastify';
+import locales from 'locales';
 
 type MainInfoProfileEditModalProps = {
   open: boolean,
@@ -92,6 +95,9 @@ const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps)
   const [phoneMask, setPhoneMask] = useState('')
 
   const router = useRouter()
+  const { locale } = router;
+  const t = locales[locale as keyof typeof locales];
+
 
   const handleAddCity = () => {
     setCityModalOpen(true)
@@ -116,16 +122,16 @@ const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps)
 
       const localId = localStorage.getItem('id')
       if(localId !== undefined){
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/${accountType}/` + localId, {
-          method: 'GET'
+        await api.get(`/${accountType}/${localId}`)
+        .then((response) => {
+          setUserSigned(response.data)
+          setWhatsapp(response.data.whatsapp)
+          setPhone(response.data.phone)
         })
-        const json = await response.json()
-        setUserSigned(json)
-        setWhatsapp(json.whatsapp)
-        setPhone(json.phone)
+        .catch((error) => {
+          return error
+        })       
       }
-
-
     }
     fetchData()
   }, [user.id])
@@ -135,21 +141,21 @@ const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps)
     if(data.website && !data.website.startsWith('https://')){
       data.website = 'https://' + data.website
     }
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/', {
-      method:'PUT',
-      body: JSON.stringify({
-        ...data,
-        whatsapp,
-        phone
-      }),
-      headers:{
-        authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json'
-      }
-    })
-    const text = await response.text()
-    router.reload()
     
+    await api.put(`/agency/`, {
+      ...data,
+          whatsapp,
+          phone
+        })
+    .then((response) => {
+      toast.success(t.toast.updateAgency)
+      router.reload()
+    })
+    .catch((error) => {
+      toast.error(t.toast.errorUpdateAgency)
+      return error
+    })       
+
   }
 
   return (

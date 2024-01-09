@@ -1,3 +1,4 @@
+import api from "@/services/api";
 import { AddAwardForm } from "@/types/AddAwardForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
@@ -5,6 +6,7 @@ import locales from "locales";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -68,25 +70,21 @@ const AddAwardModal = ({open, setOpen}: AddAwardModalProps) => {
   const t = locales[locale as keyof typeof locales]
 
   const onSubmit = async (data: AddAwardForm) => {
-
     const localId = localStorage.getItem('id')
-
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award', {
-      method: 'POST',
-      body: JSON.stringify({
-        title: data.title,
-        realtorId: Number(localId)
-      }),
-      headers:{
-        'Content-Type': 'application/json'
-      }
+    await api.post("/award" , {
+      title: data.title,
+      realtorId: Number(localId)
     })
-
-    const text = await response.text()
-    setLoadingOpen(false)
-    if(text === 'created') router.reload()
-
+    .then((response) => {
+      toast.success(t.toast.prizeCreated)
+      setLoadingOpen(false)
+      if(response.data === 'created') router.reload()
+    })
+    .catch((error) => {
+      toast.success(t.toast.errorAward)
+    })
+   
   }
 
   return (

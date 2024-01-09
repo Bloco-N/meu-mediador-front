@@ -1,3 +1,4 @@
+import api from "@/services/api";
 import { AgencyProfile } from "@/types/AgencyProfile";
 import MainInfoAgency from "components/MainInfoAgency";
 import { useRouter } from "next/router";
@@ -140,9 +141,13 @@ export default function Temp(){
   useEffect(() => {
     const fetchData = async () => {
       if(id){
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/' + id)
-        const data = await response.json()
-        setAgency(data)
+        await api.get(`/agency/${id}`)
+        .then((response) => {
+          setAgency(response.data)
+        })
+        .catch((error) => {
+          return error
+        })
       }
     }
     const localId = localStorage.getItem('id') as string

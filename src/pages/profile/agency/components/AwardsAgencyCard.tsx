@@ -11,6 +11,9 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import AddAwardModalContext from "context/AddAwardModalContext"
 import { Award } from "@/types/Award"
 import LoadingContext from "context/LoadingContext"
+import api from "@/services/api"
+import { toast } from "react-toastify"
+import locales from "locales"
 
 const Container = styled.div`
   .awards{
@@ -62,6 +65,8 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
   const router = useRouter()
+  const { locale } = router;
+  const t = locales[locale as keyof typeof locales];
   const { id } = router.query
   
   useEffect(() => {
@@ -69,11 +74,15 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
       if(id){
         setLoadingOpen(true)
 
-        const responseAwards = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/realtor/' + 1)
-        const awardsData = await responseAwards.json()
-        setAwards(awardsData)
-
-        setLoadingOpen(false)
+        await api.get(`/award/realtor/${1}`)
+        .then((response) => {
+          setAwards(response.data)
+          setLoadingOpen(false)
+        })
+        .catch((error) => {
+          setLoadingOpen(false)
+          return error
+        })
       }
 
     }
@@ -90,23 +99,19 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
     
     const { id } = target
 
-    const token = localStorage.getItem('token')
-
     setLoadingOpen(true)
-    
-    //DELETE AGENCY AWARD
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/award/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
+
+    await api.delete(`/award/${id}`)
+    .then((response) => {
+      toast.success(t.toast.removeAward)
+      setLoadingOpen(false)
+      if(response.data === 'deleted') router.reload()
     })
-
-    setLoadingOpen(false)
-    
-    const text = await response.text()
-    if(text === 'deleted') router.reload()
-
+    .catch((error) => {
+      toast.error(t.toast.errorRemoveAward)
+      setLoadingOpen(false)
+      return error
+    })
   }
 
   return (

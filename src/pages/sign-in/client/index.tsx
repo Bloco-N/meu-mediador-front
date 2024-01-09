@@ -16,6 +16,9 @@ import {getSession, signIn,useSession} from 'next-auth/react'
 import GoogleLoginButton from '../../../../components/ButtonAuth'
 import iconGoogle from '../../../../public/icon-google.png'
 import iconFacebook from '../../../../public/icons-facebook.png'
+import api from "../../../services/api";
+import { error } from "console";
+import {toast} from "react-toastify"
 
 const SignInContainer = styled.div`
   width: 100%;
@@ -106,7 +109,6 @@ const SignIn = () => {
     const t = locales[locale as keyof typeof locales]
    
     useEffect(() => {
-      console.log("Entrou")
       const checkAndSubmit = async () => {
         if (status === 'authenticated') {
           console.log("Entro2")
@@ -134,46 +136,39 @@ const SignIn = () => {
 
         }
 
-        const urlFetch = process.env.NEXT_PUBLIC_API_URL + '/client' + '/sign-in'
-        const urlFetchGoogle = process.env.NEXT_PUBLIC_API_URL + '/client' + '/sign-in' + '/google'
+        const urlFetch = '/client/sign-in'
+        const urlFetchGoogle ='/client/sign-in/google'
 
       const fetchData = async () => {
         
         setLoadingOpen(true)
-        const response = await fetch(!data ? urlFetchGoogle : urlFetch, {
-          method: 'POST',
-          body: JSON.stringify(!data ? dataGoogle : data),
-          headers: {"Content-type": "application/json; charset=UTF-8"}
-        })
-          
-        if(!response.ok){
-          setLoginError(true)
-          setLoadingOpen(false)
-          return
-        }
+        await api.post(!data ? urlFetchGoogle : urlFetch, !data ? dataGoogle : data)
+          .then(async (response) => {
+            const token = await response.data
+            localStorage.setItem('token', token)
+            const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
+            localStorage.setItem('id', String(user.id))
+           
+            const clientResponse = await api.get(`/client/${user.id}`)
+            const clientData = await clientResponse.data
+            localStorage.setItem('accountType', 'client')
+            console.log(clientData,"Pedro")
+            setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
+            setLoadingOpen(false)
 
-
-        const token = await response.text()
-        localStorage.setItem('token', token)
-        const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
-        console.log(user.id, "Id do usuario")
-        localStorage.setItem('id', String(user.id))
-
-        const clientResponse = await fetch(process.env.NEXT_PUBLIC_API_URL + '/client/' + user.id)
-    
-        const clientData = await clientResponse.json()
-
-        localStorage.setItem('accountType', 'client')
-
-        setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
-        setLoadingOpen(false)
-
-        if(clientData.verified === false){
-          router.push('/verify/client')
-        }else{
-          router.reload()
-        }
-
+            if(clientData.verified === false){
+              router.push('/verify/client')
+            }else{
+              router.reload()
+            }
+            
+            toast.success(`${t.toast.welcome} ${clientData.firstName}!`)
+          })
+          .catch((error) => {
+            setLoginError(true)
+            setLoadingOpen(false)
+            console.log(error)
+          })
       }
 
       await fetchData()
@@ -181,13 +176,7 @@ const SignIn = () => {
 
     return (
       <SignInContainer> 
-
-        
-
         <form className="card" onSubmit={handleSubmit(onSubmit)}>
-
-       
-
           <h2>{t.signIn.signIn}</h2>
 
           <input className="input-sign-up" type="email" placeholder={t.signIn.email}

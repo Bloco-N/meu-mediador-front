@@ -20,6 +20,9 @@ import { signOut as singOutGoogle } from "next-auth/react";
 import IconAlert from "../../../../public/icons-atencao.png";
 import TrashButton from "components/DeleteButton";
 import locales from "locales";
+import api from "@/services/api";
+import { error } from "console";
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   display: flex;
@@ -134,11 +137,14 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        const response = await fetch(
-          process.env.NEXT_PUBLIC_API_URL + "/agency/" + id
-        );
-        const data = await response.json();
-        setAgency(data);
+       await api.get(`/agency/${id}`)
+        .then((response) => {
+          setAgency(response.data);
+        })
+        .catch((error) => {
+          router.push("/");
+          return error
+        })
       }
     };
     const localId = localStorage.getItem("id") as string;
@@ -165,28 +171,28 @@ export default function Profile() {
   }, []);
 
   async function deleteClient() {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_API_URL + "/realtor/" + id,
-      {
-        method: "DELETE",
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      }
-    );
-
-    await singOutGoogle();
-    localStorage.removeItem("token");
-    localStorage.removeItem("id");
-    localStorage.removeItem("pic");
-    localStorage.removeItem("accountType");
-    setUser({
-      token: "",
-      id: null,
-      profilePicture: null,
-      coverPicture: null,
-      accountType: null,
-    });
-
-    if (response.ok) router.push("/");
+    await api.delete(`/agency/${id}`)
+    .then(async (response )=> {
+      await singOutGoogle();
+      localStorage.removeItem("token");
+      localStorage.removeItem("id");
+      localStorage.removeItem("pic");
+      localStorage.removeItem("accountType");
+      setUser({
+        token: "",
+        id: null,
+        profilePicture: null,
+        coverPicture: null,
+        accountType: null,
+      });
+      toast.success(t.toast.removeAccount)
+      router.push("/");
+    })
+    .catch((error) => {
+      toast.error(t.toast.errorRemoveAccount)
+      return error
+    })
+   
   }
 
   return (

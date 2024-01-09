@@ -6,6 +6,8 @@ import styled from "styled-components";
 import { decode } from "jsonwebtoken";
 import { useRouter } from "next/router";
 import locales from "locales";
+import api from "@/services/api";
+import { toast } from "react-toastify";
 
 const VerifyRealtorContainer = styled.div`
   display: flex;
@@ -48,16 +50,16 @@ const VerifyRealtor = () => {
       else{
         setLoadingOpen(true)
         const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/verify', {
-          method: 'POST',
-          body: JSON.stringify({email: user.email}),
-          headers: {"Content-type": "application/json; charset=UTF-8"}
+        
+        await api.post(`/realtor/verify`, {email: user.email})
+        .then((response) => {
+          setLoadingOpen(false)
         })
-  
-        const text = await response.text()
-  
-        if(text === 'email sended') console.log(text)
-        setLoadingOpen(false)
+        .catch((error) =>{
+          toast.error(t.toast.errorVerifyEmail)
+          setLoadingOpen(false)
+        })
+
       }
     }
 

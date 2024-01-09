@@ -1,3 +1,4 @@
+import api from "@/services/api";
 import { AddAwardForm } from "@/types/AddAwardForm";
 import { AddPartnershipForm } from "@/types/AddPartnershipForm";
 import { AgencyProfile } from "@/types/AgencyProfile";
@@ -123,9 +124,13 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
   useEffect(() => {
 
     const fetchData = async () => {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/agency/no-pagination`)
-      const json = await response.json()
-      setAgencies(json)
+      await api.get(`/agency/no-pagination`)
+      .then((response) => {
+        setAgencies(response.data)
+      })
+      .catch((error) => {
+        return error
+      })
     }
 
     fetchData()
@@ -135,23 +140,18 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
   const onSubmit = async (data: AddPartnershipForm) => {
 
     const localId = localStorage.getItem('id')
-
-    setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/partnership', {
-      method: 'POST',
-      body: JSON.stringify({
+      await api.post(`/partnership`,{
         ...data,
         realtorId: Number(localId)
-      }),
-      headers:{
-        'Content-Type': 'application/json'
-      }
-    })
-
-    const text = await response.text()
-    setLoadingOpen(false)
-    if(text === 'updated') router.reload()
-
+      })
+      .then((response) => {
+        setLoadingOpen(false)
+        if(response.data === 'updated') router.reload()
+      })
+      .catch((error) => {
+        setLoadingOpen(false)
+        return error
+      })
   }
 
   return (

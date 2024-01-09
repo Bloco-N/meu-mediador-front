@@ -25,6 +25,8 @@ import TrashButton from "components/DeleteButton"
 import Modal from "../../../../components/ModalLogout"; 
 import IconAlert from '../../../../public/icons-atencao.png'
 import {signOut as singOutGoogle} from 'next-auth/react'
+import api from "@/services/api"
+import { toast } from "react-toastify"
 
 const Container = styled.div`
   display: flex;
@@ -199,19 +201,27 @@ export default function Profile(){
   }, [id, user.id, accType, setLoadingOpen])
 
   async function deleteClient() {
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/' + id, {
-      method: 'DELETE',
-      headers: { "Content-type": "application/json; charset=UTF-8" }
-    });
-  
-    await singOutGoogle();
-    localStorage.removeItem('token');
-    localStorage.removeItem('id');
-    localStorage.removeItem('pic');
-    localStorage.removeItem('accountType');
-    setUser({ token: '', id: null, profilePicture: null, coverPicture: null, accountType: null });
-  
-    if (response.ok) router.push('/');
+    await api.delete(`/realtor/${id}`)
+    .then(async (response )=> {
+      await singOutGoogle();
+      localStorage.removeItem("token");
+      localStorage.removeItem("id");
+      localStorage.removeItem("pic");
+      localStorage.removeItem("accountType");
+      setUser({
+        token: "",
+        id: null,
+        profilePicture: null,
+        coverPicture: null,
+        accountType: null,
+      });
+      toast.success(t.toast.removeAccount)
+      router.push("/");
+    })
+    .catch((error) => {
+      toast.error(t.toast.errorRemoveAccount)
+      return error
+    })
   }
   
 

@@ -1,9 +1,11 @@
+import api from "@/services/api";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import LoadingContext from "context/LoadingContext";
 import locales from "locales";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const ForgotPasswordContainer = styled.div`
@@ -40,19 +42,17 @@ const RecoverPassword = () => {
 
     if(data.password !== data.confirmPassword) return;
     setLoadingOpen(true)
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor' + '/recover-password/update-password', {
-      method: 'PUT',
-      body: JSON.stringify({password: data.password}),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-        authorization: 'Bearer ' + token
-      }
+    await api.put('/realtor/recover-password/update-password', {password: data.password})
+    .then((response) => {
+      toast.success(t.toast.updatePassword)
+      if(response.data === 'updated') router.push('/sign-in/realtor')
+      setLoadingOpen(false)
     })
-
-    const text = await response.text()
-
-    if(text === 'updated') router.push('/sign-in/realtor')
-    setLoadingOpen(false)
+    .catch((error) => {
+      toast.error(t.toast.errorUpdatePassword)
+      setLoadingOpen(false)
+      return error
+    })
   }
 
     return (

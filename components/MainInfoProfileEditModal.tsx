@@ -13,6 +13,9 @@ import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import AddLanguageModalContext from 'context/AddLanguageModalContext';
 import LoadingContext from 'context/LoadingContext';
 import locales from 'locales';
+import api from '@/services/api';
+import { toast } from 'react-toastify';
+import { error } from 'console';
 
 type MainInfoProfileEditModalProps = {
   open: boolean,
@@ -146,14 +149,16 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
     const fetchData = async () => {
 
       const localId = localStorage.getItem('id')
-      if(localId && accountType){
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/${accountType}/` + localId, {
-          method: 'GET'
+      if(localId && accountType){      
+        await api.get(`/${accountType}/${localId}`)
+        .then((response) => {
+          setUserSigned(response.data)
+          setWhatsapp(response.data.whatsapp)
+          setPhone(response.data.phone)
         })
-        const json = await response.json()
-        setUserSigned(json)
-        setWhatsapp(json.whatsapp)
-        setPhone(json.phone)
+        .catch((error) => {
+        return error
+        })       
       }
 
     }
@@ -161,34 +166,31 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   }, [user.id, setLoadingOpen])
 
   const onSubmit = async (data: MainEditForm) => {
-    const token = localStorage.getItem('token')
     if(data.website && !data.website.startsWith('https://')){
       data.website = 'https://' + data.website
     }
     if(accType === 'realtor'){
       setLoadingOpen(true)
       const { expTime, ...payload} = data
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/realtor/', {
-        method:'PUT',
-        body: JSON.stringify({
+      await api.put('/realtor/',{
           ...payload,
           expTime: Number(expTime),
           whatsapp,
           phone
-        }),
-        headers:{
-          authorization: 'Bearer ' + token,
-          'Content-Type': 'application/json'
-        }
       })
-      const text = await response.text()
-      setLoadingOpen(false)
-      router.reload()
+        .then((response) => {
+          toast.success(t.toast.dataSuccess)
+          setLoadingOpen(false)
+          router.reload()
+        })
+        .catch((error) => {
+          toast.error(t.toast.dataError)
+          setLoadingOpen(false)
+        })
+      
     }else if(accType === 'agency'){
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/agency/', {
-        method:'PUT',
-        body: JSON.stringify({
-          
+      setLoadingOpen(true)      
+      await api.put('/agency/', {
           address: data.address,
           email: data.email,
           facebook: data.facebook,
@@ -200,14 +202,16 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
           wppText: data.wppText,
           whatsapp,
           phone
-        }),
-        headers:{
-          authorization: 'Bearer ' + token,
-          'Content-Type': 'application/json'
-        }
-      })
-      const text = await response.text()
-      router.reload()
+        })
+        .then((response) => {
+          toast.success(t.toast.dataSuccess)
+          setLoadingOpen(false)
+          router.reload()
+        })
+        .catch((error) => {
+          toast.error(t.toast.dataError)
+          setLoadingOpen(false)
+        })
     }
   }
   return (
