@@ -45,6 +45,29 @@ export class ApiService{
 
   }
 
+  public async updateCoverPictureString(accountType: string, coverPicture: string, token: string){
+    try {
+
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/${accountType}/`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          coverPicture: coverPicture
+        }),
+        headers:{
+          authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json'
+        }
+      })
+      const text = await response.text()
+  
+      return text
+      
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
+
   //-------------------------------------------------------------------
 
   //get

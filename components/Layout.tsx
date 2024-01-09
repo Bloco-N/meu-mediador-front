@@ -1,9 +1,10 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Navbar from './Navbar';
 import Footer from "./Footer";
+import CoverPicAdjustModalContext, { CoverPicAdjustModalContextType } from "context/CoverPicAdjustModalContext";
 
 type LayoutProps = {
   children: ReactNode
@@ -42,6 +43,8 @@ export default function Layout({ children } : LayoutProps) {
     useEffect(() => {
       setPath(router.pathname)
     }, [router])
+    
+    const { open: coverPicAdjustModalIsOpen } = useContext(CoverPicAdjustModalContext) as CoverPicAdjustModalContextType
 
       return (
         <Container className={path === '/' ? 'home' : ''}>
@@ -52,8 +55,8 @@ export default function Layout({ children } : LayoutProps) {
               <link rel="icon" href="/meoagent-favicon.png" />
           </Head>
 
-          <Navbar />
-          <main>{children}</main>
+          <Navbar showSearchBar={path !== '/'}/>
+            <main  style={{overflow: coverPicAdjustModalIsOpen ? "hidden" : "auto"}}>{children}</main>
           <Footer />
         </Container>
         

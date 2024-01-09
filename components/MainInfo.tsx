@@ -24,6 +24,7 @@ import { LastExp } from '@/types/LastExp';
 import locales from 'locales';
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
+import CoverPicAdjustModalContext, { CoverPicAdjustModalContextType } from 'context/CoverPicAdjustModalContext';
 
 
 type ContainerProps = {
@@ -268,7 +269,11 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
 
   const { setOpen: mainInfoSetOpen } = useContext(MainInfoProfileEditModalContext) as ModalOpenContextType
 
+  const { setOpen: coverPicAdjustModalSetOpen, setSrcImg: setCoverPicSrcImage, srcImg: coverPicSrcImage } = useContext(CoverPicAdjustModalContext) as CoverPicAdjustModalContextType
+  
   const [sessionProfile, setSessionProfile] = useState(false)
+
+  const [fullProfilePic, setFullProfilePic] = useState("")
 
   const router = useRouter()
 
@@ -289,7 +294,6 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
 
   const handleChangeCover = (e:React.ChangeEvent) => {
 
-
     const target = e.target as HTMLInputElement
 
     const files = target.files as FileList
@@ -298,22 +302,15 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
 
     if(FileReader && file){
       const fr = new FileReader()
-      const token = localStorage.getItem('token')
-      const accountType = localStorage.getItem('accountType')
 
       const onload = async () => {
         const img = document.getElementById('cover-pic') as HTMLImageElement
-        const apiService = new ApiService()
 
         img.src = fr.result as string
 
-        const text = await apiService.updateCoverPicture(accountType as string, fr, token as string)
-        
-        if(text === 'updated'){
-
-          setUser({id: user.id, token: user.token, coverPicture: fr.result as string, profilePicture: user.profilePicture, accountType: user.accountType})
-          router.reload()
-        }
+        setFullProfilePic(img.src)
+        setCoverPicSrcImage(img.src)
+        coverPicAdjustModalSetOpen(true)
       }
 
       fr.onload = onload
@@ -342,6 +339,10 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
 
   function tooltipHide(){
     setTooltip({...tooltip, show: false})
+  }
+
+  function goAgency(){
+    console.log(lastExp?.agencyId)
   }
 
   return (
@@ -486,10 +487,12 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
       ): ''}
 
       {isRealtor && (
-        <div className="current-agency border">
+        <Link href={'/profile/agency/' + lastExp?.agencyId}>
+        <div className="current-agency border" onClick={goAgency}>
           {lastExp?.name}
           <Image width={10} height={10} className="agency" src={lastExp?.pic ? lastExp.pic : agencyIcon} alt='agency icon'/>
         </div>
+        </Link>
       ) }
       
     </div>
