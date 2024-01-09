@@ -16,6 +16,7 @@ import Preservations, { TPreservations } from "@/types/Preservations"
 import { timeSince } from "@/utils/timeSince"
 import LoadingContext from "context/LoadingContext"
 import locales from "locales"
+import api from "@/services/api"
 
 const Container = styled.div`
   .properties{
@@ -116,11 +117,14 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-  
-        const responseProperties = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/agency/' + id)
-        const propertiesData = await responseProperties.json()
-        setProperties(propertiesData)
-        setLoadingOpen(false)
+        await api.get(`/property/agency/${id}`)
+        .then((response) => {
+          setProperties(response.data)
+          setLoadingOpen(false)
+        })
+        .catch((error) => {
+          return error
+        })
       }
 
     }
@@ -139,19 +143,14 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
     const token = localStorage.getItem('token')
 
     setLoadingOpen(true)
-    
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/property/agency/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
+    await api.delete(`/property/agency/${id}`)
+    .then((response) => {
+      setLoadingOpen(false)
+      if(response.data === 'deleted') router.reload()
     })
-
-    setLoadingOpen(false)
-    
-    const text = await response.text()
-    if(text === 'deleted') router.reload()
-
+    .catch((error) => {
+      setLoadingOpen(false)
+    }) 
   }
 
   return (

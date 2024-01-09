@@ -15,6 +15,8 @@ import locales from "locales";
 import { signOut as singOutGoogle } from "next-auth/react";
 import IconAlert from "../../../../public/icons-atencao.png";
 import TrashButton from "components/DeleteButton";
+import api from "@/services/api";
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   display: flex;
@@ -125,11 +127,14 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        const response = await fetch(
-          process.env.NEXT_PUBLIC_API_URL + "/client/" + id
-        );
-        const data = await response.json();
-        setClient(data);
+        await api.get(`/client/${id}`)
+        .then((response) => {
+          setClient(response.data);
+        })
+        .catch((error) => {
+          router.push("/");
+          return error
+        })
       }
     };
     const localId = localStorage.getItem("id") as string;
@@ -154,28 +159,28 @@ export default function Profile() {
   }, []);
 
   async function deleteClient() {
-    const response = await fetch(
-      process.env.NEXT_PUBLIC_API_URL + "/realtor/" + id,
-      {
-        method: "DELETE",
-        headers: { "Content-type": "application/json; charset=UTF-8" },
-      }
-    );
+    await api.delete(`/client/${id}`)
+    .then(async (response )=> {
+      await singOutGoogle();
+      localStorage.removeItem("token");
+      localStorage.removeItem("id");
+      localStorage.removeItem("pic");
+      localStorage.removeItem("accountType");
+      setUser({
+        token: "",
+        id: null,
+        profilePicture: null,
+        coverPicture: null,
+        accountType: null,
+      });
+      toast.success("Conta excluida com sucesso!")
+      router.push("/");
+    })
+    .catch((error) => {
+      toast.error("Erro ao excluir conta!")
+      return error
+    })
 
-    await singOutGoogle();
-    localStorage.removeItem("token");
-    localStorage.removeItem("id");
-    localStorage.removeItem("pic");
-    localStorage.removeItem("accountType");
-    setUser({
-      token: "",
-      id: null,
-      profilePicture: null,
-      coverPicture: null,
-      accountType: null,
-    });
-
-    if (response.ok) router.push("/");
   }
 
   return (

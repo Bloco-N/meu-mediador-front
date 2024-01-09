@@ -9,7 +9,7 @@ export class AgencyProfile{
   facebook!: string | null
   professional_email!: string | null
   website!: string | null
-  profilePicture!: string | null
+  profilePicture?: string | null
   coverPicture!: string | null
   phoneCountry!: string | null
   wppCountry!: string | null

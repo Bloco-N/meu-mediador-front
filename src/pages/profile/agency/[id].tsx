@@ -142,6 +142,7 @@ export default function Profile() {
           setAgency(response.data);
         })
         .catch((error) => {
+          router.push("/");
           return error
         })
       }

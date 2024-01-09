@@ -11,6 +11,8 @@ import AddServiceModalContext from "context/AddServiceModalContext"
 import { RealtorService } from "@/types/RealtorService"
 import LoadingContext from "context/LoadingContext"
 import locales from "locales"
+import api from "@/services/api"
+import { toast } from "react-toastify"
 
 const Container = styled.div`
   .services{
@@ -64,12 +66,16 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        
-        const responseServices = await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/agenct/' + id)
-        const serviceData = await responseServices.json()
-        setServices(serviceData)
 
-        setLoadingOpen(false)
+        await api.get(`/service/agenct/${id}`)
+        .then((response) =>{
+          setServices(response.data)
+          setLoadingOpen(false)
+        })
+        .catch((error) => {
+          setLoadingOpen(false)
+          return error
+        })
       }
 
     }
@@ -82,25 +88,22 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
 
   const handleDeleteService = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLElement
-    
     const { id } = target
-
-    const token = localStorage.getItem('token')
-
-    setLoadingOpen(true)
-
-
-    setLoadingOpen(true)
     
-    await fetch(process.env.NEXT_PUBLIC_API_URL + '/service/agency/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
+    setLoadingOpen(true)
+
+    await api.delete(`/service/agency/${id}`)
+    .then((response) => {
+      toast.success("Serviço removido com sucesso!")
+      setLoadingOpen(false)
+      router.reload()
+    })
+    .catch((error) => {
+      toast.error("Erro ao remover serviço!")
+      setLoadingOpen(false)
     })
 
-    setLoadingOpen(false)
-    router.reload()
+   
   }
 
   return (

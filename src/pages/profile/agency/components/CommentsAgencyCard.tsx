@@ -11,6 +11,7 @@ import AddCommentModalContext from "context/AddCommentModalContext"
 import LoadingContext from "context/LoadingContext"
 import locales from "locales"
 import api from "@/services/api"
+import { toast } from "react-toastify"
 
 const Container = styled.div`
   .comments{
@@ -116,24 +117,18 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
 
     setLoadingOpen(true)
     
-    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + '/comment/' + id, {
-      method: 'DELETE',
-      headers:{
-        authorization: 'Bearer ' + token
-      }
-    })
-
-    api.delete(`/comment/${id}`)
+    await api.delete(`/comment/${id}`)
     .then((response) => {
+      toast.success("Comentario removido com sucesso!")
       setLoadingOpen(false)
       if(response.data === 'deleted') router.reload()
     })
     .catch((error) => {
+      toast.error("Erro ao remover comentario!")
       return error
     })
 
-    
-
+  
   }
 
   return (
