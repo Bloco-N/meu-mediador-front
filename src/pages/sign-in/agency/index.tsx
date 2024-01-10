@@ -186,13 +186,13 @@ const SignIn = () => {
 
           <GoogleLoginButton 
           icon={iconGoogle.src} 
-          onClick={() => signIn("google", { callbackUrl: "https://www.meoagent.com/sign-in/agency" })}
+          onClick={() => signIn("google")}
           text={t.signIn.google}
           />
 
           <GoogleLoginButton 
             icon={iconFacebook.src} 
-            onClick={() => signIn("facebook", { callbackUrl: "https://www.meoagent.com/sign-in/agency" })}
+            onClick={() => signIn("facebook")}
             text={t.signIn.facebook}
           />
 
@@ -207,14 +207,5 @@ const SignIn = () => {
 
     );
 };
-
-export const getServerSideProps:GetServerSideProps = async (context) => {
-  const session = await getSession(context)
-  return {
-    props:{
-      session
-    }
-  }
-}
 
 export default SignIn;

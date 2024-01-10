@@ -202,9 +202,7 @@ const SignIn = () => {
         <GoogleLoginButton
           icon={iconGoogle.src}
           onClick={() =>
-            signIn("google", {
-              callbackUrl: "https://www.meoagent.com/sign-in/realtor",
-            })
+            signIn("google")
           }
           text={t.signIn.google}
         />
@@ -212,9 +210,7 @@ const SignIn = () => {
         <GoogleLoginButton
           icon={iconFacebook.src}
           onClick={() =>
-            signIn("facebook", {
-              callbackUrl: "https://www.meoagent.com/sign-in/realtor",
-            })
+            signIn("facebook")
           }
           text={t.signIn.facebook}
         />
@@ -228,15 +224,6 @@ const SignIn = () => {
       </form>
     </SignInContainer>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
-  return {
-    props: {
-      session,
-    },
-  };
 };
 
 export default SignIn;
