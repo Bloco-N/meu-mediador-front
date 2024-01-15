@@ -7,6 +7,7 @@ import Link from "next/link"
 import MainInfo from "components/MainInfo"
 import { useEffect } from 'react';
 import InfoFooter from "components/InfoFooter"
+import { useRouter } from "next/router"
 
 const Container = styled.div`
   height: 80%;
@@ -70,14 +71,15 @@ const Container = styled.div`
 export default function SearchResult(){
 
   const { searchResult } = useContext(SearchContext) as SearchResultContextType
-
+  const { query } = useRouter();
+  const idSearch = query.idSearch;
   return (
     <>
     <Container>
 
       <div className="list">
         {searchResult?.list?.map(item => (
-          <Link href={'/profile/realtor/' + item.id} key={item.id }>
+          <Link href={`/profile/${Number(idSearch) == 1 ? "realtor/" : "agency/"}` + item.id} key={item.id }>
             <MainInfo lastExp={{
               name: item.agencyName,
               pic: item.agencyPic,

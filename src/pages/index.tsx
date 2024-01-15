@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SearchContext from "context/SearchContext";
 import { SearchContextType } from "@/types/SearchContextType";
 import { useRouter } from "next/router";
-import { useRef,useContext, useEffect, useState } from "react";
+import { useRef, useContext, useEffect, useState } from "react";
 import SearchResultContext from "context/SearchResultContext";
 import { SearchResultContextType } from "@/types/SearchResultContextType";
 import { SearchForm } from "@/types/SearchForm";
@@ -21,9 +21,16 @@ const SearchRealtor = styled.div`
   margin-bottom: 60px;
   margin-top: 16rem;
 
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    min-height: 80%;
+    margin-top: 4rem;
+    padding: 0 10px;
+  }
+
   form {
     background: #e9e9e985;
-    max-width: 45%;
+    max-width: 100%;
     width: fit-content;
     margin: auto;
     height: fit-content;
@@ -40,7 +47,6 @@ const SearchRealtor = styled.div`
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      /* padding: 2rem 5rem; */
       gap: 2rem;
       width: 100%;
 
@@ -52,6 +58,19 @@ const SearchRealtor = styled.div`
       @media (max-width: 768px) {
         padding: 2rem 0rem;
         gap: 3rem;
+      }
+    }
+
+    select {
+      padding-left: 15px;
+      @media (max-width: 768px) {
+        width: 100%;
+        height: 60px;
+        background-color: #fff;
+        padding-left: 15px;
+        -webkit-appearance: none;
+        padding-left: 15px;
+              
       }
     }
 
@@ -67,7 +86,6 @@ const SearchRealtor = styled.div`
       max-width: 90%;
       height: 136px;
       input {
-        border: 1px solid #3a2e2c5a;
       }
       input,
       .searchButton {
@@ -80,8 +98,8 @@ const SearchRealtor = styled.div`
       }
     }
   }
-  .novo-botao{
-    color:blue;
+  .novo-botao {
+    color: blue;
     text-decoration: underline;
   }
 
@@ -90,48 +108,40 @@ const SearchRealtor = styled.div`
     margin-top: 4rem;
     .card {
       width: 100%;
-      height: 332px;
+      height: 450px;
       padding: 0 27px;
     }
   }
-
 `;
 
 const NovoCadastro = styled.div`
-    margin-top:-50px;
-    text-align: center;
+  margin-top: -50px;
+  text-align: center;
   height: auto;
   padding: 0 37px;
   border-radius: 1.8rem;
-  
 
-  
-    background: #e9e9e985;
+  background: #e9e9e985;
 
-    
-    
-    height: fit-content;
-   
-    backdrop-filter: blur(5px);
-    padding: 1rem 3rem;
+  height: fit-content;
 
-    h4 {
-      font-weight: 600;
-      margin-top: 0px;
-    }
+  backdrop-filter: blur(5px);
+  padding: 1rem 3rem;
 
-
-
-    @media only screen and (max-width: 768px) {
-      border: solid 0.1rem var(--border-color);
-      
-    }
-  
-  .novo-botao{
-    color:blue;
-    text-decoration: underline;
+  h4 {
+    font-weight: 600;
+    margin-top: 0px;
   }
 
+  @media only screen and (max-width: 768px) {
+    margin-top: 1em;
+    border: solid 0.1rem var(--border-color);
+  }
+
+  .novo-botao {
+    color: blue;
+    text-decoration: underline;
+  }
 `;
 export default function Home() {
   const { register, handleSubmit } = useForm<SearchForm>();
@@ -161,56 +171,61 @@ export default function Home() {
     return () => {
       window.addEventListener("resize", handleResize);
     };
-  }, []); 
+  }, []);
   useEffect(() => {
-        handleResize();
-     });
+    handleResize();
+  });
 
-  function handleResize(){
-    if (window.innerWidth < 770){
-          setSize2(inputRef.current == null ? 200 : inputRef.current.clientWidth);
-    }else{
-      setSize2(inputRef.current == null ? 200 : inputRef.current.clientWidth*0.7);
+  function handleResize() {
+    if (window.innerWidth < 770) {
+      setSize2(inputRef.current == null ? 200 : inputRef.current.clientWidth);
+    } else {
+      setSize2(
+        inputRef.current == null ? 200 : inputRef.current.clientWidth * 0.7
+      );
     }
   }
   useEffect(() => {
     const fetchData = async () => {
-   
-      await api.get("/city")
-      .then((response) => {
-        setCities(response.data);
-      })
-      .catch((error) => {
-        return error
-      })
+      await api
+        .get("/city")
+        .then((response) => {
+          setCities(response.data);
+        })
+        .catch((error) => {
+          return error;
+        });
     };
 
     fetchData();
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
+    console.log(data, "TEset")
     const fetchData = async () => {
-      let url = process.env.NEXT_PUBLIC_API_URL + "/realtor?";
+      let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
         url += "search=" + data.search;
         setSearch(data.search);
-      } 
+      }
 
       if (data.zipCode) {
         url += "search=" + data.zipCode;
         setSearch(data.search);
-      } 
-      
-      await api.get(url)
-      .then((response) => {
-        setSearchResult(response.data);
-        router.push("/search-result");
-      })
-      .catch((error) => {
-        return error
-      })
-
-     
+      }
+      console.log(url)
+      await api
+        .get(url)
+        .then((response) => {
+          setSearchResult(response.data);
+          router.push({
+            pathname: '/search-result',
+            query: { idSearch: data.idSearch }
+          })
+        })
+        .catch((error) => {
+          return error;
+        });
     };
     setLoadingOpen(true);
     await fetchData();
@@ -219,39 +234,53 @@ export default function Home() {
 
   return (
     <>
-    <SearchRealtor >
-      <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
-        <div className="search-row">
-          <input
-            type="text"
-            className="input-realtor"
-            placeholder={t.home.searchRealtorNamePlaceholder}
-            {...register("search")}
-          />
+      <SearchRealtor>
+        <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
+          <div className="search-row">
+            <select {...register("idSearch", { required: true })}>
+              <option value={1}>Consultor</option>
+              <option value={2}>Agência</option>
+            </select>
 
-          <input
-            list="cities"
-            type="text"
-            className="input-city-cep"
-            placeholder={t.home.searchRealtorCityPlaceholder}
-            {...register("zipCode")}
-          />
-          <datalist id="cities">
-            {cities?.map((item, index) => (
-              <option key={index} value={item} />
-            ))}
-          </datalist>
+            <input
+              type="text"
+              className="input-realtor"
+              placeholder={t.home.searchRealtorNamePlaceholder}
+              {...register("search")}
+            />
 
-          <button className="searchButton">{t.home.searchButton}</button>
-        </div>
-        <h4>{t.home.welcome}</h4>
-      </form>
-      
-    </SearchRealtor>
-    <NovoCadastro className="novo-cadastro2" style={{ width: `${size2}px` }}>
-      <h4 >{t.home.cad_bar}<Link style={{color:"blue"}} className="create-account special-link" href="/sign-up/profile"> {t.signIn.here}</Link></h4>
-    </NovoCadastro>
-    <InfoFooter home={true}/>
+            <input
+              list="cities"
+              type="text"
+              className="input-city-cep"
+              placeholder={t.home.searchRealtorCityPlaceholder}
+              {...register("zipCode")}
+            />
+            <datalist id="cities">
+              {cities?.map((item, index) => (
+                <option key={index} value={item} />
+              ))}
+            </datalist>
+
+            <button className="searchButton">{t.home.searchButton}</button>
+          </div>
+          <h4>{t.home.welcome}</h4>
+        </form>
+      </SearchRealtor>
+      <NovoCadastro className="novo-cadastro2" style={{ width: `${size2}px` }}>
+        <h4>
+          {t.home.cad_bar}
+          <Link
+            style={{ color: "blue" }}
+            className="create-account special-link"
+            href="/sign-up/profile"
+          >
+            {" "}
+            {t.signIn.here}
+          </Link>
+        </h4>
+      </NovoCadastro>
+      <InfoFooter home={true} />
     </>
   );
 }
