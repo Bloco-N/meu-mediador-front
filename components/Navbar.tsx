@@ -467,7 +467,7 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
 
   const onSubmit = async (data: SearchForm) => {
     const fetchData = async () => {
-      let url = process.env.NEXT_PUBLIC_API_URL + "/realtor?";
+      let url = "/realtor?";
       if (data.search) {
         url += "search=" + data.search;
         console.log(url);
