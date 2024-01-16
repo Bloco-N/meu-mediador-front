@@ -4,7 +4,10 @@ const pt = {
     searchRealtorNamePlaceholder: "Nome do Consultor",
     searchRealtorCityPlaceholder: "Cidade ou CEP",
     searchButton: "Buscar",
-    cad_bar:"Já faz parte do Meoagent?"
+    cad_bar:"Já faz parte do Meoagent?",
+    realtor: "Consultor",
+    agency: "Agência"
+    
   },
   loginModal:{
     client: 'Cliente',

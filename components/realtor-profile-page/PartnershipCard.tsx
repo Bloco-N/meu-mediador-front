@@ -159,6 +159,8 @@ export default function PartnershipCard({localId, accType, sessionProfile}:Partn
     
   }
 
+  console.log(partnerships, "Pedrooo")
+
   return (
     <Container>
       <div className="card expiriences">

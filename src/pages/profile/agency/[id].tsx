@@ -11,6 +11,7 @@ import { LastExp } from "@/types/LastExp";
 import LoadingContext from "context/LoadingContext";
 import AwardsAgencyCard from "./components/AwardsAgencyCard";
 import PropertiesAgencyCard from "./components/PropertiesAgencyCard";
+import RealtorAgencyCard from "./components/RealtorAgencyCard";
 import ServicesAgencyCard from "./components/ServicesAgencyCard";
 import AboutAgencyCard from "./components/AboutAgencyCard";
 import CommentsAgencyCard from "./components/CommentsAgencyCard";
@@ -203,6 +204,7 @@ export default function Profile() {
       <MainInfoAgency userSigned={agency as AgencyProfile} isProfile={true} />
       <ServicesAgencyCard localId={localId} accType={accType} />
       <AboutAgencyCard localId={localId} accType={accType} />
+      <RealtorAgencyCard localId={localId} accType={accType} isProfile={true}/>
       {agency && <AgencyRealtorsPropertiesCard agency={agency} />}
       {/* <PropertiesAgencyCard localId={localId} accType={accType}/> */}
       {/* <AwardsAgencyCard localId={localId} accType={accType}/> */}

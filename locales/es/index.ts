@@ -5,7 +5,9 @@ const es = {
     searchRealtorNamePlaceholder:"Nombre del agente",
     searchRealtorCityPlaceholder: "Ciudad o Código Postal",
     searchButton: "Buscar",
-    cad_bar:"¿Ya eres parte de Meoagent?"
+    cad_bar:"¿Ya eres parte de Meoagent?",
+    realtor: "Asesor inmobiliario",
+    agency: "Agencia inmobiliaria"
   },
   loginModal:{
     client: 'Cliente',

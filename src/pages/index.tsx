@@ -13,9 +13,10 @@ import locales from "../../locales";
 import InfoFooter from "components/InfoFooter";
 import Link from "next/link";
 import api from "@/services/api";
+import { FaAngleDown } from "react-icons/fa";
 
 const SearchRealtor = styled.div`
-  width: 100%;
+  width: 80%;
   height: auto;
   padding: 0 37px;
   margin-bottom: 60px;
@@ -48,7 +49,7 @@ const SearchRealtor = styled.div`
       justify-content: center;
       align-items: center;
       gap: 2rem;
-      width: 100%;
+      width: 900px;
 
       @media only screen and (max-width: 1190px) {
         flex-direction: column;
@@ -58,19 +59,55 @@ const SearchRealtor = styled.div`
       @media (max-width: 768px) {
         padding: 2rem 0rem;
         gap: 3rem;
+        width: 100%;
       }
     }
 
-    select {
-      padding-left: 15px;
-      @media (max-width: 768px) {
+    input {
+      width: 25%;
+      @media only screen and (max-width: 1190px) {
         width: 100%;
-        height: 60px;
-        background-color: #fff;
+      }
+    }
+
+    .selectWrapper {
+      position: relative;
+      width: 230px;
+
+
+      @media (max-width: 768px) {
+          width: 100%;
+          height: 60px;
+          -webkit-appearance: none;
+        }
+
+      select {
         padding-left: 15px;
-        -webkit-appearance: none;
-        padding-left: 15px;
-              
+        appearance: none;
+
+        @media (max-width: 768px) {
+          width: 100%;
+          height: 60px;
+          background-color: #fff;
+          -webkit-appearance: none;
+          padding-left: 18px;
+        }
+      }
+
+      .selectIcon {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        pointer-events: none;
+
+        svg {
+          display: block;
+        }
+
+        svg path {
+          fill: #555;
+        }
       }
     }
 
@@ -103,6 +140,13 @@ const SearchRealtor = styled.div`
     text-decoration: underline;
   }
 
+  .card {
+  width: 100%;
+  max-width: 910px;
+  /* margin: 0 auto; */
+  /* box-sizing: border-box; */
+}
+
   @media only screen and (max-width: 768px) {
     padding: 0 27px;
     margin-top: 4rem;
@@ -118,7 +162,7 @@ const NovoCadastro = styled.div`
   margin-top: -50px;
   text-align: center;
   height: auto;
-  padding: 0 37px;
+  /* padding: 0 37px; */
   border-radius: 1.8rem;
 
   background: #e9e9e985;
@@ -136,6 +180,11 @@ const NovoCadastro = styled.div`
   @media only screen and (max-width: 768px) {
     margin-top: 1em;
     border: solid 0.1rem var(--border-color);
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }
 
   .novo-botao {
@@ -201,7 +250,7 @@ export default function Home() {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
-    console.log(data, "TEset")
+    console.log(data, "TEset");
     const fetchData = async () => {
       let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
@@ -213,15 +262,15 @@ export default function Home() {
         url += "search=" + data.zipCode;
         setSearch(data.search);
       }
-      console.log(url)
+      console.log(url);
       await api
         .get(url)
         .then((response) => {
           setSearchResult(response.data);
           router.push({
-            pathname: '/search-result',
-            query: { idSearch: data.idSearch }
-          })
+            pathname: "/search-result",
+            query: { idSearch: data.idSearch },
+          });
         })
         .catch((error) => {
           return error;
@@ -237,10 +286,15 @@ export default function Home() {
       <SearchRealtor>
         <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
           <div className="search-row">
-            <select {...register("idSearch", { required: true })}>
-              <option value={1}>Consultor</option>
-              <option value={2}>Agência</option>
-            </select>
+            <div className="selectWrapper">
+              <select {...register("idSearch", { required: true })}>
+                <option value={1}>{t.home.realtor}</option>
+                <option value={2}>{t.home.agency}</option>
+              </select>
+              <div className="selectIcon">
+                <FaAngleDown />
+              </div>
+            </div>
 
             <input
               type="text"
@@ -267,7 +321,7 @@ export default function Home() {
           <h4>{t.home.welcome}</h4>
         </form>
       </SearchRealtor>
-      <NovoCadastro className="novo-cadastro2" style={{ width: `${size2}px` }}>
+      <NovoCadastro className="novo-cadastro2">
         <h4>
           {t.home.cad_bar}
           <Link
