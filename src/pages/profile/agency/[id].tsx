@@ -204,7 +204,7 @@ export default function Profile() {
       <MainInfoAgency userSigned={agency as AgencyProfile} isProfile={true} />
       <ServicesAgencyCard localId={localId} accType={accType} />
       <AboutAgencyCard localId={localId} accType={accType} />
-      <RealtorAgencyCard localId={localId} accType={accType} isProfile={true}/>
+      <RealtorAgencyCard agencyId={Number(id)} accType={accType} isProfile={true}/>
       {agency && <AgencyRealtorsPropertiesCard agency={agency} />}
       {/* <PropertiesAgencyCard localId={localId} accType={accType}/> */}
       {/* <AwardsAgencyCard localId={localId} accType={accType}/> */}

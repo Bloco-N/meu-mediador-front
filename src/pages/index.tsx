@@ -74,12 +74,11 @@ const SearchRealtor = styled.div`
       position: relative;
       width: 230px;
 
-
       @media (max-width: 768px) {
-          width: 100%;
-          height: 60px;
-          -webkit-appearance: none;
-        }
+        width: 100%;
+        height: 60px;
+        -webkit-appearance: none;
+      }
 
       select {
         padding-left: 15px;
@@ -141,11 +140,11 @@ const SearchRealtor = styled.div`
   }
 
   .card {
-  width: 100%;
-  max-width: 910px;
-  /* margin: 0 auto; */
-  /* box-sizing: border-box; */
-}
+    width: 100%;
+    max-width: 910px;
+    /* margin: 0 auto; */
+    /* box-sizing: border-box; */
+  }
 
   @media only screen and (max-width: 768px) {
     padding: 0 27px;
@@ -196,6 +195,7 @@ export default function Home() {
   const { register, handleSubmit } = useForm<SearchForm>();
 
   const [cities, setCities] = useState<Array<string>>();
+  const [selectedValue, setSelectedValue] = useState(1);
 
   const router = useRouter();
 
@@ -229,7 +229,6 @@ export default function Home() {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
-    console.log(data, "TEset");
     const fetchData = async () => {
       let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
@@ -241,7 +240,6 @@ export default function Home() {
         url += "search=" + data.zipCode;
         setSearch(data.search);
       }
-      console.log(url);
       await api
         .get(url)
         .then((response) => {
@@ -266,7 +264,13 @@ export default function Home() {
         <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
           <div className="search-row">
             <div className="selectWrapper">
-              <select {...register("idSearch", { required: true })}>
+              <select
+                value={selectedValue}
+                {...register("idSearch", {
+                  required: true,
+                  onChange: (e) => setSelectedValue(e.target.value),
+                })}
+              >
                 <option value={1}>{t.home.realtor}</option>
                 <option value={2}>{t.home.agency}</option>
               </select>
@@ -278,7 +282,11 @@ export default function Home() {
             <input
               type="text"
               className="input-realtor"
-              placeholder={t.home.searchRealtorNamePlaceholder}
+              placeholder={
+                selectedValue == 1
+                  ? t.home.searchRealtorNamePlaceholder
+                  : t.home.searchAgencyNamePlaceholder
+              }
               {...register("search")}
             />
 

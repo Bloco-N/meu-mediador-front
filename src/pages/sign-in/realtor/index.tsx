@@ -95,7 +95,6 @@ const SignIn = () => {
   useEffect(() => {
     (async () => {
       if (status === "authenticated") {
-        console.log("Entro2");
         await onSubmit(null);
       } else {
         const token = localStorage.getItem("token");

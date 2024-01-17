@@ -104,8 +104,6 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
         const commentData = await apiService.getRealtorComments(id as string)
         setLoadingOpen(false)
 
-        console.log(commentData)
-
         let reverseComments = commentData.reverse()
         if(pdfPage){
           reverseComments = reverseComments.filter((comment: any, index: number) => {
