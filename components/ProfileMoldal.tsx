@@ -33,6 +33,7 @@ const Container = styled.div`
     border-top-right-radius: 3rem;
     font-size: 1.7rem;
     transition: all .5s;
+    background-color: var(--surface);
     :hover{
       background-color: #cecece;
     }

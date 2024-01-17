@@ -74,7 +74,7 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
 
   const { user } = useContext(UserContext) as UserContextType
   
-  const { setOpen: addAwardSetOpen } = useContext(AddAwardModalContext) as ModalOpenContextType
+  const { open, setOpen: addAwardSetOpen } = useContext(AddAwardModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -85,23 +85,24 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
   const locale = router.locale
 
   const t = locales[locale as keyof typeof locales]
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      if(id){
-        setLoadingOpen(true)
 
-        const awardsData = await apiService.getRealtorAwards(id as string)
-        setAwards(awardsData)
+  const fetchData = async () => {
+    if(id){
+      setLoadingOpen(true)
 
-        setLoadingOpen(false)
-      }
+      const awardsData = await apiService.getRealtorAwards(id as string)
+      setAwards(awardsData)
 
+      setLoadingOpen(false)
     }
 
+  }
+
+  
+  useEffect(() => {
     fetchData()
 
-  }, [id, user.id, accType, setLoadingOpen])
+  }, [id, user.id, accType, setLoadingOpen, open])
 
   const handleDeleteAward = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLElement
@@ -114,7 +115,7 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
     const response = await apiService.deleteRealtorAward(token as string, id)
     setLoadingOpen(false)
     
-    if(response === 'deleted') router.reload()
+    if(response === 'deleted') fetchData()
 
   }
 

@@ -290,7 +290,8 @@ const SearchRealtor = styled.div`
       }
     }
   }
-  @media only screen and (max-width: 900px) {
+
+  @media only screen and (max-width: 1100px) {
     position: relative;
     left: 0rem;
     display: flex;
@@ -560,7 +561,7 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
               onMouseEnter={() => setOpen(true)}
               onMouseLeave={() => setOpen(false)}
               className={open ? 'login' : 'login closed'}
-              style={width > 768 ? {} : { width: 70 }}
+              style={width > 768 ? {} : { width: 100, marginRight: 12 }}
             >
               <p>
                 LOGIN

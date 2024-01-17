@@ -79,9 +79,11 @@ const AddCourseModal = ({open, setOpen}: AddCourseModalProps) => {
       realtorId: Number(localId)
     })
     .then((response) => {
-      toast.success(t.toast.addCourse)
-      setLoadingOpen(false)
-      if(response.data === 'created') router.reload()
+      if(response.data === 'created'){
+        setOpen(false);
+        toast.success(t.toast.addCourse);
+        setLoadingOpen(false);
+      }
     })
     .catch((error) => {
       toast.error(t.toast.errorAddCourse)
