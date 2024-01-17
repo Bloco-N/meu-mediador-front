@@ -59,8 +59,8 @@ const Container = styled.div<ContainerProps>`
       }
     }
     .profile {
-      height: ${(porps) => (porps.isProfile ? "8rem" : "4rem")};
-      width: ${(porps) => (porps.isProfile ? "8rem" : "4em")};
+      height: ${(porps) => (porps.isProfile ? "12rem" : "6rem")};
+      width: ${(porps) => (porps.isProfile ? "12rem" : "6em")};
       border-radius: 50%;
       object-fit: cover;
       position: relative;

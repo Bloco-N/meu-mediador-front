@@ -81,7 +81,7 @@ const SearchRealtor = styled.div`
       }
 
       select {
-        padding-left: 15px;
+        padding-left: 20px;
         appearance: none;
 
         @media (max-width: 768px) {

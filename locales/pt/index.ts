@@ -215,7 +215,7 @@ const pt = {
   },
 
   agencyRealtor: {
-    agencyRealtor: "Coretores da agência",
+    agencyRealtor: "Consultores da agência",
   },
 
   toast: {
