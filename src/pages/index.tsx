@@ -213,27 +213,6 @@ export default function Home() {
   ) as ModalOpenContextType;
 
   const inputRef = useRef<any>(null);
-  const [size2, setSize2] = useState(200);
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.addEventListener("resize", handleResize);
-    };
-  }, []);
-  useEffect(() => {
-    handleResize();
-  });
-
-  function handleResize() {
-    if (window.innerWidth < 770) {
-      setSize2(inputRef.current == null ? 200 : inputRef.current.clientWidth);
-    } else {
-      setSize2(
-        inputRef.current == null ? 200 : inputRef.current.clientWidth * 0.7
-      );
-    }
-  }
   useEffect(() => {
     const fetchData = async () => {
       await api

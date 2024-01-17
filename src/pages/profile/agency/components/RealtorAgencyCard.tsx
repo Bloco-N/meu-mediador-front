@@ -167,7 +167,7 @@ export default function RealtorAgencyCard({
         <div className="divCard">
           {realtor?.map((item: any) => {
             return (
-              <div onClick={() => router.push(`/profile/realtor/${item.idRealtor}`)} className="comment">
+              <div key={item.idRealtor}onClick={() => router.push(`/profile/realtor/${item.idRealtor}`)} className="comment">
                 <div className="divImage">
                   <Image
                     width={100}
