@@ -105,8 +105,8 @@ const es = {
     company: "Agencia",
     currentJob: "Trabajo Actual",
     create: "Crear",
-    dateStart: "Comenzar",
-    dateEnd: "Fin",
+    dateStart: "Fecha de inicio",
+    dateEnd: "Fecha de finalización",
   },
   comments: {
     comments: "Reseñas",
@@ -246,7 +246,7 @@ const es = {
     updateAgency: "¡Datos de la agencia actualizados!",
     errorUpdateAgency: "¡Error al actualizar los datos de la agencia!",
     errorPassword: "Las contraseñas no coinciden",
-    errorRegistration: "Erro ao cadastra!",
+    errorRegistration: "¡Error al registrarse!",
     errorLogin: "¡Error al iniciar sesión!",
     welcome: "Bienvenido",
     removeAccount: "¡Cuenta eliminada exitosamente!",
@@ -256,12 +256,14 @@ const es = {
     removeComment: "¡El comentario se eliminó correctamente!",
     errorRemoveComment: "¡Error al eliminar el comentario!",
     removeService: "¡El servicio se eliminó correctamente!",
-    errorRemoveService: "Error removing service!",
+    errorRemoveService: "Error al eliminar el servicio!",
     updatePassword: "¡Contraseña cambiada con éxito!",
     errorUpdatePassword: "¡Error al cambiar la contraseña!",
     addUser: "¡Usuario creado exitosamente!",
     errorVerifyEmail: "¡Error al revisar el correo electrónico!",
-  },
-};
+    errorExperience:"¡Error al agregar experiencia!",
+    addExperience: "¡Experiencia agregada exitosamente!"
+  }
+}
 
 export default es;

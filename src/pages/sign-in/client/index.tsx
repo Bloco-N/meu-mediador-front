@@ -167,7 +167,6 @@ const SignIn = () => {
           .catch((error) => {
             setLoginError(true)
             setLoadingOpen(false)
-            console.log(error)
           })
       }
 

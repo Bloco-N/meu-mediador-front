@@ -105,8 +105,8 @@ const pt = {
     company: "Agência",
     currentJob: "Trabalha aqui atualmente",
     create: "Criar",
-    dateStart: "Início",
-    dateEnd: "Fim",
+    dateStart: "Data início",
+    dateEnd: "Data fim",
   },
   comments: {
     comments: "Avaliações",
@@ -239,27 +239,30 @@ const pt = {
     errorUpdateComment: "Error ao atualizar comentario!",
     addService: "Serviço adicionado com sucesso!",
     errorAddService: "Erro ao adicionar o serviço!",
-    reportAdded: "Denuncia adicionado com sucesso!",
+    reportAdded: "Denuncia adicionada com sucesso!",
     errorReportAdded: "Erro ao enviar a denúncia!",
     updateAgency: "Dados da agencia atualizados!",
     errorUpdateAgency: "Erro ao atualizar dados da agencia!",
     errorPassword: "As senhas não coincidem",
-    errorRegistration: "¡Error al registrarse!",
+    errorRegistration: "Erro ao cadastra!",
     errorLogin: "Erro ao logar!",
-    welcome: "Seja bem vindo",
-    removeAccount: "Conta removida com sucesso!",
+    welcome: "Bem-vindo",
+    removeAccount:"Conta removida com sucesso!",
     errorRemoveAccount: "Erro ao remover conta!",
     removeAward: "Prêmio removido com sucesso!",
     errorRemoveAward: "Erro ao remover prêmio!",
-    removeComment: "Comentario removido com sucesso!",
-    errorRemoveComment: "Erro ao remover comentario!",
+    removeComment: "Comentário removido com sucesso!",
+    errorRemoveComment: "Erro ao remover comentário!",
     removeService: "Serviço removido com sucesso!",
     errorRemoveService: "Erro ao remover serviço!",
-    updatePassword: "Senha alterado com sucesso!",
+    updatePassword: "Senha alterada com sucesso!",
     errorUpdatePassword: "Erro ao alterar senha!",
     addUser: "Usuário criado com sucesso!",
     errorVerifyEmail: "Erro ao verificar email!",
-  },
-};
+    errorExperience:"Erro ao adicionar experiência!",
+    addExperience: "Experiência adicionada com sucesso!"
+    
+  }
+}
 
 export default pt;

@@ -68,15 +68,21 @@ const Container = styled.div`
   }
 `
 
-export default function SearchResult(){
+export default function SearchResult(){ 
 
-  const { searchResult } = useContext(SearchContext) as SearchResultContextType
+  const { searchResult, setSearchResult } = useContext(SearchContext) as SearchResultContextType;
   const { query } = useRouter();
   const idSearch = query.idSearch;
+
+  useEffect(() => {
+    const savedSearchResult = localStorage.getItem('searchResult');
+    if (savedSearchResult) {
+      setSearchResult(JSON.parse(savedSearchResult));
+    }
+  }, [setSearchResult]);
   return (
     <>
     <Container>
-
       <div className="list">
         {searchResult?.list?.map(item => (
           <Link href={`/profile/${Number(idSearch) == 1 ? "realtor/" : "agency/"}` + item.id} key={item.id }>
@@ -92,7 +98,6 @@ export default function SearchResult(){
         </div>       
           <InfoFooter/>     
       </div>
-      
     </Container>
     
     </>

@@ -244,6 +244,7 @@ export default function Home() {
         .get(url)
         .then((response) => {
           setSearchResult(response.data);
+          localStorage.setItem('searchResult', JSON.stringify(response.data));
           router.push({
             pathname: "/search-result",
             query: { idSearch: data.idSearch },

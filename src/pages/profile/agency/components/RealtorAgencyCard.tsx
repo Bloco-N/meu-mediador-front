@@ -119,7 +119,7 @@ export default function RealtorAgencyCard({
         await api
           .get(`/partnership/agency/${agencyId}`)
           .then((response) => {
-            setRealtor(response.data[0].list);
+            setRealtor(response.data[0].list.filter((item: any) => item));
             setLoadingOpen(false);
           })
           .catch((error) => {
@@ -166,7 +166,7 @@ export default function RealtorAgencyCard({
         <div className="divCard">
           {realtor?.map((item: any) => {
             return (
-              <div key={item.idRealtor}onClick={() => router.push(`/profile/realtor/${item.idRealtor}`)} className="comment">
+              <div key={item?.idRealtor}onClick={() => router.push(`/profile/realtor/${item?.idRealtor}`)} className="comment">
                 <div className="divImage">
                   <Image
                     width={100}
@@ -177,7 +177,7 @@ export default function RealtorAgencyCard({
                     src={item?.pic ? item?.pic : profileIcon}
                     alt="profile icon"
                   />
-                  <h3> {item.nameRealtor} </h3>
+                  <h3> {item?.nameRealtor} </h3>
                 </div>
 
                 {/* <h4>{item.workTime[locale as keyof typeof item.workTime]}</h4> */}
