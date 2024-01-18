@@ -8,6 +8,7 @@ import locales from "locales";
 import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -146,10 +147,12 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
       })
       .then((response) => {
         setLoadingOpen(false)
+        toast.success(t.toast.addExperience)
         if(response.data === 'updated') router.reload()
       })
       .catch((error) => {
         setLoadingOpen(false)
+        toast.error(t.toast.errorExperience)
         return error
       })
   }

@@ -113,7 +113,6 @@ const SignIn = () => {
     useEffect(() => {
       const checkAndSubmit = async () => {
         if (status === 'authenticated') {
-          console.log("Entro2")
           await onSubmit(null);
         } else {
           const token = localStorage.getItem("token");
@@ -154,7 +153,6 @@ const SignIn = () => {
             const clientResponse = await api.get(`/client/${user.id}`)
             const clientData = await clientResponse.data
             localStorage.setItem('accountType', 'client')
-            console.log(clientData,"Pedro")
             setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
             setLoadingOpen(false)
 
@@ -169,7 +167,6 @@ const SignIn = () => {
           .catch((error) => {
             setLoginError(true)
             setLoadingOpen(false)
-            console.log(error)
           })
       }
 

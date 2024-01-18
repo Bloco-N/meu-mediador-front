@@ -470,7 +470,6 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
       let url = "/realtor?";
       if (data.search) {
         url += "search=" + data.search;
-        console.log(url);
         setSearch(data.search);
       } else {
         setSearch("");

@@ -287,7 +287,6 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       }
       toast.error(t.toast.sendReview)
       setLoadingOpen(false)
-      console.log(response.data)
       if(response.data === 'created') router.reload()
     })
     .catch((error) => {

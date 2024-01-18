@@ -77,7 +77,6 @@ const Footer = () => {
       let locale = localStorage.getItem('locale')
       if(!locale) locale = router.locale as string
       const localeSet = document.getElementById('locale-set-footer') as HTMLSelectElement
-      console.log('local carregado'+locale)
       localeSet.value = locale
       setDefaultLocale(locale)
       

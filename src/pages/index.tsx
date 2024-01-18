@@ -229,7 +229,6 @@ export default function Home() {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
-    console.log(data, "TEset");
     const fetchData = async () => {
       let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
@@ -241,7 +240,6 @@ export default function Home() {
         url += "search=" + data.zipCode;
         setSearch(data.search);
       }
-      console.log(url);
       await api
         .get(url)
         .then((response) => {
