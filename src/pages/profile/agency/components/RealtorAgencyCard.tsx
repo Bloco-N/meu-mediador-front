@@ -21,24 +21,22 @@ type ContainerProps = {
 const Container = styled.div<ContainerProps>`
  
   .comments {
-    background: #fff;
     padding: 3rem;
     align-items: flex-start;
     gap: 2rem;
     display: flex;
     .comment {
       position: relative;
-      width: 30%;
+      width: 15%;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
       gap: 2rem;
       padding: 2rem;
-      background-color: var(--base);
       border-radius: 3rem;
       cursor: pointer;
-      /* margin-bottom: 1em; */
 
       h4 {
         font-size: 16px;
@@ -50,8 +48,9 @@ const Container = styled.div<ContainerProps>`
 
       .divImage {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
         gap: 2em;
 
         h3 {
@@ -81,13 +80,13 @@ const Container = styled.div<ContainerProps>`
 `;
 
 interface CommentsCardProps {
-  localId: string;
+  agencyId: number;
   accType: string;
   isProfile: boolean;
 }
 
 export default function RealtorAgencyCard({
-  localId,
+  agencyId,
   accType,
   isProfile,
 }: CommentsCardProps) {
@@ -118,9 +117,9 @@ export default function RealtorAgencyCard({
         setLoadingOpen(true);
 
         await api
-          .get(`/partnership/agency/${localId}`)
+          .get(`/partnership/agency/${agencyId}`)
           .then((response) => {
-            setRealtor(response.data[0].list);
+            setRealtor(response.data[0].list.filter((item: any) => item));
             setLoadingOpen(false);
           })
           .catch((error) => {
@@ -163,11 +162,11 @@ export default function RealtorAgencyCard({
   return (
     <Container isProfile={isProfile}>
       <div className="card comments">
-        <h2>Corretores associados</h2>
+        <h2>{t.agencyRealtor.agencyRealtor}</h2>
         <div className="divCard">
           {realtor?.map((item: any) => {
             return (
-              <div key={item.idRealtor}onClick={() => router.push(`/profile/realtor/${item.idRealtor}`)} className="comment">
+              <div key={item?.idRealtor}onClick={() => router.push(`/profile/realtor/${item?.idRealtor}`)} className="comment">
                 <div className="divImage">
                   <Image
                     width={100}
@@ -178,10 +177,10 @@ export default function RealtorAgencyCard({
                     src={item?.pic ? item?.pic : profileIcon}
                     alt="profile icon"
                   />
-                  <h3> {item.nameRealtor} </h3>
+                  <h3> {item?.nameRealtor} </h3>
                 </div>
 
-                <h4>{item.workTime[locale as keyof typeof item.workTime]}</h4>
+                {/* <h4>{item.workTime[locale as keyof typeof item.workTime]}</h4> */}
               </div>
             );
           })}

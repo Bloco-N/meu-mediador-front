@@ -3,6 +3,7 @@ const en = {
   home:{
     welcome: "Find your next Real Estate Agent here",
     searchRealtorNamePlaceholder:"Realtor Name",
+    searchAgencyNamePlaceholder:"Agency Name",
     searchRealtorCityPlaceholder: "City or zip-code",
     searchButton: "Search",
     cad_bar:"Already part of Meoagent?",
@@ -105,8 +106,8 @@ const en = {
     company:'Company',
     currentJob:'Current Job',
     create:'Create',
-    dateStart: 'Start',
-    dateEnd: 'End',
+    dateStart: 'Start date',
+    dateEnd: 'End date',
   },
   comments:{
     comments:'Reviews',
@@ -206,6 +207,9 @@ const en = {
     title: "Adjust cover pic",
     btnAccept: "Add",
     btnDiscard: "Discard",
+  },
+  agencyRealtor: {
+    agencyRealtor: "Team members",
   },
   toast:{
     dataError: "Error loading data!",

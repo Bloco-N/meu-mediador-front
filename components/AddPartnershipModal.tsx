@@ -23,7 +23,7 @@ const Container = styled.div`
   form{
     position: relative;
     height: auto;
-    width: 40%;
+    width: 60%;
     padding: 4rem 0;
     border-radius: 3rem;
     display: flex;
@@ -48,6 +48,7 @@ const Container = styled.div`
       .dates-input-group {
         gap: 1.125rem;
         width: auto;
+        /* border: 1px solid blue; */
       }
 
       p.label-text-inputs {
@@ -64,6 +65,7 @@ const Container = styled.div`
     input[type='text']{
       width: 80%;
     }
+
     @media (max-width: 800px) {
       width: 80%;
     }
@@ -71,6 +73,11 @@ const Container = styled.div`
       height: 58rem;
     }
     .dates-inputs{
+      /* width: 100%; */
+      /* border: 1px solid tomato; */
+      /* display: flex;
+      flex-direction: row;
+      justify-content: flex-start; */
       @media (max-width: 500px) {
         flex-direction: column;
         width: 60%;
