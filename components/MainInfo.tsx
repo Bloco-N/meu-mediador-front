@@ -422,9 +422,6 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
           </p>
           <p>{userSigned?.email}</p>
           <p>{userSigned?.phone}</p> 
-          
-          <p>{userSigned?.phone}</p> 
-          <p>{userSigned?.phone}</p>
 
           {/* <div className="bottom">
             <div className="bottom-1">

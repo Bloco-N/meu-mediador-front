@@ -214,6 +214,16 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
         })
     }
   }
+
+  const handlePhoneCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedMask = e.target.value;
+    setPhoneMask(selectedMask);
+  };
+
+  const handleWppCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedMask = e.target.value;
+    setWppMask(selectedMask);
+  };
   return (
     open ?
     <Container className='modal'>
@@ -231,22 +241,43 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
           )}
         </div>
         <div className="input-group options">
-          <select {...register('phoneCountry', {required: true})} defaultValue={userSigned?.phoneCountry as string} onChange={e => setPhoneMask(e.target.value)} >
-            <option value="+55 99 9 9999 9999">Brasil</option>
-            <option value="+351 999 999 999">Portugal</option>
-            <option value="+34 999 999 999">Espanha</option>
-          </select>
-          <select {...register('wppCountry', {required: true})} defaultValue={userSigned?.wppCountry as string} onChange={e => setWppMask(e.target.value)} >
-            <option value="+55 99 9 9999 9999">Brasil</option>
-            <option value="+351 999 999 999">Portugal</option>
-            <option value="+34 999 999 999">Espanha</option>
-          </select>
-
-        </div>
-        <div className="input-group">
-          <InputMask type='text' onChange={e => setPhone(e.target.value)} defaultValue={userSigned?.phone ? userSigned?.phone : '+55 99 9 9999 9999'} placeholder={t.mainInfoEditModal.phone} mask={phoneMask} maskChar="_" />
-          <InputMask type='text' onChange={e => setWhatsapp(e.target.value)} defaultValue={userSigned?.whatsapp ? userSigned?.whatsapp : '+55 99 9 9999 9999'} placeholder='Whatsapp' mask={wppMask} maskChar="_" />
-        </div>
+            <select
+              {...register('phoneCountry', { required: true })}
+              value={userSigned?.phoneCountry || "+55 99 9 9999 9999"}
+              onChange={handlePhoneCountryChange}
+            >
+              <option value="+55 99 9 9999 9999">Brasil</option>
+              <option value="+351 999 999 999">Portugal</option>
+              <option value="+34 999 999 999">Espanha</option>
+            </select>
+            <select
+              {...register('wppCountry', { required: true })}
+              value={userSigned?.wppCountry || "+55 99 9 9999 9999"}
+              onChange={handleWppCountryChange}
+            >
+              <option value="+55 99 9 9999 9999">Brasil</option>
+              <option value="+351 999 999 999">Portugal</option>
+              <option value="+34 999 999 999">Espanha</option>
+            </select>
+          </div>
+          <div className="input-group">
+            <InputMask
+              type='text'
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder={t.mainInfoEditModal.phone}
+              mask={phoneMask}
+              maskChar="_"
+            />
+            <InputMask
+              type='text'
+              value={whatsapp}
+              onChange={(e) => setWhatsapp(e.target.value)}
+              placeholder='Whatsapp'
+              mask={wppMask}
+              maskChar="_"
+            />
+          </div>
         <div className="input-group">
           <input {...register('email', {required: true})} defaultValue={userSigned?.email} type="email" placeholder={t.mainInfoEditModal.email}/>
           <input {...register('instagram')} defaultValue={userSigned?.instagram ? userSigned?.instagram : ''} type="text" placeholder={t.mainInfoEditModal.instagramLink} />

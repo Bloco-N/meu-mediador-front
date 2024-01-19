@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import styled from 'styled-components';
+import styled from "styled-components";
 import { useContext, useEffect, useRef, useState } from "react";
 import LoginMoldal from "./LoginMoldal";
 import UserContext from "context/UserContext";
 import ProfileMoldal from "./ProfileMoldal";
 import { UserContextType } from "@/types/UserContextType";
-import profileIcon from '../public/profile.svg'
+import profileIcon from "../public/profile.svg";
 import { useRouter } from "next/router";
 import { SearchForm } from "@/types/SearchForm";
 import { useForm } from "react-hook-form";
@@ -33,11 +33,11 @@ const useWindowSize = () => {
       });
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     handleResize(); // Chame imediatamente para definir o tamanho inicial
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []); // Array vazio garante que o efeito seja executado apenas na montagem e desmontagem
 
   return windowSize;
@@ -53,9 +53,9 @@ const Nav = styled.div`
   .logo-area {
     height: 100%;
   }
-  .logo{
+  .logo {
   }
-  .left-side{
+  .left-side {
     position: absolute;
     right: 6rem;
     display: flex;
@@ -63,48 +63,47 @@ const Nav = styled.div`
     justify-content: center;
     gap: 3rem;
     min-width: 100px;
-    &:has(.profile) { 
-        align-items: center;
-      }
+    &:has(.profile) {
+      align-items: center;
+    }
     &:has(.profile) ~ .card {
-      animation: fadeInProfile .4s;
+      animation: fadeInProfile 0.4s;
     }
     @keyframes fadeInProfile {
       from {
         transform: translateY(-125px);
         opacity: 0;
-      } 
+      }
       to {
         transform: translateY(initial);
         opacity: 1;
       }
     }
-
   }
   .card {
-    border:0;
+    border: 0;
     background-color: transparent;
   }
-  .locale{
+  .locale {
     width: 5rem;
     height: 5rem;
     background-color: transparent;
     border: none;
     padding: 0.2rem;
     font-size: 1.3rem;
-    option{
+    option {
       background-color: transparent;
       padding: 1rem;
     }
   }
   a {
-      text-decoration: none;
+    text-decoration: none;
   }
-  p{
+  p {
     font-size: 1.8rem;
     cursor: pointer;
   }
-  .login{
+  .login {
     position: relative;
     width: 125px;
     height: 35px;
@@ -112,12 +111,12 @@ const Nav = styled.div`
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
-    transition: all .5s;
+    transition: all 0.5s;
     background-color: var(--surface);
-    border: solid 0.1rem var(--border-color );
+    border: solid 0.1rem var(--border-color);
     text-align: center;
     border-radius: 1rem;
-    transition: all .5s, border-radius 0s;
+    transition: all 0.5s, border-radius 0s;
     z-index: 2;
     &:has(div) {
       border-radius: 1rem 1rem 0 0;
@@ -131,11 +130,11 @@ const Nav = styled.div`
       z-index: 4;
       background-color: inherit;
       border-radius: 1rem;
-      transition: border-radius .0s;
-      
+      transition: border-radius 0s;
+
       &:hover {
         border-radius: 1rem 1rem 0 0;
-        transition: border-radius .4s;
+        transition: border-radius 0.4s;
       }
     }
 
@@ -146,9 +145,9 @@ const Nav = styled.div`
       border-radius: 0 0 1rem 1rem;
       top: 100%;
       left: -1px;
-      border: solid 0.8px var(--border-color );
+      border: solid 0.8px var(--border-color);
       border-top-color: transparent;
-      animation: fadeIn .3s;
+      animation: fadeIn 0.3s;
       z-index: 1;
 
       a {
@@ -161,11 +160,11 @@ const Nav = styled.div`
         }
 
         &::after {
-          content: '';
+          content: "";
           position: absolute;
           width: 80%;
           height: 1px;
-          background: rgba(0,0,0,.4);
+          background: rgba(0, 0, 0, 0.4);
           top: 100%;
         }
       }
@@ -176,16 +175,16 @@ const Nav = styled.div`
 
     @keyframes fadeIn {
       from {
-      transform: translateY(-30px);
-      opacity: 1;
-      } 
+        transform: translateY(-30px);
+        opacity: 1;
+      }
       to {
-      transform: translateY(0);
-      opacity: 1;
+        transform: translateY(0);
+        opacity: 1;
       }
     }
   }
-  .selection{
+  .selection {
     display: flex;
     align-items: center;
     right: 25rem;
@@ -195,7 +194,7 @@ const Nav = styled.div`
     padding: 1rem;
     height: 35px;
   }
-  .profile{
+  .profile {
     cursor: pointer;
     border-radius: 50%;
     object-fit: cover;
@@ -203,7 +202,7 @@ const Nav = styled.div`
   @media only screen and (max-width: 768px) {
     padding: 0;
     height: 120px;
-    .locale-area{
+    .locale-area {
       display: none;
     }
     .logo-area {
@@ -215,9 +214,9 @@ const Nav = styled.div`
     .logo {
       height: 80px;
     }
-    .profile{
+    .profile {
     }
-    .left-side{
+    .left-side {
       position: absolute;
       right: 0;
       display: flex;
@@ -229,7 +228,7 @@ const Nav = styled.div`
   }
   @media only screen and (max-width: 900px) {
     height: 150px;
-    .locale-area{
+    .locale-area {
     }
     .logo-area {
       display: flex;
@@ -237,12 +236,12 @@ const Nav = styled.div`
     }
     .logo {
     }
-    .profile{
+    .profile {
     }
-    .left-side{
+    .left-side {
     }
   }
-`
+`;
 const SearchRealtor = styled.div`
   position: absolute;
   left: 30rem;
@@ -264,7 +263,7 @@ const SearchRealtor = styled.div`
       gap: 2rem;
       width: 100%;
       height: 100%;
-      .input-city-cep{
+      .input-city-cep {
         margin: 0;
         position: relative;
         width: 90%;
@@ -273,14 +272,14 @@ const SearchRealtor = styled.div`
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
       }
-      .input-realtor{
+      .input-realtor {
         width: 90%;
         height: 100%;
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
       }
-      .searchButton{
+      .searchButton {
         padding: 0;
         width: 80%;
         height: 100%;
@@ -310,17 +309,17 @@ const SearchRealtor = styled.div`
         gap: 1rem;
         width: 100%;
         height: 100%;
-        .input-city-cep{
+        .input-city-cep {
           width: 140px;
           height: 25px;
           padding: 1rem;
         }
-        .input-realtor{
+        .input-realtor {
           width: 140px;
           height: 25px;
           padding: 1rem;
         }
-        .searchButton{
+        .searchButton {
           width: 140px;
           height: 25px;
         }
@@ -331,13 +330,13 @@ const SearchRealtor = styled.div`
     width: 450px;
     form {
       .search-row {
-        .input-city-cep{
+        .input-city-cep {
           width: 160px;
         }
-        .input-realtor{
+        .input-realtor {
           width: 160px;
         }
-        .searchButton{
+        .searchButton {
           width: 160px;
         }
       }
@@ -346,76 +345,79 @@ const SearchRealtor = styled.div`
 `;
 
 interface NavBarInterface {
-  showSearchBar: boolean
+  showSearchBar: boolean;
 }
 
-const Navbar = ({ showSearchBar }: NavBarInterface) => {
-
-  const { user } = useContext(UserContext) as UserContextType
+const Navbar = () => {
+  const { user } = useContext(UserContext) as UserContextType;
 
   // const [open, setOpen] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-  const [flag, setFlag] = useState('GB')
+  const [flag, setFlag] = useState("GB");
 
-  const [defaultLocale, setDefaultLocale] = useState('')
+  const [defaultLocale, setDefaultLocale] = useState("");
 
-  const [openProfile, setOpenProfile] = useState(false)
+  const [openProfile, setOpenProfile] = useState(false);
 
-  const [pic, setPic] = useState('')
+  const [pic, setPic] = useState("");
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const { id } = router.query
+  let showSearchBar = router.pathname !== "/" ? true : false
+
+  const { id } = router.query;
 
   const pdfPage = router.query.pdf ? true : false;
 
   useEffect(() => {
-    let locale = localStorage.getItem('locale')
-    if (!locale) locale = router.locale as string
-    const localeSet = document.getElementById('locale-set') as HTMLSelectElement
-    localeSet.value = locale
-    setDefaultLocale(locale)
-    if (locale === 'en') {
-      setFlag('GB')
+    let locale = localStorage.getItem("locale");
+    if (!locale) locale = router.locale as string;
+    const localeSet = document.getElementById(
+      "locale-set"
+    ) as HTMLSelectElement;
+    localeSet.value = locale;
+    setDefaultLocale(locale);
+    if (locale === "en") {
+      setFlag("GB");
     } else {
-      setFlag(locale.toUpperCase())
+      setFlag(locale.toUpperCase());
     }
-    if (id && typeof id === 'string') {
-      const finalPath = router.asPath.replace('[id]', id)
-      router.push(finalPath, finalPath, { locale })
+    if (id && typeof id === "string") {
+      const finalPath = router.asPath.replace("[id]", id);
+      router.push(finalPath, finalPath, { locale });
     } else {
-      router.push(router.asPath, router.asPath, { locale })
+      router.push(router.asPath, router.asPath, { locale });
     }
-
-  }, [])
+  }, []);
 
   const changeLocation = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const locale = e.target.value as string
-    localStorage.setItem('locale', locale)
-    router.push(router.asPath, router.asPath, { locale })
-    setDefaultLocale(locale)
-    if (locale === 'en') {
-      setFlag('GB')
+    const locale = e.target.value as string;
+    localStorage.setItem("locale", locale);
+    router.push(router.asPath, router.asPath, { locale });
+    setDefaultLocale(locale);
+    if (locale === "en") {
+      setFlag("GB");
     } else {
-      setFlag(locale.toUpperCase())
+      setFlag(locale.toUpperCase());
     }
-
-  }
-
-  useEffect(() => { console.log(defaultLocale) }, [defaultLocale])
+  };
 
   useEffect(() => {
-    const profilePicture = localStorage.getItem('pic')
-    if (profilePicture === "undefined") return
-    if (user.profilePicture) setPic(user.profilePicture)
-    else if (profilePicture && profilePicture !== 'null') setPic(profilePicture)
-  }, [user])
+    console.log(defaultLocale);
+  }, [defaultLocale]);
+
+  useEffect(() => {
+    const profilePicture = localStorage.getItem("pic");
+    if (profilePicture === "undefined") return;
+    if (user.profilePicture) setPic(user.profilePicture);
+    else if (profilePicture && profilePicture !== "null")
+      setPic(profilePicture);
+  }, [user]);
 
   const { register, handleSubmit } = useForm<SearchForm>();
 
   const [cities, setCities] = useState<Array<string>>();
-
 
   const { locale } = router;
 
@@ -447,19 +449,21 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
     if (window.innerWidth < 770) {
       setSize2(inputRef.current == null ? 200 : inputRef.current.clientWidth);
     } else {
-      setSize2(inputRef.current == null ? 200 : inputRef.current.clientWidth * 0.7);
+      setSize2(
+        inputRef.current == null ? 200 : inputRef.current.clientWidth * 0.7
+      );
     }
   }
   useEffect(() => {
     const fetchData = async () => {
-      await api.get(`/city`)
-      .then((response) => {
-        setCities(response.data);
-      })
-      .catch((error) => {
-        return error
-      })       
-     
+      await api
+        .get(`/city`)
+        .then((response) => {
+          setCities(response.data);
+        })
+        .catch((error) => {
+          return error;
+        });
     };
 
     fetchData();
@@ -475,15 +479,15 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
         setSearch("");
       }
 
-      await api.get(url)
-      .then((response) => {
-        setSearchResult(response.data);
-        router.push("/search-result");
-      })
-      .catch((error) => {
-        return error
-      })       
-      
+      await api
+        .get(url)
+        .then((response) => {
+          setSearchResult(response.data);
+          router.push("/search-result");
+        })
+        .catch((error) => {
+          return error;
+        });
     };
     setLoadingOpen(true);
     await fetchData();
@@ -493,22 +497,38 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
   const { width } = useWindowSize();
 
   return (
-    <Nav style={{
-      justifyContent: showSearchBar ? "flex-start" : width < 768 ? "space-between" : "center",
-      backgroundColor: showSearchBar ? "#dedddd" : "transparent",
-      marginBottom: showSearchBar ? 50 : 0,
-      paddingTop: showSearchBar ? '1rem' : '1rem',
-      paddingBottom: showSearchBar ? '1rem' : '1rem',
-      paddingRight: showSearchBar ? '1rem' : '0rem',
-      paddingLeft: showSearchBar ? '1rem' : '0rem',
-    }}>
+    <Nav
+      style={{
+        justifyContent: showSearchBar
+          ? "flex-start"
+          : width < 768
+          ? "space-between"
+          : "center",
+        backgroundColor: showSearchBar ? "#dedddd" : "transparent",
+        marginBottom: showSearchBar ? 50 : 0,
+        paddingTop: showSearchBar ? "1rem" : "1rem",
+        paddingBottom: showSearchBar ? "1rem" : "1rem",
+        paddingRight: showSearchBar ? "1rem" : "0rem",
+        paddingLeft: showSearchBar ? "1rem" : "0rem",
+      }}
+    >
       <Link href="/" className="logo-area">
-        <img className="logo" src={width > 768 ? "/meoagent-logo.png" : "/sublogo.png"} alt="Meoagent-logo" />
+        <picture>
+          {/* Imagem para telas largas */}
+          <source media="(min-width: 769px)" srcSet="/meoagent-logo.png" />
+
+          {/* Imagem para telas estreitas */}
+          <img className="logo" src="/sublogo.png" alt="Meoagent-logo" />
+        </picture>
       </Link>
-      {showSearchBar &&
+      {showSearchBar && (
         <>
-          <SearchRealtor >
-            <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
+          <SearchRealtor>
+            <form
+              className="card"
+              onSubmit={handleSubmit(onSubmit)}
+              ref={inputRef}
+            >
               <div className="search-row">
                 <input
                   type="text"
@@ -533,43 +553,53 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
                 <button className="searchButton">{t.home.searchButton}</button>
               </div>
             </form>
-
           </SearchRealtor>
         </>
-      }
-      {pdfPage || <>
-        <div className="left-side">
-          <div className="locale-area selection border">
-            <Image
-              alt="United States"
-              src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
-              width={20}
-              height={20}
-            />
-            <select id="locale-set" onChange={e => changeLocation(e)} className="locale">
-              <option value="en">EN</option>
-              <option value="pt">PT</option>
-              <option value="es">ES</option>
-            </select>
-          </div>
-          {user.token ? (
-            <Image onClick={() => setOpenProfile(!openProfile)} className="profile" src={pic ? pic : profileIcon} alt={'Profile'} width={60} height={60} />
-          ) : (
-            <div
-              onMouseEnter={() => setOpen(true)}
-              onMouseLeave={() => setOpen(false)}
-              className={open ? 'login' : 'login closed'}
-              style={width > 768 ? {} : { width: 70 }}
-            >
-              <p>
-                LOGIN
-              </p>
-              <LoginMoldal open={open} setOpen={setOpen} />
+      )}
+      {pdfPage || (
+        <>
+          <div className="left-side">
+            <div className="locale-area selection border">
+              <Image
+                alt="United States"
+                src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
+                width={20}
+                height={20}
+              />
+              <select
+                id="locale-set"
+                onChange={(e) => changeLocation(e)}
+                className="locale"
+              >
+                <option value="en">EN</option>
+                <option value="pt">PT</option>
+                <option value="es">ES</option>
+              </select>
             </div>
-          )}
-        </div>
-        <ProfileMoldal open={openProfile} setOpen={setOpenProfile} />
-      </>}
+            {user.token ? (
+              <Image
+                onClick={() => setOpenProfile(!openProfile)}
+                className="profile"
+                src={pic ? pic : profileIcon}
+                alt={"Profile"}
+                width={60}
+                height={60}
+              />
+            ) : (
+              <div
+                onMouseEnter={() => setOpen(true)}
+                onMouseLeave={() => setOpen(false)}
+                className={open ? "login" : "login closed"}
+                style={width > 768 ? {} : { width: 70 }}
+              >
+                <p>LOGIN</p>
+                <LoginMoldal open={open} setOpen={setOpen} />
+              </div>
+            )}
+          </div>
+          <ProfileMoldal open={openProfile} setOpen={setOpenProfile} />
+        </>
+      )}
     </Nav>
   );
 };
