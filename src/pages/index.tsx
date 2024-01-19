@@ -189,6 +189,7 @@ export default function Home() {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
+    console.log('data',data)
     const fetchData = async () => {
       let url = process.env.NEXT_PUBLIC_API_URL + "/realtor?";
       if (data.search) {

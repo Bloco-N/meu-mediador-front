@@ -166,6 +166,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   }, [user.id, setLoadingOpen])
 
   const onSubmit = async (data: MainEditForm) => {
+    console.log(data)
     if(data.website && !data.website.startsWith('https://')){
       data.website = 'https://' + data.website
     }

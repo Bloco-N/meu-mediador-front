@@ -29,7 +29,7 @@ const Container = styled.div`
 
       .comment{
         position: relative;
-        width: 80%;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: flex-start;

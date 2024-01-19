@@ -258,7 +258,7 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
       }).then((response) => {
         toast.success(t.toast.dataSuccess)
         setLoadingOpen(false)
-        router.reload()
+        //router.reload()
       })
         .catch((error) => {
           toast.error(t.toast.dataError)

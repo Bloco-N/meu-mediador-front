@@ -39,6 +39,10 @@ const Container = styled.div`
   }
   .divButton {
     display: flex;
+    position: absolute;
+    z-index: 999;
+    left: -10px;
+    top: 80px;
     align-items: center;
     justify-content: end;
     max-height: 75px;

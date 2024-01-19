@@ -62,6 +62,7 @@ const SignUpContainer = styled.div`
 
     .card {
       width: 100%;
+      height: auto;
       min-height: 363px;
       gap: 26px;
       padding: 25px 27px 16px 27px;
@@ -89,6 +90,7 @@ const SignUp = () => {
   const { register, handleSubmit } = useForm<SignUpFormAgency>();
   const [privacy_policy, setPrivacyPolicy] = useState(false);
   const [userExist, setUserExist] = useState(false);
+  const [agencyExist, setAgencyExist] = useState(false);
 
   const onPrivacyClick = () => {
     setPrivacyPolicy(!privacy_policy);
@@ -117,7 +119,7 @@ const SignUp = () => {
       const urlFetchGoogle = "/agency/sign-up/google";
 
       if (!session) {
-        if (data?.password !== data?.confirmPassword) return;
+        if (data?.password !== data?.confirmPassword) return alert("Senhas diferentes");
         const { confirmPassword, ...bodyData } = data as SignUpFormAgency;
         body = bodyData;
       }
@@ -137,6 +139,10 @@ const SignUp = () => {
         .catch((error) => {
           if (error.response.status == 400) {
             setUserExist(true);
+          }
+
+          if (error.response.status == 500) {
+            setAgencyExist(true);
           }
         });
     };
@@ -166,6 +172,13 @@ const SignUp = () => {
         ) : (
           <></>
         )}
+
+        {
+          agencyExist ? (
+            <label style={{ color: "red" }}>{"Agência já cadastrado"}</label>
+          ) : (
+            <></>)
+        }
         <input
           className="input-sign-up"
           type="password"
