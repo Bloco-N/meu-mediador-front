@@ -3,9 +3,12 @@ const en = {
   home:{
     welcome: "Find your next Real Estate Agent here",
     searchRealtorNamePlaceholder:"Realtor Name",
+    searchAgencyNamePlaceholder:"Agency Name",
     searchRealtorCityPlaceholder: "City or zip-code",
     searchButton: "Search",
-    cad_bar:"Already part of Meoagent?"
+    cad_bar:"Already part of Meoagent?",
+    realtor: "Realtor",
+    agency: "Agency"
   },
   loginModal:{
     client: 'Client',
@@ -103,8 +106,8 @@ const en = {
     company:'Company',
     currentJob:'Current Job',
     create:'Create',
-    dateStart: 'Start',
-    dateEnd: 'End',
+    dateStart: 'Start date',
+    dateEnd: 'End date',
   },
   comments:{
     comments:'Reviews',
@@ -205,6 +208,9 @@ const en = {
     btnAccept: "Add",
     btnDiscard: "Discard",
   },
+  agencyRealtor: {
+    agencyRealtor: "Team members",
+  },
   toast:{
     dataError: "Error loading data!",
     dataSuccess: "Data updated successfully!",
@@ -214,7 +220,7 @@ const en = {
     removeCity: "City removed successfully!",
     errorRemoveCity: "Error removing the city!",
     addCity: "Cities added successfully!",
-    sendReview: "Evaluation sent successfully!",
+    sendReview: "Comment sent successfully!",
     errorSendReview: "Error sending review!",
     addCourse: "Course added successfully!",
     errorAddCourse: "Error adding course!",
@@ -226,7 +232,7 @@ const en = {
     errorUpdateComment: "Error updating comment!",
     addService: "Service added successfully!",
     errorAddService: "Error adding service!",
-    reportAdded: "Denuncia adicionado com sucesso!",
+    reportAdded: "Report added successfully!",
     errorReportAdded: "Error sending report!",
     updateAgency: "Agency data updated!",
     errorUpdateAgency: "Error updating agency data!",
@@ -246,6 +252,9 @@ const en = {
     errorUpdatePassword: "Error changing password!",
     addUser: "User created successfully!",
     errorVerifyEmail: "Error checking email!",
+    errorExperience:"Error adding experience!",
+    addExperience: "Experience added successfully!"
+
   }
 
 }
