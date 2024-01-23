@@ -55,7 +55,7 @@ export default function Layout({ children } : LayoutProps) {
               <link rel="icon" href="/meoagent-favicon.png" />
           </Head>
 
-          <Navbar showSearchBar={path !== '/'}/>
+          <Navbar showSearchBar={!(['','sign-in','cadastro'].includes(path.split("/")[1]))}/>
             <main  style={{overflow: coverPicAdjustModalIsOpen ? "hidden" : "auto"}}>{children}</main>
           <Footer />
         </Container>

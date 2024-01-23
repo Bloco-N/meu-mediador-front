@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {signOut as singOutGoogle} from 'next-auth/react'
+import { usePathname } from 'next/navigation';
 
 type ProfileMoldalProps = {
   open: boolean
@@ -33,6 +34,7 @@ const Container = styled.div`
     border-top-right-radius: 3rem;
     font-size: 1.7rem;
     transition: all .5s;
+    background-color: var(--surface);
     :hover{
       background-color: #cecece;
     }
@@ -44,9 +46,14 @@ const Container = styled.div`
     border-bottom-left-radius: 3rem;
     border-bottom-right-radius: 3rem;
   }
+  @media (max-width: 768px) {
+    position: absolute;
+    right: 8px;
+  }
 `
 
 const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
+  const pathname = usePathname();
 
   const router = useRouter()
 
@@ -73,10 +80,21 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
 
   useEffect(() => {
     const accountType = localStorage.getItem('accountType')
+
+    console.log('accountType',accountType)
     if(accountType){
       setAccType(accountType)
     }
   },[])
+
+  useEffect(() => {
+    const accountType = localStorage.getItem('accountType')
+
+    console.log('accountType',accountType)
+    if(accountType){
+      setAccType(accountType)
+    }
+  }, [pathname]);
 
   useEffect(() => {
     const id = localStorage.getItem('id')
@@ -86,7 +104,7 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
   return (
 
     open ?
-    <Container className='card'>
+    <Container className='card modalProfile'>
 
       <Link onClick={() => setOpen(false)} href={`/profile/` + accType + '/' + id}>{t.profileModal.profile}</Link>
       <p onClick={signOut} className='out'>{t.profileModal.signOut}</p>

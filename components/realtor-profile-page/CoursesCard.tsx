@@ -83,7 +83,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
 
   const { user } = useContext(UserContext) as UserContextType
 
-  const { setOpen: addCourseSetOpen } = useContext(AddCourseModalContext) as ModalOpenContextType
+  const { open, setOpen: addCourseSetOpen } = useContext(AddCourseModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -94,22 +94,23 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
   const locale = router.locale
 
   const t = locales[locale as keyof typeof locales]
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      if(id){
-        setLoadingOpen(true)
-        const coursesData = await apiService.getRealtorCourses(id as string)       
-        setLoadingOpen(false)
 
-        setCourses(coursesData)
-      }
+  const fetchData = async () => {
+    if(id){
+      setLoadingOpen(true)
+      const coursesData = await apiService.getRealtorCourses(id as string)       
+      setLoadingOpen(false)
 
+      setCourses(coursesData)
     }
 
+  }
+
+  
+  useEffect(() => {
     fetchData()
 
-  }, [id, user.id, accType, setLoadingOpen])
+  }, [id, user.id, accType, setLoadingOpen, open])
 
   const handleDeleteCourse = async (e:React.MouseEvent<HTMLImageElement, MouseEvent>) => {
     const target = e.target as HTMLElement
@@ -122,7 +123,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
     const response = await apiService.deleteRealtorCourse(token as string, id)
     setLoadingOpen(false)
 
-    if(response === 'deleted') router.reload()
+    if(response === 'deleted') fetchData()
   }
 
   return (

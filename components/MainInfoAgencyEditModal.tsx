@@ -137,10 +137,12 @@ const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps)
   }, [user.id])
 
   const onSubmit = async (data: MainEditForm) => {
+    
     const token = localStorage.getItem('token')
     if(data.website && !data.website.startsWith('https://')){
       data.website = 'https://' + data.website
     }
+
     
     await api.put(`/agency/`, {
       ...data,

@@ -118,8 +118,8 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   const [phone, setPhone] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
 
-  const [wppMask, setWppMask] = useState('')
-  const [phoneMask, setPhoneMask] = useState('')
+  const [wppMask, setWppMask] = useState('+55 99 9 9999 9999')
+  const [phoneMask, setPhoneMask] = useState('+55 99 9 9999 9999')
 
   const router = useRouter()
 
@@ -166,6 +166,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   }, [user.id, setLoadingOpen])
 
   const onSubmit = async (data: MainEditForm) => {
+    console.log(data)
     if(data.website && !data.website.startsWith('https://')){
       data.website = 'https://' + data.website
     }
@@ -244,8 +245,8 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
 
         </div>
         <div className="input-group">
-          <InputMask type='text' onChange={e => setPhone(e.target.value)} defaultValue={userSigned?.phone ? userSigned?.phone : '+55 99 9 9999 9999'} placeholder={t.mainInfoEditModal.phone} mask={phoneMask} maskChar="_" />
-          <InputMask type='text' onChange={e => setWhatsapp(e.target.value)} defaultValue={userSigned?.whatsapp ? userSigned?.whatsapp : '+55 99 9 9999 9999'} placeholder='Whatsapp' mask={wppMask} maskChar="_" />
+          <InputMask type='text' onChange={e => setPhone(e.target.value)} defaultValue={userSigned?.phone ? userSigned?.phone : phoneMask} placeholder={t.mainInfoEditModal.phone} mask={phoneMask} maskChar="_" />
+          <InputMask type='text' onChange={e => setWhatsapp(e.target.value)} defaultValue={userSigned?.whatsapp ? userSigned?.whatsapp : wppMask} placeholder='Whatsapp' mask={wppMask} maskChar="_" />
         </div>
         <div className="input-group">
           <input {...register('email', {required: true})} defaultValue={userSigned?.email} type="email" placeholder={t.mainInfoEditModal.email}/>

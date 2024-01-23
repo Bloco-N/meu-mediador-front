@@ -290,7 +290,8 @@ const SearchRealtor = styled.div`
       }
     }
   }
-  @media only screen and (max-width: 900px) {
+
+  @media only screen and (max-width: 1100px) {
     position: relative;
     left: 0rem;
     display: flex;
@@ -466,6 +467,7 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
+    console.log('data',data)
     const fetchData = async () => {
       let url = "/realtor?";
       if (data.search) {
@@ -474,6 +476,11 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
       } else {
         setSearch("");
       }
+
+      if (data.zipCode) {
+        url += "search=" + data.zipCode;
+        setSearch(data.search);
+      } 
 
       await api.get(url)
       .then((response) => {
@@ -496,7 +503,7 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
     <Nav style={{
       justifyContent: showSearchBar ? "flex-start" : width < 768 ? "space-between" : "center",
       backgroundColor: showSearchBar ? "#dedddd" : "transparent",
-      marginBottom: showSearchBar ? 50 : 0,
+      marginBottom: showSearchBar ? (width < 768 ? 0 : 80 ) : 0,
       paddingTop: showSearchBar ? '1rem' : '1rem',
       paddingBottom: showSearchBar ? '1rem' : '1rem',
       paddingRight: showSearchBar ? '1rem' : '0rem',
@@ -559,7 +566,7 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
               onMouseEnter={() => setOpen(true)}
               onMouseLeave={() => setOpen(false)}
               className={open ? 'login' : 'login closed'}
-              style={width > 768 ? {} : { width: 70 }}
+              style={width > 768 ? {} : { width: 100, marginRight: 12 }}
             >
               <p>
                 LOGIN
