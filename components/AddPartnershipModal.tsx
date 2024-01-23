@@ -138,8 +138,8 @@ const AddPartnershipModal = ({open, setOpen}: AddServiceModalProps) => {
   }, [])
 
   const onSubmit = async (data: AddPartnershipForm) => {
-    const init = new Date(data.init);
-    const end = new Date(data.end);
+    const init = new Date(data.init as Date);
+    const end = new Date(data.end as Date);
 
     if(init > end)
       return alert("Data de fim é anterior a de início");
