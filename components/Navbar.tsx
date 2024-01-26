@@ -18,6 +18,7 @@ import { SearchResultContextType } from "@/types/SearchResultContextType";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import api from "@/services/api";
+import { FaAngleDown } from "react-icons/fa";
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState<any>({
@@ -251,7 +252,7 @@ const SearchRealtor = styled.div`
   position: absolute;
   left: 30rem;
   display: flex;
-  width: 600px;
+  width: 800px;
   height: 70px;
   border: 0px;
   form {
@@ -293,6 +294,45 @@ const SearchRealtor = styled.div`
         font-size: 16px;
       }
       
+    }
+  }
+
+  .selectWrapper {
+    position: relative;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      width: 160px;
+      height: 60px;
+      -webkit-appearance: none;
+    }
+
+    select {
+      padding-left: 20px;
+      appearance: none;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        height: 60px;
+        -webkit-appearance: none;
+        padding-left: 18px;
+      }
+    }
+
+    .selectIcon {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      pointer-events: none;
+
+      svg {
+        display: block;
+      }
+
+      svg path {
+        fill: #555;
+      }
     }
   }
 
@@ -383,6 +423,8 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
   const [defaultLocale, setDefaultLocale] = useState('')
 
   const [openProfile, setOpenProfile] = useState(false)
+
+  const [selectedValue, setSelectedValue] = useState(1)
 
   const [pic, setPic] = useState('')
 
@@ -488,9 +530,8 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
-    console.log('data',data)
     const fetchData = async () => {
-      let url = "/realtor?";
+      let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
         url += "search=" + data.search;
         setSearch(data.search);
@@ -503,8 +544,10 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
         setSearch(data.search);
       } 
 
+
       await api.get(url)
       .then((response) => {
+        console.log(url)
         setSearchResult(response.data);
         router.push("/search-result");
       })
@@ -539,7 +582,22 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
         <>
           <SearchRealtor >
             <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
-              <div className="search-row">
+                <div className="search-row">
+                  <div className="selectWrapper">
+                  <select
+                    value={selectedValue}
+                    {...register("idSearch", {
+                      required: true,
+                      onChange: (e) => setSelectedValue(e.target.value),
+                    })}
+                  >
+                    <option value={1}>{t.home.realtor}</option>
+                    <option value={2}>{t.home.agency}</option>
+                  </select>
+                  <div className="selectIcon">
+                    <FaAngleDown />
+                  </div>
+                </div>
                 <input
                   type="text"
                   className="input-realtor"
