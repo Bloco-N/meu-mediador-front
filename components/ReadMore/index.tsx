@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const ReadMoreButton = ({ text, maxChars, style }) => {
+const ReadMoreButton = ({ text, maxChars, style }:{text: string, maxChars: number, style?: any}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [displayText, setDisplayText] = useState('');
 
