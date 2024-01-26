@@ -108,7 +108,7 @@ const Nav = styled.div`
   .login{
     position: relative;
     width: 125px;
-    height: auto;
+    height: 35px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -214,7 +214,7 @@ const Nav = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 60%;
+      width: 30%;
     }
     .logo {
       height: 80px;
@@ -347,6 +347,11 @@ const SearchRealtor = styled.div`
     justify-content: center;
     gap: 0;
     border: 0px;
+
+    .login{
+      width: 5px!important;
+    }
+    
     form {
       .search-row {
         display: flex;
@@ -367,8 +372,7 @@ const SearchRealtor = styled.div`
           padding: 1rem;
         }
         .searchButton{
-          width: 140px;
-          height: 25px;
+          display: none!important;
         }
       }
     }
