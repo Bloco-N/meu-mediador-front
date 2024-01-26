@@ -107,7 +107,7 @@ const Nav = styled.div`
   .login{
     position: relative;
     width: 125px;
-    height: 35px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -172,6 +172,8 @@ const Nav = styled.div`
       a p {
         font-size: 1.8rem;
       }
+
+      
     }
 
     @keyframes fadeIn {
@@ -184,6 +186,7 @@ const Nav = styled.div`
       opacity: 1;
       }
     }
+    
   }
   .selection{
     display: flex;
@@ -210,10 +213,11 @@ const Nav = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 30%;
+      width: 60%;
     }
     .logo {
       height: 80px;
+      width: 100%;
     }
     .profile{
     }
@@ -288,6 +292,7 @@ const SearchRealtor = styled.div`
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
       }
+      
     }
   }
 
@@ -340,6 +345,22 @@ const SearchRealtor = styled.div`
         }
         .searchButton{
           width: 160px;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 375px) {
+    width: 180px;
+    form {
+      .search-row {
+        .input-city-cep{
+          width: 90px;
+        }
+        .input-realtor{
+          width: 90px;
+        }
+        .searchButton{
+          width: 90px;
         }
       }
     }
@@ -499,6 +520,8 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
 
   const { width } = useWindowSize();
 
+  console.log(router.pathname)
+
   return (
     <Nav style={{
       justifyContent: showSearchBar ? "flex-start" : width < 768 ? "space-between" : "center",
@@ -510,7 +533,7 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
       paddingLeft: showSearchBar ? '1rem' : '0rem',
     }}>
       <Link href="/" className="logo-area">
-        <img className="logo" src={width > 768 ? "/meoagent-logo.png" : "/sublogo.png"} alt="Meoagent-logo" />
+        <img className="logo" src={(width > 768 || router.pathname === '/') ? "/meoagent-logo.png" : "/sublogo.png"} alt="Meoagent-logo" />
       </Link>
       {showSearchBar &&
         <>
@@ -537,7 +560,7 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
                   ))}
                 </datalist>
 
-                <button className="searchButton">{t.home.searchButton}</button>
+                <button className="searchButton" style={{display: width > 576 ? 'block':'none'}}>{t.home.searchButton}</button>
               </div>
             </form>
 
@@ -563,10 +586,10 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
             <Image onClick={() => setOpenProfile(!openProfile)} className="profile" src={pic ? pic : profileIcon} alt={'Profile'} width={60} height={60} />
           ) : (
             <div
-              onMouseEnter={() => setOpen(true)}
-              onMouseLeave={() => setOpen(false)}
               className={open ? 'login' : 'login closed'}
               style={width > 768 ? {} : { width: 100, marginRight: 12 }}
+              onMouseEnter={() => setOpen(true)}
+              onMouseLeave={() => setOpen(false)}
             >
               <p>
                 LOGIN

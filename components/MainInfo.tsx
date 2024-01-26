@@ -69,7 +69,7 @@ const Container = styled.div<ContainerProps>`
     padding: 3rem;
     border-radius: 3rem;
     height: 100%;
-    gap: 1rem;
+    width: 100%;
     .cover-photo{
       position: absolute;
       height: 100%;
@@ -103,8 +103,9 @@ const Container = styled.div<ContainerProps>`
       margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
       margin-left: ${porps => porps.isProfile ? '2rem': '2rem'};
       display: flex;
-      gap: 5rem;
-      width: 70%;
+
+      width: 300%;
+      justify-content: space-between
     }
     .about{
       position: relative;
@@ -216,6 +217,14 @@ const Container = styled.div<ContainerProps>`
     margin-left: 10%;
     gap: 0.5rem;
 
+    @media (width < 768px) {
+      display: flex;
+      margin-left: 0%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
     p{
       margin-bottom: 0.5rem;
     }
@@ -423,8 +432,6 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
           <p>{userSigned?.email}</p>
           <p>{userSigned?.phone}</p> 
           
-          <p>{userSigned?.phone}</p> 
-          <p>{userSigned?.phone}</p>
 
           {/* <div className="bottom">
             <div className="bottom-1">

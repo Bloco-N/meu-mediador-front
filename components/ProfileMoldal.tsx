@@ -24,7 +24,7 @@ const Container = styled.div`
   top: 10rem;
   right: 5rem;
   text-align: center;
-  z-index: 2;
+  z-index: 99999999;
   background-color: var(--surface);
   border: solid 0.1rem var(--border-color);
   a, p{

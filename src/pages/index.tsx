@@ -49,7 +49,7 @@ const SearchRealtor = styled.div`
       justify-content: center;
       align-items: center;
       gap: 2rem;
-      width: 900px;
+      width: 100%;
 
       @media only screen and (max-width: 1190px) {
         flex-direction: column;

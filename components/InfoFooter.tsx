@@ -14,9 +14,12 @@ import instragramIcon  from '../public/instagram.svg';
 import locales from "locales";
 
 const InfoFooterDiv = styled.div`
+display: flex;
 width: 100%;
 backdrop-filter: blur(10px);
 margin-top: auto;
+align-items: center;
+justify-content: center;
 .div-ajuda{
   width: 94%;
   padding: 0px 10px;

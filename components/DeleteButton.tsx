@@ -11,13 +11,16 @@ const DivButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 1em;
+    margin-right: 3em;
+    margin-top: 3em;
     cursor: pointer;
 
     @media (max-width: 760px) {
       height: 50px;
-    width:50px;
-  }
+      width:50px;
+      margin-right: 1em;
+      margin-top: 0em;
+    }
 `;
 
 const ResponsiveImage = styled.img`

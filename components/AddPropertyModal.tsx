@@ -26,7 +26,7 @@ type AddPropertyModalProps = {
 
 const Container = styled.div`
   position: absolute;
-  z-index: 3;
+  z-index: 9999;
   height: 100%;
   width: 100%;
   display: flex;
@@ -332,7 +332,7 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
               <label htmlFor="property-pic">
                 {t.addPropertiesModal.edit}
               </label>
-              <input onChange={e => handleChange(e)} id="property-pic" type="file" />
+              <input onChange={e => handleChange(e)} id="property-pic" type="file" required/>
             </div>
           </div>
           <p onClick={() => {

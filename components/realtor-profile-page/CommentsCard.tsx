@@ -13,6 +13,8 @@ import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
 import AddReplyModalContext from "context/AddReplyModalContext"
+import ShowMore from 'react-show-more-button'
+import ReadMoreButton from "components/ReadMore"
 
 
 const Container = styled.div`
@@ -159,7 +161,7 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
   }
 
   return (
-    <Container >
+    <Container>
       <div className="card comments">
         <h2>{t.comments.comments}</h2>
         {
@@ -167,9 +169,10 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
             pdfPage || <button onClick={() => addCommentSetOpen(true)}>{t.comments.addComment}</button>
           )
         }
+        
         <div className="list">
             {!comments?.length? t.comments.thisAgentHasNoReviews :""}
-            {comments?.map(comment => (
+            {comments?.slice(0, 5).map(comment => (
               <div key={ comment.id } className="comment">
                 {accType === 'client' && Number(localId) === comment.clientId ? (
                   <Image onClick={e => handleDeleteComment(e)} id={String(comment.id)} className="close" src={closeIcon} alt="close icon"/>
@@ -180,9 +183,7 @@ export default function CommentsCard({localId, accType, sessionProfile, pdfPage 
                   </h4>
                   <p>{'★'.repeat(Math.floor(comment.rating))}</p>
                 </div>
-                <p>
-                  {comment.text}
-                </p>
+                  <ReadMoreButton text={comment.text} maxChars={100} />
                 {comment.reply && (
                   <>
                   <p

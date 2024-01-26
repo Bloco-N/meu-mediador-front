@@ -50,7 +50,7 @@ const LoginMoldal = ({ open, setOpen }: LoginMoldalProps) => {
   const t = locales[locale as keyof typeof locales];
 
   return open ? (
-    <Container onMouseEnter={() => setOpen(true)}>
+    <Container>
       <Link href={"/sign-in/client"}>
         <p onClick={handleClick}>{t.loginModal.client}</p>
         <Image src={clientIcon} alt="realtor icon" />
