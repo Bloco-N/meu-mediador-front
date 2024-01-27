@@ -217,8 +217,8 @@ const Nav = styled.div`
       width: 30%;
     }
     .logo {
-      height: 80px;
-      width: 100%;
+      height: 50px;
+      width: 150px;
     }
     .profile{
     }
