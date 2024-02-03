@@ -99,6 +99,7 @@ const Container = styled.div<ContainerProps>`
         gap: 2rem;
         margin-top: unset;
         margin-left: unset;
+        width: 70%;
       }
       margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
       margin-left: ${porps => porps.isProfile ? '2rem': '2rem'};
@@ -168,6 +169,11 @@ const Container = styled.div<ContainerProps>`
         }
       }
     }
+    .current-agency-link {
+      @media only screen and (max-width: 900px){
+        width: auto;
+      }
+    } 
     .current-agency{
       background: #fff;
       display: flex;
@@ -180,6 +186,7 @@ const Container = styled.div<ContainerProps>`
       right: 2rem;
       @media only screen and (max-width: 900px){
         position: unset;
+        width: auto;
       }
       .agency{
         height: 3rem;
@@ -494,7 +501,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
       ): ''}
 
       {isRealtor && (
-        <Link href={'/profile/agency/' + lastExp?.agencyId}>
+        <Link href={'/profile/agency/' + lastExp?.agencyId} className='current-agency-link'>
         <div className="current-agency border" onClick={goAgency}>
           {lastExp?.name}
           <Image width={10} height={10} className="agency" src={lastExp?.pic ? lastExp.pic : agencyIcon} alt='agency icon'/>

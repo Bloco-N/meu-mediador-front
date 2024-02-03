@@ -206,7 +206,6 @@ const Nav = styled.div`
   }
   @media only screen and (max-width: 768px) {
     padding: 0;
-    height: 120px;
     .locale-area{
       display: none;
     }
@@ -214,11 +213,12 @@ const Nav = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 30%;
+      width: 160px;
+      margin-left: 30px;
     }
     .logo {
-      height: 80px;
       width: 100%;
+      height: auto;
     }
     .profile{
     }
@@ -298,32 +298,29 @@ const SearchRealtor = styled.div`
   }
 
   .selectWrapper {
-    position: relative;
     width: 100%;
+    margin-top: 10px;
 
     @media (max-width: 768px) {
       width: 160px;
-      height: 60px;
       -webkit-appearance: none;
     }
 
     select {
+      padding: 0rem;
+      height: 50px;
       padding-left: 20px;
       appearance: none;
 
       @media (max-width: 768px) {
         width: 100%;
-        height: 60px;
         -webkit-appearance: none;
         padding-left: 18px;
       }
     }
 
     .selectIcon {
-      position: absolute;
-      top: 50%;
-      right: 15px;
-      transform: translateY(-50%);
+      transform: translateY(-220%) translateX(80%);
       pointer-events: none;
 
       svg {
@@ -361,6 +358,7 @@ const SearchRealtor = styled.div`
         gap: 1rem;
         width: 100%;
         height: 100%;
+
         .input-city-cep{
           width: 140px;
           height: 25px;
@@ -384,11 +382,19 @@ const SearchRealtor = styled.div`
         .input-city-cep{
           width: 160px;
         }
+        .selectWrapper{
+          width: 160px;
+          height: 10px;
+          margin-bottom: 30px;
+        }
         .input-realtor{
           width: 160px;
         }
         .searchButton{
           width: 160px;
+        }
+        select {
+          height: 40px;
         }
       }
     }
@@ -403,9 +409,17 @@ const SearchRealtor = styled.div`
         .input-realtor{
           width: 90px;
         }
+        .selectWrapper{
+          width: 90px;
+          margin-bottom: 20px;
+        }
         .searchButton{
           width: 90px;
         }
+        select {
+          height: 30px;
+        }
+
       }
     }
   }
