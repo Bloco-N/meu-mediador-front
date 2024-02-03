@@ -76,7 +76,6 @@ const SearchRealtor = styled.div`
 
       @media (max-width: 768px) {
         width: 100%;
-        height: 60px;
         -webkit-appearance: none;
       }
 
@@ -86,7 +85,6 @@ const SearchRealtor = styled.div`
 
         @media (max-width: 768px) {
           width: 100%;
-          height: 60px;
           background-color: #fff;
           -webkit-appearance: none;
           padding-left: 18px;
