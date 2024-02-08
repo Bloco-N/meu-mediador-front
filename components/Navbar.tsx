@@ -18,6 +18,7 @@ import { SearchResultContextType } from "@/types/SearchResultContextType";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import api from "@/services/api";
+import { FaAngleDown } from "react-icons/fa";
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState<any>({
@@ -172,6 +173,8 @@ const Nav = styled.div`
       a p {
         font-size: 1.8rem;
       }
+
+      
     }
 
     @keyframes fadeIn {
@@ -184,6 +187,7 @@ const Nav = styled.div`
       opacity: 1;
       }
     }
+    
   }
   .selection{
     display: flex;
@@ -202,7 +206,6 @@ const Nav = styled.div`
   }
   @media only screen and (max-width: 768px) {
     padding: 0;
-    height: 120px;
     .locale-area{
       display: none;
     }
@@ -210,10 +213,12 @@ const Nav = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 30%;
+      width: 160px;
+      margin-left: 30px;
     }
     .logo {
-      height: 80px;
+      width: 100%;
+      height: auto;
     }
     .profile{
     }
@@ -247,7 +252,7 @@ const SearchRealtor = styled.div`
   position: absolute;
   left: 30rem;
   display: flex;
-  width: 600px;
+  width: 800px;
   height: 70px;
   border: 0px;
   form {
@@ -288,6 +293,44 @@ const SearchRealtor = styled.div`
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
       }
+      
+    }
+  }
+
+  .selectWrapper {
+    width: 100%;
+    margin-top: 10px;
+
+    @media (max-width: 768px) {
+      width: 160px;
+      -webkit-appearance: none;
+    }
+
+    select {
+      padding: 0rem;
+      height: 50px;
+      padding-left: 20px;
+      appearance: none;
+      border-radius: 1rem!important;
+
+      @media (max-width: 768px) {
+        width: 100%;
+        -webkit-appearance: none;
+        padding-left: 18px;
+      }
+    }
+
+    .selectIcon {
+      transform: translateY(-220%) translateX(80%);
+      pointer-events: none;
+
+      svg {
+        display: block;
+      }
+
+      svg path {
+        fill: #555;
+      }
     }
   }
 
@@ -302,6 +345,11 @@ const SearchRealtor = styled.div`
     justify-content: center;
     gap: 0;
     border: 0px;
+
+    .login{
+      width: 5px!important;
+    }
+    
     form {
       .search-row {
         display: flex;
@@ -311,6 +359,7 @@ const SearchRealtor = styled.div`
         gap: 1rem;
         width: 100%;
         height: 100%;
+
         .input-city-cep{
           width: 140px;
           height: 25px;
@@ -322,8 +371,7 @@ const SearchRealtor = styled.div`
           padding: 1rem;
         }
         .searchButton{
-          width: 140px;
-          height: 25px;
+          display: none!important;
         }
       }
     }
@@ -335,12 +383,44 @@ const SearchRealtor = styled.div`
         .input-city-cep{
           width: 160px;
         }
+        .selectWrapper{
+          width: 160px;
+          height: 10px;
+          margin-bottom: 30px;
+        }
         .input-realtor{
           width: 160px;
         }
         .searchButton{
           width: 160px;
         }
+        select {
+          height: 40px;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 375px) {
+    width: 180px;
+    form {
+      .search-row {
+        .input-city-cep{
+          width: 90px;
+        }
+        .input-realtor{
+          width: 90px;
+        }
+        .selectWrapper{
+          width: 90px;
+          margin-bottom: 20px;
+        }
+        .searchButton{
+          width: 90px;
+        }
+        select {
+          height: 30px;
+        }
+
       }
     }
   }
@@ -362,6 +442,8 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
   const [defaultLocale, setDefaultLocale] = useState('')
 
   const [openProfile, setOpenProfile] = useState(false)
+
+  const [selectedValue, setSelectedValue] = useState(1)
 
   const [pic, setPic] = useState('')
 
@@ -463,13 +545,26 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
      
     };
 
+
+    document.addEventListener('click', event => {
+      const modalProfileElement = document.getElementsByClassName('modalProfile')[0];
+      const avatarElement = document.getElementsByClassName('profile')[0];
+
+      const isClickInside = event.composedPath().includes(modalProfileElement) || event.composedPath().includes(avatarElement);
+
+      console.log(isClickInside,avatarElement,event.composedPath())
+
+      if(!isClickInside){
+        setOpenProfile(false);
+      }else setOpenProfile(true);
+    })
+
     fetchData();
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
-    console.log('data',data)
     const fetchData = async () => {
-      let url = "/realtor?";
+      let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
         url += "search=" + data.search;
         setSearch(data.search);
@@ -482,8 +577,10 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
         setSearch(data.search);
       } 
 
+
       await api.get(url)
       .then((response) => {
+        console.log(url)
         setSearchResult(response.data);
         router.push("/search-result");
       })
@@ -499,6 +596,8 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
 
   const { width } = useWindowSize();
 
+  console.log(router.pathname)
+
   return (
     <Nav style={{
       justifyContent: showSearchBar ? "flex-start" : width < 768 ? "space-between" : "center",
@@ -510,13 +609,28 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
       paddingLeft: showSearchBar ? '1rem' : '0rem',
     }}>
       <Link href="/" className="logo-area">
-        <img className="logo" src={width > 768 ? "/meoagent-logo.png" : "/sublogo.png"} alt="Meoagent-logo" />
+        <img className="logo" src={(width > 768 || router.pathname === '/') ? "/meoagent-logo.png" : "/sublogo.png"} alt="Meoagent-logo" />
       </Link>
       {showSearchBar &&
         <>
-          <SearchRealtor >
+          <SearchRealtor>
             <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
-              <div className="search-row">
+                <div className="search-row">
+                  <div className="selectWrapper">
+                  <select
+                    value={selectedValue}
+                    {...register("idSearch", {
+                      required: true,
+                      onChange: (e) => setSelectedValue(e.target.value),
+                    })}
+                  >
+                    <option value={1}>{t.home.realtor}</option>
+                    <option value={2}>{t.home.agency}</option>
+                  </select>
+                  <div className="selectIcon">
+                    <FaAngleDown />
+                  </div>
+                </div>
                 <input
                   type="text"
                   className="input-realtor"
@@ -537,7 +651,7 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
                   ))}
                 </datalist>
 
-                <button className="searchButton">{t.home.searchButton}</button>
+                <button className="searchButton" style={{display: width > 576 ? 'block':'none'}}>{t.home.searchButton}</button>
               </div>
             </form>
 
@@ -563,10 +677,10 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
             <Image onClick={() => setOpenProfile(!openProfile)} className="profile" src={pic ? pic : profileIcon} alt={'Profile'} width={60} height={60} />
           ) : (
             <div
-              onMouseEnter={() => setOpen(true)}
-              onMouseLeave={() => setOpen(false)}
               className={open ? 'login' : 'login closed'}
               style={width > 768 ? {} : { width: 100, marginRight: 12 }}
+              onMouseEnter={() => setOpen(true)}
+              onMouseLeave={() => setOpen(false)}
             >
               <p>
                 LOGIN

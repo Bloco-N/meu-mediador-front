@@ -22,6 +22,7 @@ const Container = styled.button`
     width: 10%;
     margin-left: auto;
     font-size: 1.3rem;
+    z-index: 99;
 `
 interface ConvertToPDFProps{
     localId:string;

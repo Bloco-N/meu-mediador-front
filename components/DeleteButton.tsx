@@ -16,8 +16,10 @@ const DivButton = styled.div`
 
     @media (max-width: 760px) {
       height: 50px;
-    width:50px;
-  }
+      width:50px;
+      margin-right: 1em;
+      margin-top: 0em;
+    }
 `;
 
 const ResponsiveImage = styled.img`

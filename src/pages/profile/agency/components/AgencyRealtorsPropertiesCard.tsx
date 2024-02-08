@@ -20,16 +20,16 @@ import housePaceholder from '../../../../../public/placeholder.jpg'
 import locales from "locales"
 import EnergyEfficience, { TEnergyEfficience } from "@/types/EnergyEfficience"
 
-const EnergyColors ={
-  "AP":"#01833b",
-  "A":"#3ea03d",
-  "B":"#76ac34",
-  "Bm":"#aac32a",
-  "C":"#c7cf1a",
-  "D":"#eadb02",
-  "E":"#eabb09",
-  "F":"#d81920",
-  "G":"#a22529",
+const EnergyColors = {
+  "AP": "#01833b",
+  "A": "#3ea03d",
+  "B": "#76ac34",
+  "Bm": "#aac32a",
+  "C": "#c7cf1a",
+  "D": "#eadb02",
+  "E": "#eabb09",
+  "F": "#d81920",
+  "G": "#a22529",
 }
 
 const Container = styled.div`
@@ -41,12 +41,18 @@ const Container = styled.div`
     position: relative;
     .list{
       width: 100%;
-      display: flex;
       flex-direction: row;
-      gap: 2rem;
+      display: grid;
+      grid-template-columns: repeat(5, 5fr);
       scroll-snap-type: x mandatory;
       padding: 1rem;
       overflow: auto;
+
+      @media(max-width: 1100px) {
+        display: flex;
+        gap: 2rem;
+      }
+
       .properties-column{
         display: flex;
         flex-direction: column;
@@ -70,6 +76,8 @@ const Container = styled.div`
         padding: 1rem;
         border-radius: 1rem;
         width: 30rem;
+        height: 400px;
+        margin-bottom: 50px;
         position: relative;
         .footer{
           display: flex;
@@ -103,9 +111,9 @@ const Container = styled.div`
   }
 `
 
-export default function AgencyRealtorsPropertiesCard({agency}:any){
+export default function AgencyRealtorsPropertiesCard({ agency }: any) {
 
-  const [properties, setProperties ] = useState<any>()
+  const [properties, setProperties] = useState<any>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
 
@@ -121,71 +129,72 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
   const locale = router.locale
 
   const t = locales[locale as keyof typeof locales]
-  
+
 
   useEffect(() => {
-    const allProperties = agency.Partnerships.map((part:any)=> part.Realtor)
-    const agencyRealtors = allProperties.map((item:any)=> {
-        return {name:item.firstName,lastName:item.lastName, id:item.id, properties:item.Properties}
+    const allProperties = agency.Partnerships.map((part: any) => part.Realtor)
+    const agencyRealtors = allProperties.map((item: any) => {
+      return { name: item.firstName, lastName: item.lastName, id: item.id, properties: item.Properties }
     })
     const agencyRealtorsProperties: any = []
-    for(let i = 0; i< agencyRealtors.length;i++){
-        for(let j = 0; j< agencyRealtors[i].properties.length;j++){
-            agencyRealtorsProperties.push({
-                ...agencyRealtors[i].properties[j],
-                realtorLastName:agencyRealtors[i].lastName,
-                realtorId:agencyRealtors[i].id,
-                realtorName:agencyRealtors[i].name
-            })
-        }
+    for (let i = 0; i < agencyRealtors.length; i++) {
+      for (let j = 0; j < agencyRealtors[i].properties.length; j++) {
+        agencyRealtorsProperties.push({
+          ...agencyRealtors[i].properties[j],
+          realtorLastName: agencyRealtors[i].lastName,
+          realtorId: agencyRealtors[i].id,
+          realtorName: agencyRealtors[i].name
+        })
+      }
     }
-    const agencyRealtorsPropertiesInPairs: any =[]
-    for(let i = 0; i< agencyRealtorsProperties.length;i=i+2){
-      agencyRealtorsPropertiesInPairs.push([agencyRealtorsProperties[i],agencyRealtorsProperties[i+1]])
+    const agencyRealtorsPropertiesInPairs: any = []
+    for (let i = 0; i < agencyRealtorsProperties.length; i = i + 2) {
+      agencyRealtorsPropertiesInPairs.push([agencyRealtorsProperties[i], agencyRealtorsProperties[i + 1]])
     }
 
     setProperties(agencyRealtorsPropertiesInPairs)
   }, [])
 
   console.log(properties)
-  
+
   return (
     <Container >
       <div className="card properties">
         <h2>{t.properties.properties} </h2>
         <div className="list">
-          {properties?.map((item:any) => (
+          {properties?.map((item: any) => (
+            <>
             <div key={item[0].id} className="properties-column">
-              <div  className="propertie">
-              <div className="realtor-name">
-                    <span>Consultor(a): </span>
-                    <a className="special-link" onClick={()=>router.push(`/profile/realtor/${item[0].realtorId}`)}>
-                        {`${item[0].realtorName} ${item[0].realtorLastName}`}
-                    </a>
+              <div className="propertie">
+                <div className="realtor-name">
+                  <span>Consultor(a): </span>
+                  <a className="special-link" onClick={() => router.push(`/profile/realtor/${item[0].realtorId}`)}>
+                    {`${item[0].realtorName} ${item[0].realtorLastName}`}
+                  </a>
                 </div>
                 <div className="image-container">
-                <Image className="property-img" src={item[0].profilePicture||housePaceholder} width={200} height={100} alt="profile picture"/>
+                  <Image className="property-img" src={item[0].profilePicture || housePaceholder} width={200} height={100} alt="profile picture" />
 
                 </div>
-                
+
                 <h2>{item[0].price}</h2>
                 <h3>{item[0].title}</h3>
                 <p className="sub-text">
-                  {PropertyTypes[locale as keyof typeof PropertyTypes][item[0].propertyType as keyof TPropertyTypes]} {Rooms[item[0].rooms as keyof TRooms]} {item[0].grossArea} de Área Bruta e {item[0].usefulArea} de Área Útil, {Preservations[locale as keyof typeof Preservations][item[0].preservation as keyof TPreservations]}. 
+                  {PropertyTypes[locale as keyof typeof PropertyTypes][item[0].propertyType as keyof TPropertyTypes]} {Rooms[item[0].rooms as keyof TRooms]} {item[0].grossArea} de Área Bruta e {item[0].usefulArea} de Área Útil, {Preservations[locale as keyof typeof Preservations][item[0].preservation as keyof TPreservations]}.
                   {t.addPropertiesModal.eficiencia}:
                   {
-                  ["H","I","J"].includes(item.energyefficience) ?
-                   <a> {EnergyEfficience[locale as keyof typeof EnergyEfficience][item[0].energyefficience as keyof TEnergyEfficience]}</a>
-                   :
-                   <>
-                  <a className="gg-home-alt" style={{color: EnergyColors[item[0].energyefficience as keyof TEnergyEfficience], display:"inline-flex",height:"10px",marginBottom:"10px",marginLeft:"2px"}}><span style={{color:"white",marginTop:"-2px",zIndex:"1",position:"relative",marginLeft:"auto",marginRight:"auto",fontSize:"10px"}}>{EnergyEfficience[locale as keyof typeof EnergyEfficience][item[0].energyefficience as keyof TEnergyEfficience]}</span></a>
-                  {/* <IconEnergy
+                    ["H", "I", "J"].includes(item.energyefficience) ?
+                      <a> {EnergyEfficience[locale as keyof typeof EnergyEfficience][item[0].energyefficience as keyof TEnergyEfficience]}</a>
+                      :
+                      <>
+                        <a className="gg-home-alt" style={{ color: EnergyColors[item[0].energyefficience as keyof TEnergyEfficience], display: "inline-flex", height: "10px", marginBottom: "10px", marginLeft: "2px" }}><span style={{ color: "white", marginTop: "-2px", zIndex: "1", position: "relative", marginLeft: "auto", marginRight: "auto", fontSize: "10px" }}>{EnergyEfficience[locale as keyof typeof EnergyEfficience][item[0].energyefficience as keyof TEnergyEfficience].substring(0,3)}</span></a>
+                        {/* <IconEnergy
                   cor = {EnergyColors[item.energyefficience as keyof TEnergyEfficience]}
                   cor_fonte="#000"
                   tamanho_casa="18px"
                   texto={EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}
                   /> */}
-                  </> 
+                      </>
                   }
                 </p>
                 <div className="footer">
@@ -197,36 +206,57 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
                   </p>
                 </div>
               </div>
-              {item[1] && <div  className="propertie">
-                <div>
-                    <span>Consultor(a): </span>
-                    <a className="special-link" onClick={()=>router.push(`/profile/realtor/${item[1].realtorId}`)}>
-                        {`${item[1].realtorName} ${item[1].realtorLastName}`}
-                    </a>
-                </div>
-                <Image className="property-img" src={item[1].profilePicture||housePaceholder} width={200} height={100} alt="profile picture"/>
-                <h2>{item[1].price}</h2>
-                <h3>{item[1].title}</h3>
-                <p className="sub-text">
-                  {PropertyTypes[locale as keyof typeof PropertyTypes][item[1].propertyType as keyof TPropertyTypes]} {Rooms[item[1].rooms as keyof TRooms]} {item[1].grossArea} de Área Bruta e {item[1].usefulArea} de Área Útil, {Preservations[locale as keyof typeof Preservations][item[1].preservation as keyof TPreservations]}.
-                </p>
-                <div className="footer">
-                  <Link className="special-link" href={item[1].link} target='_blank'>
-                    {t.properties.verify}
-                  </Link>
-                  <p className="sub-text">
-                    {timeSince(new Date(item[1].createdAt))}
-                  </p>
-                </div>
-              </div>
-}
             </div>
+            <div key={item[1].id} className="properties-column">
+            <div className="propertie">
+              <div className="realtor-name">
+                <span>Consultor(a): </span>
+                <a className="special-link" onClick={() => router.push(`/profile/realtor/${item[1].realtorId}`)}>
+                  {`${item[1].realtorName} ${item[1].realtorLastName}`}
+                </a>
+              </div>
+              <div className="image-container">
+                <Image className="property-img" src={item[1].profilePicture || housePaceholder} width={200} height={100} alt="profile picture" />
+          
+              </div>
+          
+              <h2>{item[1].price}</h2>
+              <h3>{item[1].title}</h3>
+              <p className="sub-text">
+                {PropertyTypes[locale as keyof typeof PropertyTypes][item[1].propertyType as keyof TPropertyTypes]} {Rooms[item[1].rooms as keyof TRooms]} {item[1].grossArea} de Área Bruta e {item[1].usefulArea} de Área Útil, {Preservations[locale as keyof typeof Preservations][item[1].preservation as keyof TPreservations]}.
+                {t.addPropertiesModal.eficiencia}:
+                {
+                  ["H", "I", "J"].includes(item.energyefficience) ?
+                    <a> {EnergyEfficience[locale as keyof typeof EnergyEfficience][item[1].energyefficience as keyof TEnergyEfficience]}</a>
+                    :
+                    <>
+                      <a className="gg-home-alt" style={{ color: EnergyColors[item[1].energyefficience as keyof TEnergyEfficience], display: "inline-flex", height: "10px", marginBottom: "10px", marginLeft: "2px" }}><span style={{ color: "white", marginTop: "-2px", zIndex: "1", position: "relative", marginLeft: "auto", marginRight: "auto", fontSize: "10px" }}>{EnergyEfficience[locale as keyof typeof EnergyEfficience][item[1].energyefficience as keyof TEnergyEfficience].substring(0,3)}</span></a>
+                      {/* <IconEnergy
+                cor = {EnergyColors[item.energyefficience as keyof TEnergyEfficience]}
+                cor_fonte="#000"
+                tamanho_casa="18px"
+                texto={EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}
+                /> */}
+                    </>
+                }
+              </p>
+              <div className="footer">
+                <Link className="special-link" href={item[1].link} target='_blank'>
+                  Conferir Imóvel
+                </Link>
+                <p className="sub-text">
+                  {timeSince(new Date(item[1].createdAt))}
+                </p>
+              </div>
+            </div>
+          </div>
+          </>
           ))}
-          { sessionProfile ? (
-          <Image onClick={() => addPropertySetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
-      ): ''}
+          {sessionProfile ? (
+            <Image onClick={() => addPropertySetOpen(true)} className='plus' src={plusIcon} alt='edit icon' />
+          ) : ''}
         </div>
       </div>
     </Container>
-  ) 
+  )
 }

@@ -69,7 +69,7 @@ const Container = styled.div<ContainerProps>`
     padding: 3rem;
     border-radius: 3rem;
     height: 100%;
-    gap: 1rem;
+    width: 100%;
     .cover-photo{
       position: absolute;
       height: 100%;
@@ -93,29 +93,40 @@ const Container = styled.div<ContainerProps>`
     @media only screen and (max-width: 900px){
       flex-direction: column;
     }
+    .stars{
+      width: auto;
+    }
     .sub-content{
+      width: 100%;
       @media only screen and (max-width: 900px){
         flex-direction: column;
         gap: 2rem;
         margin-top: unset;
         margin-left: unset;
+        width: 70%;
       }
+
+      @media only screen and (min-width: 900px){
+        display: grid;
+        grid-template-columns: 60% 50% 33%;
+      }
+      
       margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
       margin-left: ${porps => porps.isProfile ? '2rem': '2rem'};
       display: flex;
-      gap: 5rem;
-      width: 70%;
+
+      justify-content: space-between
     }
     .about{
       position: relative;
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
-      min-width: 15rem;
+
       color: var(--surface-2);
       @media only screen and (max-width: 900px){
         align-items: center;
-        min-width: 100%;
+        min-width: 80%;
       }
     }
     .about-2{
@@ -167,6 +178,11 @@ const Container = styled.div<ContainerProps>`
         }
       }
     }
+    .current-agency-link {
+      @media only screen and (max-width: 900px){
+        width: auto;
+      }
+    } 
     .current-agency{
       background: #fff;
       display: flex;
@@ -179,6 +195,7 @@ const Container = styled.div<ContainerProps>`
       right: 2rem;
       @media only screen and (max-width: 900px){
         position: unset;
+        width: auto;
       }
       .agency{
         height: 3rem;
@@ -216,6 +233,14 @@ const Container = styled.div<ContainerProps>`
     margin-left: 10%;
     gap: 0.5rem;
 
+    @media (width < 768px) {
+      display: flex;
+      margin-left: 0%;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
     p{
       margin-bottom: 0.5rem;
     }
@@ -382,7 +407,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
             <h1>{userSigned.name}</h1>
           )}
           {(userSigned?.rating > 0) && (
-            <h3>{'★'.repeat(Math.floor(userSigned?.rating))} ({Math.floor(userSigned?.rating)})</h3>
+            <h3 className='stars'>{'★'.repeat(Math.floor(userSigned?.rating))} ({Math.floor(userSigned?.rating)})</h3>
           )}
         </div>
         <div className="about-2">
@@ -423,8 +448,6 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
           <p>{userSigned?.email}</p>
           <p>{userSigned?.phone}</p> 
           
-          <p>{userSigned?.phone}</p> 
-          <p>{userSigned?.phone}</p>
 
           {/* <div className="bottom">
             <div className="bottom-1">
@@ -487,7 +510,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
       ): ''}
 
       {isRealtor && (
-        <Link href={'/profile/agency/' + lastExp?.agencyId}>
+        <Link href={'/profile/agency/' + lastExp?.agencyId} className='current-agency-link'>
         <div className="current-agency border" onClick={goAgency}>
           {lastExp?.name}
           <Image width={10} height={10} className="agency" src={lastExp?.pic ? lastExp.pic : agencyIcon} alt='agency icon'/>

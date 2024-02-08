@@ -26,7 +26,7 @@ const EnergyEfficience = {
         F:"F",
         G:"G",
         H:"Free",
-        I:"Em processo",
+        I:"In process",
         J:"Don't has"
     },
     es:{

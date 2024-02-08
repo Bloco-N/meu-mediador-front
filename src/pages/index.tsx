@@ -49,11 +49,14 @@ const SearchRealtor = styled.div`
       justify-content: center;
       align-items: center;
       gap: 2rem;
-      width: 900px;
+      width: 100%;
 
       @media only screen and (max-width: 1190px) {
         flex-direction: column;
         input {
+        }
+        .selectWrapper {
+          width: 100%;
         }
       }
       @media (max-width: 768px) {
@@ -76,7 +79,6 @@ const SearchRealtor = styled.div`
 
       @media (max-width: 768px) {
         width: 100%;
-        height: 60px;
         -webkit-appearance: none;
       }
 
@@ -86,7 +88,6 @@ const SearchRealtor = styled.div`
 
         @media (max-width: 768px) {
           width: 100%;
-          height: 60px;
           background-color: #fff;
           -webkit-appearance: none;
           padding-left: 18px;

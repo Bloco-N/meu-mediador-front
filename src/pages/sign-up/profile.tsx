@@ -19,9 +19,9 @@ const Container = styled.div`
     width: calc(100% - 30px);
   }
 
-  /* @media only screen and (max-width: 400px){
+  @media only screen and (width < 460px){
     width: 100%;
-  } */
+  }
 `;
 
 const ChooseProfileTitle = styled.div`

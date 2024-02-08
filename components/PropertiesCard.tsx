@@ -161,10 +161,10 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
     const fetchData = async () => {
       if(id){
         setLoadingOpen(true)
-        const propertiesData = await apiService.getRealtorProperties(id as string)
+        let propertiesData = await apiService.getRealtorProperties(id as string)
         setLoadingOpen(false)
-
-        setProperties(propertiesData)
+        propertiesData = propertiesData?.reverse();
+        setProperties(propertiesData);
       }
 
     }
