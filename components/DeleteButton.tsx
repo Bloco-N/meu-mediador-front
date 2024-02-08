@@ -11,8 +11,7 @@ const DivButton = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 3em;
-    margin-top: 3em;
+    margin-left: 1em;
     cursor: pointer;
 
     @media (max-width: 760px) {

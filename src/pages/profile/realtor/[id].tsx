@@ -74,8 +74,21 @@ const Container = styled.div`
   width: 100%;
   box-sizing: border-box;
 
+  @media (max-width: 375px) {
+    max-height: 10%;
+    top: 40px;
+  }
+
   @media (max-width: 768px) {
+    max-height: 30%;
+  }
+
+  @media (min-width: 768px) {
     max-height: 20%;
+  }
+
+  @media (min-width: 1100px) {
+    max-height: 8%;
   }
 }
 .divButtonConfirm {

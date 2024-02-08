@@ -311,6 +311,7 @@ const SearchRealtor = styled.div`
       height: 50px;
       padding-left: 20px;
       appearance: none;
+      border-radius: 1rem!important;
 
       @media (max-width: 768px) {
         width: 100%;
@@ -544,6 +545,20 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
      
     };
 
+
+    document.addEventListener('click', event => {
+      const modalProfileElement = document.getElementsByClassName('modalProfile')[0];
+      const avatarElement = document.getElementsByClassName('profile')[0];
+
+      const isClickInside = event.composedPath().includes(modalProfileElement) || event.composedPath().includes(avatarElement);
+
+      console.log(isClickInside,avatarElement,event.composedPath())
+
+      if(!isClickInside){
+        setOpenProfile(false);
+      }else setOpenProfile(true);
+    })
+
     fetchData();
   }, []);
 
@@ -598,7 +613,7 @@ const Navbar = ({ showSearchBar }: NavBarInterface) => {
       </Link>
       {showSearchBar &&
         <>
-          <SearchRealtor >
+          <SearchRealtor>
             <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
                 <div className="search-row">
                   <div className="selectWrapper">

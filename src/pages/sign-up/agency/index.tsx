@@ -41,7 +41,12 @@ const SignUpContainer = styled.div`
       display: flex;
       gap: 2rem;
     }
-
+    .text-center-checkbox{
+      margin-left: 20px;
+    }
+    input[type=checkbox] {
+      transform: scale(1.5)!important;
+    }
     .check_box {
       all: revert !important;
     }
@@ -119,7 +124,7 @@ const SignUp = () => {
       const urlFetchGoogle = "/agency/sign-up/google";
 
       if (!session) {
-        if (data?.password !== data?.confirmPassword) return alert("Senhas diferentes");
+        if (data?.password !== data?.confirmPassword) return toast.error(t.toast.errorPassword);
         const { confirmPassword, ...bodyData } = data as SignUpFormAgency;
         body = bodyData;
       }
@@ -210,7 +215,7 @@ const SignUp = () => {
           text={t.signIn.facebook}
         />
 
-        <span className="txt-center">
+        <div className="txt-center">
           {" "}
           <input
             type="checkbox"
@@ -218,8 +223,8 @@ const SignUp = () => {
             checked={privacy_policy}
             onClick={onPrivacyClick}
           />
-          {t.signUp.check_police}
-        </span>
+          <span className="text-center-checkbox">{t.signUp.check_police}</span>
+        </div>
         <button type="submit" disabled={!privacy_policy}>
           {t.signUp.signUp}
         </button>

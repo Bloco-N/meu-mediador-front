@@ -125,7 +125,7 @@ const es = {
     forgot: "Olvidé mi contraseña",
     enter: "Iniciar Sesión",
     notHaveAnAccount: "¿No tienes una cuenta?",
-    here: "Registrar aquí",
+    here: "Regístrate ahora",
     error: "Correo electrónico o contraseña incorrectos",
     google: "Continuar con Google",
     facebook: "Continuar con Facebook",

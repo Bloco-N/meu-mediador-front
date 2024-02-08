@@ -93,7 +93,11 @@ const Container = styled.div<ContainerProps>`
     @media only screen and (max-width: 900px){
       flex-direction: column;
     }
+    .stars{
+      width: auto;
+    }
     .sub-content{
+      width: 100%;
       @media only screen and (max-width: 900px){
         flex-direction: column;
         gap: 2rem;
@@ -101,11 +105,16 @@ const Container = styled.div<ContainerProps>`
         margin-left: unset;
         width: 70%;
       }
+
+      @media only screen and (min-width: 900px){
+        display: grid;
+        grid-template-columns: 60% 50% 33%;
+      }
+      
       margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
       margin-left: ${porps => porps.isProfile ? '2rem': '2rem'};
       display: flex;
 
-      width: 300%;
       justify-content: space-between
     }
     .about{
@@ -113,11 +122,11 @@ const Container = styled.div<ContainerProps>`
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
-      min-width: 15rem;
+
       color: var(--surface-2);
       @media only screen and (max-width: 900px){
         align-items: center;
-        min-width: 100%;
+        min-width: 80%;
       }
     }
     .about-2{
@@ -398,7 +407,7 @@ const MainInfo = ({ userSigned , isProfile, lastExp, isRealtor, pdfPage}: MainIn
             <h1>{userSigned.name}</h1>
           )}
           {(userSigned?.rating > 0) && (
-            <h3>{'★'.repeat(Math.floor(userSigned?.rating))} ({Math.floor(userSigned?.rating)})</h3>
+            <h3 className='stars'>{'★'.repeat(Math.floor(userSigned?.rating))} ({Math.floor(userSigned?.rating)})</h3>
           )}
         </div>
         <div className="about-2">
