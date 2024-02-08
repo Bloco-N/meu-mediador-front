@@ -55,6 +55,9 @@ const SearchRealtor = styled.div`
         flex-direction: column;
         input {
         }
+        .selectWrapper {
+          width: 100%;
+        }
       }
       @media (max-width: 768px) {
         padding: 2rem 0rem;
