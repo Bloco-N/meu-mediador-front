@@ -590,7 +590,7 @@ const Navbar = () => {
                 onMouseEnter={() => setOpen(true)}
                 onMouseLeave={() => setOpen(false)}
                 className={open ? "login" : "login closed"}
-                style={width > 768 ? {} : { width: 70 }}
+                // style={width > 768 ? {} : { width: 95 }}
               >
                 <p>LOGIN</p>
                 <LoginMoldal open={open} setOpen={setOpen} />

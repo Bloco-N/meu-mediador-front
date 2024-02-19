@@ -120,7 +120,9 @@ const SignUp = () => {
       let body;
 
       if (!session) {
-        if (data?.password !== data?.confirmPassword) return;
+        if(data?.password != data?.confirmPassword){
+          return toast.info('Senhas divergentes!')
+        } 
         const { confirmPassword, ...bodyData } = data as SignUpForm;
         body = bodyData;
       }

@@ -204,6 +204,10 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
 
   const onSubmit = async (data: AddPropertyForm) => {
 
+    if(pic == ''){
+      return toast.info("Adicione uma imagem para salvar!")
+    }
+
     const localId = localStorage.getItem('id')
     const accountType = localStorage.getItem('accountType')
     const realtorBody = {

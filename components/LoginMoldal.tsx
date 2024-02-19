@@ -11,11 +11,11 @@ import { useRouter } from "next/router";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-
   text-align: center;
-  gap: 1.5rem;
+    gap: 1.5rem;
   animation: apear 2s forwards;
   z-index: 2;
+  background-color: red;
 
   a {
     display: flex;

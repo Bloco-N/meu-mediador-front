@@ -117,12 +117,14 @@ const SignUp = () => {
       const urlFetchGoogle = "/agency/sign-up/google";
 
       if (!session) {
-        if (data?.password !== data?.confirmPassword) return;
+        if(data?.password != data?.confirmPassword){
+          return toast.info('Senhas divergentes!')
+        } 
         const { confirmPassword, ...bodyData } = data as SignUpFormAgency;
         body = bodyData;
       }
 
-      api
+      await api
         .post(session ? urlFetchGoogle : urlFetch, session ? dataGoogle : body)
         .then((response) => {
           if (response.data) {
@@ -130,13 +132,29 @@ const SignUp = () => {
             router.push("/sign-in/agency");
           } else {
             if (response.status === 400) {
-              setUserExist(true);
+              console.log(response.data, "Goiaba")
+              if(response.data.message == "name"){
+                toast.error("Nome de agência já cadastrada")
+              }else if(response.data.message == "email"){
+                toast.error("Email já cadastrada")
+              }else{
+                toast.error("Nome da agência e email ja cadastrados")
+              }
             }
           }
         })
         .catch((error) => {
           if (error.response.status == 400) {
-            setUserExist(true);
+           
+              console.log(error.response, "Goiaba")
+              if(error.response.message == "name"){
+                toast.error("Nome de agência já cadastrada")
+              }else if(error.response.message == "email"){
+                toast.error("Email já cadastrada")
+              }else{
+                toast.error("Nome da agência e email ja cadastrados")
+              }
+            
           }
         });
     };
@@ -161,11 +179,11 @@ const SignUp = () => {
           placeholder={t.signIn.email}
           {...register("email", { required: true })}
         />
-        {userExist ? (
+        {/* {userExist ? (
           <label style={{ color: "red" }}>{t.signUp.check_email}</label>
         ) : (
           <></>
-        )}
+        )} */}
         <input
           className="input-sign-up"
           type="password"
