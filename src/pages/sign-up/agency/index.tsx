@@ -132,10 +132,10 @@ const SignUp = () => {
             router.push("/sign-in/agency");
           } else {
             if (response.status === 400) {
-              console.log(response.data, "Goiaba")
-              if(response.data.message == "name"){
+              console.log(response.data.data, "Goiaba")
+              if(response.data.data== "name"){
                 toast.error("Nome de agência já cadastrada")
-              }else if(response.data.message == "email"){
+              }else if(response.data.data == "email"){
                 toast.error("Email já cadastrada")
               }else{
                 toast.error("Nome da agência e email ja cadastrados")
@@ -145,14 +145,13 @@ const SignUp = () => {
         })
         .catch((error) => {
           if (error.response.status == 400) {
-           
-              console.log(error.response, "Goiaba")
-              if(error.response.message == "name"){
-                toast.error("Nome de agência já cadastrada")
-              }else if(error.response.message == "email"){
-                toast.error("Email já cadastrada")
+              console.log(typeof error.response.data, "Goiaba 2")
+              if(error.response.data == "name"){
+                return toast.error("Nome de agência já cadastrada")
+              }else if(error.response.data == "email"){
+                return toast.error("Email já cadastrada")
               }else{
-                toast.error("Nome da agência e email ja cadastrados")
+                return toast.error("Nome da agência e email ja cadastrados")
               }
             
           }
