@@ -18,6 +18,7 @@ import { SearchResultContextType } from "@/types/SearchResultContextType";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import api from "@/services/api";
+import { FaAngleDown } from "react-icons/fa";
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState<any>({
@@ -121,6 +122,12 @@ const Nav = styled.div`
     &:has(div) {
       border-radius: 1rem 1rem 0 0;
     }
+
+    @media only screen and (max-width: 900px) {
+      width: 95px;
+      margin-right: 10px;
+    }
+
     p {
       width: 100%;
       position: relative;
@@ -359,12 +366,13 @@ const Navbar = () => {
   const [defaultLocale, setDefaultLocale] = useState("");
 
   const [openProfile, setOpenProfile] = useState(false);
+  const [selectedValue, setSelectedValue] = useState(1);
 
   const [pic, setPic] = useState("");
 
   const router = useRouter();
 
-  let showSearchBar = router.pathname !== "/" ? true : false
+  let showSearchBar = router.pathname !== "/" ? true : false;
 
   const { id } = router.query;
 
@@ -530,6 +538,21 @@ const Navbar = () => {
               ref={inputRef}
             >
               <div className="search-row">
+                <div className="selectWrapper">
+                  <select
+                    value={selectedValue}
+                    {...register("idSearch", {
+                      required: true,
+                      onChange: (e) => setSelectedValue(e.target.value),
+                    })}
+                  >
+                    <option value={1}>{t.home.realtor}</option>
+                    <option value={2}>{t.home.agency}</option>
+                  </select>
+                  <div className="selectIcon">
+                    <FaAngleDown />
+                  </div>
+                </div>
                 <input
                   type="text"
                   className="input-realtor"
@@ -566,6 +589,7 @@ const Navbar = () => {
                 width={20}
                 height={20}
               />
+
               <select
                 id="locale-set"
                 onChange={(e) => changeLocation(e)}

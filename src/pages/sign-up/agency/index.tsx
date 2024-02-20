@@ -8,7 +8,6 @@ import { getSession, signIn, useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import api from "@/services/api";
 import { toast } from "react-toastify";
-import { SignUpForm } from "@/types/SignUpForm";
 import GoogleLoginButton from "components/ButtonAuth";
 import iconGoogle from "../../../../public/icon-google.png";
 import iconFacebook from "../../../../public/icons-facebook.png";
@@ -62,6 +61,7 @@ const SignUpContainer = styled.div`
 
     .card {
       width: 100%;
+      height: auto;
       min-height: 363px;
       gap: 26px;
       padding: 25px 27px 16px 27px;
@@ -88,7 +88,6 @@ const SignUpContainer = styled.div`
 const SignUp = () => {
   const { register, handleSubmit } = useForm<SignUpFormAgency>();
   const [privacy_policy, setPrivacyPolicy] = useState(false);
-  const [userExist, setUserExist] = useState(false);
 
   const onPrivacyClick = () => {
     setPrivacyPolicy(!privacy_policy);
