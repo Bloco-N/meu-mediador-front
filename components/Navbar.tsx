@@ -251,11 +251,12 @@ const Nav = styled.div`
 `;
 const SearchRealtor = styled.div`
   position: absolute;
-  left: 30rem;
+  left: 27rem;
   display: flex;
-  width: 600px;
+  width: 700px;
   height: 70px;
-  border: 0px;
+  border: opx;
+
   form {
     background: #e9e9e985;
     max-width: 100%;
@@ -273,19 +274,26 @@ const SearchRealtor = styled.div`
       .input-city-cep {
         margin: 0;
         position: relative;
-        width: 90%;
+        width: 100%;
         height: 100%;
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
       }
       .input-realtor {
-        width: 90%;
+        width: 100%;
         height: 100%;
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
       }
+      
+      .input-realtor::placeholder,
+      .input-city-cep::placeholder
+       {
+         font-size: 15px; /* Define o tamanho da fonte do placeholder */
+      }
+
       .searchButton {
         padding: 0;
         width: 80%;
@@ -293,6 +301,25 @@ const SearchRealtor = styled.div`
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
+      }
+      .selectWrapper {
+        width: 100%;
+        height: 100%;
+        border-radius: 1rem;
+        border: 1px solid #3a2e2c5a;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        select {
+          border-radius: 1rem;
+          height: 100%;
+          border: none;
+          background-color: none;
+          font-size: 15px;
+          padding: 0 20px;
+        }
       }
     }
   }
@@ -549,10 +576,8 @@ const Navbar = () => {
                     <option value={1}>{t.home.realtor}</option>
                     <option value={2}>{t.home.agency}</option>
                   </select>
-                  <div className="selectIcon">
-                    <FaAngleDown />
-                  </div>
                 </div>
+
                 <input
                   type="text"
                   className="input-realtor"
