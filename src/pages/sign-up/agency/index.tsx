@@ -154,6 +154,10 @@ const SignUp = () => {
               }
             
           }
+
+          if (error.response.status == 500) {
+            return toast.info('Senhas divergentes!')
+          }
         });
     };
 

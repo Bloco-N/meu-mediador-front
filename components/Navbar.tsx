@@ -323,7 +323,8 @@ const SearchRealtor = styled.div`
       }
     }
   }
-  @media only screen and (max-width: 900px) {
+
+  @media only screen and (max-width: 1100px) {
     position: relative;
     left: 0rem;
     display: flex;
@@ -505,6 +506,7 @@ const Navbar = () => {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
+    console.log('data',data)
     const fetchData = async () => {
       let url = "/realtor?";
       if (data.search) {

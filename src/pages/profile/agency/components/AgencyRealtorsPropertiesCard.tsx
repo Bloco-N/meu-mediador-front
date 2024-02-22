@@ -18,6 +18,19 @@ import LoadingContext from "context/LoadingContext"
 import { AgencyProfile } from "@/types/AgencyProfile"
 import housePaceholder from '../../../../../public/placeholder.jpg'
 import locales from "locales"
+import EnergyEfficience, { TEnergyEfficience } from "@/types/EnergyEfficience"
+
+const EnergyColors ={
+  "AP":"#01833b",
+  "A":"#3ea03d",
+  "B":"#76ac34",
+  "Bm":"#aac32a",
+  "C":"#c7cf1a",
+  "D":"#eadb02",
+  "E":"#eabb09",
+  "F":"#d81920",
+  "G":"#a22529",
+}
 
 const Container = styled.div`
   .properties{
@@ -133,6 +146,8 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
 
     setProperties(agencyRealtorsPropertiesInPairs)
   }, [])
+
+  console.log(properties)
   
   return (
     <Container >
@@ -156,7 +171,22 @@ export default function AgencyRealtorsPropertiesCard({agency}:any){
                 <h2>{item[0].price}</h2>
                 <h3>{item[0].title}</h3>
                 <p className="sub-text">
-                  {PropertyTypes[locale as keyof typeof PropertyTypes][item[0].propertyType as keyof TPropertyTypes]} {Rooms[item[0].rooms as keyof TRooms]} {item[0].grossArea} de Área Bruta e {item[0].usefulArea} de Área Útil, {Preservations[locale as keyof typeof Preservations][item[0].preservation as keyof TPreservations]}.
+                  {PropertyTypes[locale as keyof typeof PropertyTypes][item[0].propertyType as keyof TPropertyTypes]} {Rooms[item[0].rooms as keyof TRooms]} {item[0].grossArea} de Área Bruta e {item[0].usefulArea} de Área Útil, {Preservations[locale as keyof typeof Preservations][item[0].preservation as keyof TPreservations]}. 
+                  {t.addPropertiesModal.eficiencia}:
+                  {
+                  ["H","I","J"].includes(item.energyefficience) ?
+                   <a> {EnergyEfficience[locale as keyof typeof EnergyEfficience][item[0].energyefficience as keyof TEnergyEfficience]}</a>
+                   :
+                   <>
+                  <a className="gg-home-alt" style={{color: EnergyColors[item[0].energyefficience as keyof TEnergyEfficience], display:"inline-flex",height:"10px",marginBottom:"10px",marginLeft:"2px"}}><span style={{color:"white",marginTop:"-2px",zIndex:"1",position:"relative",marginLeft:"auto",marginRight:"auto",fontSize:"10px"}}>{EnergyEfficience[locale as keyof typeof EnergyEfficience][item[0].energyefficience as keyof TEnergyEfficience]}</span></a>
+                  {/* <IconEnergy
+                  cor = {EnergyColors[item.energyefficience as keyof TEnergyEfficience]}
+                  cor_fonte="#000"
+                  tamanho_casa="18px"
+                  texto={EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}
+                  /> */}
+                  </> 
+                  }
                 </p>
                 <div className="footer">
                   <Link className="special-link" href={item[0].link} target='_blank'>

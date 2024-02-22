@@ -293,16 +293,16 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
         <form onSubmit={handleSubmit(onSubmit)} action="">
           <h3>{propertyToUpdate && propertyToUpdate.id ? t.addPropertiesModal.updatePropertie : t.addPropertiesModal.uploadPropertie}</h3>
           <div className="input-titulo">
-            <input {...register('title', { required: true })} type="text" placeholder={t.addPropertiesModal.title} />
+            <input required {...register('title', { required: true })} type="text" placeholder={t.addPropertiesModal.title} />
           </div>
           <div className="all-infos">
 
             <div className="infos">
 
               <div className="inputs">
-                <input {...register('link', { required: true })} type="text" placeholder={t.addPropertiesModal.link} />
-                <CurrencyInput value={price} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value)} placeholder="0.00 €" />
-                <AreaInput value={grossArea} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrossArea(e.target.value)} placeholder={t.addPropertiesModal.grossArea} />
+                <input required {...register('link', { required: true })} type="text" placeholder={t.addPropertiesModal.link} />
+                <CurrencyInput required value={price} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value)} placeholder="0.00 €" />
+                <AreaInput required value={grossArea} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrossArea(e.target.value)} placeholder={t.addPropertiesModal.grossArea} />
 
                 <select placeholder='Selecione' {...register('energyefficience', { required: true })} name="energyefficience" id="energyefficience">
                   {Object.entries(EnergyEfficience[locale as keyof typeof EnergyEfficience]).map(([key, value]) => (
@@ -327,7 +327,7 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
                   ))}
                 </select>
 
-                <AreaInput value={usefulArea} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsefulArea(e.target.value)} placeholder={t.addPropertiesModal.usableArea} />
+                <AreaInput required value={usefulArea} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsefulArea(e.target.value)} placeholder={t.addPropertiesModal.usableArea} />
               </div>
             </div>
             <div className="image-place">

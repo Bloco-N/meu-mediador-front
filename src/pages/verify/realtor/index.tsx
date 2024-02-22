@@ -42,6 +42,7 @@ const VerifyRealtor = () => {
   const t = locales[locale as keyof typeof locales]
 
   useEffect(() => {
+    console.log('account',localStorage.getItem("accountType"))
 
     const fetchData = async () => {
 
@@ -64,7 +65,7 @@ const VerifyRealtor = () => {
     }
 
     fetchData()
-  }, [router, setLoadingOpen])
+  }, [])
 
 
     return (

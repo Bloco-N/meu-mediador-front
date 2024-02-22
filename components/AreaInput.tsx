@@ -18,7 +18,7 @@ const defaultMaskOptions = {
 const AreaInput = ({ ...inputProps }) => {
   const currencyMask = createNumberMask(defaultMaskOptions)
 
-  return <MaskedInput type='text' mask={currencyMask} {...inputProps} />
+  return <MaskedInput required={inputProps.required} type='text' mask={currencyMask} {...inputProps} />
 }
  
 export default AreaInput

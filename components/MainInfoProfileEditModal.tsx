@@ -118,8 +118,8 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   const [phone, setPhone] = useState('')
   const [whatsapp, setWhatsapp] = useState('')
 
-  const [wppMask, setWppMask] = useState('')
-  const [phoneMask, setPhoneMask] = useState('')
+  const [wppMask, setWppMask] = useState('+55 99 9 9999 9999')
+  const [phoneMask, setPhoneMask] = useState('+55 99 9 9999 9999')
 
   const router = useRouter()
 
@@ -166,6 +166,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
   }, [user.id, setLoadingOpen])
 
   const onSubmit = async (data: MainEditForm) => {
+    console.log(data)
     if(data.website && !data.website.startsWith('https://')){
       data.website = 'https://' + data.website
     }

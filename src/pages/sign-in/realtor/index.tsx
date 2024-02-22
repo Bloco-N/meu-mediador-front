@@ -141,6 +141,8 @@ const SignIn = () => {
           localStorage.setItem("pic", realtorData.profilePicture);
           localStorage.setItem("accountType", "realtor");
 
+          console.log('realtorData',realtorData)
+
           setUser({
             token,
             id: user.id,
@@ -151,6 +153,7 @@ const SignIn = () => {
           setLoadingOpen(false);
 
           if (realtorData.verified === false) {
+            localStorage.setItem("accountType", "realtor");
             router.push("/verify/realtor");
           } else {
             router.reload();
