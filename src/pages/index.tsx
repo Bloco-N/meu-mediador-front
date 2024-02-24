@@ -229,7 +229,6 @@ export default function Home() {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
-    console.log('data',data)
     const fetchData = async () => {
       let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {

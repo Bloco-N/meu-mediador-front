@@ -63,7 +63,7 @@ const Container = styled.div`
   }
   .divButton {
   display: flex;
-  position: absolute;
+  /* position: absolute; */
   z-index: 999;
   left: -10px;
   top: 80px;

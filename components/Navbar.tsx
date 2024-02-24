@@ -287,11 +287,10 @@ const SearchRealtor = styled.div`
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
       }
-      
+
       .input-realtor::placeholder,
-      .input-city-cep::placeholder
-       {
-         font-size: 15px; /* Define o tamanho da fonte do placeholder */
+      .input-city-cep::placeholder {
+        font-size: 15px; /* Define o tamanho da fonte do placeholder */
       }
 
       .searchButton {
@@ -302,25 +301,32 @@ const SearchRealtor = styled.div`
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
       }
-      .selectWrapper {
+      /* .selectWrapper {
         width: 100%;
-        height: 100%;
+        height: 120%;
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: center; */
 
         select {
           border-radius: 1rem;
           height: 100%;
           border: none;
           background-color: none;
-          font-size: 15px;
-          padding: 0 20px;
+          font-size: 18px;
+          padding: 0 18px;
+          border: 1px solid #3a2e2c5a;
+
+          @media only screen and (max-width: 1100px){
+            height: 25px;
+            padding: 0 5px;
+            font-size: 16px;
+          }
         }
-      }
+      /* } */
     }
   }
 
@@ -506,9 +512,8 @@ const Navbar = () => {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
-    console.log('data',data)
     const fetchData = async () => {
-      let url = "/realtor?";
+      let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
         url += "search=" + data.search;
         setSearch(data.search);
@@ -532,6 +537,26 @@ const Navbar = () => {
   };
 
   const { width } = useWindowSize();
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        if (window.innerWidth < 770) {
+          // Se estiver em um dispositivo móvel, acione o onSubmit
+          handleSubmit(onSubmit)();
+        }
+      }
+    };
+  
+    document.addEventListener('keypress', handleKeyPress);
+  
+    return () => {
+      document.removeEventListener('keypress', handleKeyPress);
+    };
+  }, []);
+  
+
+  
 
   return (
     <Nav
@@ -567,7 +592,6 @@ const Navbar = () => {
               ref={inputRef}
             >
               <div className="search-row">
-                <div className="selectWrapper">
                   <select
                     value={selectedValue}
                     {...register("idSearch", {
@@ -578,7 +602,6 @@ const Navbar = () => {
                     <option value={1}>{t.home.realtor}</option>
                     <option value={2}>{t.home.agency}</option>
                   </select>
-                </div>
 
                 <input
                   type="text"
@@ -599,8 +622,11 @@ const Navbar = () => {
                     <option key={index} value={item} />
                   ))}
                 </datalist>
-
-                <button className="searchButton">{t.home.searchButton}</button>
+                {width < 768 ? null : (
+                  <button className="searchButton">
+                    {t.home.searchButton}
+                  </button>
+                )}
               </div>
             </form>
           </SearchRealtor>

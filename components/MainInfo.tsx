@@ -99,6 +99,7 @@ const Container = styled.div<ContainerProps>`
         gap: 2rem;
         margin-top: unset;
         margin-left: unset;
+        width: 100%;
       }
       margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
       margin-left: ${porps => porps.isProfile ? '2rem': '2rem'};
@@ -142,6 +143,10 @@ const Container = styled.div<ContainerProps>`
           flex-direction: column;
           gap: 0.5rem;
         }
+      }
+
+      li{
+        text-align: left;
       }
     }
     .contact{

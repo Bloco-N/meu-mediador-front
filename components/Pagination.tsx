@@ -55,6 +55,7 @@ const Pagination = ({ currentPage, totalOfPages}: PaginationProps) => {
   const { setSearchResult } = useContext(SearchResultContext) as SearchResultContextType
 
   const fetchData = async (page:number) => {
+    console
     let url = '/realtor?'
     if(search) url += 'search=' + search
     if(page) url += '&page=' + page
