@@ -45,7 +45,7 @@ const useWindowSize = () => {
 };
 
 const Nav = styled.div`
-  position: relative;
+  /* position: relative; */
   flex-direction: row;
   width: 100%;
   display: flex;
@@ -559,21 +559,22 @@ const Navbar = () => {
   
 
   return (
-    <Nav
-      style={{
-        justifyContent: showSearchBar
-          ? "flex-start"
-          : width < 768
-          ? "space-between"
-          : "center",
-        backgroundColor: showSearchBar ? "#dedddd" : "transparent",
-        marginBottom: showSearchBar ? 50 : 0,
-        paddingTop: showSearchBar ? "1rem" : "1rem",
-        paddingBottom: showSearchBar ? "1rem" : "1rem",
-        paddingRight: showSearchBar ? "1rem" : "0rem",
-        paddingLeft: showSearchBar ? "1rem" : "0rem",
-      }}
-    >
+<Nav
+  style={{
+    justifyContent: showSearchBar
+      ? "flex-start"
+      : width < 768
+      ? "space-between"
+      : "center",
+    backgroundColor: showSearchBar ? "#dedddd" : "transparent",
+    marginBottom: showSearchBar && width > 768 ? 50 : 0,
+    paddingTop: showSearchBar ? "1rem" : "1rem",
+    paddingBottom: showSearchBar ? "1rem" : "1rem",
+    paddingRight: showSearchBar ? "1rem" : "0rem",
+    paddingLeft: showSearchBar ? "1rem" : "0rem",
+
+  }}
+>
       <Link href="/" className="logo-area">
         <picture>
           {/* Imagem para telas largas */}

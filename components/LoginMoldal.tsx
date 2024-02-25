@@ -14,7 +14,7 @@ const Container = styled.div`
   text-align: center;
     gap: 1.5rem;
   animation: apear 2s forwards;
-  z-index: 2;
+  z-index: 9999;
   background-color: red;
 
   a {

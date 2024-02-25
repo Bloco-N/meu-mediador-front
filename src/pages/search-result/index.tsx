@@ -10,13 +10,12 @@ import InfoFooter from "components/InfoFooter"
 import { useRouter } from "next/router"
 
 const Container = styled.div`
-  height: 80%;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  /* transform: translateY(-15px); */
 
   .list{
     height: 80%;
@@ -81,7 +80,6 @@ export default function SearchResult(){
     }
   }, [setSearchResult]);
   return (
-    <>
     <Container>
       <div className="list">
         {searchResult?.list?.map(item => (
@@ -99,7 +97,6 @@ export default function SearchResult(){
           <InfoFooter/>     
       </div>
     </Container>
-    
-    </>
+
   )
 }
