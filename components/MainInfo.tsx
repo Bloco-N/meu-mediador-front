@@ -34,14 +34,16 @@ type ContainerProps = {
 
 const Container = styled.div<ContainerProps>`
   position: relative;
+  height: 100%;
 
   min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
   @media only screen and (max-width: 900px) {
-    min-height: ${(porps) => (porps.isProfile ? "60rem" : "40rem")};
+    min-height: ${(props) => (props.isProfile ? "60rem" : "40rem")};
     height: 100%;
   }
   .main-info {
-    /* min-height: 600px; */
+    width: 100%;
+    height: 100%;
     .top {
       position: absolute;
       width: 100%;
@@ -82,8 +84,8 @@ const Container = styled.div<ContainerProps>`
       object-fit: cover;
     }
     .profile {
-      height: ${(porps) => (porps.isProfile ? "20rem" : "10rem")};
-      width: ${(porps) => (porps.isProfile ? "20rem" : "10rem")};
+      height: ${(props) => (props.isProfile ? "20rem" : "10rem")};
+      width: ${(props) => (props.isProfile ? "20rem" : "10rem")};
       border-radius: 50%;
       object-fit: cover;
       position: relative;
@@ -102,8 +104,8 @@ const Container = styled.div<ContainerProps>`
         margin-left: unset;
         width: 100%;
       }
-      margin-top: ${(porps) => (porps.isProfile ? "20rem" : "unset")};
-      margin-left: ${(porps) => (porps.isProfile ? "2rem" : "2rem")};
+      margin-top: ${(props) => (props.isProfile ? "20rem" : "unset")};
+      margin-left: ${(props) => (props.isProfile ? "2rem" : "2rem")};
       display: flex;
       gap: 5rem;
       width: 70%;
@@ -112,9 +114,13 @@ const Container = styled.div<ContainerProps>`
       position: relative;
       display: flex;
       flex-direction: column;
+      justify-content: ${(props) => (props.isProfile ? "" : "center")};
       gap: 0.4rem;
-      min-width: 15rem;
+      min-width: 25%;
+      max-width: 300px;
+      flex-wrap: wrap;
       color: var(--surface-2);
+
       @media only screen and (max-width: 900px) {
         align-items: center;
         min-width: 100%;
@@ -122,11 +128,13 @@ const Container = styled.div<ContainerProps>`
     }
     .about-2 {
       position: relative;
+      min-width: ${(props) => (props.isProfile ? "35rem" : "40rem")};
+      max-width: 300px;
       @media only screen and (max-width: 900px) {
         align-items: center;
         text-align: center;
+        min-width: 100%;
       }
-      height: 100%;
       display: flex;
       color: var(--surface-2);
       flex-direction: column;
@@ -184,8 +192,8 @@ const Container = styled.div<ContainerProps>`
       gap: 2rem;
       padding: 1rem;
       border-radius: 1rem;
-      /* position: absolute; */
-      bottom: ${(porps) => (porps.isProfile ? "20rem" : "unset")};
+      position: ${(props) => (props.isProfile ? "absolute" : "")};
+      bottom: ${(props) => (props.isProfile ? "20rem" : "unset")};
       right: 2rem;
 
       @media only screen and (max-width: 900px) {
@@ -226,12 +234,20 @@ const Container = styled.div<ContainerProps>`
     background: #fff;
   }
   .about-3 {
-    margin-left: 10%;
+    position: relative;
     gap: 0.5rem;
-
+    min-width: 25%;
+    max-width: 300px;
+    margin-top: 0.3em;
     p {
       margin-bottom: 0.5rem;
     }
+
+    @media only screen and (max-width: 900px) {
+        align-items: center;
+        text-align: center;
+        min-width: 100%;
+      }
   }
 `;
 
@@ -247,7 +263,7 @@ const ToolTipContainer = styled.div<ToolTipContainerProps>`
   padding: 10px;
   position: fixed;
   min-width: 150px;
-  top: ${(porps) => `${porps.posY}px`};
+  top: ${(props) => `${props.posY}px`};
   left: ${(porps) => `${porps.posX}px`};
   @media (max-width: 654px) {
     left: ${(porps) => `${porps.posX - 150}px`};
@@ -367,13 +383,13 @@ const MainInfo = ({
   function goAgency() {
     console.log(lastExp?.agencyId);
   }
-
+  
   return (
     <Container isProfile={isProfile}>
       {/* <button data-tippy-content="Tooltip">Text</button> */}
       <div className="main-info border">
-        <div className="top">
-          {isProfile && (
+        {isProfile && (
+          <div className="top">
             <>
               <Image
                 height={1000}
@@ -403,8 +419,8 @@ const MainInfo = ({
                 </>
               )}
             </>
-          )}
-        </div>
+          </div>
+        )}
         <Image
           width={100}
           height={100}
@@ -431,7 +447,7 @@ const MainInfo = ({
         <div className="sub-content">
           <div className="about">
             {userSigned?.firstName && (
-              <h1>
+              <h1 className="name">
                 {userSigned?.firstName} {userSigned?.lastName}{" "}
               </h1>
             )}
@@ -476,8 +492,7 @@ const MainInfo = ({
                         className="link-city"
                       >
                         {userSigned.RealtorCities.length - 2}
-                      </b>
-                      {" "}
+                      </b>{" "}
                       cidades
                     </span>
                   ) : (
@@ -518,10 +533,10 @@ const MainInfo = ({
           </div>
           <div className="about-3">
             <p>
-              <b>{t.mainInfo.propertiesSold}</b> {userSigned?.sold}
+              <b>{t.mainInfo.propertiesSold}</b> 0
             </p>
             <p>
-              <b>{t.mainInfo.accompaniedBuyers}</b> {userSigned?.bought}
+              <b>{t.mainInfo.accompaniedBuyers}</b> 0
             </p>
           </div>
         </div>

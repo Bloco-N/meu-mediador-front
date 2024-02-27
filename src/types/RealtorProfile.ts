@@ -1,5 +1,6 @@
 import { RealtorCity } from "./RealtorCity"
 import { RealtorLanguage } from "./RealtorLanguage"
+import { Comment } from "./Comment"
 
 export class RealtorProfile {
   id!: number
@@ -25,6 +26,7 @@ export class RealtorProfile {
   agencyPic!: string | null
   RealtorCities!: RealtorCity[]
   RealtorLanguages!: RealtorLanguage[]
+  Comments?: Comment
   address?: string | null
   sold?: number | null
   bought?: number | null

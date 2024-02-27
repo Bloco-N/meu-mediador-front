@@ -22,8 +22,8 @@ const Container = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding-left: 4rem;
+    align-items: center;
+    /* padding-left: 4rem; */
     gap: 2rem;
 
     &:last-child {
@@ -36,7 +36,7 @@ const Container = styled.div`
       }
     }
     a{
-      width: 90%;
+      width: 95%;
       .card{
         height: 100%;
         width: 100%;
@@ -73,12 +73,15 @@ export default function SearchResult(){
   const { query } = useRouter();
   const idSearch = query.idSearch;
 
-  useEffect(() => {
-    const savedSearchResult = localStorage.getItem('searchResult');
-    if (savedSearchResult) {
-      setSearchResult(JSON.parse(savedSearchResult));
-    }
-  }, [setSearchResult]);
+  // useEffect(() => {
+  //   console.log(searchResult)
+  //   if(!searchResult){
+  //     const savedSearchResult = localStorage.getItem('searchResult');
+  //     if (savedSearchResult) {
+  //       setSearchResult(JSON.parse(savedSearchResult));
+  //     }
+  //   }
+  // }, [setSearchResult]);
   return (
     <Container>
       <div className="list">

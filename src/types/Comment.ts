@@ -5,4 +5,6 @@ export type Comment = {
   rating:number
   text: string
   reply: string
+  sold: number
+  bold: number
 }

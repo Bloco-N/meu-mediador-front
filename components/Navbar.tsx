@@ -512,6 +512,7 @@ const Navbar = () => {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
+    console.log(data.idSearch, "TEste 2")
     const fetchData = async () => {
       let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
@@ -520,12 +521,16 @@ const Navbar = () => {
       } else {
         setSearch("");
       }
-
+      
+      console.log(url , "PEdro")
       await api
         .get(url)
         .then((response) => {
           setSearchResult(response.data);
-          router.push("/search-result");
+          router.push({
+            pathname: "/search-result",
+            query: { idSearch: data.idSearch },
+          });
         })
         .catch((error) => {
           return error;

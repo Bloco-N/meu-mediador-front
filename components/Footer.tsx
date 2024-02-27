@@ -20,7 +20,6 @@ const FooterStyle = styled.div`
     justify-content: center;
     padding: 25px 0 30px 0;
     position: relative;
-    border: 1px solid tomato;
     @media (max-width: 768px) {
         display: flex;
       }
