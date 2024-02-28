@@ -8,7 +8,6 @@ import CoverPicAdjustModalContext, {
   CoverPicAdjustModalContextType,
 } from "context/CoverPicAdjustModalContext";
 import imgLogo from "../public/logo/6.png";
-import Lottie from "react-lottie";
 
 type LayoutProps = {
   children: ReactNode;

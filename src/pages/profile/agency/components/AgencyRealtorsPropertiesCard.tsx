@@ -71,11 +71,17 @@ const Container = styled.div`
         border-radius: 1rem;
         width: 30rem;
         position: relative;
-        height: 50%;
+        min-height: 400px;
+        max-height: 600px;
         .footer {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 100%;
           display: flex;
           justify-content: space-between;
-          .sub-text {
+          padding: 12px;
+          margin .sub-text {
             font-style: italic;
           }
         }
@@ -201,10 +207,11 @@ export default function AgencyRealtorsPropertiesCard({ agency }: any) {
                     Preservations[locale as keyof typeof Preservations][
                       item[0].preservation as keyof TPreservations
                     ]
-                  }.
+                  }
+                  .
                 </p>
                 <p>
-                {t.addPropertiesModal.eficiencia}:
+                  {t.addPropertiesModal.eficiencia}:
                   {["H", "I", "J"].includes(item.energyefficience) ? (
                     <a>
                       {" "}

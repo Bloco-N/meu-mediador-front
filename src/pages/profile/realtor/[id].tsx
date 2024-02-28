@@ -306,6 +306,7 @@ export default function Profile() {
         accType={accType}
         sessionProfile={sessionProfile}
         pdfPage={pdfPage}
+        userSigned={realtor as RealtorProfile}
       />
       <InfoFooter />
       {/* {pdfPage && <div className="hide-profile"></div>} */}

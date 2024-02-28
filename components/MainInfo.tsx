@@ -44,6 +44,13 @@ const Container = styled.div<ContainerProps>`
   .main-info {
     width: 100%;
     height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: var(--surface);
+    padding: 3rem;
+    height: 100%;
+    gap: 1rem;
+    border-radius: 30px;
     .top {
       position: absolute;
       width: 100%;
@@ -66,13 +73,7 @@ const Container = styled.div<ContainerProps>`
         }
       }
     }
-    display: flex;
-    align-items: center;
-    background-color: var(--surface);
-    padding: 3rem;
-    border-radius: 3rem;
-    height: 100%;
-    gap: 1rem;
+   
     .cover-photo {
       position: absolute;
       height: 100%;
@@ -97,6 +98,12 @@ const Container = styled.div<ContainerProps>`
       flex-direction: column;
     }
     .sub-content {
+      margin-top: ${(props) => (props.isProfile ? "20rem" : "unset")};
+      margin-left: ${(props) => (props.isProfile ? "2rem" : "2rem")};
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+      justify-content: space-between;
       @media only screen and (max-width: 900px) {
         flex-direction: column;
         gap: 2rem;
@@ -104,11 +111,6 @@ const Container = styled.div<ContainerProps>`
         margin-left: unset;
         width: 100%;
       }
-      margin-top: ${(props) => (props.isProfile ? "20rem" : "unset")};
-      margin-left: ${(props) => (props.isProfile ? "2rem" : "2rem")};
-      display: flex;
-      gap: 5rem;
-      width: 70%;
     }
     .about {
       position: relative;
@@ -121,6 +123,10 @@ const Container = styled.div<ContainerProps>`
       flex-wrap: wrap;
       color: var(--surface-2);
 
+      h1{
+        font-size: 28px;
+      }
+
       @media only screen and (max-width: 900px) {
         align-items: center;
         min-width: 100%;
@@ -128,7 +134,7 @@ const Container = styled.div<ContainerProps>`
     }
     .about-2 {
       position: relative;
-      min-width: ${(props) => (props.isProfile ? "35rem" : "40rem")};
+      min-width: ${(props) => (props.isProfile ? "35rem" : "35rem")};
       max-width: 300px;
       @media only screen and (max-width: 900px) {
         align-items: center;
@@ -189,12 +195,14 @@ const Container = styled.div<ContainerProps>`
       background: #fff;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 2rem;
       padding: 1rem;
       border-radius: 1rem;
       position: ${(props) => (props.isProfile ? "absolute" : "")};
       bottom: ${(props) => (props.isProfile ? "20rem" : "unset")};
       right: 2rem;
+      width: 180px;
 
       @media only screen and (max-width: 900px) {
         position: unset;
@@ -234,10 +242,7 @@ const Container = styled.div<ContainerProps>`
     background: #fff;
   }
   .about-3 {
-    position: relative;
     gap: 0.5rem;
-    min-width: 25%;
-    max-width: 300px;
     margin-top: 0.3em;
     p {
       margin-bottom: 0.5rem;
@@ -249,6 +254,12 @@ const Container = styled.div<ContainerProps>`
         min-width: 100%;
       }
   }
+
+  .icon-agency{
+    display: flex;
+    align-items: center;
+  }
+
 `;
 
 type ToolTipContainerProps = {
@@ -483,7 +494,7 @@ const MainInfo = ({
                   {printCities()}
                   {userSigned.RealtorCities.length > 3 ? (
                     <span>
-                      e outras{" "}
+                      {" "} e outras{" "}
                       <b
                         onMouseEnter={(
                           e: React.MouseEvent<HTMLButtonElement>
@@ -539,6 +550,22 @@ const MainInfo = ({
               <b>{t.mainInfo.accompaniedBuyers}</b> 0
             </p>
           </div>
+          <div className="icon-agency">
+          {isRealtor && (
+            <Link href={"/profile/agency/" + lastExp?.agencyId}>
+              <div className="current-agency border" onClick={goAgency}>
+                {lastExp?.name}
+                <Image
+                  width={10}
+                  height={10}
+                  className="agency"
+                  src={lastExp?.pic ? lastExp.pic : agencyIcon}
+                  alt="agency icon"
+                />
+              </div>
+            </Link>
+          )}
+        </div>
         </div>
 
         {isProfile ? (
@@ -605,22 +632,7 @@ const MainInfo = ({
         ) : (
           ""
         )}
-        <div>
-          {isRealtor && (
-            <Link href={"/profile/agency/" + lastExp?.agencyId}>
-              <div className="current-agency border" onClick={goAgency}>
-                {lastExp?.name}
-                <Image
-                  width={10}
-                  height={10}
-                  className="agency"
-                  src={lastExp?.pic ? lastExp.pic : agencyIcon}
-                  alt="agency icon"
-                />
-              </div>
-            </Link>
-          )}
-        </div>
+       
       </div>
     </Container>
   );
