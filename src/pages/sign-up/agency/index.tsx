@@ -88,6 +88,8 @@ const SignUpContainer = styled.div`
 const SignUp = () => {
   const { register, handleSubmit } = useForm<SignUpFormAgency>();
   const [privacy_policy, setPrivacyPolicy] = useState(false);
+  const [agencyExist, setAgencyExist] = useState(false);
+  const [userExist, setUserExist] = useState(false);
 
   const onPrivacyClick = () => {
     setPrivacyPolicy(!privacy_policy);
@@ -133,9 +135,9 @@ const SignUp = () => {
             if (response.status === 400) {
               console.log(response.data.data, "Goiaba")
               if(response.data.data== "name"){
-                toast.error("Nome de agência já cadastrada")
+                setAgencyExist(true)
               }else if(response.data.data == "email"){
-                toast.error("Email já cadastrada")
+                setUserExist(true)
               }else{
                 toast.error("Nome da agência e email ja cadastrados")
               }
@@ -146,11 +148,12 @@ const SignUp = () => {
           if (error.response.status == 400) {
               console.log(typeof error.response.data, "Goiaba 2")
               if(error.response.data == "name"){
-                return toast.error("Nome de agência já cadastrada")
+               return setAgencyExist(true)
               }else if(error.response.data == "email"){
-                return toast.error("Email já cadastrada")
+                return setUserExist(true)
               }else{
-                return toast.error("Nome da agência e email ja cadastrados")
+                setAgencyExist(true)
+                setUserExist(true)
               }
             
           }
@@ -175,17 +178,22 @@ const SignUp = () => {
           placeholder={t.mainInfoEditModal.agencyName}
           {...register("name", { required: true })}
         />
+        {userExist ? (
+          <label style={{ color: "red" }}>Agencia ja cadastrada</label>
+        ) : (
+          <></>
+        )}
         <input
           className="input-sign-up"
           type="email"
           placeholder={t.signIn.email}
           {...register("email", { required: true })}
         />
-        {/* {userExist ? (
+        {userExist ? (
           <label style={{ color: "red" }}>{t.signUp.check_email}</label>
         ) : (
           <></>
-        )} */}
+        )}
         <input
           className="input-sign-up"
           type="password"

@@ -32,6 +32,8 @@ type ContainerProps = {
   isProfile: boolean;
 };
 
+import SimplePopup from "./Popup";
+
 const Container = styled.div<ContainerProps>`
   position: relative;
   height: 100%;
@@ -73,7 +75,7 @@ const Container = styled.div<ContainerProps>`
         }
       }
     }
-   
+
     .cover-photo {
       position: absolute;
       height: 100%;
@@ -123,7 +125,7 @@ const Container = styled.div<ContainerProps>`
       flex-wrap: wrap;
       color: var(--surface-2);
 
-      h1{
+      h1 {
         font-size: 28px;
       }
 
@@ -167,6 +169,23 @@ const Container = styled.div<ContainerProps>`
       .link-city {
         text-decoration: underline;
       }
+
+      .cities{
+        width: 100%;
+        display: flex;
+        font-size: 14px;
+        flex-wrap: wrap;
+        span{
+          margin-right: 5px;
+          margin-left: 5px;
+
+        }
+        @media only screen and (max-width: 900px) {
+        position: unset;
+        bottom: 8rem;
+        justify-content: center;
+      }
+      }
     }
     .contact {
       flex-grow: 1;
@@ -175,10 +194,11 @@ const Container = styled.div<ContainerProps>`
       align-items: center;
       gap: 2rem;
       position: absolute;
-      bottom: 8rem;
+      bottom: 5rem;
       right: 2rem;
       @media only screen and (max-width: 900px) {
         position: unset;
+        bottom: 8rem;
       }
       .icon {
         height: 3rem;
@@ -206,7 +226,7 @@ const Container = styled.div<ContainerProps>`
 
       @media only screen and (max-width: 900px) {
         position: unset;
-        width: fit-content;
+        width: 180px;
         white-space: nowrap;
       }
       .agency {
@@ -249,17 +269,22 @@ const Container = styled.div<ContainerProps>`
     }
 
     @media only screen and (max-width: 900px) {
-        align-items: center;
-        text-align: center;
-        min-width: 100%;
-      }
+      align-items: center;
+      text-align: center;
+      min-width: 100%;
+    }
   }
 
-  .icon-agency{
+  .icon-agency {
     display: flex;
     align-items: center;
-  }
+    justify-content: center;
 
+    a {
+      display: flex;
+      justify-content: center;
+    }
+  }
 `;
 
 type ToolTipContainerProps = {
@@ -270,26 +295,26 @@ type ToolTipContainerProps = {
 
 const ToolTipContainer = styled.div<ToolTipContainerProps>`
   cursor: default;
-  background-color: #d3d2d2;
-  padding: 10px;
-  position: fixed;
-  min-width: 150px;
-  top: ${(props) => `${props.posY}px`};
-  left: ${(porps) => `${porps.posX}px`};
-  @media (max-width: 654px) {
+  /* background-color: #d3d2d2; */
+  /* padding: 10px; */
+  /* position: fixed; */
+  /* min-width: 150px; */
+  /* top: ${(props) => `${props.posY}px`}; */
+  /* left: ${(porps) => `${porps.posX}px`}; */
+  /* @media (max-width: 654px) {
     left: ${(porps) => `${porps.posX - 150}px`};
-  }
-  z-index: 15;
+  } */
+  /* z-index: 15; */
   display: ${(porps) => (porps.show ? "flex" : "none")};
   flex-direction: column;
-  gap: 3px;
-  border-radius: 5px;
-  list-style-type: none;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  /* gap: 3px; */
+  /* border-radius: 5px; */
+  /* list-style-type: none; */
+  /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   .cities-list {
     overflow-y: auto;
     max-height: 290px;
-  }
+  } */
 `;
 
 type MainInfoProps = {
@@ -371,12 +396,16 @@ const MainInfo = ({
 
   function printCities() {
     const cities = userSigned.RealtorCities.map((city) => city.City.name);
-    if (cities.length > 3) return ` ${cities[0]}, ${cities[1]}`;
-    if (cities.length === 3)
-      return ` ${cities[0]}, ${cities[1]} e ${cities[2]}`;
-    if (cities.length === 2) return ` ${cities[0]} e ${cities[1]}`;
-    if (cities.length === 1) return ` ${cities[0]}`;
-    return "Ainda não adicionou cidades";
+    if (window.innerWidth < 768) {
+      return cities.length > 0 ? ` ${cities[0]}` : "Ainda não adicionou cidades";
+    } else {
+      if (cities.length > 3) return ` ${cities[0]}, ${cities[1]}`;
+      if (cities.length === 3)
+        return ` ${cities[0]}, ${cities[1]} e ${cities[2]}`;
+      if (cities.length === 2) return ` ${cities[0]} e ${cities[1]}`;
+      if (cities.length === 1) return ` ${cities[0]}`;
+      return "Ainda não adicionou cidades";
+    }
   }
 
   function tooltipShow(e: React.MouseEvent<HTMLButtonElement>) {
@@ -394,7 +423,20 @@ const MainInfo = ({
   function goAgency() {
     console.log(lastExp?.agencyId);
   }
-  
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Oculta o ToolTipContainer quando a página é rolada
+      setTooltip({ ...tooltip, show: false });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
     <Container isProfile={isProfile}>
       {/* <button data-tippy-content="Tooltip">Text</button> */}
@@ -474,38 +516,17 @@ const MainInfo = ({
           <div className="about-2">
             {userSigned?.RealtorCities && (
               <>
-                <ToolTipContainer
-                  onMouseOver={() => tooltipStill()}
-                  onMouseLeave={() => tooltipHide()}
-                  show={tooltip.show}
-                  posX={tooltip.posX}
-                  posY={tooltip.posY}
-                >
-                  <b>Cidades que atua:</b>
-                  <ul className="cities-list">
-                    {userSigned.RealtorCities.map((city) => (
-                      <li key={city.City.id}>- {city.City.name}</li>
-                    ))}
-                  </ul>
-                </ToolTipContainer>
                 <div className="tt"></div>
-                <div>
-                  <b>{t.mainInfo.workArea}</b>
+                <div className="cities">
+                  <b style={{marginRight: "5px"}}>{t.mainInfo.workArea}</b>
+                  
                   {printCities()}
                   {userSigned.RealtorCities.length > 3 ? (
-                    <span>
-                      {" "} e outras{" "}
-                      <b
-                        onMouseEnter={(
-                          e: React.MouseEvent<HTMLButtonElement>
-                        ) => tooltipShow(e)}
-                        onMouseLeave={() => tooltipHide()}
-                        className="link-city"
-                      >
-                        {userSigned.RealtorCities.length - 2}
-                      </b>{" "}
-                      cidades
-                    </span>
+                      <>
+                      <span> e outras </span>
+                      <SimplePopup qtdeCitys={userSigned.RealtorCities.length - 2} cities={userSigned.RealtorCities}/>
+                      <span>cidades</span>
+                      </>
                   ) : (
                     ""
                   )}
@@ -551,21 +572,21 @@ const MainInfo = ({
             </p>
           </div>
           <div className="icon-agency">
-          {isRealtor && (
-            <Link href={"/profile/agency/" + lastExp?.agencyId}>
-              <div className="current-agency border" onClick={goAgency}>
-                {lastExp?.name}
-                <Image
-                  width={10}
-                  height={10}
-                  className="agency"
-                  src={lastExp?.pic ? lastExp.pic : agencyIcon}
-                  alt="agency icon"
-                />
-              </div>
-            </Link>
-          )}
-        </div>
+            {isRealtor && (
+              <Link href={"/profile/agency/" + lastExp?.agencyId}>
+                <div className="current-agency border" onClick={goAgency}>
+                  {lastExp?.name}
+                  <Image
+                    width={10}
+                    height={10}
+                    className="agency"
+                    src={lastExp?.pic ? lastExp.pic : agencyIcon}
+                    alt="agency icon"
+                  />
+                </div>
+              </Link>
+            )}
+          </div>
         </div>
 
         {isProfile ? (
@@ -632,7 +653,6 @@ const MainInfo = ({
         ) : (
           ""
         )}
-       
       </div>
     </Container>
   );
