@@ -114,12 +114,7 @@ const Container = styled.div`
     }
 
     .stars-main {
-      /* border: 1px solid tomato; */
       width: 28%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
       @media only screen and (max-width: 900px) {
         flex-direction: column;
         width: 100%;
