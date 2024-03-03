@@ -104,6 +104,7 @@ const Container = styled.div<ContainerProps>`
       margin-left: ${(props) => (props.isProfile ? "2rem" : "2rem")};
       display: flex;
       gap: 1rem;
+      justify-content:${(props) => (props.isProfile ? "" : "space-between")}; ;
       width: 100%;
       @media only screen and (max-width: 900px) {
         flex-direction: column;
