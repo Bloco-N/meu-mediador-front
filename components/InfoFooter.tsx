@@ -118,7 +118,7 @@ const InfoFooter = (props: InfoProps) => {
             className="fonte final contato"
             href={"mailto: contato@meoagent.com"}
           >
-            {t.infoFooter.contact}:{" "}
+            {t.infoFooter.contact}{" "}
             <span className="">contato@meoagent.com</span>
           </a>
         </div>

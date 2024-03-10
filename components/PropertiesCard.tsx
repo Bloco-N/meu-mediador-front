@@ -207,7 +207,7 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
                   <Image onClick={ e => handleViewProperty(e)} id={String(item.id)} className="close" src={editIcon} alt='edit icon'/>
                 )}
                 <div className="watermark">
-                <Image className="property-img" src={item.profilePicture} width={200} height={100} alt="profile picture"/>
+                <Image className="property-img" src={item.profilePicture ? item.profilePicture : "/placeholder.jpg" } width={200} height={100} alt="profile picture"/>
                 </div>
                 <h2>{item.price}</h2>
                 <h3>{item.title}</h3>

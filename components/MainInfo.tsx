@@ -178,6 +178,7 @@ const Container = styled.div<ContainerProps>`
         span{
           margin-right: 5px;
           margin-left: 5px;
+          font-size: 15px;
 
         }
         @media only screen and (max-width: 900px) {
@@ -194,7 +195,7 @@ const Container = styled.div<ContainerProps>`
       align-items: center;
       gap: 2rem;
       position: absolute;
-      bottom: 2rem;
+      bottom: 8rem;
       right: 2rem;
       @media only screen and (max-width: 900px) {
         position: unset;
@@ -531,7 +532,7 @@ const MainInfo = ({
                 <div className="cities">
                   <b style={{marginRight: "5px"}}>{t.mainInfo.workArea}</b>
                   
-                  {printCities()}
+                  <span>{printCities()}</span>
                   {userSigned.RealtorCities.length > 3 ? (
                       <>
                       <span> e outras </span>
