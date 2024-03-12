@@ -14,6 +14,7 @@ import InfoFooter from "components/InfoFooter";
 import Link from "next/link";
 import api from "@/services/api";
 import { FaAngleDown } from "react-icons/fa";
+import Footer from "components/Footer";
 
 const SearchRealtor = styled.div`
   width: 80%;
@@ -25,8 +26,9 @@ const SearchRealtor = styled.div`
   @media only screen and (max-width: 768px) {
     width: 100%;
     min-height: 80%;
-    margin-top: 4rem;
+    /* margin-top: 4rem; */
     padding: 0 10px;
+    margin-bottom: 10px;
   }
 
   form {
@@ -310,6 +312,7 @@ export default function Home() {
           <h4>{t.home.welcome}</h4>
         </form>
       </SearchRealtor>
+      <Footer/>
       <NovoCadastro className="novo-cadastro2">
         <h4>
           {t.home.cad_bar}
