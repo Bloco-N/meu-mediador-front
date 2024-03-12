@@ -15,6 +15,7 @@ const ForgotPasswordContainer = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     gap: 2rem;
+    margin-top: 80px;
     h4{
       font-size: 1.3rem;
     }

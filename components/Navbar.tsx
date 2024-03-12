@@ -51,6 +51,7 @@ const Nav = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid blue;
   .logo-area {
     height: 100%;
   }
@@ -58,7 +59,7 @@ const Nav = styled.div`
   }
   .left-side {
     position: absolute;
-    right: 6rem;
+    right: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -251,11 +252,16 @@ const Nav = styled.div`
 
   .logo-full{
     margin-left: 2.5rem;
+    @media only screen and (max-width: 900px) {
+      margin-left: 6.5rem;
+      width: 200px;
+      border: 1px solid tomato;
+    }
   }
 `;
 const SearchRealtor = styled.div`
   position: absolute;
-  left: 32rem;
+  left: 29rem;
   display: flex;
   width: 700px;
   height: 70px;
@@ -555,7 +561,15 @@ const Navbar = () => {
   }, []);
   
 
-  
+  let sourceUrl = "";
+  let classNameImage = ""
+  if (router.pathname === "/") {
+      sourceUrl = "/meoagent-logo.png";
+      classNameImage = "logo-full"
+  } else {
+      sourceUrl = "/sublogo.png"
+      classNameImage = "logo"
+  }
 
   return (
 <Nav
@@ -576,10 +590,12 @@ const Navbar = () => {
       <Link href="/" className="logo-area">
         <picture>
           {/* Imagem para telas largas */}
-          <source className="logo-full" media="(min-width: 769px)" srcSet="/meoagent-logo.png" />
-
+          {width < 768 ? <source className="logo-full" media="(min-width: 769px)" srcSet="/meoagent-logo.png" />
+          : null
+          }
+          
           {/* Imagem para telas estreitas */}
-          <img className="logo" src="/sublogo.png" alt="Meoagent-logo" />
+          <img className={classNameImage} src={sourceUrl} alt="Meoagent-logo" />
         </picture>
       </Link>
       {showSearchBar && (
