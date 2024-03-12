@@ -6,7 +6,13 @@ import LoadingContext from "context/LoadingContext";
 import locales from "locales";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useForm } from "react-hook-form";
 import { Rating } from "react-simple-star-rating";
 import { toast } from "react-toastify";
@@ -21,8 +27,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
-  
+
   form {
     position: relative;
     height: 65rem;
@@ -46,18 +51,18 @@ const Container = styled.div`
     }
     @media (max-width: 376px) {
       gap: 0.1rem;
-    gap: 1.5rem;
-    padding-top: 2.5rem; 
-    
-    @media (max-width: 600px) {
-      width: 80%;
-      height: auto;
-      padding-top: 2rem;
-    }    
-  }
+      gap: 1.5rem;
+      padding-top: 2.5rem;
 
-  textarea{
-    min-height: 10rem;
+      @media (max-width: 600px) {
+        width: 80%;
+        height: auto;
+        padding-top: 2rem;
+      }
+    }
+
+    textarea {
+      min-height: 10rem;
       @media (max-width: 600px) {
         width: 85%;
         min-height: 20rem;
@@ -66,31 +71,31 @@ const Container = styled.div`
   }
 
   div {
-       display: flex; 
-       flex-direction: row; 
-       align-items: center; 
-       justify-content: space-between; 
-       gap: 1.5rem; 
-       width: 80%;
-      
-       p {
-        font-weight: bold;
-      }
-      @media (max-width: 376px) {
-        height: 8rem;
-      } 
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    width: 80%;
+
+    p {
+      font-weight: bold;
     }
-  
-  .desableForm{
-      height: 20rem;
+    @media (max-width: 376px) {
+      height: 8rem;
     }
+  }
+
+  .desableForm {
+    height: 20rem;
+  }
   .redirect {
     position: absolute;
     top: 50%;
     font-weight: bold;
     display: flex;
   }
-  
+
   .close {
     cursor: pointer;
     position: absolute;
@@ -105,13 +110,13 @@ const Container = styled.div`
     color: var(--surface);
     border-radius: 1rem;
     font-weight: bold;
-    
+
     @media (max-width: 600px) {
       top: 2.5%;
     }
   }
 
-  .star-svg{
+  .star-svg {
     @media (max-width: 900px) {
       width: 3.5rem !important;
     }
@@ -120,40 +125,40 @@ const Container = styled.div`
     }
   }
   select {
-  width: 26%;
-  height: 3.5rem;
-  padding: 0.5rem;
-  font-size: 16px;
-  text-align: center;
-  overflow: auto;
+    width: 26%;
+    height: 3.5rem;
+    padding: 0.5rem;
+    font-size: 16px;
+    text-align: center;
+    overflow: auto;
 
-  @media (max-width: 600px) {
-    width: 40%;
-    font-size: 12px;
+    @media (max-width: 600px) {
+      width: 40%;
+      font-size: 12px;
+    }
   }
-}
 
   input {
     width: 26%;
     height: 3.5rem;
     text-align: left;
     font-size: 10px;
-    
+
     @media (max-width: 600px) {
       width: 27%;
       font-size: 10px;
     }
   }
-  
+
   button {
     margin-bottom: 8em;
-    
+
     @media (max-width: 600px) {
       margin-bottom: 2em;
     }
   }
 
-  .redirectContainer{
+  .redirectContainer {
     position: absolute;
     top: 40%;
     font-weight: bold;
@@ -168,45 +173,48 @@ const Container = styled.div`
       font-size: 10px;
     }
 
-    .styledLink{
+    .styledLink {
       margin-left: 5px;
       margin-right: 0;
     }
-    
-    .redirectMessage{
+
+    .redirectMessage {
       display: inline;
     }
-    .divLabel{
+    .divLabel {
       display: flex;
       justify-content: center;
       width: 100%;
     }
-    .link{
+    .link {
       text-decoration: underline;
     }
   }
 `;
 
 type AddCommentModalProps = {
-  open: boolean,
-  setOpen: Dispatch<SetStateAction<boolean>>
-}
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+};
 
-
-
-const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
-  const [marketExpertiseRating, setMarketExpertiseRating] = useState(0)
-  const [responsivenessRating, setResponsivenessRating] = useState(0)
-  const [negotiationSkillsRating, setNegotiationSkillsRating] = useState(0)
-  const [profissionalismAndComunicationRating, setProfissionalismAndComunicationRating] = useState(0)
+const AddCommentModal = ({ open, setOpen }: AddCommentModalProps) => {
+  const [marketExpertiseRating, setMarketExpertiseRating] = useState(0);
+  const [responsivenessRating, setResponsivenessRating] = useState(0);
+  const [negotiationSkillsRating, setNegotiationSkillsRating] = useState(0);
+  const [
+    profissionalismAndComunicationRating,
+    setProfissionalismAndComunicationRating,
+  ] = useState(0);
   const [size, setSize] = useState(50);
   const [dateOftheDeed, setDateOftTheDeed] = useState("");
 
-  const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
+  const { setOpen: setLoadingOpen } = useContext(
+    LoadingContext
+  ) as ModalOpenContextType;
 
   useEffect(() => {
-    const localId = localStorage.getItem('id')
-    setIdClient(localId)
+    const localId = localStorage.getItem("id");
+    setIdClient(localId);
 
     const handleResize = () => {
       if (window.innerWidth <= 600) {
@@ -215,49 +223,46 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
         setSize(40);
       }
     };
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize();
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
-
-   
   }, []);
 
   const handleMarketRating = (rate: number) => {
-    setMarketExpertiseRating(rate)
-  }
+    setMarketExpertiseRating(rate);
+  };
 
   const handleResponsiveRating = (rate: number) => {
-    setResponsivenessRating(rate)
-  }
+    setResponsivenessRating(rate);
+  };
 
   const handleNegotiationRating = (rate: number) => {
-    setNegotiationSkillsRating(rate)
-  }
+    setNegotiationSkillsRating(rate);
+  };
 
   const handleProfissionalismRating = (rate: number) => {
-    setProfissionalismAndComunicationRating(rate)
-  }
+    setProfissionalismAndComunicationRating(rate);
+  };
 
-  const { register, handleSubmit } = useForm<AddCommentForm>()
+  const { register, handleSubmit } = useForm<AddCommentForm>();
 
-  const [accType, setAccType] = useState('')
-  const [validateClient, setValidateClient] = useState(false)
-  const [idClient, setIdClient] = useState<string | null>()
+  const [accType, setAccType] = useState("");
+  const [validateClient, setValidateClient] = useState(false);
+  const [idClient, setIdClient] = useState<string | null>();
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const locale = router.locale
+  const locale = router.locale;
 
-  const t = locales[locale as keyof typeof locales]
-  
-  const profileType = router.pathname.includes("agency")?"agency":"realtor"
-  const { id:profileId } = router.query
-  
+  const t = locales[locale as keyof typeof locales];
+
+  const profileType = router.pathname.includes("agency") ? "agency" : "realtor";
+  const { id: profileId } = router.query;
+
   const onSubmit = async (data: AddCommentForm) => {
-  
-    setLoadingOpen(true)
+    setLoadingOpen(true);
     const realtorBody = {
       text: data.text,
       sold: data.id == 1 ? 1 : 0,
@@ -268,8 +273,8 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       profissionalismAndComunicationRating,
       clientId: Number(idClient),
       realtorId: Number(profileId),
-      dateOftheDeed
-    }
+      dateOftheDeed,
+    };
     const agencyBody = {
       ...data,
       marketExpertiseRating,
@@ -277,38 +282,40 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
       negotiationSkillsRating,
       profissionalismAndComunicationRating,
       clientId: Number(idClient),
-      agencyId: Number(profileId)
-    }
+      agencyId: Number(profileId),
+    };
 
-    await api.post(`/comment/${profileType}`, profileType === "agency"? agencyBody : realtorBody)
-    .then((response) => {
-      if(response.data == false){
-        setValidateClient(false)
-      }
-      toast.error(t.toast.sendReview)
-      setLoadingOpen(false)
-      if(response.data === 'created') router.reload()
-    })
-    .catch((error) => {
-      toast.error(t.toast.errorSendReview)
-      setLoadingOpen(false)
-    })
-    
-  }
+    await api
+      .post(
+        `/comment/${profileType}`,
+        profileType === "agency" ? agencyBody : realtorBody
+      )
+      .then((response) => {
+        if (response.data == false) {
+          setValidateClient(false);
+        }
+        toast.error(t.toast.sendReview);
+        setLoadingOpen(false);
+        if (response.data === "created") router.reload();
+      })
+      .catch((error) => {
+        toast.error(t.toast.errorSendReview);
+        setLoadingOpen(false);
+      });
+  };
 
   useEffect(() => {
-    const accountType = localStorage.getItem('accountType')
+    const accountType = localStorage.getItem("accountType");
 
-    if(accountType){
-      setAccType(accountType)
-      setValidateClient(false)
-    }else{
-      setValidateClient(true)
+    if (accountType) {
+      setAccType(accountType);
+      setValidateClient(false);
+    } else {
+      setValidateClient(true);
     }
+  }, [open]);
 
-  }, [open])
-
-  const hasWindow = typeof window !== 'undefined';
+  const hasWindow = typeof window !== "undefined";
 
   function getWindowDimensions() {
     const width = hasWindow ? window.innerWidth : null;
@@ -319,95 +326,100 @@ const AddCommentModal = ({open, setOpen}: AddCommentModalProps) => {
     };
   }
 
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
   function handleResize() {
     setWindowDimensions(getWindowDimensions());
   }
   useEffect(() => {
     if (hasWindow) {
-      
-
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
     }
   }, [hasWindow]);
 
-  return (
-    (open) ?
-    <Container className='modal'>
-      <form  onSubmit={handleSubmit(onSubmit)} action="">
-        {accType === 'client'? (
+  return open ? (
+    <Container className="modal">
+      <form onSubmit={handleSubmit(onSubmit)} action="">
+        {accType === "client" ? (
           <>
             <h3>{t.review.createAReview}</h3>
             <div>
               <p>{t.review.marketKnowledge} </p>
-              <Rating
-                onClick={handleMarketRating}
-                size={size}
-              />
+              <Rating onClick={handleMarketRating} size={size} />
             </div>
             <div>
               <p>{t.review.responsiveness} </p>
-              <Rating
-                onClick={handleResponsiveRating}
-                size={size}
-              />
+              <Rating onClick={handleResponsiveRating} size={size} />
             </div>
             <div>
               <p>{t.review.negotiation} </p>
-              <Rating
-                onClick={handleNegotiationRating}
-                size={size}
-              />
+              <Rating onClick={handleNegotiationRating} size={size} />
             </div>
             <div>
               <p>{t.review.professionalismAndCommunication} </p>
-              <Rating
-                onClick={handleProfissionalismRating}
-                size={size}
-              />
+              <Rating onClick={handleProfissionalismRating} size={size} />
             </div>
             <div>
               <p>{t.review.soldAndBought} </p>
-              <select {...register('id', { required: true})}>
-                  <option key={1} value={1}>Vendi</option>
-                  <option key={2} value={2}>Comprei</option>
+              <select {...register("id", { required: true })}>
+                <option key={1} value={1}>
+                  Vendi
+                </option>
+                <option key={2} value={2}>
+                  Comprei
+                </option>
               </select>
             </div>
             <div>
               <p>{t.review.dateOfTheDeed} </p>
-              <input onChange={(e) => setDateOftTheDeed(e.target.value)} type="date" />
+              <input
+                onChange={(e) => setDateOftTheDeed(e.target.value)}
+                type="date"
+              />
             </div>
-            <textarea placeholder={t.review.writeYourCommentHere} {...register('text', {required: true})}/>
-            <p className="close" onClick={() => setOpen(false)}>X</p>
+            <textarea
+              placeholder={t.review.writeYourCommentHere}
+              {...register("text", { required: true })}
+            />
+            <p className="close" onClick={() => setOpen(false)}>
+              X
+            </p>
             <button type="submit"> {t.addCity.add} </button>
           </>
-
-        ): (
+        ) : (
           <>
-            <p className="close" onClick={() => setOpen(false)}>X</p>
-            {validateClient?
-            <p className="redirect">{t.comments.login}</p>
-              :
-            <div className="redirectContainer">
-              <p className="redirectMessage">{t.comments.completeData}</p>
-              <div className="divLabel">
-                <p> <a onClick={() => setOpen(false)} className="styledLink" href={`/profile/client/${idClient}`}>
-                  <strong className="link">{t.comments.link}</strong>
-                  </a> 
-                  {t.comments.endRegistration}
-                </p>
+            <p className="close" onClick={() => setOpen(false)}>
+              X
+            </p>
+            {validateClient ? (
+              <p className="redirect">{t.comments.login}</p>
+            ) : (
+              <div className="redirectContainer">
+                <p className="redirectMessage">{t.comments.completeData}</p>
+                <div className="divLabel">
+                  <p>
+                    {" "}
+                    <a
+                      onClick={() => setOpen(false)}
+                      className="styledLink"
+                      href={`/profile/client/${idClient}`}
+                    >
+                      <strong className="link">{t.comments.link}</strong>
+                    </a>
+                    {t.comments.endRegistration}
+                  </p>
+                </div>
               </div>
-             
-             
-            </div>
-            }
+            )}
           </>
-        ) }
+        )}
       </form>
     </Container>
-    : <></>
+  ) : (
+    <></>
   );
 };
 
-export default AddCommentModal
+export default AddCommentModal;
