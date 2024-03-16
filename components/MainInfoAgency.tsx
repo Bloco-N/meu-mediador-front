@@ -22,6 +22,7 @@ import { useRouter } from 'next/router';
 import { AgencyProfile } from '@/types/AgencyProfile';
 import MainInfoAgencyEditModalContext from 'context/MainInfoAgencyEditModal';
 import locales from 'locales';
+import SimplePopup from './Popup';
 
 
 type ContainerProps = {
@@ -101,8 +102,7 @@ const Container = styled.div<ContainerProps>`
       margin-left: ${porps => porps.isProfile ? '10rem': '2rem'};
       width: 60%;
       display: flex;
-      justify-content: space-between;
-      gap: 10rem;
+      gap: 5rem;
     }
     .about{
       position: relative;
@@ -130,6 +130,27 @@ const Container = styled.div<ContainerProps>`
       gap: 0.5rem;
       p{
         gap: .5rem;
+      }
+
+      .cities{
+        width: 100%;
+        display: flex;
+        font-size: 14px;
+        flex-wrap: wrap;
+        span{
+          margin-right: 5px;
+          margin-left: 5px;
+          font-size: 15px;
+
+        }
+        b{
+          font-size: 15px;
+        }
+        @media only screen and (max-width: 900px) {
+        position: unset;
+        bottom: 8rem;
+        justify-content: center;
+      }
       }
     }
     .contact{
@@ -261,6 +282,20 @@ const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
 
   }
 
+  function printCities() {
+    const cities = userSigned.AgencyCities.map((city) => city.City.name);
+    if (window.innerWidth < 768) {
+      return cities.length > 0 ? ` ${cities[0]}` : "Ainda não adicionou cidades";
+    } else {
+      if (cities.length > 3) return ` ${cities[0]}, ${cities[1]}`;
+      if (cities.length === 3)
+        return ` ${cities[0]}, ${cities[1]} e ${cities[2]}`;
+      if (cities.length === 2) return ` ${cities[0]} e ${cities[1]}`;
+      if (cities.length === 1) return ` ${cities[0]}`;
+      return "Ainda não adicionou cidades";
+    }
+  }
+
   return (
 
   <Container isProfile={isProfile}>
@@ -294,13 +329,21 @@ const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
         <div className="about-2">
         {userSigned?.AgencyCities && (
           <p>
-            <b>
-            {t.mainInfo.workArea}
-            </b>
-              {userSigned.AgencyCities.map((city, index) => (
-              ` ${city.City.name} ${index < userSigned.AgencyCities.length -1 ? ',': ''} `
-              ))}
-          </p>
+             <div className="cities">
+                  <b style={{marginRight: "5px"}}>{t.mainInfo.workArea}</b>
+                  
+                  <span>{printCities()}</span>
+                  {userSigned.AgencyCities.length > 3 ? (
+                      <>
+                      <span> e outras </span>
+                      <SimplePopup qtdeCitys={userSigned.AgencyCities.length - 2} cities={userSigned.AgencyCities}/>
+                      <span>cidades</span>
+                      </>
+                  ) : (
+                    ""
+                  )}
+                </div>
+            </p>
         )}
         <p>
             <b>

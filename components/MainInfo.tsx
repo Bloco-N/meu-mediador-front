@@ -104,8 +104,8 @@ const Container = styled.div<ContainerProps>`
       margin-left: ${(props) => (props.isProfile ? "2rem" : "2rem")};
       display: flex;
       gap: 1rem;
+      justify-content:${(props) => (props.isProfile ? "" : "space-between")}; ;
       width: 100%;
-      justify-content: space-between;
       @media only screen and (max-width: 900px) {
         flex-direction: column;
         gap: 2rem;
@@ -178,6 +178,7 @@ const Container = styled.div<ContainerProps>`
         span{
           margin-right: 5px;
           margin-left: 5px;
+          font-size: 15px;
 
         }
         @media only screen and (max-width: 900px) {
@@ -194,11 +195,16 @@ const Container = styled.div<ContainerProps>`
       align-items: center;
       gap: 2rem;
       position: absolute;
-      bottom: 5rem;
+      bottom: 8rem;
       right: 2rem;
       @media only screen and (max-width: 900px) {
         position: unset;
         bottom: 8rem;
+        right: 2rem;
+      }
+      @media only screen and (max-width: 1400px) {
+        right: 14rem;
+        bottom: 5rem;
       }
       .icon {
         height: 3rem;
@@ -206,6 +212,17 @@ const Container = styled.div<ContainerProps>`
         cursor: pointer;
         opacity: 0.7;
         transition: all 0.5s;
+        :hover {
+          opacity: 1;
+        }
+      }
+      .icon-facebook{
+        height: 3.5rem;
+        width: 3.5rem;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: all 0.5s;
+        margin-top: 1em;
         :hover {
           opacity: 1;
         }
@@ -249,21 +266,14 @@ const Container = styled.div<ContainerProps>`
         font-size: 1.8rem;
       }
     }
-    /* p{
-      width: 60rem;
-      max-height: 10rem;
-      display: block; 
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    } */
+
     background: #fff;
   }
   .about-3 {
     gap: 0.5rem;
     margin-top: 0.3em;
+    width: fit-content;
+    min-width: 240px;
     p {
       margin-bottom: 0.5rem;
     }
@@ -279,6 +289,8 @@ const Container = styled.div<ContainerProps>`
     display: flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
+    
 
     a {
       display: flex;
@@ -520,7 +532,7 @@ const MainInfo = ({
                 <div className="cities">
                   <b style={{marginRight: "5px"}}>{t.mainInfo.workArea}</b>
                   
-                  {printCities()}
+                  <span>{printCities()}</span>
                   {userSigned.RealtorCities.length > 3 ? (
                       <>
                       <span> e outras </span>
@@ -570,6 +582,8 @@ const MainInfo = ({
             <p>
               <b>{t.mainInfo.accompaniedBuyers}</b> 0
             </p>
+
+            
           </div>
           <div className="icon-agency">
             {isRealtor && (
@@ -641,7 +655,7 @@ const MainInfo = ({
             {userSigned?.facebook ? (
               <Link href={userSigned.facebook} target="_blank">
                 <Image
-                  className="icon"
+                  className="icon-facebook"
                   src={facebookIcon}
                   alt="facebook icon"
                 />

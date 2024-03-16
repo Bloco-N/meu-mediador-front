@@ -5,7 +5,7 @@ const api = axios.create({
   // baseURL: "http://localhost:3001",
 
   //endpoint produção
-  baseURL: "https://realtor-production-06d6.up.railway.app",
+    baseURL: "https://realtor-production-06d6.up.railway.app",
 });
 
 api.interceptors.request.use(

@@ -65,9 +65,9 @@ const Container = styled.div`
     }
   }
 
-  .icon {
+  .icon-img {
     width: 10%;
-    margin-top: 1em;
+    /* margin-top: 1em; */
     max-width: 100%;
     max-height: 100%;
 
@@ -213,7 +213,7 @@ export default function Profile() {
       >
         <div className="divMain">
           <h1>{t.signOut.delete}</h1>
-          <img className="icon" src={IconAlert.src} alt="" />
+          <img className="icon-img" src={IconAlert.src} alt="" />
 
           <div className="divButtonConfirm">
             <button onClick={() => deleteClient()}>{t.signOut.yes}</button>

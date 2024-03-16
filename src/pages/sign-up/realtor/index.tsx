@@ -19,6 +19,7 @@ const SignUpContainer = styled.div`
   display: flex;
   align-items: start;
   justify-content: center;
+  margin-top: 80px;
 
   form {
     @media only screen and (max-width: 900px) {

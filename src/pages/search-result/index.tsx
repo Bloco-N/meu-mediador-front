@@ -17,6 +17,7 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   overflow-x: hidden;
+  margin-top: 80px;
 
   .list{
     height: 80%;
