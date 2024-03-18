@@ -20,6 +20,10 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import api from "@/services/api";
 import { FaAngleDown } from "react-icons/fa";
 
+interface INavbar {
+  path: string;
+}
+
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState<any>({
     width: undefined,
@@ -44,14 +48,13 @@ const useWindowSize = () => {
   return windowSize;
 };
 
-const Nav = styled.div`
+const Nav = styled.div<INavbar>`
   /* position: relative; */
   flex-direction: row;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* z-index: 9999; */
   .logo-area {
     height: 100%;
   }
@@ -125,8 +128,8 @@ const Nav = styled.div`
     }
 
     @media only screen and (max-width: 900px) {
-      width: 95px;
-      margin-right: 10px;
+      width: 80px;
+      margin-right: 24px;
     }
 
     p {
@@ -139,6 +142,7 @@ const Nav = styled.div`
       background-color: inherit;
       border-radius: 1rem;
       transition: border-radius 0s;
+      font-size: 16px;
 
       &:hover {
         border-radius: 1rem 1rem 0 0;
@@ -235,7 +239,7 @@ const Nav = styled.div`
     }
   }
   @media only screen and (max-width: 900px) {
-    height: 150px;
+    height: ${(props) => (props.path == "/" ? "90px" : "120px")};
     .locale-area {
     }
     .logo-area {
@@ -250,12 +254,11 @@ const Nav = styled.div`
     }
   }
 
-  .logo-full{
+  .logo-full {
     margin-left: 2.5rem;
     @media only screen and (max-width: 900px) {
-      margin-left: 6.5rem;
+      margin-left: 13rem;
       width: 200px;
-      border: 1px solid tomato;
     }
   }
 `;
@@ -311,21 +314,21 @@ const SearchRealtor = styled.div`
         font-size: 16px;
       }
 
-        select {
-          border-radius: 1rem;
-          height: 100%;
-          border: none;
-          background-color: none;
-          font-size: 18px;
-          padding: 0 18px;
-          border: 1px solid #3a2e2c5a;
+      select {
+        border-radius: 1rem;
+        height: 100%;
+        border: none;
+        background-color: none;
+        font-size: 18px;
+        padding: 0 18px;
+        border: 1px solid #3a2e2c5a;
 
-          @media only screen and (max-width: 1100px){
-            height: 25px;
-            padding: 0 5px;
-            font-size: 16px;
-          }
+        @media only screen and (max-width: 1100px) {
+          height: 25px;
+          padding: 0 5px;
+          font-size: 16px;
         }
+      }
       /* } */
     }
   }
@@ -512,7 +515,7 @@ const Navbar = () => {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
-    console.log(data.idSearch, "TEste 2")
+    console.log(data.idSearch, "TEste 2");
     const fetchData = async () => {
       let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
@@ -521,8 +524,8 @@ const Navbar = () => {
       } else {
         setSearch("");
       }
-      
-      console.log(url , "PEdro")
+
+      console.log(url, "PEdro");
       await api
         .get(url)
         .then((response) => {
@@ -545,55 +548,58 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.key === 'Enter') {
+      if (event.key === "Enter") {
         if (window.innerWidth < 770) {
           // Se estiver em um dispositivo móvel, acione o onSubmit
           handleSubmit(onSubmit)();
         }
       }
     };
-  
-    document.addEventListener('keypress', handleKeyPress);
-  
+
+    document.addEventListener("keypress", handleKeyPress);
+
     return () => {
-      document.removeEventListener('keypress', handleKeyPress);
+      document.removeEventListener("keypress", handleKeyPress);
     };
   }, []);
-  
 
   let sourceUrl = "";
-  let classNameImage = ""
+  let classNameImage = "";
   if (router.pathname === "/") {
-      sourceUrl = "/meoagent-logo.png";
-      classNameImage = "logo-full"
+    sourceUrl = "/logo_semFundo.png";
+    classNameImage = "logo-full";
   } else {
-      sourceUrl = "/sublogo.png"
-      classNameImage = "logo"
+    sourceUrl = "/sublogo.png";
+    classNameImage = "logo";
   }
 
   return (
-<Nav
-  style={{
-    justifyContent: showSearchBar
-      ? "flex-start"
-      : width < 768
-      ? "space-between"
-      : "center",
-    backgroundColor: showSearchBar ? "#dedddd" : "transparent",
-    paddingTop: showSearchBar ? "1rem" : "1rem",
-    paddingBottom: showSearchBar ? "1rem" : "1rem",
-    paddingRight: showSearchBar ? "1rem" : "0rem",
-    paddingLeft: showSearchBar ? "1rem" : "0rem",
-
-  }}
->
+    <Nav
+      path={router.pathname}
+      style={{
+        justifyContent: showSearchBar
+          ? "flex-start"
+          : width < 768
+          ? "space-between"
+          : "center",
+        backgroundColor: showSearchBar ? "#dedddd" : "transparent",
+        paddingTop: showSearchBar ? "1rem" : "1rem",
+        paddingBottom: showSearchBar ? "1rem" : "1rem",
+        paddingRight: showSearchBar ? "1rem" : "0rem",
+        paddingLeft: showSearchBar ? "1rem" : "0rem",
+      }}
+    >
       <Link href="/" className="logo-area">
         <picture>
           {/* Imagem para telas largas */}
-          {width < 768 ? <source className="logo-full" media="(min-width: 769px)" srcSet="/meoagent-logo.png" />
-          : null
-          }
-          
+          {width > 768 ? (
+            <source
+              className="logo-full"
+              media="(min-width: 769px)"
+              srcSet="/meoagent-logo.png"
+            />
+          ) : null}
+
           {/* Imagem para telas estreitas */}
           <img className={classNameImage} src={sourceUrl} alt="Meoagent-logo" />
         </picture>
@@ -607,16 +613,16 @@ const Navbar = () => {
               ref={inputRef}
             >
               <div className="search-row">
-                  <select
-                    value={selectedValue}
-                    {...register("idSearch", {
-                      required: true,
-                      onChange: (e) => setSelectedValue(e.target.value),
-                    })}
-                  >
-                    <option value={1}>{t.home.realtor}</option>
-                    <option value={2}>{t.home.agency}</option>
-                  </select>
+                <select
+                  value={selectedValue}
+                  {...register("idSearch", {
+                    required: true,
+                    onChange: (e) => setSelectedValue(e.target.value),
+                  })}
+                >
+                  <option value={1}>{t.home.realtor}</option>
+                  <option value={2}>{t.home.agency}</option>
+                </select>
 
                 <input
                   type="text"
