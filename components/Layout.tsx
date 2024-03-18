@@ -128,19 +128,6 @@ export default function Layout({ children }: LayoutProps) {
     };
   }, []);
 
-  async function renderComponent() {
-    return (
-      <>
-        <Navbar />
-        <main
-          style={{ overflow: coverPicAdjustModalIsOpen ? "hidden" : "auto" }}
-        >
-          {children}
-        </main>
-        {path === "/" ? null : <Footer />}
-      </>
-    );
-  }
   return (
     <Container className={path === "/" ? "home" : ""}>
       <Head>
@@ -159,9 +146,26 @@ export default function Layout({ children }: LayoutProps) {
           <div className="spinner"></div>
         </LoaderContainer>
       ) : isMobile ? (
-        <div className="div-main">{renderComponent()}</div>
+        <div className="div-main">
+          {" "}
+          <Navbar />
+          <main
+            style={{ overflow: coverPicAdjustModalIsOpen ? "hidden" : "auto" }}
+          >
+            {children}
+          </main>
+          {path === "/" ? null : <Footer />}
+        </div>
       ) : (
-        <>{renderComponent()}</>
+        <>
+          <Navbar />
+          <main
+            style={{ overflow: coverPicAdjustModalIsOpen ? "hidden" : "auto" }}
+          >
+            {children}
+          </main>
+          {path === "/" ? null : <Footer />}
+        </>
       )}
     </Container>
   );
