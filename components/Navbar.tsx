@@ -49,13 +49,15 @@ const useWindowSize = () => {
 };
 
 const Nav = styled.div<INavbar>`
-  /* position: relative; */
   flex-direction: row;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-top: 1rem; */
+  height: 100px;
+  .img-absolute{
+    position: absolute;
+  }
   .logo-area {
     height: 100%;
   }
@@ -225,7 +227,7 @@ const Nav = styled.div<INavbar>`
       width: 30%;
     }
     .logo {
-      height: 80px;
+      /* height: 80px; */
     }
     .profile {
     }
@@ -257,6 +259,7 @@ const Nav = styled.div<INavbar>`
 
   .logo-full {
     position: relative;
+    border: 1px solid tomato;
     @media only screen and (max-width: 900px) {
       position: relative;
       margin-left: 13.3rem;
@@ -571,7 +574,7 @@ const Navbar = () => {
 
   let sourceUrl = "";
   let classNameImage = "";
-  if (router.pathname === "/") {
+  if (router.pathname === "/" || width > 768) {
     sourceUrl = "/logo_semFundo.png";
     classNameImage = "logo-full";
   } else {
@@ -589,27 +592,20 @@ const Navbar = () => {
           ? "space-between"
           : "center",
         backgroundColor: showSearchBar ? "#dedddd" : "transparent",
-        paddingTop: showSearchBar ? "2rem" : "2rem",
+        paddingTop: showSearchBar ? "3rem" : "3rem",
         paddingBottom: showSearchBar ? "1rem" : "1rem",
         paddingRight: showSearchBar ? "1rem" : "0rem",
         paddingLeft: showSearchBar ? "1rem" : "0rem",
       }}
     >
-      <Link href="/" className="logo-area">
-        <picture>
-          {/* Imagem para telas largas */}
-          {width > 768 ? (
-            <source
-              className="logo-full"
-              media="(min-width: 769px)"
-              srcSet="/meoagent-logo.png"
-            />
-          ) : null}
+        {
+          width < 768 ? 
+          <img width={250} src={sourceUrl} alt="Meoagent-logo" className="img-absolute"/>
+          : 
+          <img width={250} src={sourceUrl} alt="Meoagent-logo" className="img-absolute"/>
+        }
 
-          {/* Imagem para telas estreitas */}
-          <img className={classNameImage} src={sourceUrl} alt="Meoagent-logo" />
-        </picture>
-      </Link>
+          
       {showSearchBar && (
         <>
           <SearchRealtor>
