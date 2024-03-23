@@ -44,14 +44,16 @@ const useWindowSize = () => {
   return windowSize;
 };
 
-const Nav = styled.div`
+interface INav{
+  router: string;
+}
+const Nav = styled.div<INav>`
   /* position: relative; */
   flex-direction: row;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid blue;
   .logo-area {
     height: 100%;
   }
@@ -126,7 +128,7 @@ const Nav = styled.div`
 
     @media only screen and (max-width: 900px) {
       width: 95px;
-      margin-right: 10px;
+      margin-right: 3.3rem;
     }
 
     p {
@@ -253,9 +255,8 @@ const Nav = styled.div`
   .logo-full{
     margin-left: 2.5rem;
     @media only screen and (max-width: 900px) {
-      margin-left: 6.5rem;
+      margin-left: 4.5rem;
       width: 200px;
-      border: 1px solid tomato;
     }
   }
 `;
