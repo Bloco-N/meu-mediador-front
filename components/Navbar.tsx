@@ -57,6 +57,9 @@ const Nav = styled.div<INavbar>`
   height: 100px;
   .img-absolute{
     position: absolute;
+    @media only screen and (max-width: 900px) {
+      margin-left: 2rem;
+    }
   }
   .logo-area {
     height: 100%;
@@ -600,7 +603,7 @@ const Navbar = () => {
     >
         {
           width < 768 ? 
-          <img width={250} src={sourceUrl} alt="Meoagent-logo" className="img-absolute"/>
+          <img width={width > 768 ? 250 : 200} src={sourceUrl} alt="Meoagent-logo" className="img-absolute"/>
           : 
           <img width={250} src={sourceUrl} alt="Meoagent-logo" className="img-absolute"/>
         }
