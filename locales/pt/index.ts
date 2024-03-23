@@ -133,11 +133,11 @@ const pt = {
   createProfile: {
     selectTheType: "Selecione o tipo de perfil que deseja criar",
     areYouLooking:
-      "Está em busca de um consultor para conquistar seu próximo imóvel?",
+      "Cadastre-se e avalie o consultor imobiliário do seu processo",
     promoteYourSales:
-      "Divulgue suas vendas, atraia clientes e se associe a sua empresa",
+      "Registre seus resultados, história no imobiliário, reforce sua credibilidade e atraia clientes",
     registerYourCompany:
-      "Cadastre sua empresa para associar seus consultores e divulgar seus imóveis a venda",
+      "Promova sua agência, associe-se aos seus consultores e recrute os melhores.",
   },
   signUp: {
     signUp: "Cadastro",

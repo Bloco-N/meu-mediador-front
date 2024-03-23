@@ -9,13 +9,13 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const ForgotPasswordContainer = styled.div`
+  border: 1px solid tomato;
   form{
     height: 35rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     gap: 2rem;
-    margin-top: 80px;
     h4{
       font-size: 1.3rem;
     }
@@ -57,6 +57,7 @@ const RecoverPassword = () => {
   }
 
     return (
+      <div className="container">
       <ForgotPasswordContainer className="card">
 
         <form onSubmit={handleSubmit(onSubmit)}  action="">
@@ -72,6 +73,7 @@ const RecoverPassword = () => {
 
 
       </ForgotPasswordContainer>
+      </div>
     );
 };
 

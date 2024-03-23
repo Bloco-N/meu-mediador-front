@@ -11,6 +11,7 @@ const Container = styled.div`
   height: 100%;
   gap: 2rem;
   width: 60%;
+  margin-top: 40px;
   @media only screen and (max-width: 1300px) {
     width: 80%;
   }
@@ -97,57 +98,77 @@ const Profile = () => {
   // Client Description
   function showClientDescription() {
     if (typeof window !== "undefined") {
-      const showClientDescription = document.querySelector(
-        ".description-client-profile"
-      ) as HTMLElement;
-      showClientDescription.style.display = "block";
+      const screenWidth = window.innerWidth;
+      if(screenWidth > 768){
+        const showClientDescription = document.querySelector(
+          ".description-client-profile"
+        ) as HTMLElement;
+        showClientDescription.style.display = "block";
+      }
     }
   }
 
   function hideClientDescription() {
     if (typeof window !== "undefined") {
-      const hideClientDescription = document.querySelector(
-        ".description-client-profile"
-      ) as HTMLElement;
-      hideClientDescription.style.display = "none";
+      const screenWidth = window.innerWidth;
+      if(screenWidth > 768){
+        const hideClientDescription = document.querySelector(
+          ".description-client-profile"
+        ) as HTMLElement;
+        hideClientDescription.style.display = "none";
+      }
     }
   }
 
   // Realtor Description
   function showRealtorDescription() {
     if (typeof window !== "undefined") {
-      const showRealtorDescription = document.querySelector(
-        ".description-realtor-profile"
-      ) as HTMLElement;
-      showRealtorDescription.style.display = "block";
+      const screenWidth = window.innerWidth;
+      if(screenWidth > 768){
+        const showRealtorDescription = document.querySelector(
+          ".description-realtor-profile"
+        ) as HTMLElement;
+        showRealtorDescription.style.display = "block";
+      }
+     
     }
   }
 
   function hideRealtorDescription() {
     if (typeof window !== "undefined") {
-      const hideRealtorDescription = document.querySelector(
-        ".description-realtor-profile"
-      ) as HTMLElement;
-      hideRealtorDescription.style.display = "none";
+      const screenWidth = window.innerWidth;
+      if(screenWidth > 768){
+        const hideRealtorDescription = document.querySelector(
+          ".description-realtor-profile"
+        ) as HTMLElement;
+        hideRealtorDescription.style.display = "none";
+      }
     }
   }
 
   // Agency Description
   function showAgencyDescription() {
     if (typeof window !== "undefined") {
-      const showAgencyDescription = document.querySelector(
-        ".description-agency-profile"
-      ) as HTMLElement;
-      showAgencyDescription.style.display = "block";
+      const screenWidth = window.innerWidth;
+      if(screenWidth > 768){
+        const showAgencyDescription = document.querySelector(
+          ".description-agency-profile"
+        ) as HTMLElement;
+        showAgencyDescription.style.display = "block";
+      }
     }
   }
 
   function hideAgencyDescription() {
+    
     if (typeof window !== "undefined") {
-      const hideAgencyDescription = document.querySelector(
-        ".description-agency-profile"
-      ) as HTMLElement;
-      hideAgencyDescription.style.display = "none";
+      const screenWidth = window.innerWidth;
+      if(screenWidth > 768){
+        const hideAgencyDescription = document.querySelector(
+          ".description-agency-profile"
+        ) as HTMLElement;
+        hideAgencyDescription.style.display = "none";
+      }
     }
   }
 

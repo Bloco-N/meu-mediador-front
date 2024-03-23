@@ -133,9 +133,9 @@ const en = {
   },
   createProfile:{
     selectTheType: "Select the type of profile you want to create",
-    areYouLooking: "Are you looking for a consultant to conquer your next property?",
-    promoteYourSales: "Promote your sales, attract customers and associate with your company",
-    registerYourCompany: "Register your company to associate your consultants and advertise your properties for sale"
+    areYouLooking: "Sign up and upload a review of the real estate agent of your process",
+    promoteYourSales: "Record your results, history in real estate, reinforce your credibility and have more clients",
+    registerYourCompany: "Promote your agency, join with your agents and recruit the bests."
   },
   signUp:{
     signUp:"Sign Up",
@@ -149,8 +149,8 @@ const en = {
     no: "No"
   },
   forgotPassword:{
-    recoverPassword:"Recover Password",
-    enterAnEmail:"Enter an email to recover your password",
+    recoverPassword:"Reset Password",
+    enterAnEmail:"Enter an email to reset your password",
     send:"Send",
     emailSent:"Email sent, check your inbox"
   },

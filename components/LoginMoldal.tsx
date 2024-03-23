@@ -12,11 +12,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
-    gap: 1.5rem;
+  gap: 1.5rem;
   animation: apear 2s forwards;
   z-index: 9999;
-  background-color: red;
-
+  
   a {
     display: flex;
     justify-content: space-between;
@@ -24,7 +23,7 @@ const Container = styled.div`
     padding: 1rem;
     transition: all 0.5s;
     :hover {
-      background-color: var(--base);
+      
     }
     img {
       height: 2rem;

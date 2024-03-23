@@ -70,6 +70,7 @@ const SearchRealtor = styled.div`
 
     input {
       width: 25%;
+      height: 64px;
     }
 
     .selectWrapper {
@@ -166,7 +167,6 @@ const NovoCadastro = styled.div`
   height: fit-content;
   backdrop-filter: blur(5px);
   padding: 1rem 3rem;
-  margin-top: 10px;
 
   h4 {
     font-weight: 600;

@@ -7,7 +7,7 @@ const GoogleButton = styled.button`
   background-color: #FFFF;
   color: #000000;
   padding: 1em 1em;
-  font-size: 0.8em;
+  font-size: 1.3rem;
   border: none;
   border-radius: 7px;
   cursor: pointer;

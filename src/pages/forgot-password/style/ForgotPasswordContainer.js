@@ -5,10 +5,10 @@ const ForgotPasswordContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 2rem;
-  width: 400px;
+  width: 430px;
   min-height: 30rem;
   form {
-    min-height: 30rem;
+    min-height: 32rem;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -44,4 +44,19 @@ const ForgotPasswordContainer = styled.div`
   }
 `;
 
-export default ForgotPasswordContainer;
+const Container = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    margin-top: 3rem;
+  }
+`
+
+export {
+  ForgotPasswordContainer,
+  Container
+};

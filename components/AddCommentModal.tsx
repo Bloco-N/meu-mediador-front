@@ -39,7 +39,6 @@ const Container = styled.div`
     justify-content: flex-start;
     gap: 2rem;
     padding-top: 4rem;
-    /* border: 1px solid tomato; */
     @media (max-width: 1000px) {
       width: 60%;
       height: 70rem;

@@ -18,13 +18,11 @@ import { getSession, signIn, useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import api from "@/services/api";
 import { toast } from "react-toastify";
-
 const SignInContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 80px;
 
   form {
     @media only screen and (max-width: 800px) {
@@ -45,6 +43,15 @@ const SignInContainer = styled.div`
   .bottom-cta {
     display: flex;
     gap: 0.5rem;
+    @media only screen and (max-width: 400px) {
+      flex-direction: column;
+      align-items: center;
+
+      h5,
+      .create-account {
+        margin-top: 0.5rem; /* Adicione espaçamento entre os elementos em um layout de coluna, se necessário */
+      }
+    }
   }
   @media (max-width: 768px) {
     padding: 0 37px;
@@ -65,10 +72,6 @@ const SignInContainer = styled.div`
         opacity: 0.8;
         font-weight: 500;
         color: #3a2e2c;
-      }
-
-      input[type="email"] {
-        margin-bottom: 19px;
       }
     }
   }
@@ -171,6 +174,7 @@ const SignIn = () => {
   };
 
   return (
+    <div className="container">
     <SignInContainer>
       <form className="card" onSubmit={handleSubmit(onSubmit)}>
         <h2>{t.signIn.signIn}</h2>
@@ -225,7 +229,8 @@ const SignIn = () => {
         </div>
       </form>
     </SignInContainer>
-  );
+    </div>
+  )
 };
 
 export default SignIn;

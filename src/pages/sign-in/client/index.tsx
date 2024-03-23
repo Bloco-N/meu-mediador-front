@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { SignInForm } from "@/types/SignInForm";
 import UserContext from "context/UserContext";
@@ -10,24 +10,23 @@ import styled from "styled-components";
 import { decode } from "jsonwebtoken";
 import { UserContextType } from "@/types/UserContextType";
 import locales from "locales";
-import { useState } from 'react'
+import { useState } from "react";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import { GetServerSideProps } from "next";
-import {getSession, signIn,useSession} from 'next-auth/react'
-import GoogleLoginButton from '../../../../components/ButtonAuth'
-import iconGoogle from '../../../../public/icon-google.png'
-import iconFacebook from '../../../../public/icons-facebook.png'
+import { getSession, signIn, useSession } from "next-auth/react";
+import GoogleLoginButton from "../../../../components/ButtonAuth";
+import iconGoogle from "../../../../public/icon-google.png";
+import iconFacebook from "../../../../public/icons-facebook.png";
 import api from "../../../services/api";
 import { error } from "console";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 
 const SignInContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 80px;
 
   form {
     @media only screen and (max-width: 800px) {
@@ -35,8 +34,10 @@ const SignInContainer = styled.div`
     }
     @media only screen and (max-width: 500px) {
       width: 90%;
-      
-      .bottom-cta, h5, .forgot-password {
+
+      .bottom-cta,
+      h5,
+      .forgot-password {
         font-size: 1.5rem;
       }
     }
@@ -67,6 +68,7 @@ const SignInContainer = styled.div`
 
   @media (max-width: 768px) {
     padding: 0 37px;
+    margin-top: 30px;
 
     .card {
       width: 100%;
@@ -75,7 +77,7 @@ const SignInContainer = styled.div`
       padding: 19px 27px 31px 27px;
 
       input {
-        color: #3A2E2C;
+        color: #3a2e2c;
         opacity: 1;
         font-weight: 600;
       }
@@ -83,145 +85,162 @@ const SignInContainer = styled.div`
       input::placeholder {
         opacity: 0.8;
         font-weight: 500;
-        color: #3A2E2C;
-      }
-
-      input[type="email"] {
-        margin-bottom: 19px;
+        color: #3a2e2c;
       }
     }
   }
 `;
 
 const SignIn = () => {
+  const { data: session, status } = useSession();
 
-    const { data: session, status } = useSession();
+  const { register, handleSubmit } = useForm<SignInForm>();
 
-    const { register, handleSubmit } = useForm<SignInForm>()
+  const { setUser } = useContext(UserContext) as UserContextType;
 
-    const { setUser } = useContext(UserContext) as UserContextType
+  const { setOpen: setLoadingOpen } = useContext(
+    LoadingContext
+  ) as ModalOpenContextType;
 
-    const { setOpen:setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
+  const [loginError, setLoginError] = useState(false);
 
-    const [loginError, setLoginError] = useState(false)
+  const router = useRouter();
 
-    const router = useRouter()
+  const locale = router.locale;
 
-    const locale = router.locale
+  const t = locales[locale as keyof typeof locales];
 
-    const t = locales[locale as keyof typeof locales]
-   
-    useEffect(() => {
-      const checkAndSubmit = async () => {
-        if (status === 'authenticated') {
-          await onSubmit(null);
-        } else {
-          const token = localStorage.getItem("token");
-          if (token) {
-            router.push("/");
-          }
+  useEffect(() => {
+    const checkAndSubmit = async () => {
+      if (status === "authenticated") {
+        await onSubmit(null);
+      } else {
+        const token = localStorage.getItem("token");
+        if (token) {
+          router.push("/");
         }
-      };
-  
-      checkAndSubmit();
-    }, [router, session, status]);
-
-    const onSubmit = async (data:SignInForm | null) => {
-        const partesDoNome = session?.user?.name?.split(" ");
-        const firstName = partesDoNome ? partesDoNome[0] : null;
-        const lastName = partesDoNome?.slice(1).join(" ");
-      
-        const dataGoogle = {
-          email: session?.user?.email,
-          firstName:firstName,
-          lastName: lastName
-
-        }
-
-        const urlFetch = '/client/sign-in'
-        const urlFetchGoogle ='/client/sign-in/google'
-
-      const fetchData = async () => {
-        
-        setLoadingOpen(true)
-        await api.post(!data ? urlFetchGoogle : urlFetch, !data ? dataGoogle : data)
-          .then(async (response) => {
-            const token = await response.data
-            localStorage.setItem('token', token)
-            const user = decode(token) as { id:number, email:string, firstName: string, lastName: string}
-            localStorage.setItem('id', String(user.id))
-           
-            const clientResponse = await api.get(`/client/${user.id}`)
-            const clientData = await clientResponse.data
-            localStorage.setItem('accountType', 'client')
-            setUser({ token, id: user.id, profilePicture: null, coverPicture: null, accountType: 'client' })
-            setLoadingOpen(false)
-
-            if(clientData.verified === false){
-              router.push('/verify/client')
-            }else{
-              router.reload()
-            }
-            
-            toast.success(`${t.toast.welcome} ${clientData.firstName}!`)
-          })
-          .catch((error) => {
-            setLoginError(true)
-            setLoadingOpen(false)
-          })
       }
+    };
 
-      await fetchData()
-    }
+    checkAndSubmit();
+  }, [router, session, status]);
 
-    return (
-      <SignInContainer> 
+  const onSubmit = async (data: SignInForm | null) => {
+    const partesDoNome = session?.user?.name?.split(" ");
+    const firstName = partesDoNome ? partesDoNome[0] : null;
+    const lastName = partesDoNome?.slice(1).join(" ");
+
+    const dataGoogle = {
+      email: session?.user?.email,
+      firstName: firstName,
+      lastName: lastName,
+    };
+
+    const urlFetch = "/client/sign-in";
+    const urlFetchGoogle = "/client/sign-in/google";
+
+    const fetchData = async () => {
+      setLoadingOpen(true);
+      await api
+        .post(!data ? urlFetchGoogle : urlFetch, !data ? dataGoogle : data)
+        .then(async (response) => {
+          const token = await response.data;
+          localStorage.setItem("token", token);
+          const user = decode(token) as {
+            id: number;
+            email: string;
+            firstName: string;
+            lastName: string;
+          };
+          localStorage.setItem("id", String(user.id));
+
+          const clientResponse = await api.get(`/client/${user.id}`);
+          const clientData = await clientResponse.data;
+          localStorage.setItem("accountType", "client");
+          setUser({
+            token,
+            id: user.id,
+            profilePicture: null,
+            coverPicture: null,
+            accountType: "client",
+          });
+          setLoadingOpen(false);
+
+          if (clientData.verified === false) {
+            router.push("/verify/client");
+          } else {
+            router.reload();
+          }
+
+          toast.success(`${t.toast.welcome} ${clientData.firstName}!`);
+        })
+        .catch((error) => {
+          setLoginError(true);
+          setLoadingOpen(false);
+        });
+    };
+
+    await fetchData();
+  };
+
+  return (
+    <div className="container">
+      <SignInContainer>
         <form className="card" onSubmit={handleSubmit(onSubmit)}>
           <h2>{t.signIn.signIn}</h2>
 
-          <input className="input-sign-up" type="email" placeholder={t.signIn.email}
-          {...register('email', {required: true})} />
-          <input className="input-sign-up" type="password" placeholder={t.signIn.password}
-          {...register('password', {required: true})}/>
+          <input
+            className="input-sign-up"
+            type="email"
+            placeholder={t.signIn.email}
+            {...register("email", { required: true })}
+          />
+          <input
+            className="input-sign-up"
+            type="password"
+            placeholder={t.signIn.password}
+            {...register("password", { required: true })}
+          />
 
-          {loginError && (
-            <p className="text-error">
-              {t.signIn.error}
-            </p>
-          )}
+          {loginError && <p className="text-error">{t.signIn.error}</p>}
 
-          <Link className="forgot-password" href="/forgot-password/client">{t.signIn.forgot}</Link>
+          <Link className="forgot-password" href="/forgot-password/client">
+            {t.signIn.forgot}
+          </Link>
 
           <button>{t.signIn.enter}</button>
 
           <div className="orSeparator">
-              <div className="borderTop"></div>
-              <div className="orText">ou</div>
-              <div className="borderTop"></div>
+            <div className="borderTop"></div>
+            <div className="orText">ou</div>
+            <div className="borderTop"></div>
           </div>
 
-          <GoogleLoginButton 
-          icon={iconGoogle.src} 
-          onClick={() => signIn("google")}
-          text={t.signIn.google}
+          <GoogleLoginButton
+            icon={iconGoogle.src}
+            onClick={() => signIn("google")}
+            text={t.signIn.google}
           />
 
-          <GoogleLoginButton 
-            icon={iconFacebook.src} 
+          <GoogleLoginButton
+            icon={iconFacebook.src}
             onClick={() => signIn("facebook")}
             text={t.signIn.facebook}
           />
 
           <div className="bottom-cta">
             <h5>{t.signIn.notHaveAnAccount}</h5>
-            <Link className="create-account special-link" href="/sign-up/profile">{t.signIn.here}</Link>
+            <Link
+              className="create-account special-link"
+              href="/sign-up/profile"
+            >
+              {t.signIn.here}
+            </Link>
           </div>
         </form>
-
-
       </SignInContainer>
-
-    );
+    </div>
+  );
 };
 
 export default SignIn;

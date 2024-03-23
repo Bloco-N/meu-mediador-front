@@ -133,11 +133,11 @@ const es = {
   createProfile: {
     selectTheType: "Seleccione el tipo de perfil que desea crear",
     areYouLooking:
-      "¿Estás buscando un asesor para conquistar tu próxima propiedad?",
+      "Regístrate y sube una reseña del agente inmobiliario de tu proceso",
     promoteYourSales:
-      "Promociona tus ventas, capta clientes y asóciate con tu empresa",
+      "Registra tus resultados, historial en el sector inmobiliario, refuerza tu credibilidad y ten más clientes",
     registerYourCompany:
-      "Registra tu empresa para asociar a tus asesores y anunciar tus propiedades en venta",
+      "Promocione su agencia, únase a sus agentes y reclute a los mejores",
   },
   signUp: {
     signUp: "Inscribirse",

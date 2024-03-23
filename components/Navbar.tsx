@@ -53,12 +53,15 @@ const Nav = styled.div<INavbar>`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 100px;
-  .img-absolute{
+  .img-absolute {
     position: absolute;
-    @media only screen and (max-width: 900px) {
-      margin-left: 2rem;
+    margin-left: 1.5rem;
+    cursor: pointer;
+    @media only screen and (max-width: 768px) {
+      position: relative;
+      margin-left: ${(props) => (props.path == "/" ? "2rem" : "0")};
     }
   }
   .logo-area {
@@ -135,7 +138,7 @@ const Nav = styled.div<INavbar>`
 
     @media only screen and (max-width: 900px) {
       width: 80px;
-      margin-right:28px;
+      margin-right: ${(props) => (props.path == "/" ? "28px" : "0")};
     }
 
     p {
@@ -245,6 +248,7 @@ const Nav = styled.div<INavbar>`
     }
   }
   @media only screen and (max-width: 900px) {
+    position: relative;
     height: ${(props) => (props.path == "/" ? "90px" : "120px")};
     .locale-area {
     }
@@ -295,14 +299,14 @@ const SearchRealtor = styled.div`
       .input-city-cep {
         margin: 0;
         position: relative;
-        width: 100%;
+        width: 108%;
         height: 100%;
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
       }
       .input-realtor {
-        width: 100%;
+        width: 108%;
         height: 100%;
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
@@ -330,14 +334,16 @@ const SearchRealtor = styled.div`
         font-size: 18px;
         padding: 0 18px;
         border: 1px solid #3a2e2c5a;
+        width: 108%;
+        padding-left: 6px;
 
         @media only screen and (max-width: 1100px) {
           height: 25px;
           padding: 0 5px;
           font-size: 16px;
+          width: 175px;
         }
       }
-      /* } */
     }
   }
 
@@ -383,10 +389,10 @@ const SearchRealtor = styled.div`
     form {
       .search-row {
         .input-city-cep {
-          width: 160px;
+          width: 175px;
         }
         .input-realtor {
-          width: 160px;
+          width: 175px;
         }
         .searchButton {
           width: 160px;
@@ -533,7 +539,8 @@ const Navbar = () => {
       }
 
       if (data.zipCode) {
-        const capitalizedZipCode = data.zipCode.charAt(0).toUpperCase() + data.zipCode.slice(1);
+        const capitalizedZipCode =
+          data.zipCode.charAt(0).toUpperCase() + data.zipCode.slice(1);
         url += "zipCode=" + capitalizedZipCode;
         setSearch(data.search);
       }
@@ -585,6 +592,17 @@ const Navbar = () => {
     classNameImage = "logo";
   }
 
+  function sizeWidth() {
+    if (width > 768) {
+      return 250;
+    } else {
+      if (router.pathname == "/") {
+        return 200;
+      }
+      return 80;
+    }
+  }
+
   return (
     <Nav
       path={router.pathname}
@@ -595,20 +613,30 @@ const Navbar = () => {
           ? "space-between"
           : "center",
         backgroundColor: showSearchBar ? "#dedddd" : "transparent",
-        paddingTop: showSearchBar ? "3rem" : "3rem",
+        paddingTop: showSearchBar ? "1rem" : "3rem",
         paddingBottom: showSearchBar ? "1rem" : "1rem",
         paddingRight: showSearchBar ? "1rem" : "0rem",
-        paddingLeft: showSearchBar ? "1rem" : "0rem",
+        paddingLeft: showSearchBar ? "0rem" : "0rem",
       }}
     >
-        {
-          width < 768 ? 
-          <img width={width > 768 ? 250 : 200} src={sourceUrl} alt="Meoagent-logo" className="img-absolute"/>
-          : 
-          <img width={250} src={sourceUrl} alt="Meoagent-logo" className="img-absolute"/>
-        }
+      {width < 768 ? (
+        <img
+          onClick={() => router.push("/")}
+          width={sizeWidth()}
+          src={sourceUrl}
+          alt="Meoagent-logo"
+          className="img-absolute"
+        />
+      ) : (
+        <img
+          onClick={() => router.push("/")}
+          width={250}
+          src={sourceUrl}
+          alt="Meoagent-logo"
+          className="img-absolute"
+        />
+      )}
 
-          
       {showSearchBar && (
         <>
           <SearchRealtor>

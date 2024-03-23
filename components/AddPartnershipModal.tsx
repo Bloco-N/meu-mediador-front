@@ -48,7 +48,6 @@ const Container = styled.div`
       .dates-input-group {
         gap: 1.125rem;
         width: auto;
-        /* border: 1px solid blue; */
       }
 
       p.label-text-inputs {
@@ -74,7 +73,6 @@ const Container = styled.div`
     }
     .dates-inputs{
       /* width: 100%; */
-      /* border: 1px solid tomato; */
       /* display: flex;
       flex-direction: row;
       justify-content: flex-start; */
