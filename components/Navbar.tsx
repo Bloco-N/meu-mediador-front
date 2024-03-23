@@ -256,7 +256,9 @@ const Nav = styled.div<INavbar>`
   }
 
   .logo-full {
+    position: relative;
     @media only screen and (max-width: 900px) {
+      position: relative;
       margin-left: 13.3rem;
       width: 200px;
     }

@@ -18,27 +18,30 @@ import Footer from "components/Footer";
 
 const SearchRealtor = styled.div`
   width: 100%;
-  transform: scale(0.67);
   height: auto;
-  margin-top:80px;
+  margin-top: 190px;
+  @media only screen and (max-width: 1400px) {
+    width: 100%;
+    transform: scale(0.67);
+    margin-top: 80px;
+  }
 
   @media only screen and (max-width: 768px) {
     width: 100%;
     margin-bottom: 10px;
-    transform:none;
+    transform: none;
   }
 
   form {
-    
     background: #e9e9e985;
     width: 100%;
+    max-width: 100%;
     width: fit-content;
     margin: auto;
     height: fit-content;
     margin-top: 20vh;
     backdrop-filter: blur(5px);
     padding: 2rem 3rem;
-    
 
     h4 {
       font-weight: 600;
@@ -52,15 +55,16 @@ const SearchRealtor = styled.div`
       gap: 2rem;
       width: 900px;
 
-      /* @media only screen and (max-width: 1190px) {
-        flex-direction: column;
-        input {
-        }
-      } */
+      @media only screen and (max-width: 1190px) {
+      }
       @media (max-width: 768px) {
+        flex-direction: column;
         padding: 2rem 0rem;
         gap: 3rem;
         width: 100%;
+        input {
+          width: 100%;
+        }
       }
     }
 
@@ -108,10 +112,18 @@ const SearchRealtor = styled.div`
       }
     }
 
+    @media only screen and (max-width: 1000px) {
+      width: 90%;
+      height: 40rem;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 0;
+    }
+
     @media only screen and (max-width: 768px) {
-      /* width: calc(100% - 4rem); */
-      /* max-width: 90%; */
-      /* height: 20px; */
+      width: calc(100% - 4rem);
+      max-width: 90%;
+      height: 20px;
       input {
       }
       input,
@@ -147,26 +159,27 @@ const SearchRealtor = styled.div`
 `;
 
 const NovoCadastro = styled.div`
-  margin-top: -30px;
   text-align: center;
   height: auto;
   border-radius: 1.2rem;
-  
-
   background: #e9e9e985;
-
   height: fit-content;
-
   backdrop-filter: blur(5px);
   padding: 1rem 3rem;
+  margin-top: 10px;
 
   h4 {
     font-weight: 600;
     margin-top: 0px;
-    font-size:12px;
+    font-size: 18px;
   }
 
-
+  @media only screen and (max-width: 1400px) {
+    margin-top: -30px;
+    h4 {
+      font-size: 12px;
+    }
+  }
   @media only screen and (max-width: 768px) {
     margin-top: 0px;
     border: solid 0.1rem var(--border-color);
@@ -175,8 +188,8 @@ const NovoCadastro = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    h4{
-      font-size:16px;
+    h4 {
+      font-size: 16px;
     }
   }
 
@@ -233,7 +246,8 @@ export default function Home() {
       }
 
       if (data.zipCode) {
-        const capitalizedZipCode = data.zipCode.charAt(0).toUpperCase() + data.zipCode.slice(1);
+        const capitalizedZipCode =
+          data.zipCode.charAt(0).toUpperCase() + data.zipCode.slice(1);
         url += "zipCode=" + capitalizedZipCode;
         setSearch(data.search);
       }
@@ -319,7 +333,7 @@ export default function Home() {
           </Link>
         </h4>
       </NovoCadastro>
-      <Footer/>
+      <Footer />
       <InfoFooter home={true} />
     </>
   );

@@ -3,7 +3,7 @@ const pt = {
     welcome: "Encontre seu próximo consultor imobiliário aqui",
     searchRealtorNamePlaceholder: "Nome do Consultor",
     searchAgencyNamePlaceholder:"Nome da Agência",
-    searchRealtorCityPlaceholder: "Cidade ou CEP",
+    searchRealtorCityPlaceholder: "Conselho",
     searchButton: "Buscar",
     cad_bar: "Já faz parte do Meoagent?",
     realtor: "Consultor",
