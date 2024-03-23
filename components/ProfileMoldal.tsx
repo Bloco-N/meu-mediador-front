@@ -81,7 +81,6 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
   useEffect(() => {
     const accountType = localStorage.getItem('accountType')
 
-    console.log('accountType',accountType)
     if(accountType){
       setAccType(accountType)
     }
@@ -90,7 +89,6 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
   useEffect(() => {
     const accountType = localStorage.getItem('accountType')
 
-    console.log('accountType',accountType)
     if(accountType){
       setAccType(accountType)
     }

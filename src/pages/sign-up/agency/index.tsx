@@ -134,7 +134,6 @@ const SignUp = () => {
             router.push("/sign-in/agency");
           } else {
             if (response.status === 400) {
-              console.log(response.data.data, "Goiaba")
               if(response.data.data== "name"){
                 setAgencyExist(true)
               }else if(response.data.data == "email"){
@@ -147,7 +146,6 @@ const SignUp = () => {
         })
         .catch((error) => {
           if (error.response.status == 400) {
-              console.log(typeof error.response.data, "Goiaba 2")
               if(error.response.data == "name"){
                return setAgencyExist(true)
               }else if(error.response.data == "email"){

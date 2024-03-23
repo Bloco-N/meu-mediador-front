@@ -50,7 +50,7 @@ const Container = styled.div`
     padding: 5px;
     width: 100%;
     box-sizing: border-box;
-    
+
     @media (max-width: 768px) {
       max-height: 20%;
     }
@@ -84,7 +84,7 @@ const Container = styled.div`
     border: 50px solid rgb(245, 197, 199);
     box-sizing: border-box;
     border-radius: 20px;
-    
+
     @media (max-width: 768px) {
       border: 20px solid rgb(245, 197, 199);
       min-width: 80%;
@@ -131,14 +131,15 @@ export default function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
-        await api.get(`/client/${id}`)
-        .then((response) => {
-          setClient(response.data);
-        })
-        .catch((error) => {
-          router.push("/");
-          return error
-        })
+        await api
+          .get(`/client/${id}`)
+          .then((response) => {
+            setClient(response.data);
+          })
+          .catch((error) => {
+            router.push("/");
+            return error;
+          });
       }
     };
     const localId = localStorage.getItem("id") as string;
@@ -163,35 +164,42 @@ export default function Profile() {
   }, []);
 
   async function deleteClient() {
-    await api.delete(`/client/${id}`)
-    .then(async (response )=> {
-      await singOutGoogle();
-      localStorage.removeItem("token");
-      localStorage.removeItem("id");
-      localStorage.removeItem("pic");
-      localStorage.removeItem("accountType");
-      setUser({
-        token: "",
-        id: null,
-        profilePicture: null,
-        coverPicture: null,
-        accountType: null,
+    await api
+      .delete(`/client/${id}`)
+      .then(async (response) => {
+        await singOutGoogle();
+        localStorage.removeItem("token");
+        localStorage.removeItem("id");
+        localStorage.removeItem("pic");
+        localStorage.removeItem("accountType");
+        setUser({
+          token: "",
+          id: null,
+          profilePicture: null,
+          coverPicture: null,
+          accountType: null,
+        });
+        toast.success(t.toast.removeAccount);
+        router.push("/");
+      })
+      .catch((error) => {
+        toast.error(t.toast.errorRemoveAccount);
+        return error;
       });
-      toast.success(t.toast.removeAccount)
-      router.push("/");
-    })
-    .catch((error) => {
-      toast.error(t.toast.errorRemoveAccount)
-      return error
-    })
-
   }
 
   return (
     <Container>
-      <div className="divButton">
-        <TrashButton onClick={() => {setModalOpen(true)}}/>
-      </div>
+      {accType == "realtor" && sessionProfile ? (
+        <div className="divButton">
+          <TrashButton
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          />
+        </div>
+      ) : null}
+
       {client ? (
         <MainInfoClient userSigned={client as ClientProfile} isProfile={true} />
       ) : (

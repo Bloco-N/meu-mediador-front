@@ -142,7 +142,6 @@ const SignIn = () => {
           localStorage.setItem("pic", realtorData.profilePicture);
           localStorage.setItem("accountType", "realtor");
 
-          console.log('realtorData',realtorData)
 
           setUser({
             token,

@@ -14,30 +14,31 @@ import InfoFooter from "components/InfoFooter";
 import Link from "next/link";
 import api from "@/services/api";
 import { FaAngleDown } from "react-icons/fa";
+import Footer from "components/Footer";
 
 const SearchRealtor = styled.div`
-  width: 80%;
+  width: 100%;
+  transform: scale(0.67);
   height: auto;
-  padding: 0 37px;
-  margin-bottom: 60px;
-  margin-top: 16rem;
+  margin-top:80px;
 
   @media only screen and (max-width: 768px) {
     width: 100%;
-    min-height: 80%;
-    margin-top: 4rem;
-    padding: 0 10px;
+    margin-bottom: 10px;
+    transform:none;
   }
 
   form {
+    
     background: #e9e9e985;
-    max-width: 100%;
+    width: 100%;
     width: fit-content;
     margin: auto;
     height: fit-content;
     margin-top: 20vh;
     backdrop-filter: blur(5px);
     padding: 2rem 3rem;
+    
 
     h4 {
       font-weight: 600;
@@ -51,11 +52,11 @@ const SearchRealtor = styled.div`
       gap: 2rem;
       width: 900px;
 
-      @media only screen and (max-width: 1190px) {
+      /* @media only screen and (max-width: 1190px) {
         flex-direction: column;
         input {
         }
-      }
+      } */
       @media (max-width: 768px) {
         padding: 2rem 0rem;
         gap: 3rem;
@@ -65,9 +66,6 @@ const SearchRealtor = styled.div`
 
     input {
       width: 25%;
-      @media only screen and (max-width: 1190px) {
-        width: 100%;
-      }
     }
 
     .selectWrapper {
@@ -86,7 +84,7 @@ const SearchRealtor = styled.div`
 
         @media (max-width: 768px) {
           width: 100%;
-          height: 60px;
+          height: 58px;
           background-color: #fff;
           -webkit-appearance: none;
           padding-left: 18px;
@@ -110,17 +108,10 @@ const SearchRealtor = styled.div`
       }
     }
 
-    @media only screen and (max-width: 1000px) {
-      width: 90%;
-      height: 40rem;
-      padding: 2rem;
-      text-align: center;
-      margin-top: 0;
-    }
     @media only screen and (max-width: 768px) {
-      width: calc(100% - 4rem);
-      max-width: 90%;
-      height: 136px;
+      /* width: calc(100% - 4rem); */
+      /* max-width: 90%; */
+      /* height: 20px; */
       input {
       }
       input,
@@ -142,27 +133,25 @@ const SearchRealtor = styled.div`
   .card {
     width: 100%;
     max-width: 910px;
-    /* margin: 0 auto; */
-    /* box-sizing: border-box; */
   }
 
   @media only screen and (max-width: 768px) {
     padding: 0 27px;
-    margin-top: 4rem;
+    margin-top: 2rem;
     .card {
       width: 100%;
-      height: 450px;
+      height: 420px;
       padding: 0 27px;
     }
   }
 `;
 
 const NovoCadastro = styled.div`
-  margin-top: -50px;
+  margin-top: -30px;
   text-align: center;
   height: auto;
-  /* padding: 0 37px; */
-  border-radius: 1.8rem;
+  border-radius: 1.2rem;
+  
 
   background: #e9e9e985;
 
@@ -174,16 +163,21 @@ const NovoCadastro = styled.div`
   h4 {
     font-weight: 600;
     margin-top: 0px;
+    font-size:12px;
   }
 
+
   @media only screen and (max-width: 768px) {
-    margin-top: 1em;
+    margin-top: 0px;
     border: solid 0.1rem var(--border-color);
     width: 80%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    h4{
+      font-size:16px;
+    }
   }
 
   .novo-botao {
@@ -230,22 +224,24 @@ export default function Home() {
 
   const onSubmit = async (data: SearchForm) => {
     const fetchData = async () => {
-      console.log(data.idSearch, "TEste 1")
       let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
-        url += "search=" + data.search;
+        url += "search=" + data.search + "&";
         setSearch(data.search);
+      } else {
+        setSearch("");
       }
 
       if (data.zipCode) {
-        url += "search=" + data.zipCode;
+        const capitalizedZipCode = data.zipCode.charAt(0).toUpperCase() + data.zipCode.slice(1);
+        url += "zipCode=" + capitalizedZipCode;
         setSearch(data.search);
       }
+
       await api
         .get(url)
         .then((response) => {
           setSearchResult(response.data);
-          localStorage.setItem('searchResult', JSON.stringify(response.data));
           router.push({
             pathname: "/search-result",
             query: { idSearch: data.idSearch },
@@ -323,6 +319,7 @@ export default function Home() {
           </Link>
         </h4>
       </NovoCadastro>
+      <Footer/>
       <InfoFooter home={true} />
     </>
   );
