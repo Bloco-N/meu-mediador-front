@@ -61,7 +61,7 @@ const Nav = styled.div<INavbar>`
     cursor: pointer;
     @media only screen and (max-width: 768px) {
       position: relative;
-      margin-left: ${(props) => (props.path == "/" ? "2rem" : "0")};
+      /* margin-left: ${(props) => (props.path == "/" ? "2rem" : "0")}; */
     }
   }
   .logo-area {
@@ -137,7 +137,9 @@ const Nav = styled.div<INavbar>`
     }
 
     @media only screen and (max-width: 900px) {
-      width: 80px;
+      width: 85px;
+      background-color: transparent;
+    border: none;
       margin-right: ${(props) => (props.path == "/" ? "28px" : "0")};
     }
 
@@ -164,9 +166,10 @@ const Nav = styled.div<INavbar>`
       background: inherit;
       width: calc(100% + 2px);
       border-radius: 0 0 1rem 1rem;
-      top: 100%;
+      top: 140%;
       left: -1px;
       border: solid 0.8px var(--border-color);
+      background-color: var(--surface);
       border-top-color: transparent;
       animation: fadeIn 0.3s;
       z-index: 1;
@@ -219,10 +222,14 @@ const Nav = styled.div<INavbar>`
     cursor: pointer;
     border-radius: 50%;
     object-fit: cover;
+    @media only screen and (max-width: 768px) {
+      margin-left: 12px;
+    }
   }
   @media only screen and (max-width: 768px) {
     padding: 0;
     height: 120px;
+    justify-content: space-between;
     .locale-area {
       display: none;
     }
@@ -266,7 +273,6 @@ const Nav = styled.div<INavbar>`
 
   .logo-full {
     position: relative;
-    border: 1px solid tomato;
     @media only screen and (max-width: 900px) {
       position: relative;
       margin-left: 13.3rem;
@@ -722,8 +728,19 @@ const Navbar = () => {
                 onMouseLeave={() => setOpen(false)}
                 className={open ? "login" : "login closed"}
                 // style={width > 768 ? {} : { width: 95 }}
-              >
+              > 
+                {
+                  width < 768 ? 
+                  <Image
+                    className="profile"
+                    src={profileIcon}
+                    alt={"Profile"}
+                    width={60}
+                    height={60}
+                  />:
                 <p>LOGIN</p>
+                }
+                
                 <LoginMoldal open={open} setOpen={setOpen} />
               </div>
             )}

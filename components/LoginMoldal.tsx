@@ -20,11 +20,22 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1rem;
+    padding: 1rem 2px;
     transition: all 0.5s;
     :hover {
       
     }
+
+    h2{
+      font-size: 16px;
+      width: 70px;
+      @media only screen and (max-width: 768px) {
+        font-size: 13px;
+        width: 50px;
+      }
+
+    }
+
     img {
       height: 2rem;
       width: auto;
@@ -51,15 +62,15 @@ const LoginMoldal = ({ open, setOpen }: LoginMoldalProps) => {
   return open ? (
     <Container onMouseEnter={() => setOpen(true)}>
       <Link href={"/sign-in/client"}>
-        <p onClick={handleClick}>{t.loginModal.client}</p>
+        <h2 onClick={handleClick}>{t.loginModal.client}</h2>
         <Image src={clientIcon} alt="realtor icon" />
       </Link>
       <Link href={"/sign-in/realtor"}>
-        <p onClick={handleClick}>{t.loginModal.realtor}</p>
+        <h2 onClick={handleClick}>{t.loginModal.realtor}</h2>
         <Image src={realtorIcon} alt="realtor icon" />
       </Link>
       <Link href={"/sign-in/agency"}>
-        <p onClick={handleClick}>{t.loginModal.agency}</p>
+        <h2 onClick={handleClick}>{t.loginModal.agency}</h2>
         <Image src={agencyIcon} alt="realtor icon" />
       </Link>
     </Container>

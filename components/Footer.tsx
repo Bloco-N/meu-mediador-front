@@ -61,9 +61,9 @@ const Footer = () => {
 
     const { user } = useContext(UserContext) as UserContextType
 
-    const [flag, setFlag] = useState('GB')
+    const [flag, setFlag] = useState('PT')
 
-    const [defaultLocale, setDefaultLocale] = useState('')
+    const [defaultLocale, setDefaultLocale] = useState('PT')
 
     const [pic, setPic] = useState('')
 
@@ -91,7 +91,7 @@ const Footer = () => {
       }else if(id){
         router.push(router.asPath, router.asPath, { locale })
       }
-
+      
     }, [])
 
     const changeLocation = (e:React.ChangeEvent<HTMLSelectElement>) => {

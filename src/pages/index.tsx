@@ -60,7 +60,7 @@ const SearchRealtor = styled.div`
       @media (max-width: 768px) {
         flex-direction: column;
         padding: 2rem 0rem;
-        gap: 3rem;
+        /* gap: 3rem; */
         width: 100%;
         input {
           width: 100%;
@@ -70,7 +70,7 @@ const SearchRealtor = styled.div`
 
     input {
       width: 25%;
-      height: 64px;
+      height: 58px;
     }
 
     .selectWrapper {
@@ -153,7 +153,7 @@ const SearchRealtor = styled.div`
     margin-top: 2rem;
     .card {
       width: 100%;
-      height: 420px;
+      height: 400px;
       padding: 0 27px;
     }
   }
