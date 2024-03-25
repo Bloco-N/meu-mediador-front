@@ -57,7 +57,7 @@ const Nav = styled.div<INavbar>`
   height: 100px;
   .img-absolute {
     position: absolute;
-    margin-left: 1.5rem;
+    margin-left: 2rem;
     cursor: pointer;
     @media only screen and (max-width: 768px) {
       position: relative;
@@ -132,6 +132,7 @@ const Nav = styled.div<INavbar>`
     border-radius: 1rem;
     transition: all 0.5s, border-radius 0s;
     z-index: 2;
+    
     &:has(div) {
       border-radius: 1rem 1rem 0 0;
     }
@@ -141,6 +142,7 @@ const Nav = styled.div<INavbar>`
       background-color: transparent;
     border: none;
       margin-right: ${(props) => (props.path == "/" ? "28px" : "0")};
+      align-items: ${(props) => (props.path == "/" ? "end" : "center")};
     }
 
     p {
@@ -166,7 +168,7 @@ const Nav = styled.div<INavbar>`
       background: inherit;
       width: calc(100% + 2px);
       border-radius: 0 0 1rem 1rem;
-      top: 140%;
+      top: 99%;
       left: -1px;
       border: solid 0.8px var(--border-color);
       background-color: var(--surface);
@@ -194,6 +196,12 @@ const Nav = styled.div<INavbar>`
       }
       a p {
         font-size: 1.8rem;
+      }
+      
+      @media only screen and (max-width: 768px) {
+        top: 140%;
+        left: ${(props) => (props.path == "/" ? "1px" : "-13px")};
+        margin-left:10px;
       }
     }
 
@@ -223,7 +231,7 @@ const Nav = styled.div<INavbar>`
     border-radius: 50%;
     object-fit: cover;
     @media only screen and (max-width: 768px) {
-      margin-left: 12px;
+      margin-right: 13px;
     }
   }
   @media only screen and (max-width: 768px) {
@@ -344,7 +352,7 @@ const SearchRealtor = styled.div`
         padding-left: 6px;
 
         @media only screen and (max-width: 1100px) {
-          height: 25px;
+          height: 28px;
           padding: 0 5px;
           font-size: 16px;
           width: 175px;
@@ -396,9 +404,11 @@ const SearchRealtor = styled.div`
       .search-row {
         .input-city-cep {
           width: 175px;
+          height: 28px;
         }
         .input-realtor {
           width: 175px;
+          height: 28px;
         }
         .searchButton {
           width: 160px;
@@ -726,6 +736,7 @@ const Navbar = () => {
               <div
                 onMouseEnter={() => setOpen(true)}
                 onMouseLeave={() => setOpen(false)}
+                onClick={() => setOpen(!open)}
                 className={open ? "login" : "login closed"}
                 // style={width > 768 ? {} : { width: 95 }}
               > 

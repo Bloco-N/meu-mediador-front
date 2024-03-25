@@ -70,7 +70,7 @@ const SearchRealtor = styled.div`
 
     input {
       width: 25%;
-      height: 58px;
+      height: 60px;
     }
 
     .selectWrapper {
@@ -84,9 +84,9 @@ const SearchRealtor = styled.div`
       }
 
       select {
-        padding-left: 20px;
+        padding-left: 10px;
         appearance: none;
-
+        height: 60px;
         @media (max-width: 768px) {
           width: 100%;
           height: 58px;
@@ -167,6 +167,7 @@ const NovoCadastro = styled.div`
   height: fit-content;
   backdrop-filter: blur(5px);
   padding: 1rem 3rem;
+  margin-top: 10px;
 
   h4 {
     font-weight: 600;
@@ -175,7 +176,7 @@ const NovoCadastro = styled.div`
   }
 
   @media only screen and (max-width: 1400px) {
-    margin-top: -30px;
+    margin-top: -35px;
     h4 {
       font-size: 12px;
     }

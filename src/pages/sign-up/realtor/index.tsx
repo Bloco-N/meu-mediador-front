@@ -56,6 +56,12 @@ const SignUpContainer = styled.div`
     span {
       text-align: center;
     }
+    input {
+      height: 60px;
+      @media (max-width: 768px) {
+        height: 50px;
+      }
+    }
   }
 
   @media (max-width: 768px) {

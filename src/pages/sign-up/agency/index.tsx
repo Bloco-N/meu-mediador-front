@@ -19,7 +19,7 @@ const SignUpContainer = styled.div`
   align-items: start;
   justify-content: center;
   margin-top: 40px;
-  
+
   form {
     @media only screen and (max-width: 900px) {
       width: 60%;
@@ -36,6 +36,12 @@ const SignUpContainer = styled.div`
     gap: 2.5rem;
     @media (max-width: 769px) {
       height: 65rem;
+    }
+    input {
+      height: 60px;
+      @media (max-width: 768px) {
+        height: 50px;
+      }
     }
     .full-name {
       display: flex;
@@ -119,9 +125,9 @@ const SignUp = () => {
       const urlFetchGoogle = "/agency/sign-up/google";
 
       if (!session) {
-        if(data?.password != data?.confirmPassword){
-          return toast.info('Senhas divergentes!')
-        } 
+        if (data?.password != data?.confirmPassword) {
+          return toast.info("Senhas divergentes!");
+        }
         const { confirmPassword, ...bodyData } = data as SignUpFormAgency;
         body = bodyData;
       }
@@ -134,31 +140,30 @@ const SignUp = () => {
             router.push("/sign-in/agency");
           } else {
             if (response.status === 400) {
-              if(response.data.data== "name"){
-                setAgencyExist(true)
-              }else if(response.data.data == "email"){
-                setUserExist(true)
-              }else{
-                toast.error("Nome da agência e email ja cadastrados")
+              if (response.data.data == "name") {
+                setAgencyExist(true);
+              } else if (response.data.data == "email") {
+                setUserExist(true);
+              } else {
+                toast.error("Nome da agência e email ja cadastrados");
               }
             }
           }
         })
         .catch((error) => {
           if (error.response.status == 400) {
-              if(error.response.data == "name"){
-               return setAgencyExist(true)
-              }else if(error.response.data == "email"){
-                return setUserExist(true)
-              }else{
-                setAgencyExist(true)
-                setUserExist(true)
-              }
-            
+            if (error.response.data == "name") {
+              return setAgencyExist(true);
+            } else if (error.response.data == "email") {
+              return setUserExist(true);
+            } else {
+              setAgencyExist(true);
+              setUserExist(true);
+            }
           }
 
           if (error.response.status == 500) {
-            return toast.info('Senhas divergentes!')
+            return toast.info("Senhas divergentes!");
           }
         });
     };

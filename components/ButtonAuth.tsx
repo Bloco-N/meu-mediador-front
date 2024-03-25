@@ -7,7 +7,7 @@ const GoogleButton = styled.button`
   background-color: #FFFF;
   color: #000000;
   padding: 1em 1em;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   border: none;
   border-radius: 7px;
   cursor: pointer;
@@ -20,6 +20,9 @@ const GoogleButton = styled.button`
 
   @media screen and (max-width: 400px) {
     width: 60%;
+  }
+  @media screen and (max-width: 1400px) {
+    width: 70%;
   }
 `;
 

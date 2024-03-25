@@ -41,6 +41,7 @@ const FooterStyle = styled.div`
     .locale{
       position: relative;
       width: 40px;
+      max-height: 60px;
       height: 100%;
       background-color: #fff;
       border: none;
