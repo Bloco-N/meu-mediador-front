@@ -190,15 +190,6 @@ export default function Profile() {
 
   return (
     <Container>
-      {accType == "realtor" && sessionProfile ? (
-        <div className="divButton">
-          <TrashButton
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          />
-        </div>
-      ) : null}
 
       {client ? (
         <MainInfoClient userSigned={client as ClientProfile} isProfile={true} />

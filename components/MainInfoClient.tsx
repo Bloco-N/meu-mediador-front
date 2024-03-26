@@ -19,9 +19,12 @@ import locales from "locales";
 import api from "@/services/api";
 import { toast } from "react-toastify";
 import { error } from "console";
+import TrashButton from "./DeleteButton";
 
 type ContainerProps = {
   isProfile: boolean;
+  locale: string;
+  editing: boolean;
 };
 
 const Container = styled.div<ContainerProps>`
@@ -32,7 +35,18 @@ const Container = styled.div<ContainerProps>`
     min-height: ${(porps) => (porps.isProfile ? "60rem" : "40rem")};
     height: auto;
   }
+
+  .divButton {
+    /* z-index: 1; */
+    @media only screen and (max-width: 768px) {
+      position: absolute;
+      top: -1%;
+      /* padding-bottom: 200px; */
+    }
+  }
+
   .main-info {
+    position: relative;
     display: flex;
     align-items: center;
     background-color: var(--surface);
@@ -67,17 +81,19 @@ const Container = styled.div<ContainerProps>`
       flex-direction: column;
     }
     .sub-content {
+      width: 100%;
       @media only screen and (max-width: 900px) {
         flex-direction: column;
         gap: 2rem;
         margin-top: unset;
-        margin-left: unset; 
+        margin-left: unset;
       }
 
       .form {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 5px;
+        width: 100%;
         @media only screen and (max-width: 900px) {
           justify-content: center;
           align-items: center;
@@ -104,6 +120,11 @@ const Container = styled.div<ContainerProps>`
           padding: 5px;
           margin-top: 10px;
         }
+        .li-mail {
+          .title{
+            width: 280px;
+          }
+        }
       }
 
       @media (width < 768px) {
@@ -116,7 +137,7 @@ const Container = styled.div<ContainerProps>`
         .form {
           li {
             width: 100%;
-            height: 25px;
+            height: 30px;
             align-items: center;
             justify-content: space-between;
             gap: 10px;
@@ -127,20 +148,46 @@ const Container = styled.div<ContainerProps>`
             input {
               height: 100%;
               padding: 0.5rem 10px;
-              width: 200px;
+              width: 100%;
             }
+          }
+          .li-nfi {
+            display: flex;
+            flex-direction: ${(porps) => (porps.editing ? "column" : "row")};
+            div {
+              width: 100%;
+              display: flex;
+              justify-content: space-around;
+            }
+          }
+          .li-mail {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            margin-bottom: 2em;
+            .title{
+              width: 100%;
+            }
+          }
+          button {
+            margin-top: ${(porps) => (porps.editing ? "50px" : "10px")};
           }
         }
       }
     }
 
     .contact {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       .icon {
         height: 2rem;
         width: 2rem;
         cursor: pointer;
         opacity: 0.7;
         transition: all 0.5s;
+        margin-left: 2em;
         :hover {
           opacity: 1;
         }
@@ -158,25 +205,15 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
   const { user, setUser } = useContext(UserContext) as UserContextType;
 
   const [editing, setEditing] = useState(false);
-
   const [firstName, setFirstName] = useState(userSigned?.firstName);
-
   const [lastName, setLastName] = useState(userSigned?.lastName);
-
   const [phone, setPhone] = useState(userSigned?.phone);
-
   const [address, setAddress] = useState(userSigned?.address);
-
   const [city, setCity] = useState(userSigned?.city);
-
   const [country, setCountry] = useState(userSigned?.country);
-
   const [zipCode, setZipCode] = useState(userSigned?.zipCode);
-
   const [nif_passport, setNifPassport] = useState(userSigned?.nif_passport);
-
   const [choiceNif, setChoiceNif] = useState(userSigned?.choiceNif);
-
   const [nifInvalido, setNifInvalido] = useState(false);
 
   const { setOpen: setLoadingOpen } = useContext(
@@ -187,6 +224,7 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
   const router = useRouter();
 
   const locale = router.locale;
+  console.log(locale, "PEdrooooo");
 
   const t = locales[locale as keyof typeof locales];
 
@@ -251,11 +289,12 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
       nifValidado = validateNIF(nif_passport);
       if (nifValidado != null) {
         setNifInvalido(!nifValidado);
+        setLoadingOpen(false);
+        return
       }
       setEditing(!editing);
     }
-
-    if (nifValidado || nifValidado == null) {
+    if (nifValidado) {
       await api
         .put("/client", {
           firstName,
@@ -331,7 +370,7 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
   }
 
   return (
-    <Container isProfile={isProfile}>
+    <Container isProfile={isProfile} editing={editing} locale={String(locale)}>
       <div className="main-info border">
         <Image
           // width={80}
@@ -342,12 +381,12 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
         />
         <div className="sub-content">
           <form className="form">
-            <li>
+            <li className="li-mail">
               <label>
-                <h3>{t.signIn.email}:</h3>{" "}
+                <h3 className="title">{t.signIn.email}:</h3>{" "}
               </label>
-              <h3>{userSigned?.email}</h3>
               <div className="contact">
+              <h3>{userSigned?.email}</h3>
                 {userSigned?.email ? (
                   <Link href={"mailto: " + userSigned.email} target="_blank">
                     <Image className="icon" src={mailIcon} alt="mail icon" />
@@ -355,6 +394,13 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
                 ) : (
                   ""
                 )}
+                <div className="divButton">
+                  <TrashButton
+                    onClick={() => {
+                      // setModalOpen(true);
+                    }}
+                  />
+                </div>
               </div>
             </li>
             <li>
@@ -460,7 +506,7 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
               )}
             </li>
 
-            <li>
+            <li className="li-nfi">
               {editing ? (
                 <>
                   <div

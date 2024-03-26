@@ -131,7 +131,7 @@ const Nav = styled.div<INavbar>`
     text-align: center;
     border-radius: 1rem;
     transition: all 0.5s, border-radius 0s;
-    z-index: 2;
+    z-index: 9999;
     
     &:has(div) {
       border-radius: 1rem 1rem 0 0;
@@ -140,8 +140,8 @@ const Nav = styled.div<INavbar>`
     @media only screen and (max-width: 900px) {
       width: 85px;
       background-color: transparent;
-    border: none;
-      margin-right: ${(props) => (props.path == "/" ? "28px" : "0")};
+      border: none;
+      margin-right: ${(props) => (props.path == "/" ? "14px" : "0")};
       align-items: ${(props) => (props.path == "/" ? "end" : "center")};
     }
 
@@ -174,7 +174,7 @@ const Nav = styled.div<INavbar>`
       background-color: var(--surface);
       border-top-color: transparent;
       animation: fadeIn 0.3s;
-      z-index: 1;
+      z-index: 9999;
 
       a {
         display: flex;
@@ -200,7 +200,7 @@ const Nav = styled.div<INavbar>`
       
       @media only screen and (max-width: 768px) {
         top: 140%;
-        left: ${(props) => (props.path == "/" ? "1px" : "-13px")};
+        left: ${(props) => (props.path == "/" ? "-10px" : "-13px")};
         margin-left:10px;
       }
     }
@@ -232,6 +232,8 @@ const Nav = styled.div<INavbar>`
     object-fit: cover;
     @media only screen and (max-width: 768px) {
       margin-right: 13px;
+      width: 55px;
+      height: 55px;
     }
   }
   @media only screen and (max-width: 768px) {
