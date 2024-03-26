@@ -37,11 +37,9 @@ const Container = styled.div<ContainerProps>`
   }
 
   .divButton {
-    /* z-index: 1; */
     @media only screen and (max-width: 768px) {
       position: absolute;
-      top: -1%;
-      /* padding-bottom: 200px; */
+      top: -2% !important;
     }
   }
 
@@ -131,7 +129,7 @@ const Container = styled.div<ContainerProps>`
         label,
         p,
         h3 {
-          font-size: 16px;
+          font-size: 18px;
         }
 
         .form {
@@ -150,6 +148,9 @@ const Container = styled.div<ContainerProps>`
               padding: 0.5rem 10px;
               width: 100%;
             }
+          }
+          label{
+            font-size: 18px;
           }
           .li-nfi {
             display: flex;

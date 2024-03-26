@@ -7,6 +7,7 @@ import UserContext from "context/UserContext";
 import ProfileMoldal from "./ProfileMoldal";
 import { UserContextType } from "@/types/UserContextType";
 import profileIcon from "../public/profile.svg";
+import iconIsLogad from "../public/user.svg";
 import { useRouter } from "next/router";
 import { SearchForm } from "@/types/SearchForm";
 import { useForm } from "react-hook-form";
@@ -440,6 +441,9 @@ const Navbar = () => {
   const [pic, setPic] = useState("");
 
   const router = useRouter();
+  const isLogad = localStorage.getItem("id")
+  console.log(isLogad, "Goiaba")
+  const perfilImage = isLogad ?  iconIsLogad : profileIcon
 
   let showSearchBar = router.pathname !== "/" ? true : false;
 
@@ -729,7 +733,7 @@ const Navbar = () => {
               <Image
                 onClick={() => setOpenProfile(!openProfile)}
                 className="profile"
-                src={pic ? pic : profileIcon}
+                src={pic ? pic : perfilImage}
                 alt={"Profile"}
                 width={60}
                 height={60}
@@ -746,10 +750,11 @@ const Navbar = () => {
                   width < 768 ? 
                   <Image
                     className="profile"
-                    src={profileIcon}
+                    src={pic ? pic : perfilImage}
                     alt={"Profile"}
                     width={60}
                     height={60}
+                    color="#f00"
                   />:
                 <p>LOGIN</p>
                 }

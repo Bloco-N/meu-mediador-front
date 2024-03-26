@@ -22,7 +22,7 @@ const Container = styled.div`
   flex-direction: column;
   position: absolute;
   top: 10rem;
-  right: 5rem;
+  right: 1rem;
   text-align: center;
   z-index: 2;
   background-color: var(--surface);
@@ -103,10 +103,8 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
 
     open ?
     <Container className='card modalProfile'>
-
       <Link onClick={() => setOpen(false)} href={`/profile/` + accType + '/' + id}>{t.profileModal.profile}</Link>
       <p onClick={signOut} className='out'>{t.profileModal.signOut}</p>
-
     </Container>
     : <></>
   );
