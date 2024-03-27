@@ -733,7 +733,7 @@ const Navbar = () => {
               <Image
                 onClick={() => setOpenProfile(!openProfile)}
                 className="profile"
-                src={pic ? pic : perfilImage}
+                src={pic ? pic : iconIsLogad}
                 alt={"Profile"}
                 width={60}
                 height={60}
@@ -750,7 +750,7 @@ const Navbar = () => {
                   width < 768 ? 
                   <Image
                     className="profile"
-                    src={pic ? pic : perfilImage}
+                    src={pic ? pic : iconIsLogad}
                     alt={"Profile"}
                     width={60}
                     height={60}
