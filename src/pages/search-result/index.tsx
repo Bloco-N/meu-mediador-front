@@ -10,14 +10,14 @@ import InfoFooter from "components/InfoFooter"
 import { useRouter } from "next/router"
 
 const Container = styled.div`
-  height: 100%;
+  height: 100%; 
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   overflow-x: hidden;
-  margin-top: 80px;
+  padding-top: 80px;
 
   .list{
     height: 80%;
@@ -29,7 +29,7 @@ const Container = styled.div`
     gap: 2rem;
 
     &:last-child {
-      margin-bottom: 390px;
+      /* margin-bottom: 390px; */
     }
     .pagination {
       margin: 0 auto;
@@ -58,6 +58,7 @@ const Container = styled.div`
   @media (max-width: 768px) {
    font-size: 1.6rem;
    position: relative;
+   padding-top: 40px;
 
    .list {
     padding: 0 38px; 
