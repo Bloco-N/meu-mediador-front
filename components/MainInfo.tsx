@@ -376,10 +376,10 @@ const MainInfo = ({
 
   const t = locales[locale as keyof typeof locales];
 
-  const userCitis = userSigned.RealtorCities
-    ? userSigned.RealtorCities
-    : userSigned.AgencyCities;
-  const userLanguage = userSigned.RealtorLanguages
+  const userCitis = userSigned?.RealtorCities
+    ? userSigned?.RealtorCities
+    : userSigned?.AgencyCities;
+  const userLanguage = userSigned?.RealtorLanguages
     ? userSigned?.RealtorLanguages
     : userSigned?.AgencyLanguages;
   useEffect(() => {
@@ -594,7 +594,7 @@ const MainInfo = ({
             </div>
           </div>
           <div className="icon-agency">
-            {userSigned.RealtorCities && (
+            {userSigned?.RealtorCities && (
               <Link href={"/profile/agency/" + lastExp?.agencyId}>
                 <div className="current-agency border" onClick={goAgency}>
                   {truncatedName}
