@@ -283,7 +283,7 @@ const Container = styled.div<ContainerProps>`
       text-align: center;
       min-width: 100%;
     }
-    .popup{
+    .popup {
       position: unset;
       border: 1px solid tomato;
       z-index: 40;

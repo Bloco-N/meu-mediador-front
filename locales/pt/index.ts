@@ -186,7 +186,7 @@ const pt = {
   },
   clientProfile: {
     adress: "Morada",
-    city: "Concelho/Cidade",
+    city: "Conselho",
     country: "País",
     zipCode: "Código Postal",
     nif: "NIF",
