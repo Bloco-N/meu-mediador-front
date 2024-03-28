@@ -124,6 +124,7 @@ const PopupBody = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
   }
 
   @media (max-width: 768px) {
@@ -136,6 +137,8 @@ const Button = styled.b`
   position: relative;
   text-decoration: none;
   display: inline-block;
+  margin-right: 3px;
+  border: 1px solid toamto;
 
   &:after {
     content: '';

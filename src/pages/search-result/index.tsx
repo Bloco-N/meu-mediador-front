@@ -37,7 +37,7 @@ const Container = styled.div`
         padding-bottom: 30px; 
       }
     }
-    a{
+    .teste{
       width: 95%;
       .card{
         height: 100%;
@@ -75,6 +75,7 @@ export default function SearchResult(){
   const { searchResult, setSearchResult } = useContext(SearchContext) as SearchResultContextType;
   const { query } = useRouter();
   const idSearch = query.idSearch;
+  const router = useRouter();
 
   // useEffect(() => {
   //   console.log(searchResult)
@@ -89,13 +90,13 @@ export default function SearchResult(){
     <Container>
       <div className="list">
         {searchResult?.list?.map(item => (
-          <Link href={`/profile/${Number(idSearch) == 1 ? "realtor/" : "agency/"}` + item.id} key={item.id }>
+          <div className="teste" onClick={() => router.push(`/profile/${Number(idSearch) == 1 ? "realtor/" : "agency/"}${item.id}`)} key={item.id}>
             <MainInfo lastExp={{
               name: item.agencyName,
               pic: item.agencyPic,
               agencyId: item.agencyName
             }} isRealtor={true} userSigned={item} isProfile={false} pdfPage={false}/>
-          </Link>
+          </div>
         ))}
         <div className="pagination">
           <Pagination currentPage={searchResult.currentPage} totalOfPages={searchResult.totalOfPages}/>

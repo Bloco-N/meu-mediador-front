@@ -19,14 +19,12 @@ const InfoFooterDiv = styled.div`
   margin-top: auto;
   display: flex;
   justify-content: space-between;
-  a{
-  }
   .div-ajuda {
     width: 98%;
     padding: 0px 10px;
     display: flex;
-    justify-content: space-between; /* Alteração aqui */
-    align-items: center; /* Alteração aqui */
+    justify-content: space-between;
+    align-items: center;
   }
   .fonte {
     font-weight: bolder !important;

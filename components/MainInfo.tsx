@@ -33,7 +33,7 @@ type ContainerProps = {
 };
 
 import SimplePopup from "./Popup";
-import PopupClose from './PopupAviso'
+import PopupClose from "./PopupAviso";
 
 const Container = styled.div<ContainerProps>`
   position: relative;
@@ -105,7 +105,7 @@ const Container = styled.div<ContainerProps>`
       margin-left: ${(props) => (props.isProfile ? "2rem" : "2rem")};
       display: flex;
       gap: 1rem;
-      justify-content:${(props) => (props.isProfile ? "" : "space-between")}; ;
+      justify-content: ${(props) => (props.isProfile ? "" : "space-between")};
       width: 100%;
       @media only screen and (max-width: 900px) {
         flex-direction: column;
@@ -125,7 +125,7 @@ const Container = styled.div<ContainerProps>`
       max-width: 300px;
       flex-wrap: wrap;
       color: var(--surface-2);
-
+      text-align: center;
       h1 {
         font-size: 28px;
       }
@@ -171,22 +171,21 @@ const Container = styled.div<ContainerProps>`
         text-decoration: underline;
       }
 
-      .cities{
+      .cities {
         width: 100%;
         display: flex;
         font-size: 14px;
         flex-wrap: wrap;
-        span{
+        span {
           margin-right: 5px;
           margin-left: 1px;
           font-size: 15px;
-
         }
         @media only screen and (max-width: 900px) {
-        position: unset;
-        bottom: 8rem;
-        justify-content: center;
-      }
+          position: unset;
+          bottom: 8rem;
+          justify-content: center;
+        }
       }
     }
     .contact {
@@ -217,7 +216,7 @@ const Container = styled.div<ContainerProps>`
           opacity: 1;
         }
       }
-      .icon-facebook{
+      .icon-facebook {
         height: 3.5rem;
         width: 3.5rem;
         cursor: pointer;
@@ -284,6 +283,11 @@ const Container = styled.div<ContainerProps>`
       text-align: center;
       min-width: 100%;
     }
+    .popup{
+      position: unset;
+      border: 1px solid tomato;
+      z-index: 40;
+    }
   }
 
   .icon-agency {
@@ -291,7 +295,6 @@ const Container = styled.div<ContainerProps>`
     align-items: center;
     justify-content: center;
     white-space: nowrap;
-    
 
     a {
       display: flex;
@@ -331,7 +334,7 @@ const ToolTipContainer = styled.div<ToolTipContainerProps>`
 `;
 
 type MainInfoProps = {
-  userSigned: RealtorProfile;
+  userSigned: any;
   isProfile: boolean;
   lastExp?: LastExp;
   isRealtor: boolean;
@@ -373,8 +376,12 @@ const MainInfo = ({
 
   const t = locales[locale as keyof typeof locales];
 
-  const userCitis = userSigned.RealtorCities ? userSigned.RealtorCities : userSigned.AgencyCities
-  const userLanguage = userSigned.RealtorLanguages? userSigned?.RealtorLanguages : userSigned?.AgencyLanguages
+  const userCitis = userSigned.RealtorCities
+    ? userSigned.RealtorCities
+    : userSigned.AgencyCities;
+  const userLanguage = userSigned.RealtorLanguages
+    ? userSigned?.RealtorLanguages
+    : userSigned?.AgencyLanguages;
   useEffect(() => {
     const localId = localStorage.getItem("id");
     const accounType = localStorage.getItem("accountType");
@@ -410,7 +417,7 @@ const MainInfo = ({
   };
 
   function printCities() {
-    const cities = userCitis.map((city) => city.City.name);
+    const cities = userCitis.map((city: any) => city.City.name);
     if (window.innerWidth < 768) {
       return cities.length > 0 ? ` ${cities[0]}` : "-";
     } else {
@@ -453,7 +460,11 @@ const MainInfo = ({
   }, []);
 
   const maxLength = 15;
-  const truncatedName = lastExp?.name ? (lastExp.name.length > maxLength ? lastExp.name.slice(0, maxLength) + '...' : lastExp.name) : '';
+  const truncatedName = lastExp?.name
+    ? lastExp.name.length > maxLength
+      ? lastExp.name.slice(0, maxLength) + "..."
+      : lastExp.name
+    : "";
   return (
     <Container isProfile={isProfile}>
       {/* <button data-tippy-content="Tooltip">Text</button> */}
@@ -535,15 +546,18 @@ const MainInfo = ({
               <>
                 <div className="tt"></div>
                 <div className="cities">
-                  <b style={{marginRight: "5px"}}>{t.mainInfo.workArea}</b>
-                  
+                  <b style={{ marginRight: "5px" }}>{t.mainInfo.workArea}</b>
+
                   <span>{printCities()}</span>
                   {userCitis.length > 3 ? (
-                      <>
+                    <>
                       <span> e outras </span>
-                      <SimplePopup qtdeCitys={userCitis.length - 2} cities={userCitis}/>
+                      <SimplePopup
+                        qtdeCitys={userCitis.length - 2}
+                        cities={userCitis}
+                      />
                       <span>cidades</span>
-                      </>
+                    </>
                   ) : (
                     ""
                   )}
@@ -551,24 +565,22 @@ const MainInfo = ({
               </>
             )}
             <p>
-              <b>{t.mainInfo.experience}</b> {userSigned?.expTime} { userSigned?.expTime? "Anos" : "-"}
+              <b>{t.mainInfo.experience}</b> {userSigned?.expTime}{" "}
+              {userSigned?.expTime ? "Anos" : "-"}
             </p>
             <p>
               <b>{t.mainInfo.languages}</b>
-              {userLanguage?.length > 0 ? 
-              userLanguage?.map(
-                (language, index) =>
-                  ` ${language.Language.name} ${
-                    index < userLanguage?.length - 1 ? "," : ""
-                  } `
-              )
-                :
-              " -"
-            }
+              {userLanguage?.length > 0
+                ? userLanguage?.map(
+                    (language: any, index: any) =>
+                      ` ${language.Language.name} ${
+                        index < userLanguage?.length - 1 ? "," : ""
+                      } `
+                  )
+                : " -"}
             </p>
             <p>{userSigned?.email}</p>
             <p>{userSigned?.phone}</p>
-
           </div>
           <div className="about-3">
             <p>
@@ -577,7 +589,9 @@ const MainInfo = ({
             <p>
               <b>{t.mainInfo.accompaniedBuyers}</b> 0
             </p>
-            <PopupClose/>
+            <div className="cities">
+              <PopupClose />
+            </div>
           </div>
           <div className="icon-agency">
             {userSigned.RealtorCities && (
