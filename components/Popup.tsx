@@ -7,6 +7,7 @@ interface IPopup {
 }
 
 export default function SimplePopup({ qtdeCitys, cities }: IPopup) {
+  console.log(cities, qtdeCitys, "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
   const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
   const [position, setPosition] = React.useState({ top: 0, left: 0 });

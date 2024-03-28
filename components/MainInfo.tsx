@@ -345,7 +345,6 @@ const MainInfo = ({
   isRealtor,
   pdfPage,
 }: MainInfoProps) => {
-  console.log(userSigned)
   const { setData } = useContext(
     PictureModalContext
   ) as PictureModalContextType;
@@ -374,6 +373,8 @@ const MainInfo = ({
 
   const t = locales[locale as keyof typeof locales];
 
+  const userCitis = userSigned.RealtorCities ? userSigned.RealtorCities : userSigned.AgencyCities
+  const userLanguage = userSigned.RealtorLanguages? userSigned?.RealtorLanguages : userSigned?.AgencyLanguages
   useEffect(() => {
     const localId = localStorage.getItem("id");
     const accounType = localStorage.getItem("accountType");
@@ -409,7 +410,7 @@ const MainInfo = ({
   };
 
   function printCities() {
-    const cities = userSigned.RealtorCities.map((city) => city.City.name);
+    const cities = userCitis.map((city) => city.City.name);
     if (window.innerWidth < 768) {
       return cities.length > 0 ? ` ${cities[0]}` : "-";
     } else {
@@ -530,17 +531,17 @@ const MainInfo = ({
             )}
           </div>
           <div className="about-2">
-            {userSigned?.RealtorCities && (
+            {userCitis && (
               <>
                 <div className="tt"></div>
                 <div className="cities">
                   <b style={{marginRight: "5px"}}>{t.mainInfo.workArea}</b>
                   
                   <span>{printCities()}</span>
-                  {userSigned.RealtorCities.length > 3 ? (
+                  {userCitis.length > 3 ? (
                       <>
                       <span> e outras </span>
-                      <SimplePopup qtdeCitys={userSigned.RealtorCities.length - 2} cities={userSigned.RealtorCities}/>
+                      <SimplePopup qtdeCitys={userCitis.length - 2} cities={userCitis}/>
                       <span>cidades</span>
                       </>
                   ) : (
@@ -554,11 +555,11 @@ const MainInfo = ({
             </p>
             <p>
               <b>{t.mainInfo.languages}</b>
-              {userSigned?.RealtorLanguages?.length > 0 ? 
-              userSigned?.RealtorLanguages?.map(
+              {userLanguage?.length > 0 ? 
+              userLanguage?.map(
                 (language, index) =>
                   ` ${language.Language.name} ${
-                    index < userSigned.RealtorLanguages.length - 1 ? "," : ""
+                    index < userLanguage?.length - 1 ? "," : ""
                   } `
               )
                 :
@@ -579,7 +580,7 @@ const MainInfo = ({
             <PopupClose/>
           </div>
           <div className="icon-agency">
-            {isRealtor && (
+            {userSigned.RealtorCities && (
               <Link href={"/profile/agency/" + lastExp?.agencyId}>
                 <div className="current-agency border" onClick={goAgency}>
                   {truncatedName}

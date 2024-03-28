@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-
+import infoCircler from '../public/info.svg'
 interface IPopup {
   qtdeCitys: number;
   cities: any;
@@ -39,7 +39,7 @@ export default function PopupClose() {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        ?
+        <img src={infoCircler.src} alt="" width={30}/>
       </Button>
       {open && (
         <StyledPopup
@@ -65,15 +65,12 @@ export default function PopupClose() {
 
 const PopupBody = styled.div`
   width: max-content;
-  /* min-width: 200px; */
   height: 45%;
   padding: 10px;
   border-radius: 5px;
   background-color: #d3d2d2;
   font-size: 0.875rem;
-  z-index: 5;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  list-style-type: none;
+  z-index: 99999;
   gap: 3px;
   position: absolute;
   display: flex;
@@ -119,14 +116,9 @@ const Button = styled.b`
     content: '';
     position: absolute;
     left: 0;
-    bottom: -3px; /* Ajuste conforme necessário */
+    bottom: -3px;
     width: 100%;
-    height: 1px;
-    background-color: black; /* Cor da linha */
-  }
-
-  &:hover:after {
-    background-color: black /* Cor da linha quando passar o mouse */
+    height: 1px
   }
 
   &:hover {

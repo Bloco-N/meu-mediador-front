@@ -463,7 +463,6 @@ const Navbar = () => {
 
   const router = useRouter();
   const isLogad = localStorage.getItem("id");
-  console.log(isLogad, "Goiaba");
   const perfilImage = isLogad ? iconIsLogad : profileIcon;
 
   let showSearchBar = router.pathname !== "/" ? true : false;
