@@ -84,6 +84,7 @@ const SearchRealtor = styled.div`
       }
 
       select {
+        padding: 0 18px;
         padding-left: 10px;
         appearance: none;
         height: 60px;

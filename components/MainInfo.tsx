@@ -33,6 +33,7 @@ type ContainerProps = {
 };
 
 import SimplePopup from "./Popup";
+import PopupClose from './PopupAviso'
 
 const Container = styled.div<ContainerProps>`
   position: relative;
@@ -177,7 +178,7 @@ const Container = styled.div<ContainerProps>`
         flex-wrap: wrap;
         span{
           margin-right: 5px;
-          margin-left: 5px;
+          margin-left: 1px;
           font-size: 15px;
 
         }
@@ -344,6 +345,7 @@ const MainInfo = ({
   isRealtor,
   pdfPage,
 }: MainInfoProps) => {
+  console.log(userSigned)
   const { setData } = useContext(
     PictureModalContext
   ) as PictureModalContextType;
@@ -409,14 +411,14 @@ const MainInfo = ({
   function printCities() {
     const cities = userSigned.RealtorCities.map((city) => city.City.name);
     if (window.innerWidth < 768) {
-      return cities.length > 0 ? ` ${cities[0]}` : "Ainda não adicionou cidades";
+      return cities.length > 0 ? ` ${cities[0]}` : "-";
     } else {
       if (cities.length > 3) return ` ${cities[0]}, ${cities[1]}`;
       if (cities.length === 3)
         return ` ${cities[0]}, ${cities[1]} e ${cities[2]}`;
       if (cities.length === 2) return ` ${cities[0]} e ${cities[1]}`;
       if (cities.length === 1) return ` ${cities[0]}`;
-      return "Ainda não adicionou cidades";
+      return "-";
     }
   }
 
@@ -449,6 +451,8 @@ const MainInfo = ({
     };
   }, []);
 
+  const maxLength = 15;
+  const truncatedName = lastExp?.name ? (lastExp.name.length > maxLength ? lastExp.name.slice(0, maxLength) + '...' : lastExp.name) : '';
   return (
     <Container isProfile={isProfile}>
       {/* <button data-tippy-content="Tooltip">Text</button> */}
@@ -546,34 +550,24 @@ const MainInfo = ({
               </>
             )}
             <p>
-              <b>{t.mainInfo.experience}</b> {userSigned?.expTime} Anos
+              <b>{t.mainInfo.experience}</b> {userSigned?.expTime} { userSigned?.expTime? "Anos" : "-"}
             </p>
             <p>
               <b>{t.mainInfo.languages}</b>
-              {userSigned?.RealtorLanguages?.map(
+              {userSigned?.RealtorLanguages?.length > 0 ? 
+              userSigned?.RealtorLanguages?.map(
                 (language, index) =>
                   ` ${language.Language.name} ${
                     index < userSigned.RealtorLanguages.length - 1 ? "," : ""
                   } `
-              )}
+              )
+                :
+              " -"
+            }
             </p>
             <p>{userSigned?.email}</p>
             <p>{userSigned?.phone}</p>
 
-            {/* <div className="bottom">
-            <div className="bottom-1">
-            <p>
-            <b>{t.mainInfo.clientsHelped}</b>
-            3
-            </p>
-            <p>
-            <b>{t.mainInfo.salesResult}</b>
-            2
-            </p>
-            </div>
-            <div className="bottom-2">  
-            </div>
-            </div> */}
           </div>
           <div className="about-3">
             <p>
@@ -582,14 +576,13 @@ const MainInfo = ({
             <p>
               <b>{t.mainInfo.accompaniedBuyers}</b> 0
             </p>
-
-            
+            <PopupClose/>
           </div>
           <div className="icon-agency">
             {isRealtor && (
               <Link href={"/profile/agency/" + lastExp?.agencyId}>
                 <div className="current-agency border" onClick={goAgency}>
-                  {lastExp?.name}
+                  {truncatedName}
                   <Image
                     width={10}
                     height={10}

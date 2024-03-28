@@ -58,8 +58,11 @@ const Nav = styled.div<INavbar>`
   height: 100px;
   .img-absolute {
     position: absolute;
-    margin-left: 2rem;
+    margin-left: ${(props) => (props.path == "/" ? "2rem" : "4rem")};
     cursor: pointer;
+    @media only screen and (max-width: 1400px) {
+      margin-left: 2rem;
+    }
     @media only screen and (max-width: 768px) {
       position: relative;
       /* margin-left: ${(props) => (props.path == "/" ? "2rem" : "0")}; */
@@ -72,7 +75,7 @@ const Nav = styled.div<INavbar>`
   }
   .left-side {
     position: absolute;
-    right: 3rem;
+    right: 5.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -133,7 +136,18 @@ const Nav = styled.div<INavbar>`
     border-radius: 1rem;
     transition: all 0.5s, border-radius 0s;
     z-index: 9999;
-    
+
+    .online {
+      /* position: absolute; */
+      top: 30px;
+      /* right: -5; */
+      width: 15;
+      height: 15;
+      border-radius: 50%;
+      background-color: green;
+      border: 2px solid white;
+    }
+
     &:has(div) {
       border-radius: 1rem 1rem 0 0;
     }
@@ -198,11 +212,11 @@ const Nav = styled.div<INavbar>`
       a p {
         font-size: 1.8rem;
       }
-      
+
       @media only screen and (max-width: 768px) {
         top: 140%;
         left: ${(props) => (props.path == "/" ? "-10px" : "-13px")};
-        margin-left:10px;
+        margin-left: 10px;
       }
     }
 
@@ -237,8 +251,12 @@ const Nav = styled.div<INavbar>`
       height: 55px;
     }
   }
+  @media only screen and (max-width: 1400px) {
+    right: 4rem;
+  }
   @media only screen and (max-width: 768px) {
     padding: 0;
+    right: 0;
     height: 120px;
     justify-content: space-between;
     .locale-area {
@@ -284,6 +302,7 @@ const Nav = styled.div<INavbar>`
 
   .logo-full {
     position: relative;
+    margin-left: 100px;
     @media only screen and (max-width: 900px) {
       position: relative;
       margin-left: 13.3rem;
@@ -293,7 +312,7 @@ const Nav = styled.div<INavbar>`
 `;
 const SearchRealtor = styled.div`
   position: absolute;
-  left: 29rem;
+  left: 32rem;
   display: flex;
   width: 700px;
   height: 70px;
@@ -363,7 +382,9 @@ const SearchRealtor = styled.div`
       }
     }
   }
-
+  @media only screen and (max-width: 1400px) {
+    left: 29rem;
+  }
   @media only screen and (max-width: 1100px) {
     position: relative;
     left: 0rem;
@@ -441,9 +462,9 @@ const Navbar = () => {
   const [pic, setPic] = useState("");
 
   const router = useRouter();
-  const isLogad = localStorage.getItem("id")
-  console.log(isLogad, "Goiaba")
-  const perfilImage = isLogad ?  iconIsLogad : profileIcon
+  const isLogad = localStorage.getItem("id");
+  console.log(isLogad, "Goiaba");
+  const perfilImage = isLogad ? iconIsLogad : profileIcon;
 
   let showSearchBar = router.pathname !== "/" ? true : false;
 
@@ -619,7 +640,7 @@ const Navbar = () => {
       return 250;
     } else {
       if (router.pathname == "/") {
-        return 200;
+        return 220;
       }
       return 80;
     }
@@ -730,35 +751,37 @@ const Navbar = () => {
               </select>
             </div>
             {user.token ? (
-              <Image
-                onClick={() => setOpenProfile(!openProfile)}
-                className="profile"
-                src={pic ? pic : iconIsLogad}
-                alt={"Profile"}
-                width={60}
-                height={60}
-              />
+            
+                <Image
+                  onClick={() => setOpenProfile(!openProfile)}
+                  className="profile"
+                  src={pic ? pic : iconIsLogad}
+                  alt={"Profile"}
+                  width={60}
+                  height={60}
+                />
             ) : (
               <div
                 onMouseEnter={() => setOpen(true)}
                 onMouseLeave={() => setOpen(false)}
                 onClick={() => setOpen(!open)}
                 className={open ? "login" : "login closed"}
-                // style={width > 768 ? {} : { width: 95 }}
-              > 
-                {
-                  width < 768 ? 
-                  <Image
-                    className="profile"
-                    src={pic ? pic : iconIsLogad}
-                    alt={"Profile"}
-                    width={60}
-                    height={60}
-                    color="#f00"
-                  />:
-                <p>LOGIN</p>
-                }
+              >
+                {width < 768 ? (
+          
+                    <Image
+                      onClick={() => setOpenProfile(!openProfile)}
+                      className="profile"
+                      src={pic ? pic : iconIsLogad}
+                      alt={"Profile"}
+                      width={60}
+                      height={60}
+                    />
                 
+                ) : (
+                  <p>LOGIN</p>
+                )}
+
                 <LoginMoldal open={open} setOpen={setOpen} />
               </div>
             )}
