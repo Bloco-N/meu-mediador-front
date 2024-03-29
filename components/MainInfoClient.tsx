@@ -116,12 +116,18 @@ const Container = styled.div<ContainerProps>`
           }
         }
 
+        .li-nfi {
+          label{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+          }
+        }
+
         label {
           width: fit-content;
-          /* display: flex; */
-          /* flex-direction: row; */
-          /* flex-wrap: nowrap; */
           /* white-space: nowrap; */
+          white-space: ${(props) => (props.editing ? "wrap" : "nowrap")};
         }
 
         p {
@@ -169,33 +175,27 @@ const Container = styled.div<ContainerProps>`
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            margin-bottom: ${(props) => (props.editing ? "1em" : "0")};
+            margin-bottom: ${(props) => (props.editing ? "8%" : "0")};
             &:has(p) {
               justify-content: start;
             }
 
             input {
               height: 40px;
-              padding: 0.5rem 10px;
               width: 180px;
             }
-          }
-
-          label {
-            display: flex;
-            align-items: center;
-            font-size: 18px;
-            width: 10px;
-            margin-right: 5.5em;
           }
 
           .li-nfi {
             display: flex;
             width: 300px;
             flex-direction: ${(props) => (props.editing ? "column" : "row")};
-            margin-right: 0;
+            /* height: 120px; */
+            height: ${(props) => (props.editing ? "90px" : "40px")};
+            align-items: center;
+            justify-content: center;
             label {
-             
+
             }
 
             div {
@@ -203,14 +203,23 @@ const Container = styled.div<ContainerProps>`
               display: flex;
               justify-content: space-around;
             }
+            input {
+              height: 15px !important;
+              width: 15px !important;
+            }
+
+            .input-nfi{
+              height: 40px !important;
+              width: 180px !important;
+            }
           }
 
           .li-mail {
             flex-direction: column;
             align-items: start;
-            margin-bottom: 3em;
+            margin-bottom: 15%;
 
-            label{
+            label {
               display: flex;
               align-items: center;
               flex-direction: row;
@@ -220,10 +229,6 @@ const Container = styled.div<ContainerProps>`
             .title {
               width: 100px;
             }
-          }
-
-          button {
-            margin-top: ${(props) => (props.editing ? "80px" : "10px")};
           }
         }
       }
@@ -577,11 +582,6 @@ const MainInfoClient = ({
                     <label>
                       {t.clientProfile.nif}
                       <input
-                        style={{
-                          width: "auto",
-                          verticalAlign: "sub",
-                          marginLeft: "0.4rem",
-                        }}
                         type="radio"
                         value="true"
                         checked={choiceNif}
@@ -593,11 +593,6 @@ const MainInfoClient = ({
                     <label style={{ marginLeft: "0.8rem" }}>
                       {t.clientProfile.passport}
                       <input
-                        style={{
-                          width: "auto",
-                          verticalAlign: "sub",
-                          marginLeft: "0.4rem",
-                        }}
                         type="radio"
                         value="false"
                         checked={!choiceNif}
@@ -608,6 +603,7 @@ const MainInfoClient = ({
                     </label>
                   </div>
                   <input
+                  className="input-nfi"
                     maxLength={choiceNif ? 9 : 28}
                     type={choiceNif ? "tel" : "text"}
                     value={nif_passport}
@@ -620,7 +616,7 @@ const MainInfoClient = ({
                     }}
                   />
                   {choiceNif && nifInvalido ? (
-                    <label style={{ color: "red" }}>Nif Inválido</label>
+                    <label style={{ color: "red" , whiteSpace: 'nowrap'}}>Nif Inválido</label>
                   ) : (
                     <></>
                   )}

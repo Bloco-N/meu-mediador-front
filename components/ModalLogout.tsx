@@ -21,15 +21,24 @@ const Overlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 99999;
+
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
 `;
 
 const ModalContainer = styled.div`
   display: flex;
-  z-index: 10;
-  background-color: white;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius:20px
+  background-color: white;
+  border-radius: 20px;
+
+  @media (max-width: 768px) {
+    width: 80%;
+    height: 80%;
+  }
 `;
 
 const Modal = forwardRef((props: IModalProps, ref: ForwardedRef<HTMLDivElement>) => {
