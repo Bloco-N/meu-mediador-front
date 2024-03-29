@@ -333,7 +333,7 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
         .then((response) => {
           toast.success(t.toast.dataSuccess);
           setLoadingOpen(false);
-          //router.reload()
+          setEditing(false);
         })
         .catch((error) => {
           toast.error(t.toast.dataError);
