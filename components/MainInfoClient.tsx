@@ -29,10 +29,10 @@ type ContainerProps = {
 
 const Container = styled.div<ContainerProps>`
   position: relative;
-
   min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
+
   @media only screen and (max-width: 900px) {
-    min-height: ${(porps) => (porps.isProfile ? "60rem" : "40rem")};
+    min-height: ${(props) => (props.isProfile ? "60rem" : "40rem")};
     height: auto;
   }
 
@@ -52,6 +52,7 @@ const Container = styled.div<ContainerProps>`
     border-radius: 3rem;
     height: auto;
     gap: 2rem;
+
     .cover-photo {
       position: absolute;
       height: 100%;
@@ -64,22 +65,26 @@ const Container = styled.div<ContainerProps>`
     }
 
     .profile {
-      height: ${(porps) => (porps.isProfile ? "20rem" : "10rem")};
-      width: ${(porps) => (porps.isProfile ? "20rem" : "10rem")};
+      height: ${(props) => (props.isProfile ? "20rem" : "10rem")};
+      width: ${(props) => (props.isProfile ? "20rem" : "10rem")};
       border-radius: 50%;
       object-fit: cover;
       position: relative;
+
       @media only screen and (max-width: 900px) {
         margin-bottom: unset;
         height: 15rem;
         width: 15rem;
       }
     }
+
     @media only screen and (max-width: 900px) {
       flex-direction: column;
     }
+
     .sub-content {
       width: 100%;
+
       @media only screen and (max-width: 900px) {
         flex-direction: column;
         gap: 2rem;
@@ -92,32 +97,36 @@ const Container = styled.div<ContainerProps>`
         flex-direction: column;
         gap: 5px;
         width: 100%;
+
         @media only screen and (max-width: 900px) {
           justify-content: center;
           align-items: center;
         }
+
         li {
           display: flex;
           gap: 10px;
           align-items: center;
           width: 27%;
 
-          .div-radio{
-            white-space: nowrap; 
+          .div-radio {
+            white-space: nowrap;
             display: flex;
           }
         }
-        label{
+
+        label {
           width: fit-content;
           display: flex;
           flex-direction: row;
           flex-wrap: nowrap;
-          white-space: nowrap; 
+          white-space: nowrap;
         }
 
         p {
           width: auto;
         }
+
         input {
           height: 18px;
           font-size: 18px;
@@ -126,12 +135,14 @@ const Container = styled.div<ContainerProps>`
           border-radius: 5px;
           padding-left: 10px;
         }
+
         button {
           width: 100px;
           height: 25px;
           padding: 5px;
           margin-top: 10px;
         }
+
         .li-mail {
           .title {
             width: 280px;
@@ -139,7 +150,7 @@ const Container = styled.div<ContainerProps>`
         }
       }
 
-      @media (width < 768px) {
+      @media only screen and (max-width: 768px) {
         label,
         p,
         h3 {
@@ -153,36 +164,42 @@ const Container = styled.div<ContainerProps>`
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            margin-bottom: ${(porps) => (porps.editing ? "1em" : "0")};
+            margin-bottom: ${(props) => (props.editing ? "1em" : "0")};
             &:has(p) {
               justify-content: start;
             }
+
             input {
               height: 40px;
               padding: 0.5rem 10px;
               width: 180px;
             }
           }
+
           label {
             font-size: 18px;
             width: 10px;
             margin-right: 5.5em;
           }
+
           .li-nfi {
             display: flex;
             width: 300px;
-            flex-direction: ${(porps) => (porps.editing ? "column" : "row")};
+            flex-direction: ${(props) => (props.editing ? "column" : "row")};
             margin-right: 0;
-            label{
+
+            label {
               display: flex;
               align-items: center;
             }
+
             div {
               width: 100%;
               display: flex;
               justify-content: space-around;
             }
           }
+
           .li-mail {
             flex-direction: column;
             align-items: start;
@@ -192,8 +209,9 @@ const Container = styled.div<ContainerProps>`
               width: 100px;
             }
           }
+
           button {
-            margin-top: ${(porps) => (porps.editing ? "80px" : "10px")};
+            margin-top: ${(props) => (props.editing ? "80px" : "10px")};
           }
         }
       }
@@ -204,6 +222,7 @@ const Container = styled.div<ContainerProps>`
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       .icon {
         height: 2rem;
         width: 2rem;
@@ -211,6 +230,7 @@ const Container = styled.div<ContainerProps>`
         opacity: 0.7;
         transition: all 0.5s;
         margin-left: 2em;
+
         :hover {
           opacity: 1;
         }
@@ -218,6 +238,7 @@ const Container = styled.div<ContainerProps>`
     }
   }
 `;
+
 
 type MainInfoClientProps = {
   userSigned: ClientProfile;
