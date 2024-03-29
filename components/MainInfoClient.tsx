@@ -169,6 +169,9 @@ const Container = styled.div<ContainerProps>`
         }
 
         .form {
+          label{
+            width:${(props) => (props.editing ? "200px" : "auto")}; ;
+          }
           li {
             width: 100%;
             height: 30px;
@@ -192,11 +195,8 @@ const Container = styled.div<ContainerProps>`
             flex-direction: ${(props) => (props.editing ? "column" : "row")};
             /* height: 120px; */
             height: ${(props) => (props.editing ? "90px" : "40px")};
-            align-items: center;
-            justify-content: center;
-            label {
-
-            }
+            align-items: ${(props) => (props.editing ? "center" : "start")};
+            justify-content: ${(props) => (props.editing ? "center" : "start")};
 
             div {
               width: 100%;
