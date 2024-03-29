@@ -119,7 +119,7 @@ const Container = styled.div<ContainerProps>`
           margin-top: 10px;
         }
         .li-mail {
-          .title{
+          .title {
             width: 280px;
           }
         }
@@ -138,23 +138,31 @@ const Container = styled.div<ContainerProps>`
             height: 30px;
             align-items: center;
             justify-content: space-between;
-            gap: 10px;
-
+            gap: 12px;
+            margin-bottom: ${(porps) => (porps.editing ? "1em" : "0")};
             &:has(p) {
               justify-content: start;
             }
             input {
-              height: 100%;
+              height: 40px;
               padding: 0.5rem 10px;
-              width: 100%;
+              width: 200px;
             }
           }
-          label{
+          label {
             font-size: 18px;
+            width: 10px;
+            margin-right: 4.5em;
           }
           .li-nfi {
             display: flex;
+            width: 300px;
             flex-direction: ${(porps) => (porps.editing ? "column" : "row")};
+            margin-right: 0;
+            label{
+              display: flex;
+              align-items: center;
+            }
             div {
               width: 100%;
               display: flex;
@@ -165,8 +173,9 @@ const Container = styled.div<ContainerProps>`
             display: flex;
             flex-direction: column;
             align-items: start;
-            margin-bottom: 2em;
-            .title{
+            margin-bottom: 3em;
+
+            .title {
               width: 100%;
             }
           }
@@ -291,11 +300,12 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
       if (nifValidado != null) {
         setNifInvalido(!nifValidado);
         setLoadingOpen(false);
-        return
+        return;
       }
       setEditing(!editing);
     }
     if (nifValidado) {
+      console.log("caindo aqui")
       await api
         .put("/client", {
           firstName,
@@ -319,6 +329,7 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
         });
     } else {
       setLoadingOpen(false);
+      setEditing(false);
     }
   }
 
@@ -387,7 +398,7 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
                 <h3 className="title">{t.signIn.email}:</h3>{" "}
               </label>
               <div className="contact">
-              <h3>{userSigned?.email}</h3>
+                <h3>{userSigned?.email}</h3>
                 {userSigned?.email ? (
                   <Link href={"mailto: " + userSigned.email} target="_blank">
                     <Image className="icon" src={mailIcon} alt="mail icon" />
