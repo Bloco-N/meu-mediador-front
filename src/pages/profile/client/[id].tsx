@@ -192,7 +192,7 @@ export default function Profile() {
     <Container>
 
       {client ? (
-        <MainInfoClient userSigned={client as ClientProfile} isProfile={true} />
+        <MainInfoClient userSigned={client as ClientProfile} isProfile={true} setModalOpen={setModalOpen} />
       ) : (
         ""
       )}

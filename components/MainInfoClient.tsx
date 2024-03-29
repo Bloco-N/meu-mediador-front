@@ -190,11 +190,10 @@ const Container = styled.div<ContainerProps>`
 
             .title {
               width: 100px;
-              border: 1px solid tomato;
             }
           }
           button {
-            margin-top: ${(porps) => (porps.editing ? "50px" : "10px")};
+            margin-top: ${(porps) => (porps.editing ? "80px" : "10px")};
           }
         }
       }
@@ -223,9 +222,10 @@ const Container = styled.div<ContainerProps>`
 type MainInfoClientProps = {
   userSigned: ClientProfile;
   isProfile: boolean;
+  setModalOpen:any
 };
 
-const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
+const MainInfoClient = ({ userSigned, isProfile, setModalOpen }: MainInfoClientProps) => {
   const { user, setUser } = useContext(UserContext) as UserContextType;
 
   const [editing, setEditing] = useState(false);
@@ -421,7 +421,7 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
                 <div className="divButton">
                   <TrashButton
                     onClick={() => {
-                      // setModalOpen(true);
+                      setModalOpen(true);
                     }}
                   />
                 </div>
