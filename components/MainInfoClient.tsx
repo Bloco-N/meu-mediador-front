@@ -117,7 +117,7 @@ const Container = styled.div<ContainerProps>`
         }
 
         .li-nfi {
-          label{
+          label {
             display: flex;
             gap: 10px;
             align-items: center;
@@ -125,8 +125,6 @@ const Container = styled.div<ContainerProps>`
         }
 
         label {
-          width: fit-content;
-          /* white-space: nowrap; */
           white-space: ${(props) => (props.editing ? "wrap" : "nowrap")};
         }
 
@@ -165,12 +163,12 @@ const Container = styled.div<ContainerProps>`
         label,
         p,
         h3 {
-          font-size: 18px;
+          font-size: 17px;
         }
 
         .form {
-          label{
-            width:${(props) => (props.editing ? "200px" : "auto")}; ;
+          label {
+            width: ${(props) => (props.editing ? "200px" : "auto")};
           }
           li {
             width: 100%;
@@ -191,7 +189,7 @@ const Container = styled.div<ContainerProps>`
 
           .li-nfi {
             display: flex;
-            width: 300px;
+            width: 100%;
             flex-direction: ${(props) => (props.editing ? "column" : "row")};
             /* height: 120px; */
             height: ${(props) => (props.editing ? "90px" : "40px")};
@@ -208,7 +206,7 @@ const Container = styled.div<ContainerProps>`
               width: 15px !important;
             }
 
-            .input-nfi{
+            .input-nfi {
               height: 40px !important;
               width: 180px !important;
             }
@@ -603,7 +601,7 @@ const MainInfoClient = ({
                     </label>
                   </div>
                   <input
-                  className="input-nfi"
+                    className="input-nfi"
                     maxLength={choiceNif ? 9 : 28}
                     type={choiceNif ? "tel" : "text"}
                     value={nif_passport}
@@ -616,7 +614,9 @@ const MainInfoClient = ({
                     }}
                   />
                   {choiceNif && nifInvalido ? (
-                    <label style={{ color: "red" , whiteSpace: 'nowrap'}}>Nif Inválido</label>
+                    <label style={{ color: "red", whiteSpace: "nowrap" }}>
+                      Nif Inválido
+                    </label>
                   ) : (
                     <></>
                   )}
