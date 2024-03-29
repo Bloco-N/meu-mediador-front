@@ -84,6 +84,7 @@ const Container = styled.div`
     border: 50px solid rgb(245, 197, 199);
     box-sizing: border-box;
     border-radius: 20px;
+    text-align: center;
 
     @media only screen and (max-width: 768px) {
       border: 15px solid rgb(245, 197, 199);
