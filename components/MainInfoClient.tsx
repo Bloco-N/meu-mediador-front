@@ -118,10 +118,10 @@ const Container = styled.div<ContainerProps>`
 
         label {
           width: fit-content;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: nowrap;
-          white-space: nowrap;
+          /* display: flex; */
+          /* flex-direction: row; */
+          /* flex-wrap: nowrap; */
+          /* white-space: nowrap; */
         }
 
         p {
@@ -135,7 +135,6 @@ const Container = styled.div<ContainerProps>`
           padding: 0;
           border-radius: 5px;
           padding-left: 10px;
-          border: 1px solid tomato;
         }
 
         button {
@@ -151,7 +150,7 @@ const Container = styled.div<ContainerProps>`
             width: 280px;
           }
         }
-        .contact{
+        .contact {
           width: 100%;
         }
       }
@@ -183,6 +182,8 @@ const Container = styled.div<ContainerProps>`
           }
 
           label {
+            display: flex;
+            align-items: center;
             font-size: 18px;
             width: 10px;
             margin-right: 5.5em;
@@ -193,10 +194,8 @@ const Container = styled.div<ContainerProps>`
             width: 300px;
             flex-direction: ${(props) => (props.editing ? "column" : "row")};
             margin-right: 0;
-
             label {
-              display: flex;
-              align-items: center;
+             
             }
 
             div {
@@ -211,6 +210,13 @@ const Container = styled.div<ContainerProps>`
             align-items: start;
             margin-bottom: 3em;
 
+            label{
+              display: flex;
+              align-items: center;
+              flex-direction: row;
+              flex-wrap: nowrap;
+              white-space: nowrap;
+            }
             .title {
               width: 100px;
             }
@@ -245,14 +251,17 @@ const Container = styled.div<ContainerProps>`
   }
 `;
 
-
 type MainInfoClientProps = {
   userSigned: ClientProfile;
   isProfile: boolean;
-  setModalOpen:any
+  setModalOpen: any;
 };
 
-const MainInfoClient = ({ userSigned, isProfile, setModalOpen }: MainInfoClientProps) => {
+const MainInfoClient = ({
+  userSigned,
+  isProfile,
+  setModalOpen,
+}: MainInfoClientProps) => {
   const { user, setUser } = useContext(UserContext) as UserContextType;
 
   const [editing, setEditing] = useState(false);
@@ -344,7 +353,7 @@ const MainInfoClient = ({ userSigned, isProfile, setModalOpen }: MainInfoClientP
       setEditing(!editing);
     }
     if (nifValidado) {
-      console.log("caindo aqui")
+      console.log("caindo aqui");
       await api
         .put("/client", {
           firstName,
@@ -559,10 +568,10 @@ const MainInfoClient = ({ userSigned, isProfile, setModalOpen }: MainInfoClientP
               {editing ? (
                 <>
                   <div
-                  className="div-radio"
+                    className="div-radio"
                     style={{
                       alignItems: "flex-start",
-                      verticalAlign: "middle"
+                      verticalAlign: "middle",
                     }}
                   >
                     <label>

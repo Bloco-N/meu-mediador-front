@@ -20,7 +20,7 @@ const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
   align-items: center;
   justify-content: center;
-  z-index: 3;
+  z-index: 99999;
 `;
 
 const ModalContainer = styled.div`

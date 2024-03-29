@@ -91,12 +91,14 @@ const Container = styled.div`
     }
 
     h1 {
+      font-size: 20px; /* Default font size */
       @media only screen and (max-width: 768px) {
         font-size: 15px;
       }
     }
 
     button {
+      font-size: 16px; /* Default font size */
       @media only screen and (max-width: 768px) {
         font-size: 14px;
       }
@@ -111,6 +113,7 @@ const Container = styled.div`
     }
   }
 `;
+
 
 export default function Profile() {
   const [localId, setLocalId] = useState("");
