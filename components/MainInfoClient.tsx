@@ -160,13 +160,13 @@ const Container = styled.div<ContainerProps>`
             input {
               height: 40px;
               padding: 0.5rem 10px;
-              width: 200px;
+              width: 180px;
             }
           }
           label {
             font-size: 18px;
             width: 10px;
-            margin-right: 4.5em;
+            margin-right: 5.5em;
           }
           .li-nfi {
             display: flex;
@@ -184,13 +184,13 @@ const Container = styled.div<ContainerProps>`
             }
           }
           .li-mail {
-            display: flex;
             flex-direction: column;
             align-items: start;
             margin-bottom: 3em;
 
             .title {
-              width: 100%;
+              width: 100px;
+              border: 1px solid tomato;
             }
           }
           button {
@@ -239,11 +239,11 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
   const [nif_passport, setNifPassport] = useState(userSigned?.nif_passport);
   const [choiceNif, setChoiceNif] = useState(userSigned?.choiceNif);
   const [nifInvalido, setNifInvalido] = useState(false);
+  const [sessionProfile, setSessionProfile] = useState(false);
 
   const { setOpen: setLoadingOpen } = useContext(
     LoadingContext
   ) as ModalOpenContextType;
-  const [sessionProfile, setSessionProfile] = useState(false);
 
   const router = useRouter();
 
