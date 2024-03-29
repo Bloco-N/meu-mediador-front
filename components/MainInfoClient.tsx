@@ -37,6 +37,7 @@ const Container = styled.div<ContainerProps>`
   }
 
   .divButton {
+    z-index: 1;
     @media only screen and (max-width: 768px) {
       position: absolute;
       top: -2% !important;
@@ -107,7 +108,7 @@ const Container = styled.div<ContainerProps>`
           display: flex;
           gap: 10px;
           align-items: center;
-          width: 27%;
+          width: 20%;
 
           .div-radio {
             white-space: nowrap;
@@ -134,6 +135,7 @@ const Container = styled.div<ContainerProps>`
           padding: 0;
           border-radius: 5px;
           padding-left: 10px;
+          border: 1px solid tomato;
         }
 
         button {
@@ -144,9 +146,13 @@ const Container = styled.div<ContainerProps>`
         }
 
         .li-mail {
+          width: 100%;
           .title {
             width: 280px;
           }
+        }
+        .contact{
+          width: 100%;
         }
       }
 
@@ -418,8 +424,6 @@ const MainInfoClient = ({ userSigned, isProfile, setModalOpen }: MainInfoClientP
     <Container isProfile={isProfile} editing={editing} locale={String(locale)}>
       <div className="main-info border">
         <Image
-          // width={80}
-          // height={80}
           className={isProfile ? "profile profile-pointer" : "profile"}
           src={profileIcon}
           alt="profile icon"

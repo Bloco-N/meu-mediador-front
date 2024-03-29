@@ -6,24 +6,23 @@ const DivButton = styled.div`
     border-radius: 100%;
     overflow: hidden;
     height: 60px;
-    width:60px;
-    background:#c14341;
+    width: 60px;
+    background: #c14341;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 1em;
     cursor: pointer;
 
-    @media (max-width: 760px) {
+    @media only screen and (max-width: 760px) {
       height: 40px;
-      width:40px;
+      width: 40px;
   }
 `;
 
 const ResponsiveImage = styled.img`
   width: 60%;
 `;
-
 interface TrashButtonProps {
   onClick: () => void;
 }

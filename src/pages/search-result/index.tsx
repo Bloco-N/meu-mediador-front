@@ -39,6 +39,7 @@ const Container = styled.div`
     }
     .teste{
       width: 95%;
+      cursor: pointer;
       .card{
         height: 100%;
         width: 100%;
@@ -63,7 +64,7 @@ const Container = styled.div`
    .list {
     padding: 0 38px; 
 
-    a {
+    .teste{
         width: 100%;
       }
    }

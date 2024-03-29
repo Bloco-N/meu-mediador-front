@@ -44,6 +44,7 @@ const Container = styled.div<ContainerProps>`
     min-height: ${(props) => (props.isProfile ? "60rem" : "40rem")};
     height: 100%;
   }
+  
   .main-info {
     width: 100%;
     height: 100%;
@@ -54,12 +55,14 @@ const Container = styled.div<ContainerProps>`
     height: 100%;
     gap: 1rem;
     border-radius: 30px;
+    
     .top {
       position: absolute;
       width: 100%;
       height: 22rem;
       top: 0;
       left: 0;
+      
       .label-back {
         background-color: var(--surface);
         border-radius: 50%;
@@ -71,6 +74,7 @@ const Container = styled.div<ContainerProps>`
         display: flex;
         align-items: center;
         justify-content: center;
+        
         img {
           position: unset;
         }
@@ -87,19 +91,23 @@ const Container = styled.div<ContainerProps>`
       border-top-right-radius: 3rem;
       object-fit: cover;
     }
+
     .profile {
       height: ${(props) => (props.isProfile ? "20rem" : "10rem")};
       width: ${(props) => (props.isProfile ? "20rem" : "10rem")};
       border-radius: 50%;
       object-fit: cover;
       position: relative;
+
       @media only screen and (max-width: 900px) {
         margin-bottom: unset;
       }
     }
+
     @media only screen and (max-width: 900px) {
       flex-direction: column;
     }
+
     .sub-content {
       margin-top: ${(props) => (props.isProfile ? "20rem" : "unset")};
       margin-left: ${(props) => (props.isProfile ? "2rem" : "2rem")};
@@ -107,6 +115,7 @@ const Container = styled.div<ContainerProps>`
       gap: 1rem;
       justify-content: ${(props) => (props.isProfile ? "" : "space-between")};
       width: 100%;
+
       @media only screen and (max-width: 900px) {
         flex-direction: column;
         gap: 2rem;
@@ -115,6 +124,7 @@ const Container = styled.div<ContainerProps>`
         width: 100%;
       }
     }
+
     .about {
       position: relative;
       display: flex;
@@ -126,6 +136,7 @@ const Container = styled.div<ContainerProps>`
       flex-wrap: wrap;
       color: var(--surface-2);
       text-align: center;
+      
       h1 {
         font-size: 28px;
       }
@@ -135,26 +146,32 @@ const Container = styled.div<ContainerProps>`
         min-width: 100%;
       }
     }
+
     .about-2 {
       position: relative;
       min-width: ${(props) => (props.isProfile ? "35rem" : "35rem")};
       max-width: 300px;
+
       @media only screen and (max-width: 900px) {
         align-items: center;
         text-align: center;
         min-width: 100%;
       }
+
       display: flex;
       color: var(--surface-2);
       flex-direction: column;
       justify-content: flex-end;
       gap: 0.5rem;
+      
       p {
         overflow-wrap: break-word;
       }
+
       .bottom {
         display: flex;
         flex-direction: row;
+        
         .bottom-1,
         .bottom-2 {
           width: 20rem;
@@ -167,6 +184,7 @@ const Container = styled.div<ContainerProps>`
       li {
         text-align: left;
       }
+
       .link-city {
         text-decoration: underline;
       }
@@ -176,11 +194,13 @@ const Container = styled.div<ContainerProps>`
         display: flex;
         font-size: 14px;
         flex-wrap: wrap;
+
         span {
           margin-right: 5px;
           margin-left: 1px;
           font-size: 15px;
         }
+
         @media only screen and (max-width: 900px) {
           position: unset;
           bottom: 8rem;
@@ -188,6 +208,7 @@ const Container = styled.div<ContainerProps>`
         }
       }
     }
+
     .contact {
       flex-grow: 1;
       display: flex;
@@ -197,25 +218,30 @@ const Container = styled.div<ContainerProps>`
       position: absolute;
       bottom: 8rem;
       right: 2rem;
+
       @media only screen and (max-width: 900px) {
         position: unset;
         bottom: 8rem;
         right: 2rem;
       }
+
       @media only screen and (max-width: 1400px) {
         right: 14rem;
         bottom: 5rem;
       }
+
       .icon {
         height: 3rem;
         width: 3rem;
         cursor: pointer;
         opacity: 0.7;
         transition: all 0.5s;
+
         :hover {
           opacity: 1;
         }
       }
+
       .icon-facebook {
         height: 3.5rem;
         width: 3.5rem;
@@ -223,11 +249,13 @@ const Container = styled.div<ContainerProps>`
         opacity: 0.7;
         transition: all 0.5s;
         margin-top: 1em;
+
         :hover {
           opacity: 1;
         }
       }
     }
+
     .current-agency {
       background: #fff;
       display: flex;
@@ -246,34 +274,44 @@ const Container = styled.div<ContainerProps>`
         width: 180px;
         white-space: nowrap;
       }
+
       .agency {
         height: 3rem;
         width: 3rem;
       }
     }
+
     .profile-pointer {
       cursor: pointer;
     }
+
     h1 {
       font-weight: normal;
     }
+
     h3 {
       color: var(--star);
     }
 
+    p {
+        font-size: 16px;
+      }
+
     @media (width < 768px) {
       p {
-        font-size: 1.8rem;
+        font-size: 14px;
       }
     }
 
     background: #fff;
   }
+
   .about-3 {
     gap: 0.5rem;
     margin-top: 0.3em;
     width: fit-content;
     min-width: 240px;
+
     p {
       margin-bottom: 0.5rem;
     }
@@ -283,6 +321,7 @@ const Container = styled.div<ContainerProps>`
       text-align: center;
       min-width: 100%;
     }
+
     .popup {
       position: unset;
       border: 1px solid tomato;
@@ -302,6 +341,7 @@ const Container = styled.div<ContainerProps>`
     }
   }
 `;
+
 
 type ToolTipContainerProps = {
   show: boolean;
@@ -565,7 +605,7 @@ const MainInfo = ({
               </>
             )}
             <p>
-              <b>{t.mainInfo.experience}</b> {userSigned?.expTime}{" "}
+              <b>{t.mainInfo.experience}</b> {userSigned?.expTime ? userSigned?.expTime : "" }{" "}
               {userSigned?.expTime ? "Anos" : "-"}
             </p>
             <p>
@@ -573,7 +613,7 @@ const MainInfo = ({
               {userLanguage?.length > 0
                 ? userLanguage?.map(
                     (language: any, index: any) =>
-                      ` ${language.Language.name} ${
+                      ` ${language.Language.name}${
                         index < userLanguage?.length - 1 ? "," : ""
                       } `
                   )

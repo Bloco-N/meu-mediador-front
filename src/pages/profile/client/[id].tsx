@@ -26,9 +26,10 @@ const Container = styled.div`
   padding: 4rem;
   gap: 2rem;
 
-  @media (max-width: 768px) {
+  @media only screen and (max-width: 768px) {
     padding: 2rem;
   }
+
   .plus {
     cursor: pointer;
     height: 3rem;
@@ -37,41 +38,40 @@ const Container = styled.div`
     top: 3rem;
     right: 3rem;
   }
+
   .divButton {
     display: flex;
-    /* position: absolute; */
-    z-index: 999;
     left: -10px;
     top: 80px;
     align-items: center;
-    justify-content: end;
+    justify-content: flex-end;
     max-height: 75px;
     height: 100%;
     padding: 5px;
     width: 100%;
     box-sizing: border-box;
 
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 768px) {
       max-height: 20%;
     }
   }
+
   .divButtonConfirm {
     display: flex;
     justify-content: space-around;
     width: 100%;
 
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 768px) {
       flex-direction: row;
     }
   }
 
   .icon-img {
     width: 10%;
-    /* margin-top: 1em; */
     max-width: 100%;
     max-height: 100%;
 
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 768px) {
       width: 20%;
     }
   }
@@ -85,19 +85,19 @@ const Container = styled.div`
     box-sizing: border-box;
     border-radius: 20px;
 
-    @media (max-width: 768px) {
-      border: 20px solid rgb(245, 197, 199);
-      min-width: 80%;
+    @media only screen and (max-width: 768px) {
+      border: 15px solid rgb(245, 197, 199);
+      min-width: 280px;
     }
 
     h1 {
-      @media (max-width: 768px) {
+      @media only screen and (max-width: 768px) {
         font-size: 15px;
       }
     }
 
-    butto {
-      @media (max-width: 768px) {
+    button {
+      @media only screen and (max-width: 768px) {
         font-size: 14px;
       }
     }
@@ -106,7 +106,7 @@ const Container = styled.div`
   .buttonNo {
     background-color: #c14341;
 
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 768px) {
       font-size: 14px;
     }
   }
