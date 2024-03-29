@@ -100,14 +100,28 @@ const Container = styled.div<ContainerProps>`
           display: flex;
           gap: 10px;
           align-items: center;
+          width: 27%;
+
+          .div-radio{
+            white-space: nowrap; 
+            display: flex;
+          }
         }
+        label{
+          width: fit-content;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          white-space: nowrap; 
+        }
+
         p {
           width: auto;
         }
         input {
           height: 18px;
           font-size: 18px;
-          width: 250px;
+          width: 100%;
           padding: 0;
           border-radius: 5px;
           padding-left: 10px;
@@ -234,8 +248,6 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
   const router = useRouter();
 
   const locale = router.locale;
-  console.log(locale, "PEdrooooo");
-
   const t = locales[locale as keyof typeof locales];
 
   useEffect(() => {
@@ -395,7 +407,7 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
           <form className="form">
             <li className="li-mail">
               <label>
-                <h3 className="title">{t.signIn.email}:</h3>{" "}
+                <h3 className="title">{t.signIn.email}:</h3>
               </label>
               <div className="contact">
                 <h3>{userSigned?.email}</h3>
@@ -522,9 +534,10 @@ const MainInfoClient = ({ userSigned, isProfile }: MainInfoClientProps) => {
               {editing ? (
                 <>
                   <div
+                  className="div-radio"
                     style={{
                       alignItems: "flex-start",
-                      verticalAlign: "middle",
+                      verticalAlign: "middle"
                     }}
                   >
                     <label>
