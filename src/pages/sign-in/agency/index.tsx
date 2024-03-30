@@ -63,6 +63,7 @@ const SignInContainer = styled.div`
 
   @media (max-width: 768px) {
     padding: 0 37px;
+    margin-top: 30px;
 
     .card {
       width: 100%;

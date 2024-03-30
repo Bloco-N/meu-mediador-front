@@ -27,6 +27,7 @@ const SignInContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid tomato;
 
   form {
     @media only screen and (max-width: 800px) {

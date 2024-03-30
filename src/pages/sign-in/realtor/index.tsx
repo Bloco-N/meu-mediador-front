@@ -20,10 +20,11 @@ import api from "@/services/api";
 import { toast } from "react-toastify";
 const SignInContainer = styled.div`
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-
+  
   form {
     @media only screen and (max-width: 800px) {
       width: 60%;
@@ -55,6 +56,7 @@ const SignInContainer = styled.div`
   }
   @media (max-width: 768px) {
     padding: 0 37px;
+    margin-top: 30px;
 
     .card {
       width: 100%;
