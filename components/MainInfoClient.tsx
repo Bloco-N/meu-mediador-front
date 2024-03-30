@@ -163,7 +163,7 @@ const Container = styled.div<ContainerProps>`
         label,
         p,
         h3 {
-          font-size: 17px;
+          font-size: 18px;
         }
 
         .form {

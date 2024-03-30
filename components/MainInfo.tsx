@@ -44,7 +44,7 @@ const Container = styled.div<ContainerProps>`
     min-height: ${(props) => (props.isProfile ? "60rem" : "40rem")};
     height: 100%;
   }
-  
+
   .main-info {
     width: 100%;
     height: 100%;
@@ -55,14 +55,14 @@ const Container = styled.div<ContainerProps>`
     height: 100%;
     gap: 1rem;
     border-radius: 30px;
-    
+
     .top {
       position: absolute;
       width: 100%;
       height: 22rem;
       top: 0;
       left: 0;
-      
+
       .label-back {
         background-color: var(--surface);
         border-radius: 50%;
@@ -74,7 +74,7 @@ const Container = styled.div<ContainerProps>`
         display: flex;
         align-items: center;
         justify-content: center;
-        
+
         img {
           position: unset;
         }
@@ -136,7 +136,7 @@ const Container = styled.div<ContainerProps>`
       flex-wrap: wrap;
       color: var(--surface-2);
       text-align: center;
-      
+
       h1 {
         font-size: 28px;
       }
@@ -163,7 +163,7 @@ const Container = styled.div<ContainerProps>`
       flex-direction: column;
       justify-content: flex-end;
       gap: 0.5rem;
-      
+
       p {
         overflow-wrap: break-word;
       }
@@ -171,7 +171,7 @@ const Container = styled.div<ContainerProps>`
       .bottom {
         display: flex;
         flex-direction: row;
-        
+
         .bottom-1,
         .bottom-2 {
           width: 20rem;
@@ -187,6 +187,13 @@ const Container = styled.div<ContainerProps>`
 
       .link-city {
         text-decoration: underline;
+      }
+      b {
+        font-size: 15px;
+      }
+
+      p{
+        font-size: 15px;
       }
 
       .cities {
@@ -294,8 +301,8 @@ const Container = styled.div<ContainerProps>`
     }
 
     p {
-        font-size: 16px;
-      }
+      font-size: 16px;
+    }
 
     @media (width < 768px) {
       p {
@@ -341,7 +348,6 @@ const Container = styled.div<ContainerProps>`
     }
   }
 `;
-
 
 type ToolTipContainerProps = {
   show: boolean;
@@ -507,7 +513,6 @@ const MainInfo = ({
     : "";
   return (
     <Container isProfile={isProfile}>
-      {/* <button data-tippy-content="Tooltip">Text</button> */}
       <div className="main-info border">
         {isProfile && (
           <div className="top">
@@ -605,7 +610,8 @@ const MainInfo = ({
               </>
             )}
             <p>
-              <b>{t.mainInfo.experience}</b> {userSigned?.expTime ? userSigned?.expTime : "" }{" "}
+              <b>{t.mainInfo.experience}</b>{" "}
+              {userSigned?.expTime ? userSigned?.expTime : ""}{" "}
               {userSigned?.expTime ? "Anos" : "-"}
             </p>
             <p>
