@@ -645,6 +645,13 @@ const Navbar = () => {
     }
   }
 
+  function sizeWidthDesk() {
+      if (router.pathname == "/") {
+        return 430;
+      }
+      return 250;
+  }
+
   return (
     <Nav
       path={router.pathname}
@@ -655,7 +662,7 @@ const Navbar = () => {
           ? "space-between"
           : "center",
         backgroundColor: showSearchBar ? "#dedddd" : "transparent",
-        paddingTop: showSearchBar ? "1rem" : "3rem",
+        paddingTop: showSearchBar ? "1rem" : "5rem",
         paddingBottom: showSearchBar ? "1rem" : "1rem",
         paddingRight: showSearchBar ? "1rem" : "0rem",
         paddingLeft: showSearchBar ? "0rem" : "0rem",
@@ -672,7 +679,7 @@ const Navbar = () => {
       ) : (
         <img
           onClick={() => router.push("/")}
-          width={250}
+          width={sizeWidthDesk()}
           src={sourceUrl}
           alt="Meoagent-logo"
           className="img-absolute"

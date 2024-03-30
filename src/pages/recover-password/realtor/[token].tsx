@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const ForgotPasswordContainer = styled.div`
-  border: 1px solid tomato;
   form{
     height: 35rem;
     display: flex;

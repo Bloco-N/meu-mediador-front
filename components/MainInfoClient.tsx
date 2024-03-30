@@ -125,7 +125,8 @@ const Container = styled.div<ContainerProps>`
         }
 
         label {
-          white-space: ${(props) => (props.editing ? "wrap" : "nowrap")};
+          display: flex;
+          white-space: nowrap;
         }
 
         p {
@@ -168,6 +169,7 @@ const Container = styled.div<ContainerProps>`
 
         .form {
           label {
+            white-space: ${(props) => (props.editing ? "normal" : "nowrap")};
             width: ${(props) => (props.editing ? "200px" : "auto")};
           }
           li {

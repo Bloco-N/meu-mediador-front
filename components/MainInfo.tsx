@@ -138,12 +138,15 @@ const Container = styled.div<ContainerProps>`
       text-align: center;
 
       h1 {
-        font-size: 28px;
+        font-size: 32px;
       }
 
       @media only screen and (max-width: 900px) {
         align-items: center;
         min-width: 100%;
+        h1 {
+          font-size: 28px;
+        }
       }
     }
 
@@ -189,11 +192,11 @@ const Container = styled.div<ContainerProps>`
         text-decoration: underline;
       }
       b {
-        font-size: 15px;
+        font-size: 16px;
       }
 
-      p{
-        font-size: 15px;
+      p {
+        font-size: 16px;
       }
 
       .cities {
@@ -212,6 +215,14 @@ const Container = styled.div<ContainerProps>`
           position: unset;
           bottom: 8rem;
           justify-content: center;
+
+          b {
+            font-size: 15px;
+          }
+
+          p {
+            font-size: 15px;
+          }
         }
       }
     }
@@ -321,6 +332,7 @@ const Container = styled.div<ContainerProps>`
 
     p {
       margin-bottom: 0.5rem;
+      font-size: 16px;
     }
 
     @media only screen and (max-width: 900px) {
@@ -331,8 +343,13 @@ const Container = styled.div<ContainerProps>`
 
     .popup {
       position: unset;
-      border: 1px solid tomato;
       z-index: 40;
+    }
+
+    @media only screen and (max-width: 900px) {
+      p {
+        font-size: 15px;
+      }
     }
   }
 
