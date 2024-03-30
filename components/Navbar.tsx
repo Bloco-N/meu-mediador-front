@@ -6,7 +6,7 @@ import LoginMoldal from "./LoginMoldal";
 import UserContext from "context/UserContext";
 import ProfileMoldal from "./ProfileMoldal";
 import { UserContextType } from "@/types/UserContextType";
-import profileIcon from "../public/profile.svg";
+import profileIcon from "../public/userLoged.svg";
 import iconIsLogad from "../public/user.svg";
 import { useRouter } from "next/router";
 import { SearchForm } from "@/types/SearchForm";
@@ -754,7 +754,7 @@ const Navbar = () => {
                 <Image
                   onClick={() => setOpenProfile(!openProfile)}
                   className="profile"
-                  src={pic ? pic : iconIsLogad}
+                  src={pic ? pic : perfilImage}
                   alt={"Profile"}
                   width={60}
                   height={60}
@@ -771,7 +771,7 @@ const Navbar = () => {
                     <Image
                       onClick={() => setOpenProfile(!openProfile)}
                       className="profile"
-                      src={pic ? pic : iconIsLogad}
+                      src={pic ? pic : perfilImage}
                       alt={"Profile"}
                       width={60}
                       height={60}
