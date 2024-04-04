@@ -18,19 +18,25 @@ import { getSession, signIn, useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import api from "@/services/api";
 import { toast } from "react-toastify";
+
 const SignInContainer = styled.div`
   width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   form {
     @media only screen and (max-width: 800px) {
       width: 60%;
     }
     @media only screen and (max-width: 500px) {
-      width: 80%;
+      width: 90%;
+
+      .bottom-cta,
+      h5,
+      .forgot-password {
+        font-size: 1.5rem;
+      }
     }
     text-align: center;
     width: 30%;
@@ -41,9 +47,11 @@ const SignInContainer = styled.div`
     gap: 2rem;
     padding: 2rem;
   }
+
   .bottom-cta {
     display: flex;
     gap: 0.5rem;
+
     @media only screen and (max-width: 400px) {
       flex-direction: column;
       align-items: center;
@@ -54,6 +62,7 @@ const SignInContainer = styled.div`
       }
     }
   }
+
   @media (max-width: 768px) {
     padding: 0 37px;
     margin-top: 30px;

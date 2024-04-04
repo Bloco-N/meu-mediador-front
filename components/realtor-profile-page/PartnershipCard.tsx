@@ -27,6 +27,15 @@ const Container = styled.div`
       display: flex;
       flex-direction: column;
       gap: 2rem;
+
+      .plus{
+        @media only screen and (max-width: 768px){
+          position: absolute;
+          top: 8px;
+          right: 15px;
+        }
+      }
+
       .work{
 
         @media only screen and (max-width: 1000px){
@@ -62,6 +71,7 @@ const Container = styled.div`
               display: flex;
               flex-direction: column;
               gap: 1rem;
+              text-align: left;
               div{
                 display: flex;
                 gap: 1rem;
@@ -86,7 +96,7 @@ const Container = styled.div`
         }
         .agency-img{
           height: 10rem;
-          width: auto;
+          width: 90px;
         }
       }
     }

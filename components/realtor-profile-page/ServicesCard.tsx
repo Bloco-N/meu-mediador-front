@@ -25,7 +25,7 @@ const Container = styled.div`
     flex-wrap: wrap;
     .service{
       @media only screen and (max-width: 400px){
-        font-size: 1.6rem;
+        font-size: 1.4rem;
         
         .p{
           overflow-wrap: break-word;

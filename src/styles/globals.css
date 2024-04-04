@@ -285,6 +285,7 @@ input::-webkit-inner-spin-button {
 
 .modal {
   background-color: #00000062;
+  height: 100vh;
 }
 
 .modal form {
@@ -417,4 +418,8 @@ input::-webkit-inner-spin-button {
   .slick-prev {
     left: -50px !important;
   }
+}
+
+
+.context-modal{
 }

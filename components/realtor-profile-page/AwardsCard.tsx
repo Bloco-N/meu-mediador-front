@@ -27,6 +27,7 @@ const Container = styled.div`
       display: flex;
       gap: 1rem;
       justify-content: space-between;
+      text-align: left;
       .edit-icons{
         display: flex;
         gap: 2rem;

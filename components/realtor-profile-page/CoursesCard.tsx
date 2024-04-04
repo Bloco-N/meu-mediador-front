@@ -18,7 +18,7 @@ import locales from "locales"
 const Container = styled.div`
   display: block;
   width: 100%;
-
+  
   .awards{
     background: #fff;
     position: relative;
@@ -30,6 +30,7 @@ const Container = styled.div`
       display: flex;
       gap: 1rem;
       justify-content: space-between;
+      text-align: left;
       @media only screen and (max-width: 395px) {
         h2 {
           font-size: 3rem;

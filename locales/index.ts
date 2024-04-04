@@ -14,14 +14,14 @@ const servicesLocales = {
     'Venda de imóvel': 'Properties sell',
     'Seleção de inquilino e gestão de arrendamento': 'Tenant selection and Lease management.',
     'Seleção de inquilino': 'Tenant selection',
-    'Realocation': 'Realocation'
+    'Realocation': 'Relocation'
   },
   pt:{
     'Acompanhamento para compra de imóvel': 'Acompanhamento para compra de imóvel',
     'Venda de imóvel': 'Venda de imóvel',
     'Seleção de inquilino e gestão de arrendamento':'Seleção de inquilino e gestão de arrendamento',
     'Seleção de inquilino': 'Seleção de inquilino',
-    'Realocation': 'Realocation'
+    'Realocation': 'Relocation'
   },
   es:{
     'Acompanhamento para compra de imóvel': 'Acompañamiento para la compra de inmuebles',

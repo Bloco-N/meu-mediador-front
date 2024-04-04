@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: 3;
   height: 100%;
   width: 100%;
@@ -39,8 +39,8 @@ const Container = styled.div`
   p{
     cursor: pointer;
     position: absolute;
-    top: 3rem;
-    right: 3rem;
+    top: 1.5rem;
+    right: 2rem;
     height: 3rem;
     width: 3rem;
     display: flex;

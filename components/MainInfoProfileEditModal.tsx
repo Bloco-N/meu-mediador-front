@@ -23,15 +23,16 @@ type MainInfoProfileEditModalProps = {
 }
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: 3;
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 3rem;
   align-items: center;
   justify-content: center;
+  bottom: 0px;
+  top: 0px;
   form{
     position: relative;
     height: auto;
@@ -53,16 +54,23 @@ const Container = styled.div`
     }
     input{
       min-width: 30rem;
+      height: 65px;
       @media (max-width: 650px) {
-        height: 5rem;
+        height: 50px;
       }
-    }
+    }    
+
     h3{
       margin-bottom: 2rem;
     }
     .input-group{
       display: flex;
+
+     
       @media (max-width: 650px) {
+        button{
+        width: 80%;
+      }
         flex-direction: column;
         align-items: center;
       }
@@ -71,6 +79,10 @@ const Container = styled.div`
       width: 100%;
       select{
         width: 50%;
+        height: 65px;
+        @media (max-width: 650px) {
+        height: 50px;
+      }
       }
     }
     .options{
@@ -297,7 +309,7 @@ const MainInfoProfileEditModal = ({open, setOpen}: MainInfoProfileEditModalProps
           </div>
         )}
         <textarea {...register('wppText')} defaultValue={ userSigned?.wppText ? userSigned.wppText : ''} placeholder={t.mainInfoEditModal.welcomeMessage}></textarea>
-        <div className="input-group options">
+        <div className="input-group">
           <button onClick={handleAddCity}>{t.mainInfoEditModal.addWorkArea}</button>
           <button onClick={handleAddLanguage}>{t.mainInfoEditModal.addLanguage}</button>
         </div>

@@ -43,6 +43,7 @@ const Container = styled.div`
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
+        text-align: left;
         gap: 2rem;
         padding: 2rem;
         background-color: var(--base);
@@ -57,9 +58,6 @@ const Container = styled.div`
         }
         .reply-title {
           font-weight: bold;
-        }
-        .reply {
-          padding-left: 5rem;
         }
         .close {
           position: absolute;

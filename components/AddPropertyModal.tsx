@@ -1,31 +1,39 @@
-import { AddPropertyForm } from '@/types/AddPropertyForm';
-import Preservations from '@/types/Preservations';
-import PropertyTypes from '@/types/PropertyTypes';
-import Rooms from '@/types/Rooms';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import styled from 'styled-components';
-import placeholderImg from '../public/placeholder.jpg'
-import CurrencyInput from './CurrencyInput';
-import AreaInput from './AreaInput';
-import { ModalOpenContextType } from '@/types/ModalOpenContextType';
-import LoadingContext from 'context/LoadingContext';
-import locales from 'locales';
-import EnergyEfficience from '@/types/EnergyEfficience';
-import AddPropertyModalContext, { ModalPropertyOpenContextType } from 'context/AddPropertyModalContext';
-import { ApiService } from '@/services/ApiService';
-import api from '@/services/api';
-import { toast } from 'react-toastify';
+import { AddPropertyForm } from "@/types/AddPropertyForm";
+import Preservations from "@/types/Preservations";
+import PropertyTypes from "@/types/PropertyTypes";
+import Rooms from "@/types/Rooms";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { useForm } from "react-hook-form";
+import styled from "styled-components";
+import placeholderImg from "../public/placeholder.jpg";
+import CurrencyInput from "./CurrencyInput";
+import AreaInput from "./AreaInput";
+import { ModalOpenContextType } from "@/types/ModalOpenContextType";
+import LoadingContext from "context/LoadingContext";
+import locales from "locales";
+import EnergyEfficience from "@/types/EnergyEfficience";
+import AddPropertyModalContext, {
+  ModalPropertyOpenContextType,
+} from "context/AddPropertyModalContext";
+import { ApiService } from "@/services/ApiService";
+import api from "@/services/api";
+import { toast } from "react-toastify";
 
 type AddPropertyModalProps = {
-  open: boolean,
-  setOpen: Dispatch<SetStateAction<boolean>>
-}
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+};
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: 3;
   height: 100%;
   width: 100%;
@@ -34,7 +42,7 @@ const Container = styled.div`
   gap: 3rem;
   align-items: center;
   justify-content: center;
-  form{
+  form {
     position: relative;
     height: auto;
     width: 75%;
@@ -52,33 +60,38 @@ const Container = styled.div`
     @media (max-width: 500px) {
       width: 90%;
     }
-    .all-infos{
+    .all-infos {
       display: flex;
       gap: 2rem;
       @media (max-width: 1200px) {
         width: 100%;
         flex-direction: column;
       }
-      .infos{
+      .infos {
         display: flex;
         gap: 2rem;
-        .inputs{
+        .inputs {
           display: flex;
           flex-direction: column;
           gap: 2rem;
           width: 50%;
         }
-        .selections{
+        .selections {
           display: flex;
           flex-direction: column;
           gap: 2rem;
           width: 50%;
-          select{
+         
+        }
+        select {
             width: 100%;
+            height: 65px;
+            @media (max-width: 768px) {
+              height: 45px;
+            }
           }
-        }
       }
-      .image-place{
+      .image-place {
         position: relative;
         display: flex;
         align-items: center;
@@ -93,7 +106,7 @@ const Container = styled.div`
           max-width: 30rem;
           margin-left: calc(50% - 15rem);
         }
-        img{
+        img {
           opacity: 0.7;
           border-radius: 1rem;
           max-height: 25rem;
@@ -102,10 +115,9 @@ const Container = styled.div`
           @media (max-width: 500px) {
             max-height: 20rem;
             max-width: 30rem;
-            
           }
         }
-        label{
+        label {
           position: absolute;
           top: 5rem;
           right: 0.5rem;
@@ -115,39 +127,42 @@ const Container = styled.div`
         }
       }
     }
-    label{
+    label {
       background-color: var(--base);
       padding: 1rem;
       border-radius: 1rem;
       cursor: pointer;
     }
-    .buttons{
+    .buttons {
       display: flex;
       width: auto;
       gap: 2rem;
-      .buttondelete{
+      .buttondelete {
         background-color: #c24343;
       }
     }
   }
-  input{
+  input {
     width: 100%;
+    height: 65px;
+    @media (max-width: 768px) {
+      height: 45px;
+    }
   }
-  .input-titulo{
+  .input-titulo {
     width: 1050px;
     @media (max-width: 1500px) {
-      
-      width:100%;
+      width: 100%;
     }
   }
-  h3{
-      margin-bottom: 2rem;
-    }
-  p{
+  h3 {
+    margin-bottom: 2rem;
+  }
+  p {
     cursor: pointer;
     position: absolute;
-    top: 3rem;
-    right: 3rem;
+    top: 1.5rem;
+    right: 2rem;
     height: 3rem;
     width: 3rem;
     display: flex;
@@ -159,57 +174,65 @@ const Container = styled.div`
     font-weight: bold;
   }
   input::placeholder {
-    text-align: center; 
+    text-align: center;
   }
-`
+`;
 
 const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
-  const apiService = new ApiService()
+  const apiService = new ApiService();
 
-  const {
-    setOpen: setLoadingOpen,
-  } = useContext(LoadingContext) as ModalOpenContextType
+  const { setOpen: setLoadingOpen } = useContext(
+    LoadingContext
+  ) as ModalOpenContextType;
 
   const {
     propertyToUpdate: propertyToUpdate,
     setPropertyToUpdate: setPropertyToUpdate,
-  } = useContext(AddPropertyModalContext) as ModalPropertyOpenContextType
+  } = useContext(AddPropertyModalContext) as ModalPropertyOpenContextType;
 
-  const { register, handleSubmit, setValue } = useForm<AddPropertyForm>()
+  const { register, handleSubmit, setValue } = useForm<AddPropertyForm>();
 
-  const [price, setPrice] = useState("")
-  const [grossArea, setGrossArea] = useState("")
-  const [usefulArea, setUsefulArea] = useState("")
+  const [price, setPrice] = useState("");
+  const [grossArea, setGrossArea] = useState("");
+  const [usefulArea, setUsefulArea] = useState("");
 
-  const [pic, setPic] = useState('')
+  const [pic, setPic] = useState("");
 
   useEffect(() => {
-    setValue('title', propertyToUpdate && propertyToUpdate.title || "")
-    setValue('link', propertyToUpdate && propertyToUpdate.link || "")
-    setValue('propertyType', propertyToUpdate && propertyToUpdate.propertyType || "HOME")
-    setValue('rooms', propertyToUpdate && propertyToUpdate.rooms || "T1")
-    setValue('preservation', propertyToUpdate && propertyToUpdate.preservation || "NEW_BUILDING")
-    setValue('energyefficience', propertyToUpdate && propertyToUpdate.energyefficience || "K")
-    setPic(propertyToUpdate && propertyToUpdate.profilePicture || "")
-    setGrossArea(propertyToUpdate && propertyToUpdate.grossArea || "")
-    setUsefulArea(propertyToUpdate && propertyToUpdate.usefulArea || "")
-    setPrice(propertyToUpdate && propertyToUpdate.price || "")
-  }, [propertyToUpdate, open])
+    setValue("title", (propertyToUpdate && propertyToUpdate.title) || "");
+    setValue("link", (propertyToUpdate && propertyToUpdate.link) || "");
+    setValue(
+      "propertyType",
+      (propertyToUpdate && propertyToUpdate.propertyType) || "HOME"
+    );
+    setValue("rooms", (propertyToUpdate && propertyToUpdate.rooms) || "T1");
+    setValue(
+      "preservation",
+      (propertyToUpdate && propertyToUpdate.preservation) || "NEW_BUILDING"
+    );
+    setValue(
+      "energyefficience",
+      (propertyToUpdate && propertyToUpdate.energyefficience) || "K"
+    );
+    setPic((propertyToUpdate && propertyToUpdate.profilePicture) || "");
+    setGrossArea((propertyToUpdate && propertyToUpdate.grossArea) || "");
+    setUsefulArea((propertyToUpdate && propertyToUpdate.usefulArea) || "");
+    setPrice((propertyToUpdate && propertyToUpdate.price) || "");
+  }, [propertyToUpdate, open]);
 
-  const router = useRouter()
+  const router = useRouter();
 
-  const locale = router.locale
+  const locale = router.locale;
 
-  const t = locales[locale as keyof typeof locales]
+  const t = locales[locale as keyof typeof locales];
 
   const onSubmit = async (data: AddPropertyForm) => {
-
-    if(pic == ''){
-      return toast.info("Adicione uma imagem para salvar!")
+    if (pic == "") {
+      return toast.info("Adicione uma imagem para salvar!");
     }
 
-    const localId = localStorage.getItem('id')
-    const accountType = localStorage.getItem('accountType')
+    const localId = localStorage.getItem("id");
+    const accountType = localStorage.getItem("accountType");
     const realtorBody = {
       propertyData: {
         ...data,
@@ -218,8 +241,8 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
         usefulArea,
         profilePicture: pic,
       },
-      realtorId: Number(localId)
-    }
+      realtorId: Number(localId),
+    };
     const agencyBody = {
       propertyData: {
         ...data,
@@ -228,136 +251,227 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
         usefulArea,
         profilePicture: pic,
       },
-      agencyId: Number(localId)
-    }
-    setLoadingOpen(true)
+      agencyId: Number(localId),
+    };
+    setLoadingOpen(true);
     let dataResponse;
     if (!(propertyToUpdate && propertyToUpdate.id)) {
-      await api.post(`/property/${accountType}`, accountType === "agency" ? agencyBody : realtorBody)
-      .then((response) => {
-        dataResponse = response.data
-      })
-      .catch((error) => {
-        setLoadingOpen(false)
-        toast.error(t.toast.errorAddProperty)
-        return error
-      })
-
+      await api
+        .post(
+          `/property/${accountType}`,
+          accountType === "agency" ? agencyBody : realtorBody
+        )
+        .then((response) => {
+          dataResponse = response.data;
+        })
+        .catch((error) => {
+          setLoadingOpen(false);
+          toast.error(t.toast.errorAddProperty);
+          return error;
+        });
     } else {
-      await api.put(`/property/${propertyToUpdate.id}/${accountType}`, accountType === "agency" ? agencyBody : realtorBody)
-      .then((response) => {
-        dataResponse = response.data
-      })
-      .catch((error) => {
-        setLoadingOpen(false)
-        toast.error(t.toast.errorUpdateProperty)
-        return error
-      })
+      await api
+        .put(
+          `/property/${propertyToUpdate.id}/${accountType}`,
+          accountType === "agency" ? agencyBody : realtorBody
+        )
+        .then((response) => {
+          dataResponse = response.data;
+        })
+        .catch((error) => {
+          setLoadingOpen(false);
+          toast.error(t.toast.errorUpdateProperty);
+          return error;
+        });
     }
 
-    setLoadingOpen(false)
-    const response = dataResponse
-    if (response === 'created' || response === 'updated') router.reload()
-
-  }
+    setLoadingOpen(false);
+    const response = dataResponse;
+    if (response === "created" || response === "updated") router.reload();
+  };
 
   const handleChange = (e: React.ChangeEvent) => {
-    const target = e.target as HTMLInputElement
+    const target = e.target as HTMLInputElement;
 
-    const files = target.files as FileList
+    const files = target.files as FileList;
 
-    const file = files[0]
+    const file = files[0];
 
     if (FileReader && file) {
-      const fr = new FileReader()
-      const token = localStorage.getItem('token')
+      const fr = new FileReader();
+      const token = localStorage.getItem("token");
 
       const onload = async () => {
-        const img = document.getElementById('property-img') as HTMLImageElement
+        const img = document.getElementById("property-img") as HTMLImageElement;
 
-        img.src = fr.result as string
+        img.src = fr.result as string;
 
-        setPic(fr.result as string)
+        setPic(fr.result as string);
+      };
 
-      }
+      fr.onload = onload;
 
-      fr.onload = onload
-
-      fr.readAsDataURL(file)
+      fr.readAsDataURL(file);
     }
-  }
+  };
 
-  return (
-    open ?
-      <Container className='modal'>
-        <form onSubmit={handleSubmit(onSubmit)} action="">
-          <h3>{propertyToUpdate && propertyToUpdate.id ? t.addPropertiesModal.updatePropertie : t.addPropertiesModal.uploadPropertie}</h3>
-          <div className="input-titulo">
-            <input required {...register('title', { required: true })} type="text" placeholder={t.addPropertiesModal.title} />
-          </div>
-          <div className="all-infos">
+  return open ? (
+    <Container className="modal">
+      <form onSubmit={handleSubmit(onSubmit)} action="">
+        <h3>
+          {propertyToUpdate && propertyToUpdate.id
+            ? t.addPropertiesModal.updatePropertie
+            : t.addPropertiesModal.uploadPropertie}
+        </h3>
+        <div className="input-titulo">
+          <input
+            required
+            {...register("title", { required: true })}
+            type="text"
+            placeholder={t.addPropertiesModal.title}
+          />
+        </div>
+        <div className="all-infos">
+          <div className="infos">
+            <div className="inputs">
+              <input
+                required
+                {...register("link", { required: true })}
+                type="text"
+                placeholder={t.addPropertiesModal.link}
+              />
+              <CurrencyInput
+                required
+                value={price}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setPrice(e.target.value)
+                }
+                placeholder="0.00 €"
+              />
+              <AreaInput
+                required
+                value={grossArea}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setGrossArea(e.target.value)
+                }
+                placeholder={t.addPropertiesModal.grossArea}
+              />
 
-            <div className="infos">
-
-              <div className="inputs">
-                <input required {...register('link', { required: true })} type="text" placeholder={t.addPropertiesModal.link} />
-                <CurrencyInput required value={price} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPrice(e.target.value)} placeholder="0.00 €" />
-                <AreaInput required value={grossArea} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setGrossArea(e.target.value)} placeholder={t.addPropertiesModal.grossArea} />
-
-                <select placeholder='Selecione' {...register('energyefficience', { required: true })} name="energyefficience" id="energyefficience">
-                  {Object.entries(EnergyEfficience[locale as keyof typeof EnergyEfficience]).map(([key, value]) => (
-                    <option key={key} value={key}>{value}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="selections">
-                <select {...register('propertyType')} name="propertyType" id="propertyType">
-                  {Object.entries(PropertyTypes[locale as keyof typeof PropertyTypes]).map(([key, value]) => (
-                    <option key={key} value={key}>{value}</option>
-                  ))}
-                </select>
-                <select {...register('rooms')} name="rooms" id="rooms">
-                  {Object.entries(Rooms).map(([key, value]) => (
-                    <option key={key} value={key}>{value}</option>
-                  ))}
-                </select>
-                <select {...register('preservation', { required: true })} name="preservation" id="preservation">
-                  {Object.entries(Preservations[locale as keyof typeof Preservations]).map(([key, value]) => (
-                    <option key={key} value={key}>{value}</option>
-                  ))}
-                </select>
-
-                <AreaInput required value={usefulArea} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsefulArea(e.target.value)} placeholder={t.addPropertiesModal.usableArea} />
-              </div>
+              <select
+                placeholder="Selecione"
+                {...register("energyefficience", { required: true })}
+                name="energyefficience"
+                id="energyefficience"
+              >
+                {Object.entries(
+                  EnergyEfficience[locale as keyof typeof EnergyEfficience]
+                ).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value}
+                  </option>
+                ))}
+              </select>
             </div>
-            <div className="image-place">
-              <Image id="property-img" height={400} width={400} className='property-img' src={pic ? pic : placeholderImg} alt='property image'>
-              </Image>
-              <label htmlFor="property-pic">
-                {t.addPropertiesModal.edit}
-              </label>
-              <input onChange={e => handleChange(e)} id="property-pic" type="file" />
+            <div className="selections">
+              <select
+                {...register("propertyType")}
+                name="propertyType"
+                id="propertyType"
+              >
+                {Object.entries(
+                  PropertyTypes[locale as keyof typeof PropertyTypes]
+                ).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+              <select {...register("rooms")} name="rooms" id="rooms">
+                {Object.entries(Rooms).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+              <select
+                {...register("preservation", { required: true })}
+                name="preservation"
+                id="preservation"
+              >
+                {Object.entries(
+                  Preservations[locale as keyof typeof Preservations]
+                ).map(([key, value]) => (
+                  <option key={key} value={key}>
+                    {value}
+                  </option>
+                ))}
+              </select>
+
+              <AreaInput
+                required
+                value={usefulArea}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setUsefulArea(e.target.value)
+                }
+                placeholder={t.addPropertiesModal.usableArea}
+              />
             </div>
           </div>
-          <p onClick={() => {
-            setOpen(false)
-            setPropertyToUpdate(undefined)
-          }}>X</p>
-          <div className='buttons'>
-            <button type='submit'>{propertyToUpdate && propertyToUpdate.id ? t.addPropertiesModal.updatePropertie : t.addPropertiesModal.uploadPropertie}</button>
-            {propertyToUpdate && propertyToUpdate.id &&
-              <button className="buttondelete" type='button' onClick={async () => {
-                const token = localStorage.getItem('token')
-                setLoadingOpen(true)
-                const response = await apiService.deleteRealtorProperty(token as string, propertyToUpdate.id, 'realtor')
-                setLoadingOpen(false)
-                if (response === 'deleted') router.reload()
-              }}>{t.addPropertiesModal.deleteProperty}</button>
-            }
+          <div className="image-place">
+            <Image
+              id="property-img"
+              height={400}
+              width={400}
+              className="property-img"
+              src={pic ? pic : placeholderImg}
+              alt="property image"
+            ></Image>
+            <label htmlFor="property-pic">{t.addPropertiesModal.edit}</label>
+            <input
+              onChange={(e) => handleChange(e)}
+              id="property-pic"
+              type="file"
+            />
           </div>
-        </form>
-      </Container>
-      : <></>
+        </div>
+        <p
+          onClick={() => {
+            setOpen(false);
+            setPropertyToUpdate(undefined);
+          }}
+        >
+          X
+        </p>
+        <div className="buttons">
+          <button type="submit">
+            {propertyToUpdate && propertyToUpdate.id
+              ? t.addPropertiesModal.updatePropertie
+              : t.addPropertiesModal.uploadPropertie}
+          </button>
+          {propertyToUpdate && propertyToUpdate.id && (
+            <button
+              className="buttondelete"
+              type="button"
+              onClick={async () => {
+                const token = localStorage.getItem("token");
+                setLoadingOpen(true);
+                const response = await apiService.deleteRealtorProperty(
+                  token as string,
+                  propertyToUpdate.id,
+                  "realtor"
+                );
+                setLoadingOpen(false);
+                if (response === "deleted") router.reload();
+              }}
+            >
+              {t.addPropertiesModal.deleteProperty}
+            </button>
+          )}
+        </div>
+      </form>
+    </Container>
+  ) : (
+    <></>
   );
 };
 

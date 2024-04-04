@@ -21,7 +21,12 @@ import { PdfService } from "@/services/PdfService"
 const Container = styled.button`
     width: 10%;
     margin-left: auto;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    z-index: 1;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 interface ConvertToPDFProps{
     localId:string;

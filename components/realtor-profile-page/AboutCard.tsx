@@ -18,6 +18,7 @@ const Container = styled.div`
     padding: 3rem;
     align-items: flex-start;
     position: relative;
+    text-align: left;
 
     h2 {
       margin-bottom: 18px;

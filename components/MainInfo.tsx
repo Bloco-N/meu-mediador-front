@@ -480,15 +480,30 @@ const MainInfo = ({
   };
 
   function printCities() {
-    const cities = userCitis.map((city: any) => city.City.name);
+    const cities = userCitis?.map((city: any) => city.City.name);
     if (window.innerWidth < 768) {
-      return cities.length > 0 ? ` ${cities[0]}` : "-";
+      return cities?.length > 0 ? ` ${cities[0]}` : "-";
     } else {
-      if (cities.length > 3) return ` ${cities[0]}, ${cities[1]}`;
-      if (cities.length === 3)
+      if (cities?.length > 3) return ` ${cities[0]}, ${cities[1]}`;
+      if (cities?.length === 3)
         return ` ${cities[0]}, ${cities[1]} e ${cities[2]}`;
-      if (cities.length === 2) return ` ${cities[0]} e ${cities[1]}`;
-      if (cities.length === 1) return ` ${cities[0]}`;
+      if (cities?.length === 2) return ` ${cities[0]} e ${cities[1]}`;
+      if (cities?.length === 1) return ` ${cities[0]}`;
+      return "-";
+    }
+  }
+
+  function printLanguage() {
+    console.log()
+    const cities = userLanguage?.map((city: any) => city.Language.name);
+    if (window.innerWidth < 768) {
+      return cities?.length > 0 ? ` ${cities[0]}` : "-";
+    } else {
+      if (cities?.length > 3) return ` ${cities[0]}, ${cities[1]}`;
+      if (cities?.length === 3)
+        return ` ${cities[0]}, ${cities[1]} e ${cities[2]}`;
+      if (cities?.length === 2) return ` ${cities[0]} e ${cities[1]}`;
+      if (cities?.length === 1) return ` ${cities[0]}`;
       return "-";
     }
   }
@@ -633,14 +648,15 @@ const MainInfo = ({
             </p>
             <p>
               <b>{t.mainInfo.languages}</b>
-              {userLanguage?.length > 0
+              {printLanguage()}
+              {/* {userLanguage?.length > 0
                 ? userLanguage?.map(
                     (language: any, index: any) =>
                       ` ${language.Language.name}${
                         index < userLanguage?.length - 1 ? "," : ""
                       } `
                   )
-                : " -"}
+                : " -"} */}
             </p>
             <p>{userSigned?.email}</p>
             <p>{userSigned?.phone}</p>

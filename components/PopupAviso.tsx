@@ -23,6 +23,7 @@ export default function PopupClose() {
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchor(anchor ? null : event.currentTarget);
+    setOpen(!open);
   };
 
   const handleClose = () => {
@@ -65,7 +66,7 @@ export default function PopupClose() {
 
 const PopupBody = styled.div`
   width: max-content;
-  height: 45%;
+  height: 20%;
   padding: 10px;
   border-radius: 5px;
   background-color: #d3d2d2;
@@ -103,7 +104,8 @@ const PopupBody = styled.div`
 
   @media (max-width: 768px) {
     right: 2px;
-    width: 85%
+    width: 85%;
+    height: 23%;
   }
 `;
 

@@ -63,17 +63,21 @@ const Container = styled.div`
   }
   .divButton {
     display: flex;
-    left: -10px;
-    top: 80px;
+    position: relative;
+    right: 120px;
+    top: 90px;
     align-items: center;
     max-height: 75px;
     height: 100%;
     padding: 5px;
     width: 100%;
     box-sizing: border-box;
+    margin-top: 20px;
 
     @media (max-width: 768px) {
       max-height: 20%;
+      position:static;
+
     }
   }
   .divButtonConfirm {
@@ -309,7 +313,6 @@ export default function Profile() {
         userSigned={realtor as RealtorProfile}
       />
       <InfoFooter />
-      {/* {pdfPage && <div className="hide-profile"></div>} */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}

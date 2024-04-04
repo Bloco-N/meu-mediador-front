@@ -109,7 +109,7 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
   }, [])
 
   return (
-    <div>
+    <div className='context-modal'>
       <SearchContext.Provider value={{ search, setSearch }}>
         <SearchResultContext.Provider value={{ searchResult, setSearchResult }}>
           <UserContext.Provider value={{ user, setUser }}>
