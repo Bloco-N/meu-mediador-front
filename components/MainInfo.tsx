@@ -244,8 +244,8 @@ const Container = styled.div<ContainerProps>`
       }
 
       @media only screen and (max-width: 1400px) {
-        right: 14rem;
-        bottom: 5rem;
+        right: 12rem;
+        bottom: 3rem;
       }
 
       .icon {

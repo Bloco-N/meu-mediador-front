@@ -36,7 +36,7 @@ const Container = styled.div<Realtor>`
   display: flex;
   flex-direction: column;
   height: fit-content;
-  width: 100vh;
+  width: 100%;
   padding: 0px 32px 32px 32px;
   margin-top: ${(props) => (props.sessionProfile? "0" : "40px")};
   gap: 2rem;
