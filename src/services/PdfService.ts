@@ -2,7 +2,12 @@ import axios from 'axios'
 
 export class PdfService{
   public async exportPdf (id: number, firstName:string, lastName:string, locale: string){
-    const response = await pdfshift(process.env.NEXT_PUBLIC_PDF_SERVICE_KEY as string, {source:'https://meoagent.com/'+ locale +'/profile/realtor/' + id + '?pdf=1', delay: (5 * 1000), pages:'1-2', format:'350mmx1094mm'}) as  { data: any }
+    const response = await pdfshift(process.env.NEXT_PUBLIC_PDF_SERVICE_KEY as string, {source:'https://meoagent.com/'+ locale +'/profile/realtor/' + id, delay: (5 * 1000), pages:'1-2', format:'350mmx1094mm'}) as  { data: any }
+
+    console.log(response.data)
+    console.log(response.data.byteLength);
+    console.log(new Uint8Array(response.data));
+
     createAndDownloadBlobFile(response.data, `${firstName}_${lastName}_profile`)
   }
 }
@@ -23,8 +28,12 @@ function pdfshift(api_key:string, data:{ source:string, delay:number, pages: str
             sandbox: false
           },
           auth: { username: 'api', password: api_key }
-      }).then(resolve).catch(response => {
+      }).then((response) => {
+        console.log(response)
+        resolve(response)
+      }).catch(response => {
           // Handle any error that might have occured
+          console.log(response, "Reponse")
           reject(response)
       })
   })
@@ -32,10 +41,12 @@ function pdfshift(api_key:string, data:{ source:string, delay:number, pages: str
 
 function createAndDownloadBlobFile(body:ArrayBuffer, filename:string, extension = 'pdf'){
   const blob = new Blob([body]);
+  console.log(blob.size, "Baixo");
   const fileName = `${filename}.${extension}`;
   const link = document.createElement('a');
   // Browsers that support HTML5 download attribute
   if (link.download !== undefined) {
+    console.log
     const url = URL.createObjectURL(blob);
     link.setAttribute('href', url);
     link.setAttribute('download', fileName);
