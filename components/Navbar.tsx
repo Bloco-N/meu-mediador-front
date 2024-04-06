@@ -683,7 +683,7 @@ const Navbar = () => {
 
       {showSearchBar && (
         <>
-          {/* <SearchRealtor>
+          <SearchRealtor>
             <form
               className="card"
               onSubmit={handleSubmit(onSubmit)}
@@ -731,7 +731,7 @@ const Navbar = () => {
                 )}
               </div>
             </form>
-          </SearchRealtor> */}
+          </SearchRealtor>
         </>
       )}
       {pdfPage || (

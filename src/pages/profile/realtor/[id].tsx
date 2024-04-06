@@ -36,10 +36,10 @@ const Container = styled.div<Realtor>`
   display: flex;
   flex-direction: column;
   height: fit-content;
-  width: 100%;
+  width: 100vh;
   padding: 0px 32px 32px 32px;
+  margin-top: ${(props) => (props.sessionProfile? "0" : "40px")};
   gap: 2rem;
-  margin-top: 40px;
   @media only screen and (max-width: 768px) {
     padding: 0 32px;
   }
@@ -208,7 +208,7 @@ export default function Profile() {
       setSessionProfile(true);
 
     fetchData();
-  }, [id, user.id, accType, setLoadingOpen]);
+  }, []);
 
   async function deleteClient() {
     await api
@@ -234,7 +234,6 @@ export default function Profile() {
         return error;
       });
   }
-  console.log(realtor, "Realtor")
   return (
     <Container sessionProfile={sessionProfile}>
       {accType == "realtor" && sessionProfile ? (
