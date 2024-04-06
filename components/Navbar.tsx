@@ -469,20 +469,25 @@ const Navbar = () => {
   const { id } = router.query;
 
   const pdfPage = router.query.pdf ? true : false;
-
   useEffect(() => {
     let locale = localStorage.getItem("locale");
     if (!locale) locale = router.locale as string;
-    const localeSet = document.getElementById(
-      "locale-set"
-    ) as HTMLSelectElement;
-    localeSet.value = locale;
+    
+    const localeSet = document.getElementById("locale-set") as HTMLSelectElement | null;
+  
+    // Verificar se o elemento foi encontrado antes de tentar acessar suas propriedades
+    if (localeSet) {
+      localeSet.value = locale;
+    }
+  
     setDefaultLocale(locale);
+  
     if (locale === "en") {
       setFlag("GB");
     } else {
       setFlag(locale.toUpperCase());
     }
+  
     if (id && typeof id === "string") {
       const finalPath = router.asPath.replace("[id]", id);
       router.push(finalPath, finalPath, { locale });
@@ -681,7 +686,7 @@ const Navbar = () => {
         />
       )}
 
-      {showSearchBar && (
+      {showSearchBar || pdfPage ? (
         <>
           <SearchRealtor>
             <form
@@ -733,7 +738,7 @@ const Navbar = () => {
             </form>
           </SearchRealtor>
         </>
-      )}
+      ): (<></>)}
       {pdfPage || (
         <>
           <div className="left-side">
