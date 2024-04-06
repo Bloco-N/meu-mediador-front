@@ -116,7 +116,8 @@ const es = {
     completeData: "Complete su registro para revisar un agente.",
     link: "Haz clic aquí ",
     endRegistration: "y completa tu registro.",
-    login: "Iniciar sesión como cliente",
+    login: "¿Eres cliente de este agente?",
+    continues: "regístrese como cliente para adicionar reseña."
   },
   signIn: {
     signIn: "Iniciar Sesión",

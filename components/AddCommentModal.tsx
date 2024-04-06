@@ -19,7 +19,7 @@ import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const Container = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: 3;
   height: 100%;
   width: 100%;
@@ -92,7 +92,11 @@ const Container = styled.div`
     position: absolute;
     top: 50%;
     font-weight: bold;
-    display: flex;
+    text-align: center;
+    a{
+      text-decoration: underline;
+      color: #000;
+    }
   }
 
   .close {
@@ -274,8 +278,10 @@ const AddCommentModal = ({ open, setOpen }: AddCommentModalProps) => {
       realtorId: Number(profileId),
       dateOftheDeed,
     };
+    console.log(data, "PEdroooooo")
     const agencyBody = {
       ...data,
+      id:+data.id,
       marketExpertiseRating,
       responsivenessRating,
       negotiationSkillsRating,
@@ -393,7 +399,13 @@ const AddCommentModal = ({ open, setOpen }: AddCommentModalProps) => {
               X
             </p>
             {validateClient ? (
-              <p className="redirect">{t.comments.login}</p>
+              <p className="redirect">
+              {t.comments.login}
+              {" "}
+              <a href="/sign-in/client" className="link">{t.comments.link}</a>
+              {" "}
+              {t.comments.continues}
+            </p>
             ) : (
               <div className="redirectContainer">
                 <p className="redirectMessage">{t.comments.completeData}</p>

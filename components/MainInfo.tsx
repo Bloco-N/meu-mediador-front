@@ -494,7 +494,6 @@ const MainInfo = ({
   }
 
   function printLanguage() {
-    console.log()
     const cities = userLanguage?.map((city: any) => city.Language.name);
     if (window.innerWidth < 768) {
       return cities?.length > 0 ? ` ${cities[0]}` : "-";
@@ -649,6 +648,18 @@ const MainInfo = ({
             <p>
               <b>{t.mainInfo.languages}</b>
               {printLanguage()}
+              {userLanguage?.length > 3 ? (
+                    <>
+                      <span> e outras </span>
+                      <SimplePopup
+                        qtdeCitys={userLanguage.length - 2}
+                        cities={userLanguage}
+                      />
+                      <span>cidades</span>
+                    </>
+                  ) : (
+                    ""
+                  )}
               {/* {userLanguage?.length > 0
                 ? userLanguage?.map(
                     (language: any, index: any) =>

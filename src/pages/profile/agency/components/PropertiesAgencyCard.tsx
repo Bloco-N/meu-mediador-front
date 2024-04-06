@@ -25,6 +25,7 @@ const Container = styled.div`
     gap: 2rem;
     padding: 3rem;
     position: relative;
+    text-align: left;
     .list{
       width: 100%;
       display: flex;
@@ -42,6 +43,7 @@ const Container = styled.div`
         right: 3rem;
       }
       .propertie{
+        text-align: left;
         @media only screen and (max-width: 400px){
           width: 25rem;
         }

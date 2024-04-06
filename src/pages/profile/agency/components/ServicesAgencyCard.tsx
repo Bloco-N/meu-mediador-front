@@ -23,6 +23,7 @@ const Container = styled.div`
     gap: 2rem;
     position: relative;
     flex-wrap: wrap;
+    text-align: left;
     .service{
       flex-shrink: 0;
       scroll-snap-align: start;
@@ -33,6 +34,9 @@ const Container = styled.div`
       display: flex;
       align-items: center;
       gap: 2rem;
+      @media only screen and (max-width: 400px){
+        font-size: 1.5rem;
+      }
       .close{
         position: relative;
       }

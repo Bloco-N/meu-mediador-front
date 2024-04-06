@@ -7,7 +7,7 @@ interface IPopup {
 }
 
 export default function SimplePopup({ qtdeCitys, cities }: IPopup) {
-  console.log(cities, qtdeCitys, "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+  console.log(qtdeCitys, cities )
   const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
   const [position, setPosition] = React.useState({ top: 0, left: 0 });
@@ -56,7 +56,7 @@ export default function SimplePopup({ qtdeCitys, cities }: IPopup) {
             </div>
             <ul className="cities-list">
               {cities.map((city: any) => (
-                <li key={city.City.id}>- {city.City.name}</li>
+                <li key={city?.City?.id ? city?.City?.id : city?.Language?.id }>- {city?.City?.name ? city?.City?.name : city?.Language?.name }</li>
               ))}
             </ul>
           </PopupBody>
@@ -101,6 +101,7 @@ const PopupBody = styled.div`
   list-style-type: none;
   gap: 3px;
   position: absolute;
+  text-align: left;
 
   b {
     font-size: 16px;

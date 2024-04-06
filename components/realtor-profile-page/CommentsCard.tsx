@@ -113,6 +113,10 @@ const Container = styled.div`
 
     .stars-main {
       width: 28%;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
       @media only screen and (max-width: 900px) {
         flex-direction: column;
         width: 100%;

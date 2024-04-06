@@ -28,15 +28,18 @@ import { signOut as singOutGoogle } from "next-auth/react";
 import api from "@/services/api";
 import { toast } from "react-toastify";
 
-const Container = styled.div`
+interface Realtor{
+  sessionProfile:boolean
+}
+
+const Container = styled.div<Realtor>`
   display: flex;
   flex-direction: column;
   height: fit-content;
   width: 100%;
-  /* transform: translateY(-15px); */
   padding: 0px 32px 32px 32px;
   gap: 2rem;
-
+  margin-top: 40px;
   @media only screen and (max-width: 768px) {
     padding: 0 32px;
   }
@@ -72,7 +75,6 @@ const Container = styled.div`
     padding: 5px;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 20px;
 
     @media (max-width: 768px) {
       max-height: 20%;
@@ -233,7 +235,7 @@ export default function Profile() {
   }
 
   return (
-    <Container>
+    <Container sessionProfile={sessionProfile}>
       {accType == "realtor" && sessionProfile ? (
         <div className="divButton">
           {!pdfPage && (

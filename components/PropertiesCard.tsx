@@ -52,6 +52,7 @@ const Container = styled.div`
         right: 3rem;
       }
       .propertie{
+        text-align: left;
         @media only screen and (max-width: 510px){
           width: 280px;
         }

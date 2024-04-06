@@ -117,7 +117,8 @@ const en = {
     completeData: "Complete your registration to review a agent.",
     link: "Click here ",
     endRegistration:"and complete your registration.",
-    login: "Log in as a customer."
+    login: "Are you a client of this agent?",
+    continues: "and register as a client to upload a review."
   },
   signIn:{
     signIn: "Sign In",

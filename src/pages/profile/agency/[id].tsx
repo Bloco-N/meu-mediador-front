@@ -198,9 +198,14 @@ export default function Profile() {
 
   return (
     <Container>
-      <div className="divButton">
+        {accType == "realtor" && sessionProfile ? ( <div className="divButton">
         <TrashButton onClick={() => {setModalOpen(true)}}/>
-      </div>
+      </div>)
+        : (
+          <></>
+        )
+      }
+     
       <MainInfoAgency userSigned={agency as AgencyProfile} isProfile={true} />
       <ServicesAgencyCard localId={localId} accType={accType} />
       <AboutAgencyCard localId={localId} accType={accType} />

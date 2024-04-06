@@ -39,6 +39,7 @@ const Container = styled.div`
     gap: 2rem;
     padding: 3rem;
     position: relative;
+    text-align: left;
     .list {
       width: 100%;
       display: flex;

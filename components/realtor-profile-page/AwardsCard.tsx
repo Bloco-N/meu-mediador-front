@@ -47,6 +47,7 @@ const Container = styled.div`
       flex-direction: column;
       gap: 1rem;
       list-style: disc !important;
+      text-align: left;
       li{
         &::marker {
           font-size: 2rem;

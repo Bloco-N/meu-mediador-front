@@ -25,6 +25,7 @@ const Container = styled.div<ContainerProps>`
     align-items: flex-start;
     gap: 2rem;
     display: flex;
+    text-align: left;
     .comment {
       position: relative;
       width: 15%;

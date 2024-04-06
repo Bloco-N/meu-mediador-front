@@ -91,18 +91,21 @@ const Container = styled.div<ContainerProps>`
     @media only screen and (max-width: 900px){
       flex-direction: column;
     }
-    .sub-content{
-      @media only screen and (max-width: 900px){
+    .sub-content {
+      margin-top: ${(props) => (props.isProfile ? "20rem" : "unset")};
+      margin-left: ${(props) => (props.isProfile ? "2rem" : "2rem")};
+      display: flex;
+      gap: 1rem;
+      justify-content: ${(props) => (props.isProfile ? "" : "space-between")};
+      width: 100%;
+
+      @media only screen and (max-width: 900px) {
         flex-direction: column;
         gap: 2rem;
         margin-top: unset;
         margin-left: unset;
+        width: 100%;
       }
-      margin-top: ${porps => porps.isProfile ? '20rem': 'unset'};
-      margin-left: ${porps => porps.isProfile ? '10rem': '2rem'};
-      width: 60%;
-      display: flex;
-      gap: 5rem;
     }
     .about{
       position: relative;
@@ -121,15 +124,20 @@ const Container = styled.div<ContainerProps>`
       @media only screen and (max-width: 900px){
         align-items: center;
         text-align: center;
+        min-width: 100%;
       }
-      height: 100%;
+      
+      width: 100%;
       display: flex;
       color: var(--surface-2);
       flex-direction: column;
       justify-content: flex-end;
       gap: 0.5rem;
+      
       p{
         gap: .5rem;
+        font-size:15px;
+        overflow-wrap: break-word;
       }
 
       .cities{
@@ -203,7 +211,7 @@ const Container = styled.div<ContainerProps>`
     h3{
       color: var(--star);
     }
-    p{
+    /* p{
       width: 60rem;
       max-height: 10rem;
       display: block; 
@@ -212,7 +220,7 @@ const Container = styled.div<ContainerProps>`
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
+    } */
   }
 `
 
@@ -296,6 +304,20 @@ const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
     }
   }
 
+  function printLanguage() {
+    const cities = userSigned?.AgencyLanguages.map((city) => city.Language?.name);
+    if (window.innerWidth < 768) {
+      return cities?.length > 0 ? ` ${cities[0]}` : "Ainda não adicionou cidades";
+    } else {
+      if (cities?.length > 3) return ` ${cities[0]}, ${cities[1]}`;
+      if (cities?.length === 3)
+        return ` ${cities[0]}, ${cities[1]} e ${cities[2]}`;
+      if (cities?.length === 2) return ` ${cities[0]} e ${cities[1]}`;
+      if (cities?.length === 1) return ` ${cities[0]}`;
+      return "Ainda não adicionou cidades";
+    }
+  }
+
   return (
 
   <Container isProfile={isProfile}>
@@ -348,10 +370,20 @@ const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
         <p>
             <b>
             {t.mainInfo.languages}
-            </b> 
-            {userSigned?.AgencyLanguages?.map((language, index) => (
+            </b>
+            <span>{printLanguage()}</span>
+            {userSigned?.AgencyLanguages.length > 3 ? (
+                      <>
+                      <span> e outras </span>
+                      <SimplePopup qtdeCitys={userSigned.AgencyLanguages.length - 2} cities={userSigned.AgencyLanguages}/>
+                      <span>cidades</span>
+                      </>
+                  ) : (
+                    ""
+                  )}
+            {/* {userSigned?.AgencyLanguages?.map((language, index) => (
               ` ${language.Language.name} ${index < userSigned.AgencyLanguages.length -1 ? ',': ''} `
-              ))}
+              ))} */}
           </p>
           <p><b>{"Email: "}</b>{userSigned?.email}</p>
           <p><b>{"Telefone: "}</b>{userSigned?.phone}</p>

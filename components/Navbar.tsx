@@ -135,7 +135,6 @@ const Nav = styled.div<INavbar>`
     text-align: center;
     border-radius: 1rem;
     transition: all 0.5s, border-radius 0s;
-    z-index: 9999;
 
     .online {
       /* position: absolute; */
@@ -709,7 +708,11 @@ const Navbar = () => {
                 <input
                   type="text"
                   className="input-realtor"
-                  placeholder={t.home.searchRealtorNamePlaceholder}
+                  placeholder={
+                    selectedValue == 1
+                      ? t.home.searchRealtorNamePlaceholder
+                      : t.home.searchAgencyNamePlaceholder
+                  }
                   {...register("search")}
                 />
 
