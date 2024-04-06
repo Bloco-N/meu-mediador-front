@@ -291,21 +291,21 @@ const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
   }
 
   function printCities() {
-    const cities = userSigned.AgencyCities.map((city) => city.City.name);
+    const cities = userSigned?.AgencyCities?.map((city) => city.City.name);
     if (window.innerWidth < 768) {
-      return cities.length > 0 ? ` ${cities[0]}` : "Ainda não adicionou cidades";
+      return cities?.length > 0 ? ` ${cities[0]}` : "Ainda não adicionou cidades";
     } else {
-      if (cities.length > 3) return ` ${cities[0]}, ${cities[1]}`;
-      if (cities.length === 3)
+      if (cities?.length > 3) return ` ${cities[0]}, ${cities[1]}`;
+      if (cities?.length === 3)
         return ` ${cities[0]}, ${cities[1]} e ${cities[2]}`;
-      if (cities.length === 2) return ` ${cities[0]} e ${cities[1]}`;
-      if (cities.length === 1) return ` ${cities[0]}`;
+      if (cities?.length === 2) return ` ${cities[0]} e ${cities[1]}`;
+      if (cities?.length === 1) return ` ${cities[0]}`;
       return "Ainda não adicionou cidades";
     }
   }
 
   function printLanguage() {
-    const cities = userSigned?.AgencyLanguages.map((city) => city.Language?.name);
+    const cities = userSigned?.AgencyLanguages?.map((city) => city.Language?.name);
     if (window.innerWidth < 768) {
       return cities?.length > 0 ? ` ${cities[0]}` : "Ainda não adicionou cidades";
     } else {
@@ -372,10 +372,10 @@ const MainInfoAgency = ({ userSigned , isProfile}: MainInfoAgencyProps) => {
             {t.mainInfo.languages}
             </b>
             <span>{printLanguage()}</span>
-            {userSigned?.AgencyLanguages.length > 3 ? (
+            {userSigned?.AgencyLanguages?.length > 3 ? (
                       <>
                       <span> e outras </span>
-                      <SimplePopup qtdeCitys={userSigned.AgencyLanguages.length - 2} cities={userSigned.AgencyLanguages}/>
+                      <SimplePopup qtdeCitys={userSigned?.AgencyLanguages?.length - 2} cities={userSigned?.AgencyLanguages}/>
                       <span>cidades</span>
                       </>
                   ) : (
