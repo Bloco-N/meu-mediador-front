@@ -185,8 +185,9 @@ export default function Profile() {
     const fetchData = async () => {
       if (id) {
         setLoadingOpen(true);
-
+        console.log("Aqui")
         const data = await apiService.getRealtorInformation(id as string);
+        console.log(data, "PEdrooooo")
         setRealtor(data);
 
         const responsePartnerships = await apiService.getRealtorPartnership(
@@ -233,7 +234,7 @@ export default function Profile() {
         return error;
       });
   }
-
+  console.log(realtor, "Realtor")
   return (
     <Container sessionProfile={sessionProfile}>
       {accType == "realtor" && sessionProfile ? (

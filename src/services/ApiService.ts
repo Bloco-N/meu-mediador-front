@@ -41,7 +41,9 @@ export class ApiService{
   //realtor information
   public async getRealtorInformation(accountId: string){
     try {
+      console.log("Entrou", accountId)
       const data = await api.get(`/realtor/${accountId}`)
+      console.log("response", data.data)
       return data.data
     } catch (error) {
       console.log(error)

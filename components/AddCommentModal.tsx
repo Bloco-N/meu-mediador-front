@@ -278,7 +278,6 @@ const AddCommentModal = ({ open, setOpen }: AddCommentModalProps) => {
       realtorId: Number(profileId),
       dateOftheDeed,
     };
-    console.log(data, "PEdroooooo")
     const agencyBody = {
       ...data,
       id:+data.id,

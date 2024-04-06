@@ -131,12 +131,10 @@ const SignIn = () => {
 
     const fetchData = async () => {
       setLoadingOpen(true);
-      console.log(data)
       await api
         .post(!data ? urlFetchGoogle : urlFetch, !data ? dataGoogle : data)
         .then(async (response) => {
           const token = response.data;
-          console.log(response.data, "Pedroooooo")
           localStorage.setItem("token", token);
           const user = decode(token) as {
             id: number;
@@ -148,8 +146,6 @@ const SignIn = () => {
 
           const agencyResponse = await api.get(`/agency/${user.id}`);
           const agencyData = agencyResponse.data;
-
-          console.log(agencyData?.profilePicture, "Pedro pic")
 
           localStorage.setItem("pic", JSON.stringify(agencyData?.profilePicture));
           localStorage.setItem("accountType", "agency");

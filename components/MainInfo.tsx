@@ -427,6 +427,8 @@ const MainInfo = ({
     srcImg: coverPicSrcImage,
   } = useContext(CoverPicAdjustModalContext) as CoverPicAdjustModalContextType;
 
+  console.log(userSigned, "PEdro")
+
   const [sessionProfile, setSessionProfile] = useState(false);
 
   const [fullProfilePic, setFullProfilePic] = useState("");
@@ -507,6 +509,7 @@ const MainInfo = ({
     }
   }
 
+
   function tooltipShow(e: React.MouseEvent<HTMLButtonElement>) {
     setTooltip({ show: true, posX: e.clientX, posY: e.clientY });
   }
@@ -520,7 +523,6 @@ const MainInfo = ({
   }
 
   function goAgency() {
-    console.log(lastExp?.agencyId);
   }
 
   useEffect(() => {

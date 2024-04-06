@@ -358,7 +358,6 @@ const MainInfoClient = ({
       setEditing(!editing);
     }
     if (nifValidado) {
-      console.log("caindo aqui");
       await api
         .put("/client", {
           firstName,
