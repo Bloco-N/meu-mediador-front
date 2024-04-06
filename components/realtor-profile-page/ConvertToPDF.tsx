@@ -33,7 +33,7 @@ interface ConvertToPDFProps{
     accType:string;
     sessionProfile: boolean;
 }
-export default function ConvertToPDF({localId, accType, sessionProfile}:ConvertToPDFProps){
+export default function ConvertToPDF({localId, accType, sessionProfile=true}:ConvertToPDFProps){
 
   const [ realtor, setRealtor ] = useState<RealtorProfile>()
 

@@ -38,7 +38,7 @@ const Container = styled.div<Realtor>`
   height: fit-content;
   width: 100%;
   padding: 0px 32px 32px 32px;
-  margin-top: 60px;
+  margin-top: ${(props) => (props.sessionProfile ? "0" : "60px")};
   gap: 2rem;
   @media only screen and (max-width: 768px) {
     padding: 0 32px;
@@ -66,9 +66,9 @@ const Container = styled.div<Realtor>`
   }
   .divButton {
     display: flex;
-    position: absolute;
+    position: relative;
     right: 120px;
-    top: 150px;
+    top: 90px;
     align-items: center;
     max-height: 75px;
     height: 100%;
@@ -208,7 +208,7 @@ export default function Profile() {
       setSessionProfile(true);
 
     fetchData();
-  }, []);
+  }, [id, user.id, accType, setLoadingOpen]);
 
   async function deleteClient() {
     await api
