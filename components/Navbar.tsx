@@ -686,7 +686,7 @@ const Navbar = () => {
         />
       )}
 
-      {showSearchBar || pdfPage ? (
+      {showSearchBar && !pdfPage ? (
         <>
           <SearchRealtor>
             <form
