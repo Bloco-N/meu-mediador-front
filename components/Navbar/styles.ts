@@ -1,45 +1,42 @@
 import styled from "styled-components";
+import subLogo from '/sublogo.png';
 
 interface INavbar {
-    path: string;
+  path: string;
 }
-  
+
+interface LogoProps {
+    width: number;
+  }
+
 export const Nav = styled.div<INavbar>`
   flex-direction: row;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 100px;
-  .img-absolute {
-    /* position: absolute; */
-    margin-left: ${(props) => (props.path == "/" ? "2rem" : "4rem")};
-    cursor: pointer;
-    @media only screen and (max-width: 1400px) {
-      margin-left: 2rem;
-    }
-    @media only screen and (max-width: 768px) {
-      position: relative;
-      /* margin-left: ${(props) => (props.path == "/" ? "2rem" : "0")}; */
-    }
-  }
+  background-color: #dedddd !important;
+  height: 69px;
+
   .logo-area {
     height: 100%;
   }
-  .logo {
-  }
+
   .left-side {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 3rem;
     min-width: 100px;
+
     &:has(.profile) {
       align-items: center;
     }
+
     &:has(.profile) ~ .card {
       animation: fadeInProfile 0.4s;
     }
+
     @keyframes fadeInProfile {
       from {
         transform: translateY(-125px);
@@ -51,10 +48,12 @@ export const Nav = styled.div<INavbar>`
       }
     }
   }
+
   .card {
     border: 0;
-    background-color: transparent;
+    padding-top: 2rem;
   }
+
   .locale {
     width: 5rem;
     height: 5rem;
@@ -67,13 +66,16 @@ export const Nav = styled.div<INavbar>`
       padding: 1rem;
     }
   }
+
   a {
     text-decoration: none;
   }
+
   p {
     font-size: 1.8rem;
     cursor: pointer;
   }
+
   .login {
     position: relative;
     width: 125px;
@@ -90,9 +92,7 @@ export const Nav = styled.div<INavbar>`
     transition: all 0.5s, border-radius 0s;
 
     .online {
-      /* position: absolute; */
       top: 30px;
-      /* right: -5; */
       width: 15;
       height: 15;
       border-radius: 50%;
@@ -108,8 +108,8 @@ export const Nav = styled.div<INavbar>`
       width: 85px;
       background-color: transparent;
       border: none;
-      margin-right: ${(props) => (props.path == "/" ? "14px" : "0")};
-      align-items: ${(props) => (props.path == "/" ? "end" : "center")};
+      margin-right: ${(props) => (props.path === "/" ? "14px" : "0")};
+      align-items: ${(props) => (props.path === "/" ? "end" : "center")};
     }
 
     p {
@@ -148,6 +148,7 @@ export const Nav = styled.div<INavbar>`
         position: relative;
         justify-content: center;
         align-items: end;
+
         &:last-child::after {
           display: none;
         }
@@ -167,7 +168,7 @@ export const Nav = styled.div<INavbar>`
 
       @media only screen and (max-width: 768px) {
         top: 140%;
-        left: ${(props) => (props.path == "/" ? "-10px" : "-13px")};
+        left: ${(props) => (props.path === "/" ? "-10px" : "-13px")};
         margin-left: 10px;
       }
     }
@@ -183,6 +184,7 @@ export const Nav = styled.div<INavbar>`
       }
     }
   }
+
   .selection {
     display: flex;
     align-items: center;
@@ -192,7 +194,9 @@ export const Nav = styled.div<INavbar>`
     border-radius: 1rem;
     padding: 1rem;
     height: 35px;
+    min-height: 35px;
   }
+
   .profile {
     cursor: pointer;
     border-radius: 50%;
@@ -203,58 +207,24 @@ export const Nav = styled.div<INavbar>`
       height: 55px;
     }
   }
-  @media only screen and (max-width: 1400px) {
-    right: 4rem;
-  }
-  @media only screen and (max-width: 768px) {
-    padding: 0;
-    right: 0;
-    height: 120px;
-    justify-content: space-between;
-    .locale-area {
-      display: none;
-    }
-    .logo-area {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 30%;
-    }
-    .logo {
-      /* height: 80px; */
-    }
-    .profile {
-    }
-    .left-side {
-      position: absolute;
-      right: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0rem;
-      min-width: 100px;
-    }
-  }
-  @media only screen and (max-width: 900px) {
-    position: relative;
-    height: ${(props) => (props.path == "/" ? "90px" : "120px")};
-    .locale-area {
-    }
-    .logo-area {
-      display: flex;
-      height: 50px;
-    }
-    .logo {
-    }
-    .profile {
-    }
-    .left-side {
+
+  .left-side {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    min-width: 100px;
+
+    @media only screen and (max-width: 900px) {
+        margin-left: 10px;
+      /* flex-direction: column; */
     }
   }
 
   .logo-full {
     position: relative;
     margin-left: 100px;
+
     @media only screen and (max-width: 900px) {
       position: relative;
       margin-left: 13.3rem;
@@ -262,154 +232,104 @@ export const Nav = styled.div<INavbar>`
     }
   }
 `;
+
 export const SearchRealtor = styled.div`
-  /* position: absolute; */
-  background-color: blue;
-  /* left: 32rem; */
   display: flex;
-  /* width: 700px;
-  height: 70px; */
-  border: 0px;
+  justify-content: center;
 
   form {
-
-    background: #e9e9e985;
-    max-width: 100%;
-    flex-direction: row;
+    background: transparent;
     display: flex;
-    flex-wrap:wrap;
-    backdrop-filter: blur(5px);
-    padding: 1rem 1rem;
-    border-radius: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: center;
+    padding: 2rem;
+
     .search-row {
+      position: relative;
       display: flex;
-      flex-direction: row;
-      min-width: 12rem;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       gap: 2rem;
       width: 100%;
-      height: 100%;
-      .input-city-cep {
-        margin: 0;
-        position: relative;
-        min-width: 12rem;
-        height: 100%;
-        border-radius: 1rem;
-        border: 1px solid #3a2e2c5a;
-        font-size: 16px;
-      }
-      .input-realtor {
-        /* width: 108%; */
-        min-width: 12rem;
-        height: 100%;
-        border-radius: 1rem;
-        border: 1px solid #3a2e2c5a;
-        font-size: 16px;
-      }
+    }
 
-      .input-realtor::placeholder,
-      .input-city-cep::placeholder {
-        font-size: 15px; /* Define o tamanho da fonte do placeholder */
+    .inputs-search {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+
+      input,
+      select {
+        flex: 1;
+        height: 50px;
+        border-radius: 1rem;
+        border: 1px solid #3a2e2c5a;
+        font-size: 16px;
+        padding: 0 1rem;
+      }
+    }
+
+    .searchButton {
+      min-width: 5vw;
+      height: 50px;
+      border-radius: 1rem;
+      padding: 0 1rem;
+      font-size: 16px;
+    }
+
+    .input-realtor::placeholder,
+    .input-city-cep::placeholder {
+      font-size: 15px;
+    }
+
+
+
+    @media only screen and (max-width: 1344px) {
+      .inputs-search input,
+      .inputs-search select {
+        height: 28px;
       }
 
       .searchButton {
-        padding: 0;
-        width: 80%;
-        min-width: 12rem;
-
-        height: 100%;
-        border-radius: 1rem;
-        font-size: 16px;
-      }
-
-      select {
-        border-radius: 1rem;
-        height: 100%;
-        border: none;
-        background-color: none;
-        font-size: 18px;
-        padding: 0 18px;
-        border: 1px solid #3a2e2c5a;
-        width: 108%;
-        padding-left: 6px;
-
-        @media only screen and (max-width: 1100px) {
-          height: 28px;
-          padding: 0 5px;
-          font-size: 16px;
-          width: 175px;
-        }
+        min-width: 10%;
+        height: 28px;
       }
     }
   }
-  /* @media only screen and (max-width: 1400px) {
-    left: 29rem;
-  }
-  @media only screen and (max-width: 1100px) {
-    position: relative;
-    left: 0rem;
-    display: flex;
-    width: 100%;
-    padding-right: 80px;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    border: 0px;
-    form {
-      .search-row {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        width: 100%;
-        height: 100%;
-        .input-city-cep {
-          width: 140px;
-          height: 25px;
-          padding: 1rem;
-        }
-        .input-realtor {
-          width: 140px;
-          height: 25px;
-          padding: 1rem;
-        }
-        .searchButton {
-          width: 140px;
-          height: 25px;
-        }
-      }
-    }
-  }
-  @media only screen and (max-width: 1200px) {
-    width: 450px;
-    form {
-      .search-row {
-        .input-city-cep {
-          width: 175px;
-          height: 28px;
-        }
-        .input-realtor {
-          width: 175px;
-          height: 28px;
-        }
-        .searchButton {
-          width: 160px;
-        }
-      }
-    }
-  } */
 `;
 
 export const Container = styled.div`
+position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 5;
+`;
+
+export const BoxSearch = styled.div`
+  display: flex;
+  margin-left: 4rem;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+
+  @media only screen and (max-width: 768px) {
     width: 100%;
-    background-color: red;
-    display:flex;
-    height: 150px;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: row;
-    gap:5;
-`
+  }
+`;
+
+export const LogoImage = styled.img<LogoProps>`
+  cursor: pointer;
+  width: ${(props) => props.width}px;
+  object-fit: cover;
+  background-position:center;
+
+  @media only screen and (max-width: 1344px) {
+    width: 12vw;
+  }
+`;

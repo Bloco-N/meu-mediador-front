@@ -4,92 +4,89 @@ import { SignInForm } from "@/types/SignInForm";
 import UserContext from "context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCallback, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
 import { decode } from "jsonwebtoken";
 import { UserContextType } from "@/types/UserContextType";
 import locales from "locales";
 import { useState } from "react";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
-import { GetServerSideProps } from "next";
-import { getSession, signIn, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import GoogleLoginButton from "../../../../components/ButtonAuth";
 import iconGoogle from "../../../../public/icon-google.png";
 import iconFacebook from "../../../../public/icons-facebook.png";
 import api from "../../../services/api";
-import { error } from "console";
 import { toast } from "react-toastify";
+import * as C from './styles'
+import Popover from "./Popover";
 
-const SignInContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+const Form:React.FC<any> = ({ t, onSubmit, signIn, loginError }) => {
+  const { register, handleSubmit } = useForm();
 
-  form {
-    @media only screen and (max-width: 800px) {
-      width: 60%;
-    }
-    @media only screen and (max-width: 500px) {
-      width: 90%;
+  return (
+    <C.Container>
+      <C.SignInContainer>
+        <C.Card onSubmit={handleSubmit(onSubmit)}>
+          <C.Title>{t.signIn.signIn}</C.Title>
 
-      .bottom-cta,
-      h5,
-      .forgot-password {
-        font-size: 1.5rem;
-      }
-    }
-    text-align: center;
-    width: 30%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 2rem;
-    padding: 2rem;
-  }
+            <C.ContainerInputs>
+              <C.Input
+                    type="email"
+                    placeholder={t.signIn.email}
+                    {...register("email", { required: true })}
+                  />
+                  <C.Input
+                    type="password"
+                    placeholder={t.signIn.password}
+                    {...register("password", { required: true })}
+                  />
 
-  .bottom-cta {
-    display: flex;
-    gap: 0.5rem;
+                  {loginError && <C.ErrorText className="text-error">{t.signIn.error}</C.ErrorText>}
+            </C.ContainerInputs>
 
-    @media only screen and (max-width: 400px) {
-      flex-direction: column;
-      align-items: center;
 
-      h5,
-      .create-account {
-        margin-top: 0.5rem; /* Adicione espaçamento entre os elementos em um layout de coluna, se necessário */
-      }
-    }
-  }
+          <C.ForgotPasswordLink href="/forgot-password/client">
+            {t.signIn.forgot}
+          </C.ForgotPasswordLink>
 
-  @media (max-width: 768px) {
-    padding: 0 37px;
-    margin-top: 30px;
+          <button>{t.signIn.enter}</button>
 
-    .card {
-      width: 100%;
-      min-height: 363px;
-      gap: 18px;
-      padding: 19px 27px 31px 27px;
+          <C.OrSeparator className="orSeparator">
+            <C.BorderTop className="borderTop" />
+            <C.OrText className="orText">ou</C.OrText>
+            <C.BorderTop className="borderTop" />
+          </C.OrSeparator>
 
-      input {
-        color: #3a2e2c;
-        opacity: 1;
-        font-weight: 600;
-      }
 
-      input::placeholder {
-        opacity: 0.8;
-        font-weight: 500;
-        color: #3a2e2c;
-      }
-    }
-  }
-`;
+          <C.ContainerOAuth>
+            <GoogleLoginButton
+              icon={iconGoogle.src}
+              onClick={() => signIn("google")}
+              text={t.signIn.google}
+            />
+
+            <GoogleLoginButton
+              icon={iconFacebook.src}
+              onClick={() => signIn("facebook")}
+              text={t.signIn.facebook}
+            />
+          </C.ContainerOAuth>
+
+            <Popover>
+                  <C.BottomCta>
+                    <h5>{t.signIn.notHaveAnAccount}</h5>
+                    <C.CreateAccountLink className="create-account special-link" href="/sign-up/profile">
+                      {t.signIn.here}
+                    </C.CreateAccountLink>
+                  </C.BottomCta>
+            </Popover>
+
+        </C.Card>
+      </C.SignInContainer>
+    </C.Container>
+  );
+};
 
 const SignIn = () => {
   const { data: session, status } = useSession();
@@ -184,62 +181,12 @@ const SignIn = () => {
   };
 
   return (
-    <div className="container">
-      <SignInContainer>
-        <form className="card" onSubmit={handleSubmit(onSubmit)}>
-          <h2>{t.signIn.signIn}</h2>
-
-          <input
-            className="input-sign-up"
-            type="email"
-            placeholder={t.signIn.email}
-            {...register("email", { required: true })}
-          />
-          <input
-            className="input-sign-up"
-            type="password"
-            placeholder={t.signIn.password}
-            {...register("password", { required: true })}
-          />
-
-          {loginError && <p className="text-error">{t.signIn.error}</p>}
-
-          <Link className="forgot-password" href="/forgot-password/client">
-            {t.signIn.forgot}
-          </Link>
-
-          <button>{t.signIn.enter}</button>
-
-          <div className="orSeparator">
-            <div className="borderTop"></div>
-            <div className="orText">ou</div>
-            <div className="borderTop"></div>
-          </div>
-
-          <GoogleLoginButton
-            icon={iconGoogle.src}
-            onClick={() => signIn("google")}
-            text={t.signIn.google}
-          />
-
-          <GoogleLoginButton
-            icon={iconFacebook.src}
-            onClick={() => signIn("facebook")}
-            text={t.signIn.facebook}
-          />
-
-          <div className="bottom-cta">
-            <h5>{t.signIn.notHaveAnAccount}</h5>
-            <Link
-              className="create-account special-link"
-              href="/sign-up/profile"
-            >
-              {t.signIn.here}
-            </Link>
-          </div>
-        </form>
-      </SignInContainer>
-    </div>
+        <Form
+          t={t}
+          onSubmit={onSubmit}
+          signIn={signIn}
+          loginError={loginError}        
+        />
   );
 };
 

@@ -222,7 +222,7 @@ const Navbar = () => {
 
   let sourceUrl = "";
   let classNameImage = "";
-  if (router.pathname === "/" || width > 768) {
+  if (router.pathname === "/" || width >= 768) {
     sourceUrl = "/logo_semFundo.png";
     classNameImage = "logo-full";
   } else {
@@ -231,7 +231,7 @@ const Navbar = () => {
   }
 
   function sizeWidth() {
-    if (width > 768) {
+    if (width >= 768) {
       return 250;
     } else {
       if (router.pathname == "/") {
@@ -257,24 +257,22 @@ const Navbar = () => {
           : width < 768
           ? "space-between"
           : "center",
-        backgroundColor: showSearchBar ? "#dedddd" : "transparent",
-        paddingTop: showSearchBar ? "1rem" : "5rem",
-        paddingBottom: showSearchBar ? "1rem" : "1rem",
-        paddingRight: showSearchBar ? "1rem" : "0rem",
-        paddingLeft: showSearchBar ? "0rem" : "0rem",
+        backgroundColor: "#dedddd",
+        paddingTop:"1rem",
+        paddingBottom:"1rem",
+        paddingRight:"1rem",
+        paddingLeft:"0rem",
       }}
     >
       <C.Container>
-      <div>
-            <img
-                onClick={() => router.push("/")}
-                width={(width < 768) ? sizeWidth() :sizeWidthDesk()}
-                src={sourceUrl}
-                alt="Meoagent-logo"
-                className="img-absolute"
-              />
-
-      </div>
+        <C.BoxSearch>
+        <C.LogoImage
+            onClick={() => router.push("/")}
+            width={(width < 768) ? sizeWidth() : sizeWidthDesk()}
+            src={sourceUrl}
+            alt="Meoagent-logo"
+            className="img-absolute"
+          />
 
         <RenderConditional isTrue={showSearchBar && !pdfPage}>
           <>
@@ -285,75 +283,88 @@ const Navbar = () => {
                 ref={inputRef}
               >
                 <div className="search-row">
-                  <select
-                    value={selectedValue}
-                    {...register("idSearch", {
-                      required: true,
-                      onChange: (e) => setSelectedValue(e.target.value),
-                    })}
-                  >
-                    <option value={1}>{t.home.realtor}</option>
-                    <option value={2}>{t.home.agency}</option>
-                  </select>
+                  <div className='inputs-search'>
+                    <div>
+                      <select
+                        value={selectedValue}
+                        className="select-type"
+                        {...register("idSearch", {
+                          required: true,
+                          onChange: (e) => setSelectedValue(e.target.value),
+                        })}
+                      >
+                        <option value={1}>{t.home.realtor}</option>
+                        <option value={2}>{t.home.agency}</option>
+                      </select>
+                    </div>
+                      <div>
+                          <input
+                          type="text"
+                          className="input-realtor"
+                          placeholder={
+                            selectedValue == 1
+                              ? t.home.searchRealtorNamePlaceholder
+                              : t.home.searchAgencyNamePlaceholder
+                          }
+                          {...register("search")}
+                        />
+                      </div>
+                      <div>
+                      <input
+                        list="cities"
+                        type="text"
+                        className="input-city-cep"
+                        placeholder={t.home.searchRealtorCityPlaceholder}
+                        {...register("zipCode")}
+                      />
+                      <datalist id="cities">
+                        {cities?.map((item, index) => (
+                          <option key={index} value={item} />
+                        ))}
+                      </datalist>
+                    </div>
+                  </div>
 
-                  <input
-                    type="text"
-                    className="input-realtor"
-                    placeholder={
-                      selectedValue == 1
-                        ? t.home.searchRealtorNamePlaceholder
-                        : t.home.searchAgencyNamePlaceholder
-                    }
-                    {...register("search")}
-                  />
 
-                  <input
-                    list="cities"
-                    type="text"
-                    className="input-city-cep"
-                    placeholder={t.home.searchRealtorCityPlaceholder}
-                    {...register("zipCode")}
-                  />
-                  <datalist id="cities">
-                    {cities?.map((item, index) => (
-                      <option key={index} value={item} />
-                    ))}
-                  </datalist>
-                  {width < 768 ? null : (
-                    <button className="searchButton">
-                      {t.home.searchButton}
-                    </button>
-                  )}
+                    <div className="content-search-button">
+                      <button className="searchButton">
+                        {t.home.searchButton}
+                      </button>
+                    </div>
                 </div>
               </form>
             </C.SearchRealtor>
           </>
         </RenderConditional>
+        </C.BoxSearch>
 
         <RenderConditional isTrue={!pdfPage}>
           <>
             <div className="left-side">
-              <div className="locale-area selection border">
+              <RenderConditional isTrue={width >= 768}>
+              <div 
+                className="locale-area selection border">
+
                 <Image
                   alt="United States"
                   src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
                   width={20}
                   height={20}
                 />
-
-                <select
-                  id="locale-set"
-                  onChange={(e) => changeLocation(e)}
-                  className="locale"
-                >
-                  <option value="en">EN</option>
-                  <option value="pt">PT</option>
-                  <option value="es">ES</option>
-                </select>
+                
+                  <select
+                    id="locale-set"
+                    onChange={(e) => changeLocation(e)}
+                    className="locale"
+                  >
+                    <option value="en">EN</option>
+                    <option value="pt">PT</option>
+                    <option value="es">ES</option>
+                  </select>
               </div>
-              {user.token ? (
-              
-                  <Image
+                </RenderConditional>
+              <RenderConditional isTrue={!!user.token}>
+                <Image
                     onClick={() => setOpenProfile(!openProfile)}
                     className="profile"
                     src={pic ? pic : perfilImage}
@@ -361,15 +372,17 @@ const Navbar = () => {
                     width={60}
                     height={60}
                   />
-              ) : (
+              </RenderConditional>
+
+              <RenderConditional isTrue={!user.token}>
                 <div
                   onMouseEnter={() => setOpen(true)}
                   onMouseLeave={() => setOpen(false)}
                   onClick={() => setOpen(!open)}
                   className={open ? "login" : "login closed"}
                 >
-                  {width < 768 ? (
-            
+
+                  <RenderConditional isTrue={width < 768}>
                       <Image
                         onClick={() => setOpenProfile(!openProfile)}
                         className="profile"
@@ -378,14 +391,15 @@ const Navbar = () => {
                         width={60}
                         height={60}
                       />
-                  
-                  ) : (
-                    <p>LOGIN</p>
-                  )}
+                  </RenderConditional>
 
+                  <RenderConditional isTrue={width >= 768}>
+                    <p>LOGIN</p>
+                  </RenderConditional>
+                  
                   <LoginMoldal open={open} setOpen={setOpen} />
                 </div>
-              )}
+              </RenderConditional>
             </div>
             <ProfileMoldal open={openProfile} setOpen={setOpenProfile} />
           </>

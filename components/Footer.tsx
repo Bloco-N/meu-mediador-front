@@ -13,13 +13,18 @@ import DenunciaMoldal from "./DenunciaModal";
 
 
 const FooterStyle = styled.div`
+    position: fixed !important;
+    bottom: -20px;
+    display: none;
+    background-color: transparent;
     width: 100%;
     height: 90px;
     display: none;
     align-items: center;
-    justify-content: center;
-    padding: 25px 0 30px 0;
+    justify-content: flex-end;
+    padding: 25px 5px 30px 5px;
     position: relative;
+    padding: lef;
     @media (max-width: 768px) {
         display: flex;
       }
@@ -37,6 +42,7 @@ const FooterStyle = styled.div`
       padding: 1rem;
       height: 5rem;
       transform: translateY(-5px);
+      z-index: 9999;
     }
     .locale{
       position: relative;
