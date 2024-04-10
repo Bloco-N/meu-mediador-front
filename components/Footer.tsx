@@ -1,16 +1,9 @@
-import Link from "next/link";
 import Image from "next/image";
 import styled from 'styled-components';
 import { useContext, useEffect, useState } from "react";
-import LoginMoldal from "./LoginMoldal";
 import UserContext from "context/UserContext";
-import ProfileMoldal from "./ProfileMoldal";
 import { UserContextType } from "@/types/UserContextType";
-import profileIcon from '../public/profile.svg'
 import { useRouter } from "next/router";
-import DenunciaMoldal from "./DenunciaModal";
-
-
 
 const FooterStyle = styled.div`
     position: fixed !important;
@@ -25,7 +18,7 @@ const FooterStyle = styled.div`
     padding: 25px 5px 30px 5px;
     position: relative;
     padding: lef;
-    @media (max-width: 768px) {
+    @media (max-width: 820px) {
         display: flex;
       }
     

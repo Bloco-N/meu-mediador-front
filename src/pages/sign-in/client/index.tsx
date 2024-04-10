@@ -19,7 +19,6 @@ import iconFacebook from "../../../../public/icons-facebook.png";
 import api from "../../../services/api";
 import { toast } from "react-toastify";
 import * as C from './styles'
-import Popover from "./Popover";
 
 const Form:React.FC<any> = ({ t, onSubmit, signIn, loginError }) => {
   const { register, handleSubmit } = useForm()
@@ -28,8 +27,8 @@ const Form:React.FC<any> = ({ t, onSubmit, signIn, loginError }) => {
     <C.Container>
       <C.SignInContainer>
         <C.Card onSubmit={handleSubmit(onSubmit)}>
-          <C.Title>{t.signIn.signIn}</C.Title>
 
+            <C.Title>{t.signIn.signIn}</C.Title>
             <C.ContainerInputs>
               <C.Input
                     type="email"
@@ -41,47 +40,41 @@ const Form:React.FC<any> = ({ t, onSubmit, signIn, loginError }) => {
                     placeholder={t.signIn.password}
                     {...register("password", { required: true })}
                   />
-
-                  {loginError && <C.ErrorText className="text-error">{t.signIn.error}</C.ErrorText>}
+                {loginError && <C.ErrorText className="text-error">{t.signIn.error}</C.ErrorText>}
             </C.ContainerInputs>
 
+            <C.ForgotPasswordLink href="/forgot-password/client">
+              {t.signIn.forgot}
+            </C.ForgotPasswordLink>
+            <button>{t.signIn.enter}</button>
 
-          <C.ForgotPasswordLink href="/forgot-password/client">
-            {t.signIn.forgot}
-          </C.ForgotPasswordLink>
+            <C.OrSeparator className="orSeparator">
+              <C.BorderTop className="borderTop" />
+              <C.OrText className="orText">ou</C.OrText>
+              <C.BorderTop className="borderTop" />
+            </C.OrSeparator>
 
-          <button>{t.signIn.enter}</button>
+            <C.ContainerOAuth>
+              <GoogleLoginButton
+                icon={iconGoogle.src}
+                onClick={() => signIn("google")}
+                text={t.signIn.google}
+              />
 
-          <C.OrSeparator className="orSeparator">
-            <C.BorderTop className="borderTop" />
-            <C.OrText className="orText">ou</C.OrText>
-            <C.BorderTop className="borderTop" />
-          </C.OrSeparator>
+              <GoogleLoginButton
+                icon={iconFacebook.src}
+                onClick={() => signIn("facebook")}
+                text={t.signIn.facebook}
+              />
+            </C.ContainerOAuth>
 
-
-          <C.ContainerOAuth>
-            <GoogleLoginButton
-              icon={iconGoogle.src}
-              onClick={() => signIn("google")}
-              text={t.signIn.google}
-            />
-
-            <GoogleLoginButton
-              icon={iconFacebook.src}
-              onClick={() => signIn("facebook")}
-              text={t.signIn.facebook}
-            />
-          </C.ContainerOAuth>
-
-            <Popover>
-                  <C.BottomCta>
-                    <h5>{t.signIn.notHaveAnAccount}</h5>
-                    <C.CreateAccountLink className="create-account special-link" href="/sign-up/profile">
-                      {t.signIn.here}
-                    </C.CreateAccountLink>
-                  </C.BottomCta>
-            </Popover>
-
+            <C.BottomCta>
+              <h5>{t.signIn.notHaveAnAccount}</h5>
+              <C.CreateAccountLink className="create-account special-link" href="/sign-up/profile">
+                {t.signIn.here}
+              </C.CreateAccountLink>
+            </C.BottomCta>
+            
         </C.Card>
       </C.SignInContainer>
     </C.Container>
@@ -90,9 +83,6 @@ const Form:React.FC<any> = ({ t, onSubmit, signIn, loginError }) => {
 
 const SignIn = () => {
   const { data: session, status } = useSession();
-
-  const { register, handleSubmit } = useForm<SignInForm>();
-
   const { setUser } = useContext(UserContext) as UserContextType;
 
   const { setOpen: setLoadingOpen } = useContext(

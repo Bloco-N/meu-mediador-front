@@ -26,7 +26,8 @@ export const Card = styled.form`
     border-radius: 3rem;
     text-align: center;
     gap:18px;
-    min-width: 50vw;
+    max-width: 600px;
+    width: 100%;
     height: auto;
     padding: 1rem;
     margin: 1rem;
@@ -81,10 +82,6 @@ export const ContainerOAuth = styled.div`
     width: 100%;
     justify-content: center;
     align-items: center;
-    @media (max-width: 768px) {
-      flex-direction: row;
-    }
-
     gap:1rem;
 
 `

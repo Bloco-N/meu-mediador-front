@@ -18,6 +18,12 @@ export const Nav = styled.div<INavbar>`
   background-color: #dedddd !important;
   height: 69px;
 
+
+  @media (max-width:727px) {
+      align-items: center !important;
+      justify-content: center !important;
+  }
+
   .logo-area {
     height: 100%;
   }
@@ -28,6 +34,18 @@ export const Nav = styled.div<INavbar>`
     justify-content: center;
     gap: 3rem;
     min-width: 100px;
+    margin-right: 4rem;
+
+    .box-icon-search{
+        svg{
+          width: 30px;
+          height: 30px;
+        }
+
+        svg:hover{
+          color:green;
+        }
+    }
 
     &:has(.profile) {
       align-items: center;
@@ -90,6 +108,7 @@ export const Nav = styled.div<INavbar>`
     text-align: center;
     border-radius: 1rem;
     transition: all 0.5s, border-radius 0s;
+    min-width: 70px;
 
     .online {
       top: 30px;
@@ -104,10 +123,14 @@ export const Nav = styled.div<INavbar>`
       border-radius: 1rem 1rem 0 0;
     }
 
-    @media only screen and (max-width: 900px) {
-      width: 85px;
+    @media only screen and (max-width: 767px) {
       background-color: transparent;
       border: none;
+    }
+
+
+    @media only screen and (max-width: 900px) {
+      width: 85px;
       margin-right: ${(props) => (props.path === "/" ? "14px" : "0")};
       align-items: ${(props) => (props.path === "/" ? "end" : "center")};
     }
@@ -267,9 +290,9 @@ export const SearchRealtor = styled.div`
         height: 50px;
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
-        font-size: 16px;
+        font-size: 14px;
         padding: 0 1rem;
-        width: 15vh;
+        width: 16rem;
 
       }
 
@@ -317,6 +340,15 @@ position: absolute;
   align-items: center;
   flex-direction: row;
   gap: 5;
+
+  @media (max-width:727px) {
+      max-width: 650px;
+      width: 100%;
+
+      .left-side {
+        margin-right: 2rem;
+      }
+  }
 `;
 
 export const BoxSearch = styled.div`
@@ -360,7 +392,7 @@ export const HeaderActionsModal = styled.div`
   width: 100%;
 
   svg:hover{
-  color: red;
+    color: red;
   }
 `
 export const ContainerInputs = styled.div`
@@ -379,7 +411,7 @@ export const ContainerInputs = styled.div`
         height: 50px;
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
-        font-size: 16px;
+        font-size: 1px;
         padding: 0 1rem;
         width:200px !important;
       }
