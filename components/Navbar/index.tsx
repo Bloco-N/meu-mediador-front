@@ -22,6 +22,7 @@ import { RenderConditional } from '@components/index'
 import Modal, { IModalProps } from "@components/Modal";
 import { MdCloseFullscreen } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
+import { isMobileDevice } from "@/utils";
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState<any>({
@@ -47,7 +48,7 @@ const useWindowSize = () => {
   return windowSize;
 };
 
-const Navbar = () => {
+const Navbar:React.FC<any> = ({ children }) => {
   // Contexts
   const { setSearch } = useContext(SearchContext) as SearchContextType;
   const { setSearchResult } = useContext(SearchResultContext) as SearchResultContextType;
@@ -61,6 +62,7 @@ const Navbar = () => {
   const [selectedValue, setSelectedValue] = useState(1)
   const [pic, setPic] = useState("");
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+  const [isMobile, setIsMobile] = useState<boolean>(false)
   const [cities, setCities] = useState<Array<string>>();
   const inputRef = useRef<any>(null);
   const { register, handleSubmit } = useForm<SearchForm>();
@@ -140,6 +142,8 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("keypress", handleKeyPress);
     };
+    
+    setIsMobile(isMobileDevice())
   }, []);
 
   const fetchData = async () => {
@@ -291,7 +295,7 @@ const Navbar = () => {
   };
 
   return (
-    <>
+    <C.ContainerNavbar>
     <PopupSearch/>
     <C.Nav path={router.pathname}>
       <C.Container>
@@ -446,8 +450,11 @@ const Navbar = () => {
         </RenderConditional>
 
         </C.Container>
-    </C.Nav>
-    </>
+      </C.Nav>
+      <C.ContentNavbar isMobileDevice={isMobile}>
+        {children}
+      </C.ContentNavbar>
+    </C.ContainerNavbar>
 
   );
 };

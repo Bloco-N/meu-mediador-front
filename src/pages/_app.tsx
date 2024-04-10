@@ -1,5 +1,5 @@
 import '@/styles/globals.css'
-import Layout from 'components/Layout'
+import Layout from '@components/Layout/Layout'
 import type { AppProps } from 'next/app'
 import ModalWrapper from 'components/ModalWrapper'
 import { ToastContainer, toast } from 'react-toastify';

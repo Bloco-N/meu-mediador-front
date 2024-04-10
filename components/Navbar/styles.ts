@@ -1,5 +1,5 @@
+import { isMobileDevice } from "@/utils";
 import styled from "styled-components";
-import subLogo from '/sublogo.png';
 
 interface INavbar {
   path: string;
@@ -9,7 +9,48 @@ interface LogoProps {
     width: number;
   }
 
+  export const ContainerNavbar = styled.section`
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  `
+
+export const ContentNavbar = styled.section<{isMobileDevice:boolean}>`
+  display: flex;
+  flex-direction:column;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+
+  ${
+    ({isMobileDevice}) => !isMobileDevice && `
+        @media (max-width: 1280px) {
+          margin-top: 25px;
+        }
+      
+        @media (max-width: 960px) {
+          margin-top: 35px;
+        }
+      
+        @media (max-width: 768px) {
+          margin-top: 45px;
+        }
+      
+        @media (max-width: 384px) {
+          margin-top: 55px;
+        }
+    `
+  }
+
+
+`
+
+
 export const Nav = styled.div<INavbar>`
+position: absolute;
   flex-direction: row;
   width: 100%;
   display: flex;
@@ -17,7 +58,6 @@ export const Nav = styled.div<INavbar>`
   justify-content: space-between;
   background-color: #dedddd !important;
   height: 69px;
-
 
   @media (max-width:727px) {
       align-items: center !important;
@@ -240,7 +280,6 @@ export const Nav = styled.div<INavbar>`
 
     @media only screen and (max-width: 900px) {
         margin-left: 10px;
-      /* flex-direction: column; */
     }
   }
 
@@ -339,7 +378,6 @@ position: absolute;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  gap: 5;
 
   @media (max-width:727px) {
       max-width: 650px;
