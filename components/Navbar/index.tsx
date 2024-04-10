@@ -19,6 +19,8 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import api from "@/services/api";
 import * as C from './styles'
 import { RenderConditional } from '@components/index'
+import Modal, { IModalProps } from "@components/Modal";
+import { MdCloseFullscreen } from "react-icons/md";
 
 interface NavBarInterface {
   showSearchBar: boolean;
@@ -57,7 +59,13 @@ const Navbar = () => {
   const [openProfile, setOpenProfile] = useState(false);
   const [selectedValue, setSelectedValue] = useState(1)
   const [pic, setPic] = useState("");
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 
+  const configModal:IModalProps = {
+    childSize: { width:'250px',height:'40%',radius:10},
+    isOpen:isOpenModal,
+    onClose: () => {}
+}
   const router = useRouter();
   const isLogad = localStorage.getItem("id");
   const perfilImage = isLogad ? iconIsLogad : profileIcon;
@@ -131,6 +139,7 @@ const Navbar = () => {
 
   const inputRef = useRef<any>(null);
   const [size2, setSize2] = useState(200);
+  
   useEffect(() => {
     window.addEventListener("resize", handleResize);
 
@@ -167,6 +176,7 @@ const Navbar = () => {
   }, []);
 
   const onSubmit = async (data: SearchForm) => {
+    setIsOpenModal(false)
     const fetchData = async () => {
       let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
@@ -248,7 +258,81 @@ const Navbar = () => {
       return 250;
   }
 
+  function PopupSearch(){
+    return (
+      <Modal {...configModal}>
+      <C.ContainerModal
+        onSubmit={handleSubmit(onSubmit)}
+        ref={inputRef}
+      >
+        <C.HeaderActionsModal>
+            <MdCloseFullscreen
+              onClick={() => setIsOpenModal(false)} 
+              size={30}
+            />
+        </C.HeaderActionsModal>
+        <C.ContainerInputs>
+
+            <C.BoxInput>
+                <select
+                  value={selectedValue}
+                  className="select-type"
+                  {...register("idSearch", {
+                      required: true,
+                      onChange: (e) => setSelectedValue(e.target.value),
+                  })}
+                  >
+                  <option value={1}>{t.home.realtor}</option>
+                  <option value={2}>{t.home.agency}</option>
+              </select>
+            </C.BoxInput>
+
+            <C.BoxInput>
+                <input
+                  type="text"
+                  className="input-realtor"
+                  placeholder={
+                  selectedValue == 1
+                      ? t.home.searchRealtorNamePlaceholder
+                      : t.home.searchAgencyNamePlaceholder
+                  }
+                  {...register("search")}
+                  />
+            </C.BoxInput>
+
+            <C.BoxInput>
+              <input
+                  list="cities"
+                  type="text"
+                  className="input-city-cep"
+                  placeholder={t.home.searchRealtorCityPlaceholder}
+                  {...register("zipCode")}
+              />
+              <datalist id="cities">
+                  {cities?.map((item, index) => (
+                  <option key={index} value={item} />
+                  ))}
+            </datalist>
+          </C.BoxInput>
+
+        </C.ContainerInputs>
+
+        <C.FooterActionsModal>
+            <div className="content-search-button">
+                <button className="searchButton">
+                {t.home.searchButton}
+                </button>
+              </div>
+        </C.FooterActionsModal>
+      </C.ContainerModal>
+
+    </Modal>
+    )
+  }
+
   return (
+    <>
+    <PopupSearch/>
     <C.Nav
       path={router.pathname}
       style={{
@@ -264,6 +348,7 @@ const Navbar = () => {
         paddingLeft:"0rem",
       }}
     >
+
       <C.Container>
         <C.BoxSearch>
         <C.LogoImage
@@ -279,59 +364,63 @@ const Navbar = () => {
             <C.SearchRealtor>
               <form
                 className="card"
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={() => width > 727 ? handleSubmit(onSubmit) : setIsOpenModal(true)}
                 ref={inputRef}
               >
-                <div className="search-row">
-                  <div className='inputs-search'>
-                    <div>
-                      <select
-                        value={selectedValue}
-                        className="select-type"
-                        {...register("idSearch", {
-                          required: true,
-                          onChange: (e) => setSelectedValue(e.target.value),
-                        })}
-                      >
-                        <option value={1}>{t.home.realtor}</option>
-                        <option value={2}>{t.home.agency}</option>
-                      </select>
-                    </div>
+                  <div className="search-row">
+                  <RenderConditional isTrue={width > 727}>
+                    <div className='inputs-search'>
                       <div>
-                          <input
-                          type="text"
-                          className="input-realtor"
-                          placeholder={
-                            selectedValue == 1
-                              ? t.home.searchRealtorNamePlaceholder
-                              : t.home.searchAgencyNamePlaceholder
-                          }
-                          {...register("search")}
-                        />
+                        <select
+                          value={selectedValue}
+                          className="select-type"
+                          {...register("idSearch", {
+                            required: true,
+                            onChange: (e) => setSelectedValue(e.target.value),
+                          })}
+                        >
+                          <option value={1}>{t.home.realtor}</option>
+                          <option value={2}>{t.home.agency}</option>
+                        </select>
                       </div>
-                      <div>
-                      <input
-                        list="cities"
-                        type="text"
-                        className="input-city-cep"
-                        placeholder={t.home.searchRealtorCityPlaceholder}
-                        {...register("zipCode")}
-                      />
-                      <datalist id="cities">
-                        {cities?.map((item, index) => (
-                          <option key={index} value={item} />
-                        ))}
-                      </datalist>
+                        <div>
+                            <input
+                            type="text"
+                            className="input-realtor"
+                            placeholder={
+                              selectedValue == 1
+                                ? t.home.searchRealtorNamePlaceholder
+                                : t.home.searchAgencyNamePlaceholder
+                            }
+                            {...register("search")}
+                          />
+                        </div>
+                        <div>
+                        <input
+                          list="cities"
+                          type="text"
+                          className="input-city-cep"
+                          placeholder={t.home.searchRealtorCityPlaceholder}
+                          {...register("zipCode")}
+                        />
+                        <datalist id="cities">
+                          {cities?.map((item, index) => (
+                            <option key={index} value={item} />
+                          ))}
+                        </datalist>
+                      </div>
                     </div>
+                </RenderConditional>
+                      <div className="content-search-button">
+                        <button 
+                          className="searchButton"
+                          onClick={() =>  width <= 727 && setIsOpenModal(true)}
+                          type={width <= 727 ? 'button' : 'submit' }
+                          >
+                          {t.home.searchButton}
+                        </button>
+                      </div>
                   </div>
-
-
-                    <div className="content-search-button">
-                      <button className="searchButton">
-                        {t.home.searchButton}
-                      </button>
-                    </div>
-                </div>
               </form>
             </C.SearchRealtor>
           </>
@@ -341,27 +430,25 @@ const Navbar = () => {
         <RenderConditional isTrue={!pdfPage}>
           <>
             <div className="left-side">
-              <RenderConditional isTrue={width >= 768}>
-              <div 
-                className="locale-area selection border">
-
-                <Image
-                  alt="United States"
-                  src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
-                  width={20}
-                  height={20}
-                />
-                
-                  <select
-                    id="locale-set"
-                    onChange={(e) => changeLocation(e)}
-                    className="locale"
-                  >
-                    <option value="en">EN</option>
-                    <option value="pt">PT</option>
-                    <option value="es">ES</option>
-                  </select>
-              </div>
+              <RenderConditional isTrue={width > 768}>
+                  <div className="locale-area selection border">
+                    <Image
+                      alt="United States"
+                      src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
+                      width={20}
+                      height={20}
+                    />
+                    
+                      <select
+                        id="locale-set"
+                        onChange={(e) => changeLocation(e)}
+                        className="locale"
+                      >
+                        <option value="en">EN</option>
+                        <option value="pt">PT</option>
+                        <option value="es">ES</option>
+                      </select>
+                  </div>
                 </RenderConditional>
               <RenderConditional isTrue={!!user.token}>
                 <Image
@@ -406,6 +493,8 @@ const Navbar = () => {
         </RenderConditional>
         </C.Container>
     </C.Nav>
+    </>
+
   );
 };
 

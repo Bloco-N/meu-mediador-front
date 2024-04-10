@@ -269,8 +269,16 @@ export const SearchRealtor = styled.div`
         border: 1px solid #3a2e2c5a;
         font-size: 16px;
         padding: 0 1rem;
+        width: 15vh;
+
+      }
+
+      select {
+        min-width:40px;
       }
     }
+    
+
 
     .searchButton {
       min-width: 5vw;
@@ -333,3 +341,54 @@ export const LogoImage = styled.img<LogoProps>`
     width: 12vw;
   }
 `;
+
+// Modal
+export const ContainerModal = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+`
+export const HeaderActionsModal = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height:30px;
+  width: 100%;
+
+  svg:hover{
+  color: red;
+  }
+`
+export const ContainerInputs = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100% !important;
+  padding: 1rem;
+  gap: 1rem;
+
+      input,
+      select {
+        flex: 1;
+        height: 50px;
+        border-radius: 1rem;
+        border: 1px solid #3a2e2c5a;
+        font-size: 16px;
+        padding: 0 1rem;
+        width:200px !important;
+      }
+`
+export const BoxInput = styled.div``
+export const FooterActionsModal = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+`

@@ -69,6 +69,7 @@ export const OrText = styled.div``;
 
 export const BottomCta = styled.div`
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
 `;
 

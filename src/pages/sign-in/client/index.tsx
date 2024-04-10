@@ -22,7 +22,7 @@ import * as C from './styles'
 import Popover from "./Popover";
 
 const Form:React.FC<any> = ({ t, onSubmit, signIn, loginError }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit } = useForm()
 
   return (
     <C.Container>
