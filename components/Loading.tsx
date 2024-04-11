@@ -67,7 +67,7 @@ type LoadingProps = {
 const Loading = ({open}:LoadingProps) => {
   return (
     open ? (
-      <Container className='modal'>
+      <Container className='modal-loader'>
         <div className="lds-ripple"><div></div><div></div></div>
       </Container>
     ) : <></>

@@ -283,11 +283,12 @@ input::-webkit-inner-spin-button {
   appearance: none;
 }
 
-.modal {
+.modal-loader {
   background-color: #00000062;
+  z-index: 99999;
 }
 
-.modal form {
+.modal-loader form {
   background-color: #bababac7;
   backdrop-filter: blur(0.3rem);
   -webkit-backdrop-filter: blur(0.3rem);

@@ -121,6 +121,9 @@ const pt = {
   },
   signIn: {
     signIn: "Entrar",
+    signInClient:"Entrar como Cliente",
+    signInRealtor:"Entrar como Consultor",
+    signInAgency:"Entrar como Agência",
     email: "Email",
     password: "Senha",
     forgot: "Esqueci minha senha",

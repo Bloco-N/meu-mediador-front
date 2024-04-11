@@ -19,6 +19,7 @@ const InfoFooterDiv = styled.div`
   margin-top: auto;
   display: flex;
   justify-content: space-between;
+  z-index: -1;
   .div-ajuda {
     width: 98%;
     padding: 0px 10px;
