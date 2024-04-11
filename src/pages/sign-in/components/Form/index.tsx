@@ -3,16 +3,31 @@ import { useForm } from 'react-hook-form';
 import GoogleLoginButton from "@components/ButtonAuth";
 import iconGoogle from "../../../../../public/icon-google.png";
 import iconFacebook from "../../../../../public/icons-facebook.png";
+import { useRouter } from 'next/router';
 
 export const Form:React.FC<any> = ({ t, onSubmit, signIn, loginError }) => {
     const { register, handleSubmit } = useForm()
+    const router = useRouter();
+    const path = router.asPath
+    
+    function renderTitle() {
+        if(path.includes('client')){
+          return t.signIn?.signInClient
+        }else if(path.includes('realtor')){
+          return t.signIn?.signInRealtor
+        }else if(path.includes('agency')){
+          return t.signIn?.signInAgency
+        }else{
+          return t.signIn.signIn
+        }
+    }
   
     return (
       <C.Container>
         <C.SignInContainer>
           <C.Card onSubmit={handleSubmit(onSubmit)}>
   
-              <C.Title>{t.signIn.signIn}</C.Title>
+              <C.Title>{renderTitle()}</C.Title>
               <C.ContainerInputs>
                 <C.Input
                       type="email"

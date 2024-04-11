@@ -31,7 +31,7 @@ export const Card = styled.form`
   border-radius: 3rem;
   text-align: center;
   gap: 18px;
-  max-width: 600px;
+  max-width: 340px;
   width: 100%;
   height: auto;
   padding: 1rem;
@@ -42,25 +42,30 @@ export const Card = styled.form`
 
   ${
     !isMobileDevice() && `
+
+            @media only screen and (max-width: 1280px){
+            margin-top:5rem;
+            
+        }
         @media only screen and (max-width: 1098px){
-            margin-top: 10rem;
+            margin-top: 15rem;
             
         }
 
         @media only screen and (max-width: 768px){
-            margin-top: 20rem;
+            margin-top: 25rem;
         }
     
         @media only screen and (max-width: 640px){
-            margin-top: 30rem;
+            margin-top: 35rem;
         }
 
         @media only screen and (max-width: 384px){
-            margin-top: 40rem;
+            margin-top: 45rem;
         }
 
         @media only screen and (max-width: 480px){
-            margin-top: 40rem;
+            margin-top: 50rem;
         }    
     `
   }
@@ -103,11 +108,17 @@ export const OrText = styled.div``;
 
 export const BottomCta = styled.div`
   display: flex;
-  flex-wrap: wrap;
   gap: 5px;
+  white-space: nowrap;
+
+  h5{
+    font-size: 14px;
+  }
 `;
 
-export const CreateAccountLink = styled(Link)``;
+export const CreateAccountLink = styled(Link)`
+text-align: center;
+font-size:14px`;
 
 export const ContainerOAuth = styled.div`
   display: flex;
