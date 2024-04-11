@@ -26,7 +26,6 @@ export const Form:React.FC<any> = ({ t, onSubmit, signIn, loginError }) => {
       <C.Container>
         <C.SignInContainer>
           <C.Card onSubmit={handleSubmit(onSubmit)}>
-  
               <C.Title>{renderTitle()}</C.Title>
               <C.ContainerInputs>
                 <C.Input

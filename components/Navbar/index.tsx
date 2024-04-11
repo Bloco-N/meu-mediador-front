@@ -300,14 +300,19 @@ const Navbar:React.FC<any> = ({ children }) => {
     <PopupSearch/>
     <C.Nav path={router.pathname}>
       <C.Container>
-        <C.BoxSearch>
-        <C.LogoImage
-            onClick={() => router.push("/")}
-            width={(width <= 768) ? sizeWidth() : sizeWidthDesk()}
-            src={sourceUrl}
-            alt="Meoagent-logo"
-            className="img-absolute"
-          />
+        <span/>
+        <C.BoxSearch path={router.pathname}>
+
+          <div className="box-image" style={{width:'25%'}}>
+            <C.LogoImage
+                path={router.pathname}
+                onClick={() => router.push("/")}
+                width={(width <= 768) ? sizeWidth() : sizeWidthDesk()}
+                src={sourceUrl}
+                alt="Meoagent-logo"
+                className="img-absolute"
+              />
+          </div>
 
         <RenderConditional isTrue={showSearchBar && !pdfPage}>
             <C.SearchRealtor>
