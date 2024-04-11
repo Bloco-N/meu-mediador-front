@@ -69,7 +69,7 @@ const Navbar:React.FC<any> = ({ children }) => {
 
   // Control Variables
   const configModal:IModalProps = {
-    childSize: { width:'250px',height:'40%',radius:10},
+    childSize: { width:'250px',height:'280px',radius:10},
     isOpen:isOpenModal,
     onClose: () => {}
   }
@@ -138,12 +138,13 @@ const Navbar:React.FC<any> = ({ children }) => {
     } else {
       router.push(router.asPath, router.asPath, { locale });
     }
+    
+    setIsMobile(isMobileDevice())
 
     return () => {
       document.removeEventListener("keypress", handleKeyPress);
     };
     
-    setIsMobile(isMobileDevice())
   }, []);
 
   const fetchData = async () => {
@@ -181,7 +182,7 @@ const Navbar:React.FC<any> = ({ children }) => {
 
   function sizeWidthDesk() {
       if (router.pathname == "/") {
-        return 430;
+        return 220;
       }
       return 250;
   }
@@ -302,7 +303,7 @@ const Navbar:React.FC<any> = ({ children }) => {
         <C.BoxSearch>
         <C.LogoImage
             onClick={() => router.push("/")}
-            width={(width < 768) ? sizeWidth() : sizeWidthDesk()}
+            width={(width <= 768) ? sizeWidth() : sizeWidthDesk()}
             src={sourceUrl}
             alt="Meoagent-logo"
             className="img-absolute"

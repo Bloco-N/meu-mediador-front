@@ -44,13 +44,10 @@ export const ContentNavbar = styled.section<{isMobileDevice:boolean}>`
         }
     `
   }
-
-
 `
 
-
 export const Nav = styled.div<INavbar>`
-position: absolute;
+  position: absolute;
   flex-direction: row;
   width: 100%;
   display: flex;
@@ -58,6 +55,7 @@ position: absolute;
   justify-content: space-between;
   background-color: #dedddd !important;
   height: 69px;
+  z-index: 1 ;
 
   @media (max-width:727px) {
       align-items: center !important;
@@ -149,6 +147,7 @@ position: absolute;
     border-radius: 1rem;
     transition: all 0.5s, border-radius 0s;
     min-width: 70px;
+    z-index: 1 !important;
 
     .online {
       top: 30px;
@@ -204,7 +203,6 @@ position: absolute;
       background-color: var(--surface);
       border-top-color: transparent;
       animation: fadeIn 0.3s;
-      z-index: 9999;
 
       a {
         display: flex;
@@ -449,7 +447,7 @@ export const ContainerInputs = styled.div`
         height: 50px;
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
-        font-size: 1px;
+        font-size:16px;
         padding: 0 1rem;
         width:200px !important;
       }
