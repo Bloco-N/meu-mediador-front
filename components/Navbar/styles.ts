@@ -42,12 +42,17 @@ export const Nav = styled.div<INavbar>`
 
   ${({ path }) => path === "/" && `
     padding-top:4rem;
+    padding-bottom:4rem;
   `}
 
 
   @media (max-width:727px) {
       align-items: center !important;
       justify-content: center !important;
+  }
+
+  @media (max-width:768px) {
+    background-color: ${(props) => (props.path === "/" && "#cfcfcf")} !important;
   }
 
   .logo-area {
@@ -123,7 +128,7 @@ export const Nav = styled.div<INavbar>`
 
   .login {
     position: relative;
-    width: 125px;
+    width: 150px;
     height: 35px;
     display: flex;
     flex-direction: column;
@@ -137,6 +142,7 @@ export const Nav = styled.div<INavbar>`
     transition: all 0.5s, border-radius 0s;
     min-width: 70px;
     z-index: 1 !important;
+
 
     .online {
       top: 30px;
@@ -185,6 +191,7 @@ export const Nav = styled.div<INavbar>`
       position: absolute;
       background: inherit;
       width: calc(100% + 2px);
+      padding:1rem;
       border-radius: 0 0 1rem 1rem;
       top: 99%;
       left: -1px;
@@ -198,6 +205,7 @@ export const Nav = styled.div<INavbar>`
         position: relative;
         justify-content: center;
         align-items: end;
+
 
         &:last-child::after {
           display: none;
@@ -214,6 +222,7 @@ export const Nav = styled.div<INavbar>`
       }
       a p {
         font-size: 1.8rem;
+
       }
 
       @media only screen and (max-width: 768px) {
