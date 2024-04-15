@@ -6,24 +6,20 @@ import { UserContextType } from "@/types/UserContextType";
 import { useRouter } from "next/router";
 
 const FooterStyle = styled.div`
-    position: fixed !important;
-    bottom: -20px;
     display: none;
     background-color: transparent;
     width: 100%;
     height: 90px;
     display: none;
     align-items: center;
-    justify-content: flex-end;
-    padding: 25px 5px 30px 5px;
+    justify-content: center;
+    padding: 25px 0 30px 0;
     position: relative;
-    padding: lef;
     @media (max-width: 820px) {
         display: flex;
       }
     
     .selection{
-      /* position: absolute; */
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -38,7 +34,6 @@ const FooterStyle = styled.div`
       z-index: 9999;
     }
     .locale{
-      position: relative;
       width: 40px;
       max-height: 60px;
       height: 100%;

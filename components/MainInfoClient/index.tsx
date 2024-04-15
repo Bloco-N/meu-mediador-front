@@ -2,11 +2,7 @@ import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import profileIcon from "@/../public/profile.svg";
 import styled from "styled-components";
-import PictureModalContext from "context/PictureModalContext";
-import { PictureModalContextType } from "@/types/PictureModalContextType";
-import editIcon from "../public/edit.svg";
-import mailIcon from "../public/mail.svg";
-import greyImage from "../public/grey.png";
+import mailIcon from "../../public/mail.svg";
 import UserContext from "context/UserContext";
 import { UserContextType } from "@/types/UserContextType";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
@@ -18,8 +14,8 @@ import LoadingContext from "context/LoadingContext";
 import locales from "locales";
 import api from "@/services/api";
 import { toast } from "react-toastify";
-import { error } from "console";
-import TrashButton from "./DeleteButton";
+import TrashButton from "../DeleteButton";
+import { RenderConditional } from "..";
 
 type ContainerProps = {
   isProfile: boolean;
@@ -37,7 +33,6 @@ const Container = styled.div<ContainerProps>`
   }
 
   .divButton {
-    z-index: 1;
     @media only screen and (max-width: 768px) {
       position: absolute;
       top: -2% !important;
@@ -267,7 +262,6 @@ const MainInfoClient = ({
   isProfile,
   setModalOpen,
 }: MainInfoClientProps) => {
-  const { user, setUser } = useContext(UserContext) as UserContextType;
 
   const [editing, setEditing] = useState(false);
   const [firstName, setFirstName] = useState(userSigned?.firstName);
@@ -280,66 +274,11 @@ const MainInfoClient = ({
   const [nif_passport, setNifPassport] = useState(userSigned?.nif_passport);
   const [choiceNif, setChoiceNif] = useState(userSigned?.choiceNif);
   const [nifInvalido, setNifInvalido] = useState(false);
-  const [sessionProfile, setSessionProfile] = useState(false);
-
-  const { setOpen: setLoadingOpen } = useContext(
-    LoadingContext
-  ) as ModalOpenContextType;
+  const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType;
 
   const router = useRouter();
-
   const locale = router.locale;
   const t = locales[locale as keyof typeof locales];
-
-  useEffect(() => {
-    const localId = localStorage.getItem("id");
-    const accounType = localStorage.getItem("accountType");
-    if (Number(localId) === userSigned?.id && accounType === "client") {
-      setSessionProfile(true);
-    }
-  }, [user.id, userSigned?.id]);
-
-  const handleChangeCover = (e: React.ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
-
-    const files = target.files as FileList;
-
-    const file = files[0];
-
-    if (FileReader && file) {
-      const fr = new FileReader();
-      const token = localStorage.getItem("token");
-      const accountType = localStorage.getItem("accountType");
-
-      const onload = async () => {
-        const img = document.getElementById("cover-pic") as HTMLImageElement;
-        const apiService = new ApiService();
-
-        img.src = fr.result as string;
-
-        const text = await apiService.updateCoverPicture(
-          accountType as string,
-          fr,
-          token as string
-        );
-
-        if (text === "updated") {
-          setUser({
-            id: user.id,
-            token: user.token,
-            coverPicture: fr.result as string,
-            profilePicture: user.profilePicture,
-            accountType: user.accountType,
-          });
-          router.reload();
-        }
-      };
-
-      fr.onload = onload;
-
-      fr.readAsDataURL(file);
-    }
-  };
 
   async function sendInfo(e: any) {
     e.preventDefault();
@@ -449,13 +388,13 @@ const MainInfoClient = ({
               </label>
               <div className="contact">
                 <h3>{userSigned?.email}</h3>
-                {userSigned?.email ? (
+
+                <RenderConditional isTrue={!!userSigned?.email}>
                   <Link href={"mailto: " + userSigned.email} target="_blank">
-                    <Image className="icon" src={mailIcon} alt="mail icon" />
+                      <Image className="icon" src={mailIcon} alt="mail icon" />
                   </Link>
-                ) : (
-                  ""
-                )}
+                </RenderConditional>
+
                 <div className="divButton">
                   <TrashButton
                     onClick={() => {
@@ -467,8 +406,8 @@ const MainInfoClient = ({
             </li>
             <li>
               <label>{t.mainInfoEditModal.name}: </label>
-              {editing ? (
-                <input
+              <RenderConditional isTrue={!!editing}>
+              <input
                   type="text"
                   value={firstName}
                   onChange={(e) => {
@@ -476,13 +415,16 @@ const MainInfoClient = ({
                       setFirstName(e.target.value);
                   }}
                 />
-              ) : (
-                <p>{firstName}</p>
-              )}
+              </RenderConditional>
+
+              <RenderConditional isTrue={!editing}>
+                  <p>{firstName}</p>
+              </RenderConditional>
+
             </li>
             <li>
               <label>{t.mainInfoEditModal.lastName}: </label>
-              {editing ? (
+              <RenderConditional isTrue={!!editing}>
                 <input
                   type="text"
                   value={lastName}
@@ -491,13 +433,14 @@ const MainInfoClient = ({
                       setLastName(e.target.value);
                   }}
                 />
-              ) : (
+                </RenderConditional>
+              <RenderConditional isTrue={!editing}>
                 <p>{lastName}</p>
-              )}
+              </RenderConditional>
             </li>
             <li>
               <label>{t.mainInfoEditModal.phone}: </label>
-              {editing ? (
+              <RenderConditional isTrue={!!editing}>
                 <input
                   type="text"
                   value={phone}
@@ -506,25 +449,27 @@ const MainInfoClient = ({
                       setPhone(e.target.value);
                   }}
                 />
-              ) : (
-                <p>{phone}</p>
-              )}
+                </RenderConditional>
+                <RenderConditional isTrue={!editing}>
+                  <p>{phone}</p>
+                </RenderConditional>
             </li>
             <li>
               <label>{t.clientProfile.adress}: </label>
-              {editing ? (
+              <RenderConditional isTrue={!!editing}>
                 <input
                   type="text"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
-              ) : (
+              </RenderConditional>
+              <RenderConditional isTrue={!editing}>
                 <p>{address}</p>
-              )}
+              </RenderConditional>
             </li>
             <li>
               <label>{t.clientProfile.city}: </label>
-              {editing ? (
+              <RenderConditional isTrue={!!editing}>
                 <input
                   type="text"
                   value={city}
@@ -533,13 +478,14 @@ const MainInfoClient = ({
                       setCity(e.target.value);
                   }}
                 />
-              ) : (
+              </RenderConditional>
+              <RenderConditional isTrue={!editing}>
                 <p>{city}</p>
-              )}
+              </RenderConditional>
             </li>
             <li>
               <label>{t.clientProfile.country}: </label>
-              {editing ? (
+              <RenderConditional isTrue={!!editing}>
                 <input
                   type="text"
                   value={country}
@@ -548,13 +494,14 @@ const MainInfoClient = ({
                       setCountry(e.target.value);
                   }}
                 />
-              ) : (
+              </RenderConditional>
+              <RenderConditional isTrue={!editing}>
                 <p>{country}</p>
-              )}
+              </RenderConditional>
             </li>
             <li>
               <label>{t.clientProfile.zipCode}: </label>
-              {editing ? (
+              <RenderConditional isTrue={!!editing}>
                 <input
                   type="text"
                   value={zipCode}
@@ -563,14 +510,15 @@ const MainInfoClient = ({
                       setZipCode(e.target.value);
                   }}
                 />
-              ) : (
+              </RenderConditional>
+              <RenderConditional isTrue={!editing}>
                 <p>{zipCode}</p>
-              )}
+              </RenderConditional>
             </li>
 
             <li className="li-nfi">
-              {editing ? (
-                <>
+            <RenderConditional isTrue={!!editing}>
+              <>
                   <div
                     className="div-radio"
                     style={{
@@ -622,7 +570,8 @@ const MainInfoClient = ({
                     <></>
                   )}
                 </>
-              ) : (
+                </RenderConditional>
+                <RenderConditional isTrue={!editing}>
                 <>
                   <label>
                     {choiceNif ? t.clientProfile.nif : t.clientProfile.passport}
@@ -630,18 +579,19 @@ const MainInfoClient = ({
                   </label>
                   <p>{nif_passport}</p>
                 </>
-              )}
+              </RenderConditional>
             </li>
 
-            {editing ? (
+            <RenderConditional isTrue={!!editing}>
               <button className="button" onClick={(e) => sendInfo(e)}>
                 {t.mainInfoEditModal.save}
               </button>
-            ) : (
+            </RenderConditional>
+            <RenderConditional isTrue={!editing}>
               <button className="button" onClick={(e) => startEditing(e)}>
                 {t.aboutEditModal.edit}
               </button>
-            )}
+            </RenderConditional>
           </form>
         </div>
       </div>

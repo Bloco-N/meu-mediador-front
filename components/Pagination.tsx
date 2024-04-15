@@ -1,7 +1,6 @@
 import api from '@/services/api';
 import { SearchContextType } from '@/types/SearchContextType';
 import { SearchResultContextType } from '@/types/SearchResultContextType';
-import { UserCard } from '@/types/UserCard';
 import SearchContext from 'context/SearchContext';
 import SearchResultContext from 'context/SearchResultContext';
 import { useRouter } from 'next/router';
@@ -14,6 +13,9 @@ const Container = styled.div`
   padding: 1rem;
   gap: 2rem;
   margin: auto;
+  max-width: 150px;
+  justify-content: center;
+  align-items: center;
 
   p{
     cursor: pointer;
