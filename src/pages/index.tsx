@@ -35,7 +35,7 @@ const ContainerFooter = styled.div`
   margin-top: 5rem;
 `
 
-const SearchRealtor = styled.div`
+const SearchRealtor = styled.div<{ isMobile:boolean; }>`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -43,15 +43,16 @@ const SearchRealtor = styled.div`
   justify-content: center !important;;
   align-items: center;
   height: 100%;
-  margin-bottom: 35px;
 
+  ${({ isMobile }) => !isMobile && `margin-bottom: 35px;`}
+  
   form {
     background: #e9e9e985;
     width: 100%;
     max-width: 100%;
     width: fit-content;
     height: fit-content;
-    margin-top: 20vh;
+    margin-top: 10vh;
     backdrop-filter: blur(5px);
     padding: 2rem 3rem;
 
@@ -203,6 +204,7 @@ export default function Home() {
 
   const [cities, setCities] = useState<Array<string>>();
   const [selectedValue, setSelectedValue] = useState(1);
+  const [isMobile,setIsMobile] = useState<boolean>(false)
 
   const router = useRouter();
 
@@ -221,6 +223,7 @@ export default function Home() {
 
   const inputRef = useRef<any>(null);
   useEffect(() => {
+    setIsMobile(isMobileDevice())
     const fetchData = async () => {
       await api
         .get("/city")
@@ -273,7 +276,7 @@ export default function Home() {
 
   return (
     <Container>
-      <SearchRealtor>
+      <SearchRealtor isMobile={isMobile}>
         <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
           <div className="search-row">
             <div className="selectWrapper">

@@ -26,7 +26,10 @@ export const ContentNavbar = styled.section<{isMobileDevice:boolean}>`
   height: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: 50px !important;
+
+  ${
+    ({isMobileDevice}) => !isMobileDevice && `margin-top: 50px !important;` 
+  }
 `
 
 export const Nav = styled.div<INavbar>`
