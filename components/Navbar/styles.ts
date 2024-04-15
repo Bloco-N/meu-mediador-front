@@ -352,7 +352,7 @@ export const SearchRealtor = styled.div`
 
 
 
-    @media only screen and (max-width: 1344px) {
+    /* @media only screen and (max-width: 1344px) {
       .inputs-search input,
       .inputs-search select {
         height: 28px;
@@ -362,7 +362,7 @@ export const SearchRealtor = styled.div`
         min-width: 10%;
         height: 28px;
       }
-    }
+    } */
   }
 `;
 
