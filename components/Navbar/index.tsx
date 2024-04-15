@@ -182,7 +182,7 @@ const Navbar:React.FC<any> = ({ children }) => {
 
   function sizeWidthDesk() {
       if (router.pathname == "/") {
-        return 220;
+        return 380;
       }
       return 250;
   }

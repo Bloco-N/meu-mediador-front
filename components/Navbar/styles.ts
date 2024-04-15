@@ -63,14 +63,9 @@ export const Nav = styled.div<INavbar>`
   }
 
   .left-side {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3rem;
-    min-width: 100px;
-    margin-right: 4rem;
     z-index: 10;
-
+    margin-right: 2rem;
+    
     .box-icon-search{
         svg{
           width: 30px;
@@ -272,12 +267,13 @@ export const Nav = styled.div<INavbar>`
   .left-side {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: end; */
     gap: 2rem;
     min-width: 100px;
 
     @media only screen and (max-width: 900px) {
-        margin-left: 10px;
+      width:20%;
+      margin-right:3rem
     }
   }
 
@@ -384,10 +380,6 @@ position: absolute;
   @media (max-width:727px) {
       max-width: 650px;
       width: 100%;
-
-      .left-side {
-        margin-right: 2rem;
-      }
   }
 `;
 
@@ -409,7 +401,7 @@ export const BoxSearch = styled.div<{path?:string}>`
 
     @media(max-width:768px){
       justify-content: start !important;
-      padding-left:4rem;
+      padding-left:2rem;
     }
   `}
 
@@ -424,19 +416,24 @@ export const BoxSearch = styled.div<{path?:string}>`
 
 export const LogoImage = styled.img<LogoProps>`
   cursor: pointer;
-  width: 70%;
   object-fit: contain;
   background-position:center;
-
+  ${
+    !isMobileDevice() && `
+            width: 100%;
+        `
+    }
+  
   ${({ path }) => path === "/" && `
     z-index:0;
-    width: 100%;
+    width: 100%
 
     @media(width: 1920px) {
       padding-top:2rem;
     }
 
     @media(width: 1745.45px) {
+      width: 100%
       padding-top:2rem;
     }
   `}

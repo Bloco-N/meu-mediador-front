@@ -32,7 +32,7 @@ const ContainerFooter = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
 `
 
 const SearchRealtor = styled.div<{ isMobile:boolean; }>`
