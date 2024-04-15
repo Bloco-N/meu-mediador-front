@@ -1,94 +1,21 @@
 import { SearchResultContextType } from "@/types/SearchResultContextType"
 import SearchContext from "context/SearchResultContext"
 import { useContext } from "react"
-import styled from "styled-components"
 import Pagination from "components/Pagination"
-import Link from "next/link"
-import MainInfo from "components/MainInfo"
-import { useEffect } from 'react';
+import { MainInfo } from "@components/index"
 import InfoFooter from "components/InfoFooter"
 import { useRouter } from "next/router"
-
-const Container = styled.div`
-  height: 100%; 
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  overflow-x: hidden;
-  padding-top: 80px;
-
-  .list{
-    height: 80%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* padding-left: 4rem; */
-    gap: 2rem;
-
-    &:last-child {
-      /* margin-bottom: 390px; */
-    }
-    .pagination {
-      margin: 0 auto;
-      @media (max-width: 768px) {
-        padding-bottom: 30px; 
-      }
-    }
-    .teste{
-      width: 95%;
-      cursor: pointer;
-      .card{
-        height: 100%;
-        width: 100%;
-        padding: 2rem;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-    }
-  }
-
-  @media (max-width: 900px) {
-    .list {
-      padding: 0;
-      align-items: center;
-    }
-  }
-  @media (max-width: 768px) {
-   font-size: 1.6rem;
-   position: relative;
-   padding-top: 40px;
-
-   .list {
-    padding: 0 38px; 
-
-    .teste{
-        width: 100%;
-      }
-   }
-  }
-`
+import * as C from '../../stylesPages/styles-search-result'
 
 export default function SearchResult(){ 
 
-  const { searchResult, setSearchResult } = useContext(SearchContext) as SearchResultContextType;
+  const { searchResult } = useContext(SearchContext) as SearchResultContextType;
   const { query } = useRouter();
   const idSearch = query.idSearch;
   const router = useRouter();
 
-  // useEffect(() => {
-  //   console.log(searchResult)
-  //   if(!searchResult){
-  //     const savedSearchResult = localStorage.getItem('searchResult');
-  //     if (savedSearchResult) {
-  //       setSearchResult(JSON.parse(savedSearchResult));
-  //     }
-  //   }
-  // }, [setSearchResult]);
   return (
-    <Container>
+    <C.Container>
       <div className="list">
         {searchResult?.list?.map(item => (
           <div className="teste" onClick={() => router.push(`/profile/${Number(idSearch) == 1 ? "realtor/" : "agency/"}${item.id}`)} key={item.id}>
@@ -99,12 +26,13 @@ export default function SearchResult(){
             }} isRealtor={true} userSigned={item} isProfile={false} pdfPage={false}/>
           </div>
         ))}
-        <div className="pagination">
-          <Pagination currentPage={searchResult.currentPage} totalOfPages={searchResult.totalOfPages}/>
-        </div>       
-          <InfoFooter/>     
+   
       </div>
-    </Container>
+      <div className="pagination">
+          <Pagination currentPage={searchResult.currentPage} totalOfPages={searchResult.totalOfPages}/>
+          <InfoFooter/>     
+        </div>    
+    </C.Container>
 
   )
 }

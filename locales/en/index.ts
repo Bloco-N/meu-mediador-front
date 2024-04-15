@@ -122,6 +122,9 @@ const en = {
   },
   signIn:{
     signIn: "Sign In",
+    signInClient:"Sign in as Client",
+    signInRealtor:"Sign in as Consultant",
+    signInAgency:"Sign in as Agency",
     email:"Email",
     password: "Password",
     forgot: "Forgot my password",

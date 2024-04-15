@@ -2,14 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 
-import { useContext, useEffect, useState } from "react";
-import LoginMoldal from "./LoginMoldal";
-import UserContext from "context/UserContext";
-import ProfileMoldal from "./ProfileMoldal";
-import { UserContextType } from "@/types/UserContextType";
-import profileIcon from "../public/profile.svg";
 import { useRouter } from "next/router";
-import DenunciaMoldal from "./DenunciaModal";
 import instragramIcon from "../public/instagram.svg";
 import locales from "locales";
 
@@ -20,7 +13,7 @@ const InfoFooterDiv = styled.div`
   display: flex;
   justify-content: space-between;
   .div-ajuda {
-    width: 98%;
+    width: 100%;
     padding: 0px 10px;
     display: flex;
     justify-content: space-between;

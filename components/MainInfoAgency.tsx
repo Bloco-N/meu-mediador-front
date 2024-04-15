@@ -24,7 +24,6 @@ import MainInfoAgencyEditModalContext from 'context/MainInfoAgencyEditModal';
 import locales from 'locales';
 import SimplePopup from './Popup';
 
-
 type ContainerProps = {
   isProfile: boolean
 }

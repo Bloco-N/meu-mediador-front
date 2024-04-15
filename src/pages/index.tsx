@@ -15,31 +15,44 @@ import Link from "next/link";
 import api from "@/services/api";
 import { FaAngleDown } from "react-icons/fa";
 import Footer from "components/Footer";
+import { isMobileDevice } from "@/utils";
 
-const SearchRealtor = styled.div`
+const Container = styled.div`
+  display: flex;
   width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`
+const ContainerFooter = styled.div`
+  display: flex;
+  flex-direction: column;
   height: auto;
-  margin-top: 190px;
-  @media only screen and (max-width: 1400px) {
-    width: 100%;
-    transform: scale(0.67);
-    margin-top: 80px;
-  }
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  /* margin-top: 5rem; */
+`
 
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-    margin-bottom: 10px;
-    transform: none;
-  }
+const SearchRealtor = styled.div<{ isMobile:boolean; }>`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap:1rem;
+  justify-content: center !important;;
+  align-items: center;
+  height: 100%;
 
+  ${({ isMobile }) => !isMobile && `margin-bottom: 35px;`}
+  
   form {
     background: #e9e9e985;
     width: 100%;
     max-width: 100%;
     width: fit-content;
-    margin: auto;
     height: fit-content;
-    margin-top: 20vh;
+    margin-top: 10vh;
     backdrop-filter: blur(5px);
     padding: 2rem 3rem;
 
@@ -55,12 +68,10 @@ const SearchRealtor = styled.div`
       gap: 2rem;
       width: 900px;
 
-      @media only screen and (max-width: 1190px) {
-      }
+
       @media (max-width: 768px) {
         flex-direction: column;
         padding: 2rem 0rem;
-        /* gap: 3rem; */
         width: 100%;
         input {
           width: 100%;
@@ -114,13 +125,6 @@ const SearchRealtor = styled.div`
       }
     }
 
-    @media only screen and (max-width: 1000px) {
-      width: 90%;
-      height: 40rem;
-      padding: 2rem;
-      text-align: center;
-      margin-top: 0;
-    }
 
     @media only screen and (max-width: 768px) {
       width: calc(100% - 4rem);
@@ -176,12 +180,6 @@ const NovoCadastro = styled.div`
     font-size: 18px;
   }
 
-  @media only screen and (max-width: 1400px) {
-    margin-top: -35px;
-    h4 {
-      font-size: 12px;
-    }
-  }
   @media only screen and (max-width: 768px) {
     margin-top: 0px;
     border: solid 0.1rem var(--border-color);
@@ -200,11 +198,13 @@ const NovoCadastro = styled.div`
     text-decoration: underline;
   }
 `;
+
 export default function Home() {
   const { register, handleSubmit } = useForm<SearchForm>();
 
   const [cities, setCities] = useState<Array<string>>();
   const [selectedValue, setSelectedValue] = useState(1);
+  const [isMobile,setIsMobile] = useState<boolean>(false)
 
   const router = useRouter();
 
@@ -223,6 +223,7 @@ export default function Home() {
 
   const inputRef = useRef<any>(null);
   useEffect(() => {
+    setIsMobile(isMobileDevice())
     const fetchData = async () => {
       await api
         .get("/city")
@@ -272,9 +273,10 @@ export default function Home() {
     setLoadingOpen(false);
   };
 
+
   return (
-    <>
-      <SearchRealtor>
+    <Container>
+      <SearchRealtor isMobile={isMobile}>
         <form className="card" onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
           <div className="search-row">
             <div className="selectWrapper">
@@ -321,7 +323,6 @@ export default function Home() {
           </div>
           <h4>{t.home.welcome}</h4>
         </form>
-      </SearchRealtor>
       <NovoCadastro className="novo-cadastro2">
         <h4>
           {t.home.cad_bar}
@@ -335,8 +336,11 @@ export default function Home() {
           </Link>
         </h4>
       </NovoCadastro>
-      <Footer />
-      <InfoFooter home={true} />
-    </>
+      </SearchRealtor>
+      <ContainerFooter>
+        <Footer />
+        <InfoFooter home={true} />
+      </ContainerFooter>
+    </Container>
   );
 }

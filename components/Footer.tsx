@@ -1,18 +1,13 @@
-import Link from "next/link";
 import Image from "next/image";
 import styled from 'styled-components';
 import { useContext, useEffect, useState } from "react";
-import LoginMoldal from "./LoginMoldal";
 import UserContext from "context/UserContext";
-import ProfileMoldal from "./ProfileMoldal";
 import { UserContextType } from "@/types/UserContextType";
-import profileIcon from '../public/profile.svg'
 import { useRouter } from "next/router";
-import DenunciaMoldal from "./DenunciaModal";
-
-
 
 const FooterStyle = styled.div`
+    display: none;
+    background-color: transparent;
     width: 100%;
     height: 90px;
     display: none;
@@ -20,12 +15,11 @@ const FooterStyle = styled.div`
     justify-content: center;
     padding: 25px 0 30px 0;
     position: relative;
-    @media (max-width: 768px) {
+    @media (max-width: 820px) {
         display: flex;
       }
     
     .selection{
-      /* position: absolute; */
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -37,9 +31,9 @@ const FooterStyle = styled.div`
       padding: 1rem;
       height: 5rem;
       transform: translateY(-5px);
+      z-index: 9999;
     }
     .locale{
-      position: relative;
       width: 40px;
       max-height: 60px;
       height: 100%;
