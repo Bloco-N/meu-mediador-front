@@ -5,7 +5,7 @@ import Pagination from "components/Pagination"
 import { MainInfo } from "@components/index"
 import InfoFooter from "components/InfoFooter"
 import { useRouter } from "next/router"
-import * as C from './styles'
+import * as C from '../../stylesPages/styles-search-result'
 
 export default function SearchResult(){ 
 

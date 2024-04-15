@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import locales from "locales";
 import { signIn, useSession } from "next-auth/react";
-import { Form } from "..";
+import { Form } from "../Form";
 
 interface ISignIn {
   onSubmit: (value?:any) => any;

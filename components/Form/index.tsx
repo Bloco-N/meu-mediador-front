@@ -1,8 +1,8 @@
-import * as C from '@/pages/sign-in/components/Form/styles'
+import * as C from '@components/Form/styles'
 import { useForm } from 'react-hook-form';
 import GoogleLoginButton from "@components/ButtonAuth";
-import iconGoogle from "../../../../../public/icon-google.png";
-import iconFacebook from "../../../../../public/icons-facebook.png";
+import iconGoogle from "/public/icon-google.png";
+import iconFacebook from "public/icons-facebook.png";
 import { useRouter } from 'next/router';
 
 export const Form:React.FC<any> = ({ t, onSubmit, signIn, loginError }) => {

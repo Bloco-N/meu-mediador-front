@@ -13,7 +13,7 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import { useSession } from "next-auth/react";
 import api from "../../../services/api";
 import { toast } from "react-toastify";
-import { SignIn } from "../components";
+import { SignIn } from "../../../../components";
 
 const SignInRealtor = () => {
   const { data: session } = useSession();
