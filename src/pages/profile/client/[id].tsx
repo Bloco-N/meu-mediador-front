@@ -19,6 +19,8 @@ const Container = styled.div`
   width: 100%;
   padding: 4rem;
   gap: 2rem;
+  margin-top: 8vh !important;
+
 
   @media only screen and (max-width: 768px) {
     padding: 2rem;
