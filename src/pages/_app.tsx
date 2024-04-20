@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Providers from 'components/Providers/Providers'
 
+
 export default function App({ Component, pageProps:{session, ...pageProps}}: AppProps) {
   return (
     <Providers>
