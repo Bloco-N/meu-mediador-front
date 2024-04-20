@@ -57,7 +57,7 @@ const Footer = () => {
     const { user } = useContext(UserContext) as UserContextType
 
     const [flag, setFlag] = useState('PT')
-    const [defaultLocale, setDefaultLocale] = useState('PT')
+    const [defaultLocale, setDefaultLocale] = useState('pt')
 
     const [pic, setPic] = useState('')
 

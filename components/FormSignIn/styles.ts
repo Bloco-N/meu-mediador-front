@@ -4,7 +4,9 @@ import Link from "next/link";
 export const Container = styled.div`
   overflow-x: hidden;
   width: 100vw;
+  height: 600px;
   display: flex;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -13,6 +15,8 @@ export const Container = styled.div`
 export const SignInContainer = styled.div`
   display: flex;
   width: 100vw;
+  height: 100%;
+  margin-top: 10px;
   justify-content: center;
   align-items: center;
 `;
@@ -30,7 +34,7 @@ export const Card = styled.form`
   gap: 18px;
   max-width: 600px;
   width: 100%;
-  height: auto;
+  height: 100%;
   padding: 1rem;
   margin: 1rem;
   justify-content: center;

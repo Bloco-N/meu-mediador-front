@@ -266,6 +266,9 @@ const pt = {
     errorExperience:"Erro ao adicionar experiência!",
     addExperience: "Experiência adicionada com sucesso!"
     
+  },
+  popupInfo:{
+    text:"Serviço validado por clientes cadastrados no Meoagent.\nA agência pode ter resultados superiores e\nque ainda não foram validados na plataforma."
   }
 }
 

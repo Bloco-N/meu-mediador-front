@@ -122,7 +122,7 @@ const es = {
   signIn: {
     signIn: "Iniciar Sesión",
     signInClient:"Iniciar sesión como cliente",
-    signInRealtor:"Iniciar sesión como consultor",
+    signInRealtor:"Iniciar sesión como agente",
     signInAgency:"Iniciar sesión como agencia",
     email: "Dirección de Correo Electrónico",
     password: "Contraseña",
@@ -267,6 +267,9 @@ const es = {
     errorVerifyEmail: "¡Error al revisar el correo electrónico!",
     errorExperience:"¡Error al agregar experiencia!",
     addExperience: "¡Experiencia agregada exitosamente!"
+  },
+  popupInfo:{
+    text:"Servicio validado por clientes registrados en el sitio web de Meoagent. \nLa agencia puede tener resultados superiores\nque aún no han sido validados en la plataforma."
   }
 }
 

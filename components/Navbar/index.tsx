@@ -64,7 +64,7 @@ const Navbar:React.FC<any> = ({ children }) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(false)
   const [cities, setCities] = useState<Array<string>>();
-  const [defaultLocale, setDefaultLocale] = useState('PT')
+  const [defaultLocale, setDefaultLocale] = useState('pt')
 
   const inputRef = useRef<any>(null);
   const { register, handleSubmit } = useForm<SearchForm>();
@@ -225,7 +225,6 @@ const Navbar:React.FC<any> = ({ children }) => {
             />
         </C.HeaderActionsModal>
         <C.ContainerInputs>
-
             <C.BoxInput>
                 <select
                   value={selectedValue}
@@ -327,7 +326,7 @@ const Navbar:React.FC<any> = ({ children }) => {
         <span/>
         <C.BoxSearch path={router.pathname}>
 
-          <div className="box-image" style={{width:'25%'}}>
+          <div className="box-image">
             <C.LogoImage
                 path={router.pathname}
                 onClick={() => router.push("/")}

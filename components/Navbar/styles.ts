@@ -265,9 +265,10 @@ export const Nav = styled.div<INavbar>`
   .left-side {
     display: flex;
     align-items: center;
-    /* justify-content: end; */
     gap: 2rem;
     min-width: 100px;
+    ${({ path }) => path === "/" && `margin-top: 30px;`}
+
 
     @media only screen and (max-width: 900px) {
       width:20%;
@@ -385,8 +386,8 @@ export const BoxSearch = styled.div<{path?:string}>`
   justify-content: flex-start;
   height: 69px !important;
 
+  ${({ path }) => path === "/" && `margin-top: 30px;`}
   
-
   ${({ path }) => path === "/" && `
     position: absolute;
     justify-content: center !important;
@@ -400,8 +401,9 @@ export const BoxSearch = styled.div<{path?:string}>`
   `}
 
   .box-image{
-    margin-top:1rem;
-    width:100%;
+    width:20%;
+    ${({ path }) => path === "/" && `width:30%;`}
+    padding:2rem;
   }
 
   @media only screen and (max-width: 768px) {

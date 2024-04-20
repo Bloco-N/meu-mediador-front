@@ -174,6 +174,7 @@ const MainInfo = ({
       ? lastExp?.name.slice(0, maxLength) + "..."
       : lastExp?.name
     : "";
+    
   return (
     <C.Container isProfile={isProfile}>
       <div className="main-info border">

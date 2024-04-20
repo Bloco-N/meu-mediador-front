@@ -258,7 +258,9 @@ const en = {
     errorVerifyEmail: "Error checking email!",
     errorExperience:"Error adding experience!",
     addExperience: "Experience added successfully!"
-
+  },
+  popupInfo:{
+    text:"Service validated by clients registered on the Meoagent website.\nThe agency may have superior results\nthat have not yet been validated on the platform"
   }
 
 }
