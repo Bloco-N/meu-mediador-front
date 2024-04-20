@@ -11,9 +11,9 @@ const InfoFooterDiv = styled.div`
   backdrop-filter: blur(10px);
   margin-top: auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   .div-ajuda {
-    width: 100%;
+    width: 90%;
     padding: 0px 10px;
     display: flex;
     justify-content: space-between;
@@ -61,7 +61,6 @@ type InfoProps = {
 };
 
 const InfoFooter = (props: InfoProps) => {
-  //#E5E4E2
   const router = useRouter();
 
   const { locale } = router;

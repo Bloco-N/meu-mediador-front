@@ -64,9 +64,10 @@ const Navbar:React.FC<any> = ({ children }) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(false)
   const [cities, setCities] = useState<Array<string>>();
+  const [defaultLocale, setDefaultLocale] = useState('pt')
+
   const inputRef = useRef<any>(null);
   const { register, handleSubmit } = useForm<SearchForm>();
-
   // Control Variables
   const configModal:IModalProps = {
     childSize: { width:'250px',height:'280px',radius:10},
@@ -74,7 +75,10 @@ const Navbar:React.FC<any> = ({ children }) => {
     onClose: () => {}
   }
   const router = useRouter();
-  const isLogad = localStorage.getItem("id");
+  let isLogad;
+  if (typeof localStorage !== 'undefined') {
+    isLogad = localStorage.getItem("id");
+  } 
   const perfilImage = isLogad ? iconIsLogad : profileIcon;
   const { id } = router.query;
   const pdfPage = router.query.pdf ? true : false;
@@ -93,6 +97,26 @@ const Navbar:React.FC<any> = ({ children }) => {
     sourceUrl = "/sublogo.png";
     classNameImage = "logo";
   }
+
+  useEffect(() => {
+    const localeSet = document.getElementById('locale-set-footer') as HTMLSelectElement
+    let locale = localStorage.getItem('locale') as string;
+
+    if(!locale) {
+      localeSet.value = 'pt'
+      locale = 'pt'
+    }else{
+      localeSet.value = locale
+      setDefaultLocale(locale)
+    }
+
+    
+    if(locale === 'en'){
+      setFlag('GB')
+    }else{
+      setFlag(locale.toUpperCase())
+    }
+  }, [])
 
   // Initialization
   useEffect(() => {
@@ -201,7 +225,6 @@ const Navbar:React.FC<any> = ({ children }) => {
             />
         </C.HeaderActionsModal>
         <C.ContainerInputs>
-
             <C.BoxInput>
                 <select
                   value={selectedValue}
@@ -303,7 +326,7 @@ const Navbar:React.FC<any> = ({ children }) => {
         <span/>
         <C.BoxSearch path={router.pathname}>
 
-          <div className="box-image" style={{width:'25%'}}>
+          <div className="box-image">
             <C.LogoImage
                 path={router.pathname}
                 onClick={() => router.push("/")}
@@ -311,6 +334,7 @@ const Navbar:React.FC<any> = ({ children }) => {
                 src={sourceUrl}
                 alt="Meoagent-logo"
                 className="img-absolute"
+                isMobileDevice={isMobile}
               />
           </div>
 
@@ -381,8 +405,7 @@ const Navbar:React.FC<any> = ({ children }) => {
         <RenderConditional isTrue={!pdfPage}>
           <>
             <div className="left-side">
-
-                <RenderConditional isTrue={ width <= 727}>
+                <RenderConditional isTrue={ showSearchBar && width <= 727}>
                   <span 
                     className="box-icon-search"
                     onClick={() => setIsOpenModal(true)}
@@ -394,21 +417,23 @@ const Navbar:React.FC<any> = ({ children }) => {
                 <RenderConditional isTrue={width >= 820}>
                     <div className="locale-area selection border">
                       <Image
-                        alt="United States"
+                        alt="select-language"
                         src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
                         width={20}
                         height={20}
                       />
                       
-                        <select
-                          id="locale-set"
-                          onChange={(e) => changeLocation(e)}
-                          className="locale"
-                        >
-                          <option value="en">EN</option>
-                          <option value="pt">PT</option>
-                          <option value="es">ES</option>
-                        </select>
+                      <select 
+                        id="locale-set-footer"
+                        name="language"
+                        onChange={e => changeLocation(e)}
+                        className="locale"
+                        value={defaultLocale}
+                        defaultValue='pt'>
+                    <option value="en">EN</option>
+                    <option value="pt">PT</option>
+                    <option value="es">ES</option>
+                  </select>
                     </div>
                 </RenderConditional>
 

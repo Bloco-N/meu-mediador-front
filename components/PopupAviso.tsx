@@ -1,6 +1,8 @@
 import * as React from "react";
 import styled from "styled-components";
 import infoCircler from '../public/info.svg'
+import { useRouter } from "next/router";
+import locales from "locales";
 interface IPopup {
   qtdeCitys: number;
   cities: any;
@@ -10,6 +12,9 @@ export default function PopupClose() {
   const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
   const [position, setPosition] = React.useState({ top: 0, left: 0 });
+  const router = useRouter();
+  const locale = router.locale;
+  const t = locales[locale as keyof typeof locales];
 
   const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
     const { top, left, height } = event.currentTarget.getBoundingClientRect();
@@ -51,11 +56,9 @@ export default function PopupClose() {
         >
           <PopupBody>
             <div className="close">
-              <b>Serviço validado por clientes cadastrados no Meoagent. 
-              <br/>
-                A agência pode ter resultados superiores e 
-                <br/>
-                que ainda não foram validados na plataforma.</b>
+              <h5>
+                {t.popupInfo?.text}
+              </h5>
             </div>
           </PopupBody>
         </StyledPopup>
@@ -65,18 +68,18 @@ export default function PopupClose() {
 }
 
 const PopupBody = styled.div`
-  width: max-content;
-  height: 20%;
   padding: 10px;
   border-radius: 5px;
   background-color: #d3d2d2;
   font-size: 0.875rem;
+  
   z-index: 99999;
   gap: 3px;
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
   b {
     font-size: 16px;
@@ -97,6 +100,7 @@ const PopupBody = styled.div`
 
   .close {
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -108,6 +112,7 @@ const PopupBody = styled.div`
     height: 23%;
   }
 `;
+
 
 const Button = styled.b`
   position: relative;

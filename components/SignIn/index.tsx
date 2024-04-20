@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import locales from "locales";
 import { signIn, useSession } from "next-auth/react";
-import { Form } from "../Form";
+import { FormSignIn } from "../FormSignIn";
 
 interface ISignIn {
   onSubmit: (value?:any) => any;
@@ -34,7 +34,7 @@ export const SignIn:React.FC<ISignIn> = ({ onSubmit,loginError = false }) => {
 
 
   return (
-        <Form
+        <FormSignIn
           t={t}
           onSubmit={onSubmit}
           signIn={signIn}

@@ -11,7 +11,7 @@ const en = {
     agency: "Agency"
   },
   loginModal:{
-    client: 'Client',
+    client: 'client',
     realtor: 'Agent',
     agency: 'Company'
   },
@@ -122,9 +122,9 @@ const en = {
   },
   signIn:{
     signIn: "Sign In",
-    signInClient:"Sign in as Client",
-    signInRealtor:"Sign in as Consultant",
-    signInAgency:"Sign in as Agency",
+    signInClient:"Sign in as client",
+    signInRealtor:"Sign in as agent",
+    signInAgency:"Sign in as agency",
     email:"Email",
     password: "Password",
     forgot: "Forgot my password",
@@ -258,7 +258,9 @@ const en = {
     errorVerifyEmail: "Error checking email!",
     errorExperience:"Error adding experience!",
     addExperience: "Experience added successfully!"
-
+  },
+  popupInfo:{
+    text:"Service validated by clients registered on the Meoagent website.\nThe agency may have superior results\nthat have not yet been validated on the platform"
   }
 
 }

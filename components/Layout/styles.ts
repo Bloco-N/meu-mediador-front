@@ -1,12 +1,10 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  width: 100%;
   height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: start;
 
   main {
     width: 100%;

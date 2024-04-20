@@ -56,20 +56,10 @@ export default function Layout({ children }: LayoutProps) {
             <div className="spinner"/>
           </C.LoaderContainer>
       </RenderConditional>
-
-        <RenderConditional isTrue={!loading && isMobile}>
             <Navbar>
                 {children}
-              </Navbar>
-              {RenderFooter}
-        </RenderConditional>
-
-        <RenderConditional isTrue={!loading && !isMobile}>
-            <Navbar>
-                {children}
-              </Navbar>
-              {RenderFooter}
-        </RenderConditional>
+                {RenderFooter}
+            </Navbar>
     </C.Container>
   );
 }
