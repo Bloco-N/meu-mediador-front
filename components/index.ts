@@ -4,9 +4,7 @@ import Modal from "@components/Modal";
 import MainInfoClient from "@components/MainInfoClient";
 import MainInfo from "@components/MainInfo";
 import {SignIn} from "@components/SignIn"
-import {Form} from '@components/Form'
-
-
+export { FormSignIn } from '@components/FormSignIn'
 
 export {
     RenderConditional,
@@ -14,6 +12,5 @@ export {
     Modal,
     MainInfo,
     MainInfoClient,
-    SignIn,
-    Form
+    SignIn
 }

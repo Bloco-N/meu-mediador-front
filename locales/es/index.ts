@@ -122,7 +122,7 @@ const es = {
   signIn: {
     signIn: "Iniciar Sesión",
     signInClient:"Iniciar sesión como cliente",
-    signInRealtor:"Iniciar sesión como Consultor",
+    signInRealtor:"Iniciar sesión como consultor",
     signInAgency:"Iniciar sesión como agencia",
     email: "Dirección de Correo Electrónico",
     password: "Contraseña",

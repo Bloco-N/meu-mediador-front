@@ -4,13 +4,12 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import { useState } from "react";
-import { getSession, signIn, useSession } from "next-auth/react";
+import { getSession,useSession } from "next-auth/react";
 import { GetServerSideProps } from "next";
 import api from "@/services/api";
 import { toast } from "react-toastify";
-import GoogleLoginButton from "components/ButtonAuth";
-import iconGoogle from "../../../../public/icon-google.png";
-import iconFacebook from "../../../../public/icons-facebook.png";
+import BaseCardSignUp from "../../../../components/BaseCardSignUp";
+import RenderConditional from "@components/RenderConditional";
 
 const SignUpContainer = styled.div`
   height: 100%;
@@ -94,18 +93,11 @@ const SignUpContainer = styled.div`
 
 const SignUp = () => {
   const { register, handleSubmit } = useForm<SignUpFormAgency>();
-  const [privacy_policy, setPrivacyPolicy] = useState(false);
   const [agencyExist, setAgencyExist] = useState(false);
   const [userExist, setUserExist] = useState(false);
-
-  const onPrivacyClick = () => {
-    setPrivacyPolicy(!privacy_policy);
-  };
   const router = useRouter();
   const { data: session } = useSession();
-
   const locale = router.locale;
-
   const t = locales[locale as keyof typeof locales];
 
   const onSubmit = async (data: SignUpFormAgency) => {
@@ -172,21 +164,17 @@ const SignUp = () => {
   };
 
   return (
-    <SignUpContainer>
-      <form className="card" onSubmit={handleSubmit(onSubmit)}>
-        <h2>{t.signUp.signUp}</h2>
-
+    <BaseCardSignUp onSubmit={handleSubmit(onSubmit)}> 
         <input
           type="text"
           className="input-name"
           placeholder={t.mainInfoEditModal.agencyName}
           {...register("name", { required: true })}
         />
-        {userExist ? (
+        <RenderConditional isTrue={userExist}>
           <label style={{ color: "red" }}>Agencia ja cadastrada</label>
-        ) : (
-          <></>
-        )}
+        </RenderConditional>
+
         <input
           className="input-sign-up"
           type="email"
@@ -210,41 +198,10 @@ const SignUp = () => {
           placeholder={t.signUp.confirmPassword}
           {...register("confirmPassword", { required: true })}
         />
+    </BaseCardSignUp >
+  )
 
-        <div className="orSeparator">
-          <div className="borderTop"></div>
-          <div className="orText">ou</div>
-          <div className="borderTop"></div>
-        </div>
 
-        <GoogleLoginButton
-          icon={iconGoogle.src}
-          onClick={() => signIn("google")}
-          text={t.signIn.google}
-        />
-
-        <GoogleLoginButton
-          icon={iconFacebook.src}
-          onClick={() => signIn("facebook")}
-          text={t.signIn.facebook}
-        />
-
-        <span className="txt-center">
-          {" "}
-          <input
-            type="checkbox"
-            className="check_box"
-            checked={privacy_policy}
-            onClick={onPrivacyClick}
-          />
-          {t.signUp.check_police}
-        </span>
-        <button type="submit" disabled={!privacy_policy}>
-          {t.signUp.signUp}
-        </button>
-      </form>
-    </SignUpContainer>
-  );
 };
 export default SignUp;
 

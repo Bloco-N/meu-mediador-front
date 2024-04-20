@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { isMobileDevice } from "@/utils";
 
 export const Container = styled.div`
   overflow-x: hidden;
-  height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -17,7 +15,6 @@ export const SignInContainer = styled.div`
   width: 100vw;
   justify-content: center;
   align-items: center;
-  gap: 4;
 `;
 
 export const Card = styled.form`
@@ -38,32 +35,6 @@ export const Card = styled.form`
   margin: 1rem;
   justify-content: center;
   align-items: center;
-
-
-  ${
-    !isMobileDevice() && `
-        @media only screen and (max-width: 1098px){
-            margin-top: 10rem;
-            
-        }
-
-        @media only screen and (max-width: 768px){
-            margin-top: 20rem;
-        }
-    
-        @media only screen and (max-width: 640px){
-            margin-top: 30rem;
-        }
-
-        @media only screen and (max-width: 384px){
-            margin-top: 40rem;
-        }
-
-        @media only screen and (max-width: 480px){
-            margin-top: 40rem;
-        }    
-    `
-  }
 
   input {
     color: #3a2e2c;

@@ -57,7 +57,6 @@ const Footer = () => {
     const { user } = useContext(UserContext) as UserContextType
 
     const [flag, setFlag] = useState('PT')
-
     const [defaultLocale, setDefaultLocale] = useState('PT')
 
     const [pic, setPic] = useState('')
@@ -80,6 +79,7 @@ const Footer = () => {
       }else{
         setFlag(locale.toUpperCase())
       }
+      
       if(id && typeof id === 'string'){
         const finalPath = router.asPath.replace('[id]', id)
         router.push(finalPath, finalPath, { locale })

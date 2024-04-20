@@ -8,39 +8,37 @@ interface INavbar {
 interface LogoProps {
     width: number;
     path?:string;
+    isMobileDevice?:boolean;
   }
 
   export const ContainerNavbar = styled.section`
+  flex:1;
     display: flex;
     width: 100%;
     height: 100vh;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
   `
 
 export const ContentNavbar = styled.section<{isMobileDevice:boolean}>`
+  flex:1;
   display: flex;
   flex-direction:column;
   width: 100%;
-  height: 100%;
   justify-content: center;
   align-items: center;
-  margin-top: 2rem !important;
-  /* ${
-    ({isMobileDevice}) => !isMobileDevice && `margin-top: 5rem !important;` 
-  } */
 `
 
 export const Nav = styled.div<INavbar>`
-  position: fixed;
+  flex:1;
   flex-direction: row;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: ${(props) => (props.path === "/" ? "transparent" : "#dedddd")} !important;
-  height: 69px !important;
+  max-height: 69px !important;
+  height: 100%;
   z-index: 1;
 
   ${({ path }) => path === "/" && `
@@ -366,16 +364,12 @@ export const SearchRealtor = styled.div`
 `;
 
 export const Container = styled.div`
-position: absolute;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
   height: 69px !important;
-  padding-top: 5px !important;
-
-
 
   @media (max-width:727px) {
       max-width: 650px;
@@ -406,6 +400,7 @@ export const BoxSearch = styled.div<{path?:string}>`
   `}
 
   .box-image{
+    margin-top:1rem;
     width:100%;
   }
 
@@ -416,12 +411,11 @@ export const BoxSearch = styled.div<{path?:string}>`
 
 export const LogoImage = styled.img<LogoProps>`
   cursor: pointer;
-  object-fit: contain;
+  object-fit: cover;
   background-position:center;
   ${
-    !isMobileDevice() && `
-            width: 100%;
-        `
+    ({ isMobileDevice }) => !isMobileDevice && `
+            width: 100%;` 
     }
   
   ${({ path }) => path === "/" && `
