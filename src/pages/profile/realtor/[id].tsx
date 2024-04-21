@@ -200,7 +200,9 @@ export default function Profile() {
           agencyId: responsePartnerships[0]?.agencyId,
         });
         setLoadingOpen(false);
-        window.scrollTo(0, 0);
+        if (typeof window !== "undefined") {
+          window.scrollTo(0, 0);
+        }
       }
     };
     const localId = localStorage.getItem("id") as string;
