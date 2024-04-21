@@ -1,16 +1,12 @@
 import { AgencyProfile } from "@/types/AgencyProfile";
 import MainInfoAgency from "components/MainInfoAgency";
-import { RealtorProfile } from "@/types/RealtorProfile";
 import { UserContextType } from "@/types/UserContextType";
 import UserContext from "context/UserContext";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
-import { LastExp } from "@/types/LastExp";
 import LoadingContext from "context/LoadingContext";
-import AwardsAgencyCard from "./components/AwardsAgencyCard";
-import PropertiesAgencyCard from "./components/PropertiesAgencyCard";
 import RealtorAgencyCard from "./components/RealtorAgencyCard";
 import ServicesAgencyCard from "./components/ServicesAgencyCard";
 import AboutAgencyCard from "./components/AboutAgencyCard";
@@ -22,7 +18,6 @@ import IconAlert from "../../../../public/icons-atencao.png";
 import TrashButton from "components/DeleteButton";
 import locales from "locales";
 import api from "@/services/api";
-import { error } from "console";
 import { toast } from "react-toastify";
 
 const Container = styled.div`
