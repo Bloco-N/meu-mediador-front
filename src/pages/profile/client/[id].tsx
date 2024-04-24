@@ -17,14 +17,8 @@ const Container = styled.div`
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: 4rem;
+  padding: 2rem;
   gap: 2rem;
-  margin-top: 8vh !important;
-
-
-  @media only screen and (max-width: 768px) {
-    padding: 2rem;
-  }
 
   .plus {
     cursor: pointer;

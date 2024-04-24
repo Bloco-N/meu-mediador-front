@@ -6,7 +6,7 @@ interface INavbar {
 }
 
 interface LogoProps {
-    width: number;
+    width?: number;
     path?:string;
     isMobileDevice?:boolean;
   }
@@ -27,6 +27,7 @@ export const ContentNavbar = styled.section<{isMobileDevice:boolean}>`
   width: 100%;
   justify-content: center;
   align-items: center;
+  /* padding: 1rem 0 0 0; */
 `
 
 export const Nav = styled.div<INavbar>`
@@ -376,6 +377,13 @@ export const Container = styled.div`
       max-width: 650px;
       width: 100%;
   }
+
+  .profile-container{
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+  }
 `;
 
 export const BoxSearch = styled.div<{path?:string}>`
@@ -404,6 +412,14 @@ export const BoxSearch = styled.div<{path?:string}>`
     width:20%;
     ${({ path }) => path === "/" && `width:30%;`}
     padding:2rem;
+
+    .mobile-logo {
+      max-width: 80px; /* Define a largura máxima da logo em dispositivos móveis */
+    }
+
+    .desktop-logo {
+      max-width: 250px; /* Define a largura máxima da logo em dispositivos desktop */
+    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -415,6 +431,12 @@ export const LogoImage = styled.img<LogoProps>`
   cursor: pointer;
   object-fit: cover;
   background-position:center;
+  min-width: 110px;
+
+  @media(max-width: 640px) {
+    min-width: 70px;
+  }
+  
   ${
     ({ isMobileDevice }) => !isMobileDevice && `
             width: 100%;` 
@@ -434,6 +456,10 @@ export const LogoImage = styled.img<LogoProps>`
     }
   `}
 `;
+
+export const Spacing = styled.div`
+  margin-top:2rem;
+`
 
 // Modal
 export const ContainerModal = styled.form`

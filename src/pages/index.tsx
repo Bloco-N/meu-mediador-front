@@ -25,6 +25,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
 `
+
 const ContainerFooter = styled.div`
   display: flex;
   flex-direction: column;
@@ -176,7 +177,7 @@ const NovoCadastro = styled.div`
   h4 {
     font-weight: 600;
     margin-top: 0px;
-    font-size: 18px;
+    font-size: 1.4em;
   }
 
   @media only screen and (max-width: 768px) {
@@ -187,9 +188,6 @@ const NovoCadastro = styled.div`
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    h4 {
-      font-size: 16px;
-    }
   }
 
   .novo-botao {
@@ -338,7 +336,6 @@ export default function Home() {
       </SearchRealtor>
       <ContainerFooter>
         <Footer />
-        <InfoFooter home={true} />
       </ContainerFooter>
     </Container>
   );

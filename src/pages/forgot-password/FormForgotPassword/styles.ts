@@ -6,15 +6,15 @@ flex-direction: column;
 align-items: center;
 gap: 2rem;
 max-height: 400px;
-margin: 10px;
 
 
 form {
-    min-height: 32rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 2rem;
+    min-height: 32rem;
+    min-width: 42rem;
 
   h4 {
     font-size: 16px;

@@ -2,14 +2,15 @@ import styled from "styled-components";
 import Link from "next/link";
 
 export const Container = styled.div`
+  display: flex;
   overflow-x: hidden;
   width: 100vw;
   height: 600px;
-  display: flex;
 
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
 `;
 
 export const SignInContainer = styled.div`
@@ -64,7 +65,9 @@ export const ContainerInputs = styled.div`
   width: 90%;
 `
 
-export const Input = styled.input``;
+export const Input = styled.input`
+  height: 50px;
+`;
 
 export const ErrorText = styled.p``;
 

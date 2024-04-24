@@ -23,6 +23,8 @@ import Modal, { IModalProps } from "@components/Modal";
 import { MdCloseFullscreen } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { isMobileDevice } from "@/utils";
+import InfoFooter from "@components/InfoFooter";
+import { Popover } from "@components/Popover";
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState<any>({
@@ -65,6 +67,7 @@ const Navbar:React.FC<any> = ({ children }) => {
   const [isMobile, setIsMobile] = useState<boolean>(false)
   const [cities, setCities] = useState<Array<string>>();
   const [defaultLocale, setDefaultLocale] = useState('pt')
+  const { width } = useWindowSize();
 
   const inputRef = useRef<any>(null);
   const { register, handleSubmit } = useForm<SearchForm>();
@@ -84,7 +87,6 @@ const Navbar:React.FC<any> = ({ children }) => {
   const pdfPage = router.query.pdf ? true : false;
   const { locale } = router;
   const t = locales[locale as keyof typeof locales];
-  const { width } = useWindowSize();
 
   let showSearchBar = router.pathname !== "/" ? true : false;
   let sourceUrl = "";
@@ -185,6 +187,7 @@ const Navbar:React.FC<any> = ({ children }) => {
   const changeLocation = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const locale = e.target.value as string;
     localStorage.setItem("locale", locale);
+    setDefaultLocale(locale)
     router.push(router.asPath, router.asPath, { locale });
     if (locale === "en") {
       setFlag("GB");
@@ -192,24 +195,6 @@ const Navbar:React.FC<any> = ({ children }) => {
       setFlag(locale.toUpperCase());
     }
   };
-
-  function sizeWidth() {
-    if (width >= 768) {
-      return 250;
-    } else {
-      if (router.pathname == "/") {
-        return 220;
-      }
-      return 80;
-    }
-  }
-
-  function sizeWidthDesk() {
-      if (router.pathname == "/") {
-        return 380;
-      }
-      return 250;
-  }
 
   function PopupSearch(){
     return (
@@ -326,17 +311,14 @@ const Navbar:React.FC<any> = ({ children }) => {
         <span/>
         <C.BoxSearch path={router.pathname}>
 
-          <div className="box-image">
-            <C.LogoImage
-                path={router.pathname}
-                onClick={() => router.push("/")}
-                width={(width <= 768) ? sizeWidth() : sizeWidthDesk()}
-                src={sourceUrl}
-                alt="Meoagent-logo"
-                className="img-absolute"
-                isMobileDevice={isMobile}
-              />
-          </div>
+        <div className="box-image">
+          <C.LogoImage
+            path={router.pathname}
+            onClick={() => router.push("/")}
+            src={sourceUrl}
+            alt="Meoagent-logo"
+          />
+        </div>
 
         <RenderConditional isTrue={showSearchBar && !pdfPage}>
             <C.SearchRealtor>
@@ -429,7 +411,7 @@ const Navbar:React.FC<any> = ({ children }) => {
                         onChange={e => changeLocation(e)}
                         className="locale"
                         value={defaultLocale}
-                        defaultValue='pt'>
+                        >
                     <option value="en">EN</option>
                     <option value="pt">PT</option>
                     <option value="es">ES</option>
@@ -438,14 +420,35 @@ const Navbar:React.FC<any> = ({ children }) => {
                 </RenderConditional>
 
                 <RenderConditional isTrue={!!user.token}>
+                  <div className="profile-container">
+                  {/* <Popover showArrow triggerNode={                  <Image
+                        onClick={() => setOpenProfile(!openProfile)}
+                        className="profile"
+                        src={pic ? pic : perfilImage}
+                        alt={"Profile"}
+                        width={60}
+                        height={60}
+                      />} trigger="click">
+                                          <Image
+                        onClick={() => setOpenProfile(!openProfile)}
+                        className="profile"
+                        src={pic ? pic : perfilImage}
+                        alt={"Profile"}
+                        width={60}
+                        height={60}
+                      />
+                </Popover> */}
                   <Image
-                      onClick={() => setOpenProfile(!openProfile)}
-                      className="profile"
-                      src={pic ? pic : perfilImage}
-                      alt={"Profile"}
-                      width={60}
-                      height={60}
-                    />
+                        onClick={() => setOpenProfile(!openProfile)}
+                        className="profile"
+                        src={pic ? pic : perfilImage}
+                        alt={"Profile"}
+                        width={60}
+                        height={60}
+                      />
+
+                  </div>
+
                 </RenderConditional>
 
                 <RenderConditional isTrue={!user.token}>
@@ -484,6 +487,9 @@ const Navbar:React.FC<any> = ({ children }) => {
       </C.Nav>
       <C.ContentNavbar isMobileDevice={isMobile}>
         {children}
+        <RenderConditional isTrue={router.pathname === "/"}>
+          <InfoFooter home={true} />
+        </RenderConditional>
       </C.ContentNavbar>
     </C.ContainerNavbar>
 

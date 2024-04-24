@@ -11,7 +11,7 @@ const en = {
     agency: "Agency"
   },
   loginModal:{
-    client: 'client',
+    client: 'Client',
     realtor: 'Agent',
     agency: 'Company'
   },
@@ -24,6 +24,16 @@ const en = {
   },
   mainInfo:{
     workArea: 'Work Area: ',
+    cityPopup:{
+      textPopupList:"Cities it operates:",
+      restText:'cities',
+      joinText:"and others"
+    },
+    languagePopup:{
+      textPopupList:"languages:",
+      restText:'language',
+      joinText:"and others"
+    },
     experience: 'Experience:',
     languages: 'Languages:',
     salesResult: 'Sales Result: ',

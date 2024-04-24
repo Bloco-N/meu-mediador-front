@@ -5,24 +5,18 @@ export const ContainerForm = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap:1rem; 
+  gap:2rem; 
   width: 100% !important;
 
-  form {
-
-  }
 
   .full-name {
       width: 100%;
       display: flex;
-      gap: 1rem;
+      gap: 2rem;
     }
 
     input {
-      height: 60px;
-      @media (max-width: 768px) {
-        height: 50px;
-      }
+      height: 50px;
     }
 
     input {
@@ -78,7 +72,7 @@ export const ContainerBaseCardSignUp = styled.div<{ isMobileDevice?:boolean}>`
   max-width: 600px;
   width: 100%;
   padding: 1rem;
-  margin: 1rem;
+  margin: 2rem;
   justify-content: center;
   align-items: center;
 
