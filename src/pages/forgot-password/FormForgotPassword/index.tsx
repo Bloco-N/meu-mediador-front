@@ -1,7 +1,7 @@
 import locales from "locales";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import * as C from './styles';
+import * as C from '../../../stylesPages/styles-FormForgotPassword';
 
 const FormForgotPassword:React.FC<any> = ({ onSubmit,sended }) => {
   const { register, handleSubmit } = useForm<{ email: string }>();
