@@ -24,7 +24,7 @@ import { MdCloseFullscreen } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { isMobileDevice } from "@/utils";
 import InfoFooter from "@components/InfoFooter";
-import { Popover } from "@components/Popover";
+import  Popover  from "@components/Popover";
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState<any>({
@@ -421,65 +421,49 @@ const Navbar:React.FC<any> = ({ children }) => {
 
                 <RenderConditional isTrue={!!user.token}>
                   <div className="profile-container">
-                  {/* <Popover showArrow triggerNode={                  <Image
-                        onClick={() => setOpenProfile(!openProfile)}
+                  <Popover showArrow triggerNode={<Image
                         className="profile"
                         src={pic ? pic : perfilImage}
                         alt={"Profile"}
                         width={60}
                         height={60}
-                      />} trigger="click">
-                                          <Image
-                        onClick={() => setOpenProfile(!openProfile)}
-                        className="profile"
-                        src={pic ? pic : perfilImage}
-                        alt={"Profile"}
-                        width={60}
-                        height={60}
-                      />
-                </Popover> */}
-                  <Image
-                        onClick={() => setOpenProfile(!openProfile)}
-                        className="profile"
-                        src={pic ? pic : perfilImage}
-                        alt={"Profile"}
-                        width={60}
-                        height={60}
-                      />
-
+                      />} align='end'>
+                    <ProfileMoldal notModal={true} />
+                </Popover>
                   </div>
 
                 </RenderConditional>
 
-                <RenderConditional isTrue={!user.token}>
+                <RenderConditional isTrue={!user.token && width <= 768}>
+
+                  <Popover showArrow triggerNode={<Image
+                        className="profile"
+                        src={pic ? pic : perfilImage}
+                        alt={"Profile"}
+                        width={60}
+                        height={60}
+                      />} align='end'>
+                    <ProfileMoldal/>
+                    <LoginMoldal notModal={true} />
+                  </Popover>
+                  </RenderConditional>
+
+                <RenderConditional isTrue={!user.token && width > 768}>
                   <div
                     onMouseEnter={() => setOpen(true)}
                     onMouseLeave={() => setOpen(false)}
                     onClick={() => setOpen(!open)}
                     className={open ? "login" : "login"}
                     >
-
-                    <RenderConditional isTrue={width < 768}>
-                        <Image
-                          onClick={() => setOpenProfile(!openProfile)}
-                          className="profile"
-                          src={pic ? pic : perfilImage}
-                          alt={"Profile"}
-                          width={60}
-                          height={60}
-                        />
-                    </RenderConditional>
-
                     <RenderConditional isTrue={width >= 768}>
                       <p>LOGIN</p>
                     </RenderConditional>
-                    
                     <LoginMoldal open={open} setOpen={setOpen} />
+                    
                   </div>
                 </RenderConditional>
 
             </div>
-            <ProfileMoldal open={openProfile} setOpen={setOpenProfile} />
           </>
         </RenderConditional>
 
