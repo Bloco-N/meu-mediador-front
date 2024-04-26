@@ -25,6 +25,8 @@ import * as C from './styles'
 import SimplePopup from "../Popup";
 import PopupClose from "../PopupAviso";
 import RenderConditional from "../RenderConditional";
+import {Modal , MainInfoProfileEditModal} from "../../components";
+import {IModalProps} from '../../src/types/Modal'
 
 type MainInfoProps = {
   userSigned: any;
@@ -59,8 +61,10 @@ const MainInfo = ({
 
 
   const [sessionProfile, setSessionProfile] = useState(false);
+  const [openModalEdit, setOpenModalEdit] = useState(false);
 
   const [fullProfilePic, setFullProfilePic] = useState("");
+  const [childSizeModal, setChildSize] = useState({ width: "90rem", height: "100%", radius: 10 });
 
   const router = useRouter();
 
@@ -229,7 +233,7 @@ const MainInfo = ({
 
         <RenderConditional isTrue={isProfile && sessionProfile && !pdfPage}>
           <Image
-            onClick={() => mainInfoSetOpen(true)}
+            onClick={() => setOpenModalEdit(true)}
             className="edit-main"
             src={editIcon}
             alt="edit icon"
@@ -391,6 +395,9 @@ const MainInfo = ({
             </div>
         </RenderConditional>
       </div>
+      <Modal isOpen={openModalEdit} onClose={() => setOpenModalEdit(false)} childSize={childSizeModal}>
+      <MainInfoProfileEditModal setOpen={setOpenModalEdit}/>
+      </Modal>
     </C.Container>
   );
 };

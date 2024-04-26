@@ -10,7 +10,6 @@ import { SearchForm } from "@/types/SearchForm";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import locales from "../../locales";
-import InfoFooter from "components/InfoFooter";
 import Link from "next/link";
 import api from "@/services/api";
 import { FaAngleDown } from "react-icons/fa";
