@@ -31,7 +31,7 @@ const FooterStyle = styled.div`
       padding: 1rem;
       height: 5rem;
       transform: translateY(-5px);
-      z-index: 9999;
+      z-index: 8888;
     }
     .locale{
       width: 40px;

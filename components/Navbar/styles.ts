@@ -249,6 +249,7 @@ export const Nav = styled.div<INavbar>`
     padding: 1rem;
     height: 35px;
     min-height: 35px;
+    z-index:8888;
   }
 
   .profile {
@@ -270,10 +271,11 @@ export const Nav = styled.div<INavbar>`
     ${({ path }) => path === "/" && `margin-top: 30px;`}
 
 
-    @media only screen and (max-width: 900px) {
-      width:20%;
-      margin-right:3rem
+    @media only screen and (max-width: 640px) {
+      justify-content:end;
+    ${({ path }) => path !== "/" && `margin-right:4rem;`}
     }
+      margin-right:4rem;
   }
 
   .logo-full {
@@ -333,24 +335,13 @@ export const SearchRealtor = styled.div`
       }
     }
     
-
-
-    .searchButton {
-      min-width: 5vw;
-      height: 50px;
-      border-radius: 1rem;
-      padding: 0 1rem;
-      font-size: 16px;
-      background-color: #454545;
-      color: #ccc;
-    }
-
     .input-realtor::placeholder,
     .input-city-cep::placeholder {
       font-size: 15px;
     }
 
 
+    
 
     /* @media only screen and (max-width: 1344px) {
       .inputs-search input,
@@ -464,14 +455,17 @@ export const Spacing = styled.div`
 
 // Modal
 export const ContainerModal = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  padding: 1rem;
-`
+    background-color: var(--surface);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem .2em 1rem 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
 export const HeaderActionsModal = styled.div`
   display: flex;
   align-items: center;
@@ -489,19 +483,18 @@ export const ContainerInputs = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 100% !important;
   padding: 1rem;
   gap: 1rem;
 
       input,
       select {
         flex: 1;
-        height: 50px;
+        height: 25px;
         border-radius: 1rem;
         border: 1px solid #3a2e2c5a;
-        font-size:16px;
+        font-size:14px;
         padding: 0 1rem;
-        width:200px !important;
+        width:150px !important;
       }
 `
 export const BoxInput = styled.div``
@@ -510,5 +503,16 @@ export const FooterActionsModal = styled.div`
   align-items: flex-end;
   justify-content: center;
   padding: 1rem;
-  width: 100%;
+
+  button {
+    all: unset;
+    color: #fff;
+    font-size: 2rem;
+    background: var(--surface-2);
+    text-align: center;
+    border-radius: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    min-width: 10rem;
+  }
 `

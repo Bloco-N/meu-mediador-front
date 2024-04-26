@@ -1,5 +1,4 @@
-import React, { Children, ReactNode } from 'react';
-import { text } from 'stream/consumers';
+import React from 'react';
 import styled from 'styled-components';
 
 
@@ -14,7 +13,7 @@ const GoogleButton = styled.button`
   align-items: center;
   justify-content: center;
   width: 70%;
-  height: 40%;
+  padding: 1rem;
   text-overflow: ellipsis;
   white-space:nowrap;
 `;

@@ -60,10 +60,8 @@ const Navbar:React.FC<any> = ({ children }) => {
   // States
   const [open, setOpen] = useState(false);
   const [flag, setFlag] = useState("GB");
-  const [openProfile, setOpenProfile] = useState(false);
   const [selectedValue, setSelectedValue] = useState(1)
   const [pic, setPic] = useState("");
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
   const [isMobile, setIsMobile] = useState<boolean>(false)
   const [cities, setCities] = useState<Array<string>>();
   const [defaultLocale, setDefaultLocale] = useState('pt')
@@ -71,12 +69,8 @@ const Navbar:React.FC<any> = ({ children }) => {
 
   const inputRef = useRef<any>(null);
   const { register, handleSubmit } = useForm<SearchForm>();
+
   // Control Variables
-  const configModal:IModalProps = {
-    childSize: { width:'250px',height:'280px',radius:10},
-    isOpen:isOpenModal,
-    onClose: () => {}
-  }
   const router = useRouter();
   let isLogad;
   if (typeof localStorage !== 'undefined') {
@@ -198,17 +192,10 @@ const Navbar:React.FC<any> = ({ children }) => {
 
   function PopupSearch(){
     return (
-      <Modal {...configModal}>
       <C.ContainerModal
         onSubmit={handleSubmit(onSubmit)}
         ref={inputRef}
       >
-        <C.HeaderActionsModal>
-            <MdCloseFullscreen
-              onClick={() => setIsOpenModal(false)} 
-              size={30}
-            />
-        </C.HeaderActionsModal>
         <C.ContainerInputs>
             <C.BoxInput>
                 <select
@@ -255,20 +242,15 @@ const Navbar:React.FC<any> = ({ children }) => {
         </C.ContainerInputs>
 
         <C.FooterActionsModal>
-            <div className="content-search-button">
-                <button className="searchButton">
-                {t.home.searchButton}
+                <button>
+                  {t.home.searchButton}
                 </button>
-              </div>
         </C.FooterActionsModal>
       </C.ContainerModal>
-
-    </Modal>
     )
   }
 
   const onSubmit = async (data: SearchForm) => {
-    setIsOpenModal(false)
     const fetchData = async () => {
       let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {
@@ -305,7 +287,6 @@ const Navbar:React.FC<any> = ({ children }) => {
 
   return (
     <C.ContainerNavbar>
-    <PopupSearch/>
     <C.Nav path={router.pathname}>
       <C.Container>
         <span/>
@@ -388,12 +369,10 @@ const Navbar:React.FC<any> = ({ children }) => {
           <>
             <div className="left-side">
                 <RenderConditional isTrue={ showSearchBar && width <= 727}>
-                  <span 
-                    className="box-icon-search"
-                    onClick={() => setIsOpenModal(true)}
-                    >
-                      <FaSearch/>
-                  </span>
+
+                <Popover showArrow autoClose={false} triggerNode={<FaSearch style={{ fontSize:40}}/>} align='end'>
+                  <PopupSearch/>
+                </Popover>
                 </RenderConditional>
 
                 <RenderConditional isTrue={width >= 820}>

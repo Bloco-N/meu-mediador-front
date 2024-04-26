@@ -44,7 +44,12 @@ export const FormSignIn:React.FC<any> = ({ t, onSubmit, signIn, loginError }) =>
               <C.ForgotPasswordLink href="/forgot-password/client">
                 {t.signIn.forgot}
               </C.ForgotPasswordLink>
-              <button>{t.signIn.enter}</button>
+
+              <div className="content-search-button">
+                        <button className="searchButton">
+                          {t.signIn.enter}
+                        </button>
+                </div>
   
               <C.OrSeparator className="orSeparator">
                 <C.BorderTop className="borderTop" />

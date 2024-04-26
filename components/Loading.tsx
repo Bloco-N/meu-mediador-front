@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   position: absolute;
-  z-index: 3;
-  height: 100%;
+  z-index: 9999;
+  height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;

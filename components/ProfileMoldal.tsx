@@ -59,15 +59,17 @@ const ContainerNotModal = styled.div`
   text-align: center;
   z-index: 2;
   background-color: var(--surface);
-  padding-right: 1rem;
-  padding-left: 1rem;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
   border-bottom-left-radius: 2rem;
   border-bottom-right-radius: 2rem;
+  justify-content: center;
+  align-items: center;
+  
   a, p{
     padding: 2rem;
     width: 100%;
+    
     border-top-left-radius: 2rem;
     border-top-right-radius: 2rem;
     font-size: 1.7rem;
@@ -87,7 +89,8 @@ const ContainerNotModal = styled.div`
 `
 
 const Line = styled.span`
-    width: 100%;
+    width: 80%;
+    text-align: center;
     background-color: #3f3f3f;
     padding: .03em;
     height: 100%;
