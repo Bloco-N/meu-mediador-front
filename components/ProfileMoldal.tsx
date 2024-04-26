@@ -9,8 +9,9 @@ import {signOut as singOutGoogle} from 'next-auth/react'
 import { usePathname } from 'next/navigation';
 
 type ProfileMoldalProps = {
-  open: boolean
-  setOpen: Dispatch<SetStateAction<boolean>>
+  open?: boolean
+  setOpen?: Dispatch<SetStateAction<boolean>>
+  notModal?:boolean;
 } 
 
 const Container = styled.div`
@@ -30,8 +31,8 @@ const Container = styled.div`
   a, p{
     padding: 2rem;
     width: 100%;
-    border-top-left-radius: 3rem;
-    border-top-right-radius: 3rem;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
     font-size: 1.7rem;
     transition: all .5s;
     background-color: var(--surface);
@@ -43,8 +44,8 @@ const Container = styled.div`
     
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-    border-bottom-left-radius: 3rem;
-    border-bottom-right-radius: 3rem;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
   }
   @media (max-width: 768px) {
     position: absolute;
@@ -52,7 +53,47 @@ const Container = styled.div`
   }
 `
 
-const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
+const ContainerNotModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  z-index: 2;
+  background-color: var(--surface);
+  padding-right: 1rem;
+  padding-left: 1rem;
+  border-top-left-radius: 2rem;
+  border-top-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  a, p{
+    padding: 2rem;
+    width: 100%;
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+    font-size: 1.7rem;
+    transition: all .5s;
+    background-color: var(--surface);
+    :hover{
+      background-color: #cecece;
+    }
+  }
+  .out{
+    
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+  }
+`
+
+const Line = styled.span`
+    width: 100%;
+    background-color: #3f3f3f;
+    padding: .03em;
+    height: 100%;
+`
+
+const ProfileMoldal = ({ open, setOpen  = () => {},notModal= false }: ProfileMoldalProps) => {
   const pathname = usePathname();
 
   const router = useRouter()
@@ -99,6 +140,16 @@ const ProfileMoldal = ({ open, setOpen }: ProfileMoldalProps) => {
     if(user.id) setId(String(user.id))
     else if(id) setId(id)
   }, [user])
+
+  if(notModal){
+    return (
+      <ContainerNotModal>
+      <Link onClick={() => setOpen(false)} href={`/profile/` + accType + '/' + id}>{t.profileModal.profile}</Link>
+      <Line/>
+      <p onClick={signOut} className='out'>{t.profileModal.signOut}</p>
+    </ContainerNotModal>
+    )
+  }
   return (
 
     open ?

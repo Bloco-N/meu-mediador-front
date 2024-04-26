@@ -27,7 +27,6 @@ export const ContentNavbar = styled.section<{isMobileDevice:boolean}>`
   width: 100%;
   justify-content: center;
   align-items: center;
-  /* padding: 1rem 0 0 0; */
 `
 
 export const Nav = styled.div<INavbar>`
@@ -63,7 +62,7 @@ export const Nav = styled.div<INavbar>`
 
   .left-side {
     z-index: 10;
-    margin-right: 2rem;
+    margin-right: 1rem;
     
     .box-icon-search{
         svg{
@@ -342,6 +341,8 @@ export const SearchRealtor = styled.div`
       border-radius: 1rem;
       padding: 0 1rem;
       font-size: 16px;
+      background-color: #454545;
+      color: #ccc;
     }
 
     .input-realtor::placeholder,
