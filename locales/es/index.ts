@@ -29,6 +29,16 @@ const es = {
     clientsHelped: "Clientes ayudados: ",
     propertiesSold: "Propiedades vendidas: ",
     accompaniedBuyers: "Compradores acompañados: ",
+    cityPopup:{
+      textPopupList:"Ciudades donde opera:",
+      restText:'ciudades',
+      joinText:"y otras"
+    },
+    languagePopup:{
+      textPopupList:"idiomas:",
+      restText:'idioma',
+      joinText:"y otra"
+    },
   },
   mainInfoEditModal: {
     language: "Idioma",

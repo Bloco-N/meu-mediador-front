@@ -57,7 +57,6 @@ const MainInfo = ({
     srcImg: coverPicSrcImage,
   } = useContext(CoverPicAdjustModalContext) as CoverPicAdjustModalContextType;
 
-  console.log(userSigned, "PEdro")
 
   const [sessionProfile, setSessionProfile] = useState(false);
 
@@ -255,7 +254,6 @@ const MainInfo = ({
 
           </div>
           <div className="about-2">
-          <RenderConditional isTrue={userSigned?.rating > 0}>
               <>
                 <div className="tt"></div>
                 <div className="cities">
@@ -264,17 +262,17 @@ const MainInfo = ({
                   <span>{printCities()}</span>
                   <RenderConditional isTrue={userCitis?.length > 3}>
                     <>
-                      <span> e outras </span>
+                    <span>{t.mainInfo.cityPopup.joinText}</span>
                       <SimplePopup
+                        textPopupList={t.mainInfo.cityPopup.textPopupList}
                         qtdeCitys={userCitis?.length - 2}
                         cities={userCitis}
                       />
-                      <span>cidades</span>
+                      <span>{t.mainInfo.cityPopup.restText}</span>
                     </>
                   </RenderConditional>
                 </div>
               </>
-            </RenderConditional>
             <p>
               <b>{t.mainInfo.experience}</b>{" "}
               {userSigned?.expTime ? userSigned?.expTime : ""}{" "}
@@ -285,29 +283,37 @@ const MainInfo = ({
               {printLanguage()}
               <RenderConditional isTrue={userLanguage?.length > 3}>
                     <>
-                      <span> e outras </span>
+                    <span>{t.mainInfo.languagePopup.joinText}</span>
                       <SimplePopup
+                        textPopupList={t.mainInfo.languagePopup.textPopupList}
                         qtdeCitys={userLanguage?.length - 2}
                         cities={userLanguage}
                       />
-                      <span>cidades</span>
+                      <span>{t.mainInfo.languagePopup.restText}</span>
                     </>
                 </RenderConditional>
             </p>
             <p>{userSigned?.email}</p>
             <p>{userSigned?.phone}</p>
           </div>
+          <RenderConditional isTrue={userSigned?.sold > 0 || userSigned?.bought > 0}>
           <div className="about-3">
-            <p>
-              <b>{t.mainInfo.propertiesSold}</b> 0
-            </p>
-            <p>
-              <b>{t.mainInfo.accompaniedBuyers}</b> 0
-            </p>
-            <div className="cities">
-              <PopupClose />
+              <RenderConditional isTrue={userSigned?.sold > 0}>
+                  <p>
+                    <b>{t.mainInfo.propertiesSold}</b> {userSigned?.sold}
+                  </p>
+              </RenderConditional>
+              <RenderConditional isTrue={userSigned?.accompaniedBuyers > 0}>
+                <p>
+                  <b>{t.mainInfo.accompaniedBuyers}</b> {userSigned?.bought}
+                </p>
+              </RenderConditional>
+              <div className="cities">
+                <PopupClose />
+              </div>
             </div>
-          </div>
+          </RenderConditional>
+
           <div className="icon-agency">
             <RenderConditional isTrue={userSigned?.RealtorCities}>
               <Link href={"/profile/agency/" + lastExp?.agencyId}>

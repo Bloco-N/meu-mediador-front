@@ -19,7 +19,6 @@ import PartnershipCard from "components/realtor-profile-page/PartnershipCard";
 import AboutCard from "components/realtor-profile-page/AboutCard";
 import DenunciaMoldal from "components/DenunciaModal";
 import locales from "locales";
-import Footer from "components/Footer";
 import InfoFooter from "components/InfoFooter";
 import TrashButton from "components/DeleteButton";
 import Modal from "../../../../components/ModalLogout";

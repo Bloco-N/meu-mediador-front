@@ -5,7 +5,7 @@ import ModalWrapper from 'components/ModalWrapper'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Providers from 'components/Providers/Providers'
-
+import '@/styles/stylesRadix.css'
 
 export default function App({ Component, pageProps:{session, ...pageProps}}: AppProps) {
   return (

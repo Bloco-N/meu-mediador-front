@@ -28,13 +28,14 @@ export const Container = styled.div`
 
 export const LoaderContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(255, 255, 255, 0.8);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: -9999;
+  position: absolute;
 
   img {
     width: 60%;
@@ -56,7 +57,10 @@ export const LoaderContainer = styled.div`
       margin-left: 30px;
     }
 
-    .spinner {
+
+  }
+
+  .spinner {
       width: 65px;
       height: 65px;
       border-radius: 50%;
@@ -76,5 +80,4 @@ export const LoaderContainer = styled.div`
         transform: rotate(1turn);
       }
     }
-  }
 `;

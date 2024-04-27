@@ -3,6 +3,7 @@ import styled from "styled-components";
 import infoCircler from '../public/info.svg'
 import { useRouter } from "next/router";
 import locales from "locales";
+import RenderConditional from "./RenderConditional";
 interface IPopup {
   qtdeCitys: number;
   cities: any;
@@ -31,10 +32,6 @@ export default function PopupClose() {
     setOpen(!open);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const id = open ? "simple-popper" : undefined;
 
   return (
@@ -47,22 +44,22 @@ export default function PopupClose() {
       >
         <img src={infoCircler.src} alt="" width={30}/>
       </Button>
-      {open && (
+      <RenderConditional isTrue={open}>
         <StyledPopup
-          id={id}
-          style={{ top: position.top, left: position.left }}
-          onMouseEnter={() => setOpen(true)}
-          onMouseLeave={handleMouseLeave}
-        >
-          <PopupBody>
-            <div className="close">
-              <h5>
-                {t.popupInfo?.text}
-              </h5>
-            </div>
-          </PopupBody>
-        </StyledPopup>
-      )}
+            id={id}
+            style={{ top: position.top, left: position.left }}
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={handleMouseLeave}
+          >
+            <PopupBody>
+              <div className="close">
+                <h5>
+                  {t.popupInfo?.text}
+                </h5>
+              </div>
+            </PopupBody>
+          </StyledPopup>
+      </RenderConditional>
     </div>
   );
 }

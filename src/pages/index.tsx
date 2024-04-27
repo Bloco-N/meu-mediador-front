@@ -10,7 +10,6 @@ import { SearchForm } from "@/types/SearchForm";
 import LoadingContext from "context/LoadingContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import locales from "../../locales";
-import InfoFooter from "components/InfoFooter";
 import Link from "next/link";
 import api from "@/services/api";
 import { FaAngleDown } from "react-icons/fa";
@@ -24,7 +23,8 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-`
+  `
+
 const ContainerFooter = styled.div`
   display: flex;
   flex-direction: column;
@@ -43,7 +43,7 @@ const SearchRealtor = styled.div<{ isMobile:boolean; }>`
   align-items: center;
   height: 100%;
 
-  ${({ isMobile }) => !isMobile && `margin-bottom: 35px;`}
+
   
   form {
     background: #e9e9e985;
@@ -51,9 +51,11 @@ const SearchRealtor = styled.div<{ isMobile:boolean; }>`
     max-width: 100%;
     width: fit-content;
     height: fit-content;
-    margin-top: 10vh;
     backdrop-filter: blur(5px);
     padding: 2rem 3rem;
+    margin-top: 10vh;
+
+    ${({ isMobile }) => isMobile && `margin-top: 2vh;`}
 
     h4 {
       font-weight: 600;
@@ -176,20 +178,17 @@ const NovoCadastro = styled.div`
   h4 {
     font-weight: 600;
     margin-top: 0px;
-    font-size: 18px;
+    font-size: 1.4em;
   }
 
   @media only screen and (max-width: 768px) {
     margin-top: 0px;
     border: solid 0.1rem var(--border-color);
-    width: 80%;
+    width: 90%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    h4 {
-      font-size: 16px;
-    }
   }
 
   .novo-botao {
@@ -338,7 +337,6 @@ export default function Home() {
       </SearchRealtor>
       <ContainerFooter>
         <Footer />
-        <InfoFooter home={true} />
       </ContainerFooter>
     </Container>
   );

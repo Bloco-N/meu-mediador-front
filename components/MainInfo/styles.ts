@@ -7,6 +7,8 @@ type ContainerProps = {
 export const Container = styled.div<ContainerProps>`
 position: relative;
 height: 100%;
+display: flex;
+justify-content: center;
 
 min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
 @media only screen and (max-width: 900px) {
@@ -75,6 +77,7 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
 
   @media only screen and (max-width: 900px) {
     flex-direction: column;
+    width: 85%;
   }
 
   .sub-content {
@@ -82,7 +85,6 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     margin-left: ${(props) => (props.isProfile ? "2rem" : "2rem")};
     display: flex;
     gap: 1rem;
-    /* justify-content: ${(props) => (props.isProfile ? "" : "space-between")}; */
     width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -129,6 +131,13 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     max-width: 300px;
     width: 100%;
     align-items: flex-start;
+    
+    p{
+      display: flex;
+      gap:2px;
+      white-space: nowrap !important;
+      flex-wrap: wrap;
+    }
 
     @media only screen and (max-width: 900px) {
       align-items: center;
@@ -142,9 +151,7 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     justify-content: flex-end;
     gap: 0.5rem;
 
-    p {
-      overflow-wrap: break-word;
-    }
+
 
     .bottom {
       display: flex;
@@ -208,22 +215,34 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     flex-wrap: wrap;
     align-items: center;
     gap: 2rem;
-    position: absolute;
-    bottom: 8rem;
-    right: 2rem;
-    width: 100%;
-    align-items: flex-start;
+    align-items: end;
 
-    @media only screen and (max-width: 900px) {
-      position: unset;
-      bottom: 8rem;
-      right: 2rem;
+
+    @media(max-width:768px) {
+      position: static;
     }
 
-    @media only screen and (max-width: 1400px) {
-      right: 14rem;
-      bottom: 4rem;
+    @media(max-width:1280px) {
+      right: 59%;
     }
+
+    @media(max-width:1097.14px) {
+      right: 52%;
+    }
+
+    @media(max-width:960px) {
+      right: 56%;
+    }
+
+
+
+    ${(props) => (props.isProfile && `
+      justify-content: center;
+      position:absolute;
+      bottom:50px;
+      right:10px;
+    `)}
+
 
     .icon {
       height: 3rem;
@@ -251,30 +270,7 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     }
   }
 
-  .current-agency {
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    padding: 1rem;
-    border-radius: 1rem;
-    position: ${(props) => (props.isProfile ? "absolute" : "")};
-    bottom: ${(props) => (props.isProfile ? "20rem" : "unset")};
-    width: 180px;
-    
 
-    @media only screen and (max-width: 900px) {
-      position: unset;
-      width: 180px;
-      white-space: nowrap;
-    }
-
-    .agency {
-      height: 3rem;
-      width: 3rem;
-    }
-  }
 
   .profile-pointer {
     cursor: pointer;
@@ -330,27 +326,43 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
   }
 }
 
+  .current-agency {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    min-width: 180px;
+    
+    ${(props) => (props.isProfile && `
+        position: absolute;
+        bottom:52%;
+        right:20px;
+    `)}
+    
+
+    @media only screen and (max-width: 900px) {
+      position: unset;
+      width: 180px;
+      white-space: nowrap;
+    }
+
+    .agency {
+      height: 3rem;
+      width: 3rem;
+    }
+  }
+
 .icon-agency {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  justify-content: flex-start;
+  justify-content: center;
 
   a {
     display: flex;
-    justify-content: center;
-  }
-
-  @media(max-width:1097.14px){
-    width: 42%;
-  }
-
-  @media(max-width:960px){
-    width: 40%;
-  }
-
-  @media(max-width:768px){
-    width: 100%;
     justify-content: center;
   }
 }

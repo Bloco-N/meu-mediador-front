@@ -4,9 +4,10 @@ import styled from "styled-components";
 interface IPopup {
   qtdeCitys: number;
   cities: any;
+  textPopupList?:string;
 }
 
-export default function SimplePopup({ qtdeCitys, cities }: IPopup) {
+export default function SimplePopup({ qtdeCitys, cities,textPopupList }: IPopup) {
   const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
   const [position, setPosition] = React.useState({ top: 0, left: 0 });
@@ -50,7 +51,7 @@ export default function SimplePopup({ qtdeCitys, cities }: IPopup) {
         >
           <PopupBody>
             <div className="close">
-              <b>Cidades que atua:</b>
+              <b>{textPopupList}</b>
               <CloseButton onClick={handleClose}>X</CloseButton>
             </div>
             <ul className="cities-list">

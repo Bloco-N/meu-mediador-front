@@ -27,12 +27,10 @@ const Container = styled.div`
 
 const ChooseProfileTitle = styled.div`
   width: 100%;
-  font-weight: normal;
   padding: 2rem;
   text-align: center;
-  @media only screen and (max-width: 800px) {
-    font-size: 1.2rem;
-  }
+  font-size: 16px;
+
   h1 {
     font-weight: normal;
   }
