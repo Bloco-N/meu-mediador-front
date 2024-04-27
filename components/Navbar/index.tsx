@@ -432,7 +432,7 @@ const Navbar:React.FC<any> = ({ children }) => {
                     onMouseEnter={() => setOpen(true)}
                     onMouseLeave={() => setOpen(false)}
                     onClick={() => setOpen(!open)}
-                    className={open ? "login" : "login"}
+                    className="login"
                     >
                     <RenderConditional isTrue={width >= 768}>
                       <p>LOGIN</p>

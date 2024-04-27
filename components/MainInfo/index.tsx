@@ -254,7 +254,6 @@ const MainInfo = ({
 
           </div>
           <div className="about-2">
-          <RenderConditional isTrue={userSigned?.rating > 0}>
               <>
                 <div className="tt"></div>
                 <div className="cities">
@@ -274,7 +273,6 @@ const MainInfo = ({
                   </RenderConditional>
                 </div>
               </>
-            </RenderConditional>
             <p>
               <b>{t.mainInfo.experience}</b>{" "}
               {userSigned?.expTime ? userSigned?.expTime : ""}{" "}

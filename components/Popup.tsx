@@ -4,7 +4,7 @@ import styled from "styled-components";
 interface IPopup {
   qtdeCitys: number;
   cities: any;
-  textPopupList:string;
+  textPopupList?:string;
 }
 
 export default function SimplePopup({ qtdeCitys, cities,textPopupList }: IPopup) {

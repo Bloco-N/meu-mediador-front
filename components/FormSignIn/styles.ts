@@ -33,9 +33,9 @@ export const Card = styled.form`
   border-radius: 3rem;
   text-align: center;
   gap: 18px;
-  max-width: 600px;
-  width: 100%;
-  height: 100%;
+  max-width: 580px;
+  width: 80%;
+  height: auto;
   padding: 1rem;
   margin: 1rem;
   justify-content: center;
@@ -45,6 +45,7 @@ export const Card = styled.form`
     color: #3a2e2c;
     opacity: 1;
     font-weight: 600;
+    height: 60px;
   }
 
   input::placeholder {
@@ -66,7 +67,6 @@ export const ContainerInputs = styled.div`
 `
 
 export const Input = styled.input`
-  height: 50px;
 `;
 
 export const ErrorText = styled.p``;
@@ -83,6 +83,10 @@ export const BottomCta = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+  
 `;
 
 export const CreateAccountLink = styled(Link)``;

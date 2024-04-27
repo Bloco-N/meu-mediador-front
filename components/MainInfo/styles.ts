@@ -7,6 +7,8 @@ type ContainerProps = {
 export const Container = styled.div<ContainerProps>`
 position: relative;
 height: 100%;
+display: flex;
+justify-content: center;
 
 min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
 @media only screen and (max-width: 900px) {
@@ -75,6 +77,7 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
 
   @media only screen and (max-width: 900px) {
     flex-direction: column;
+    width: 85%;
   }
 
   .sub-content {
