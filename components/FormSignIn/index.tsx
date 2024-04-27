@@ -1,4 +1,4 @@
-import * as C from '@components/FormSignIn/styles'
+import * as C from './styles'
 import { useForm } from 'react-hook-form';
 import GoogleLoginButton from "@components/ButtonAuth";
 import iconGoogle from "/public/icon-google.png";

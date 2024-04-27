@@ -103,7 +103,7 @@ const SearchRealtor = styled.div<{ isMobile:boolean; }>`
         @media (max-width: 768px) {
           width: 100%;
           height: 58px;
-          background-color: #fff;
+          /* background-color: #fff; */
           -webkit-appearance: none;
           padding-left: 18px;
         }
@@ -134,14 +134,14 @@ const SearchRealtor = styled.div<{ isMobile:boolean; }>`
       input {
       }
       input,
-      .searchButton {
+      /* .searchButton {
         background: #fff;
-      }
+      } */
       .searchButton,
-      h4 {
+      /* h4 {
         color: #3a2e2c;
         opacity: 1;
-      }
+      } */
     }
   }
   .novo-botao {

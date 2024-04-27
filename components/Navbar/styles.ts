@@ -270,7 +270,7 @@ export const Nav = styled.div<INavbar>`
 
     @media only screen and (max-width: 640px) {
       justify-content: end;
-      ${({ path }) => path !== "/" && `margin-right:4rem;`}
+      ${({ path }) => path !== "/" && `margin-right: 1px;`}
     }
   }
 
@@ -377,7 +377,7 @@ export const BoxSearch = styled.div<{ path?: string }>`
   flex-direction: row;
   justify-content: flex-start;
   height: 69px !important;
-
+  padding-left:1.3rem;
   ${({ path }) => path === "/" && `margin-top: 30px;`}
 
   ${({ path }) =>
@@ -390,7 +390,6 @@ export const BoxSearch = styled.div<{ path?: string }>`
 
     @media(max-width:768px){
       justify-content: start !important;
-      padding-left:1.3rem;
       padding-top:0px;
     }
   `}
