@@ -23,7 +23,7 @@ const FormForgotPassword:React.FC<any> = ({ onSubmit,sended }) => {
           />
           <h4>{t.forgotPassword.enterAnEmail}</h4>
 
-          <button className="forgotPasswordButton">
+          <button className="button">
             {t.forgotPassword.send}
           </button>
         </form>

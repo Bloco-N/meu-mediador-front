@@ -1,22 +1,28 @@
-import React, { Children, ReactNode } from 'react';
-import { text } from 'stream/consumers';
+import React from 'react';
 import styled from 'styled-components';
 
 
 const GoogleButton = styled.button`
   background-color: #FFFF;
   color: #000000;
-  font-size: 1.6rem;
+  padding: 1em 1em;
+  font-size: 0.8em;
   border: none;
   border-radius: 7px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 70%;
+  width: 60%;
   height: 40%;
-  text-overflow: ellipsis;
-  white-space:nowrap;
+  min-width: 200px;
+  font-size: 16px;
+  margin-bottom: 1em;
+
+  @media screen and (max-width: 400px) {
+    width: 60%;
+    font-size: 13px;
+  }
 `;
 
 const GoogleLogo = styled.img`

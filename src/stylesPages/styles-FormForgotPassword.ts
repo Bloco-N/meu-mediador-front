@@ -6,6 +6,7 @@ flex-direction: column;
 align-items: center;
 gap: 2rem;
 max-height: 400px;
+width: 25%;
 
 
 form {
@@ -15,6 +16,7 @@ form {
     gap: 2rem;
     min-height: 32rem;
     min-width: 42rem;
+    width: 100%;
 
   h4 {
     font-size: 16px;
@@ -28,9 +30,8 @@ form {
 
 export const Container = styled.div`
 width: 100%;
-height: 100%;
+height: 60%;
 display: flex;
 align-items: center;
 justify-content: center;
-
 `

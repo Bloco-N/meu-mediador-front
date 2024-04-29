@@ -28,14 +28,14 @@ export const Card = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: .1rem solid var(--border-color);
+  border: 0.1rem solid var(--border-color);
   background-color: var(--surface);
   border-radius: 3rem;
   text-align: center;
   gap: 18px;
-  max-width: 600px;
-  width: 100%;
-  height: 100%;
+  max-width: 580px;
+  width: 80%;
+  height: auto;
   padding: 1rem;
   margin: 1rem;
   justify-content: center;
@@ -45,6 +45,12 @@ export const Card = styled.form`
     color: #3a2e2c;
     opacity: 1;
     font-weight: 600;
+    height: 60px;
+
+    @media (max-width: 768px) {
+      height: 50px;
+      background-color: #fff;
+    }
   }
 
   input::placeholder {
@@ -63,15 +69,19 @@ export const ContainerInputs = styled.div`
   gap: 2rem;
   flex-direction: column;
   width: 90%;
-`
+`;
 
 export const Input = styled.input`
-  height: 50px;
+  background-color: #fff;
 `;
 
 export const ErrorText = styled.p``;
 
-export const ForgotPasswordLink = styled(Link)``;
+export const ForgotPasswordLink = styled(Link)`
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+`;
 
 export const OrSeparator = styled.div``;
 
@@ -83,6 +93,9 @@ export const BottomCta = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const CreateAccountLink = styled(Link)``;
