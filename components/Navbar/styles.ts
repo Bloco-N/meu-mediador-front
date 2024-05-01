@@ -323,6 +323,7 @@ export const SearchRealtor = styled.div`
         font-size: 14px;
         padding: 0 1rem;
         width: 16rem;
+        background-color: #fff;
       }
 
       select {

@@ -5,12 +5,14 @@ export const Container = styled.div`
   display: flex;
   overflow-x: hidden;
   width: 100vw;
-  height: 600px;
-
+  height: 700px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 2rem;
+  @media (max-width: 768px) {
+    height: 600px;
+  }
 `;
 
 export const SignInContainer = styled.div`
@@ -26,8 +28,6 @@ export const Card = styled.form`
   background-color: #e8e8e8;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   border: 0.1rem solid var(--border-color);
   background-color: var(--surface);
   border-radius: 3rem;
@@ -36,7 +36,7 @@ export const Card = styled.form`
   max-width: 580px;
   width: 80%;
   height: auto;
-  padding: 1rem;
+  padding: 2rem 1rem;
   margin: 1rem;
   justify-content: center;
   align-items: center;
@@ -45,11 +45,11 @@ export const Card = styled.form`
     color: #3a2e2c;
     opacity: 1;
     font-weight: 600;
-    height: 60px;
+    height: 60px; 
+    background-color: #fff;
 
     @media (max-width: 768px) {
       height: 50px;
-      background-color: #fff;
     }
   }
 
@@ -62,6 +62,9 @@ export const Card = styled.form`
 
 export const Title = styled.h2`
   font-size: 32px;
+  @media (max-width: 768px) {
+    font-size: 28px; 
+  }
 `;
 
 export const ContainerInputs = styled.div`
