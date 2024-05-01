@@ -267,7 +267,7 @@ const Navbar:React.FC<any> = ({ children }) => {
       }
 
       await api
-        .get(url)
+        .post(url)
         .then((response) => {
           setSearchResult(response.data);
           router.push({
@@ -287,7 +287,7 @@ const Navbar:React.FC<any> = ({ children }) => {
   return (
     <C.ContainerNavbar>
     <C.Nav path={router.pathname}>
-      <C.Container>
+      <C.Container path={router.pathname}>
         <span/>
         <C.BoxSearch path={router.pathname}>
 

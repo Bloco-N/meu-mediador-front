@@ -8,57 +8,15 @@ import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import styled from "styled-components";
+import * as S from './styles'
 
-const Container = styled.div`
-  position: fixed;
-  z-index: 3;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  form{
-    position: relative;
-    height: 25rem;
-    width: 40%;
-    border-radius: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    input{
-      width: 80%;
-    }
-    @media (max-width: 700px) {
-      width: 80%;
-    }
-  }
-  p{
-    cursor: pointer;
-    position: absolute;
-    top: 1.5rem;
-    right: 2rem;
-    height: 3rem;
-    width: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--surface-2);
-    color: var(--surface);
-    border-radius: 1rem;
-    font-weight: bold;
-  }
-`
+
 
 type AddCourseModalProps = {
-  open: boolean,
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const AddCourseModal = ({open, setOpen}: AddCourseModalProps) => {
+const AddCourseModal = ({ setOpen}: AddCourseModalProps) => {
 
   const { register, handleSubmit } = useForm<AddCourseForm>()
 
@@ -92,16 +50,14 @@ const AddCourseModal = ({open, setOpen}: AddCourseModalProps) => {
   }
 
   return (
-    open ?
-    <Container className='modal'>
+    <S.Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>{t.addStudy.createStudy}</h3>
         <input  {...register('name', {required: true})}  placeholder={t.addStudy.title} type="text" />
         <p onClick={() => setOpen(false)}>X</p>
-        <button type="submit"> {t.addStudy.create} </button>
+        <button className="button" type="submit"> {t.addStudy.create} </button>
       </form>
-    </Container>
-    : <></>
+    </S.Container>
   );
 };
 

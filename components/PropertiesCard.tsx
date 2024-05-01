@@ -144,6 +144,7 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
   const [properties, setProperties ] = useState<Property []>()
   const [open, setOpen ] = useState(false)
   const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
+  const [property, setPropertyToUpdate] = useState({});
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -183,10 +184,9 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
     
     const { id } = target
 
-    const property = properties?.find(property => property.id === parseInt(id))
-    // setPropertyToUpdate(property)
-
-    // addPropertySetOpen(true)
+    const property:any = properties?.find(property => property.id === parseInt(id))
+    setPropertyToUpdate(property)
+    setOpen(true)
 
   }
   
@@ -252,14 +252,14 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
           ))}
           { sessionProfile ? (
           <Image onClick={() => {
+            setPropertyToUpdate({})
             setOpen(true)
-            // setPropertyToUpdate(undefined)
           }} className='plus' src={plusIcon} alt='edit icon'/>
       ): ''}
         </div>
       </div>
       <Modal isOpen={open} onClose={() => setOpen(false)} childSize={childSizeModal}>
-        <ModalProperty setOpen={setOpen}/>
+        <ModalProperty propertyToUpdate={property} setOpen={setOpen}/>
       </Modal>
     </Container>
   ) 

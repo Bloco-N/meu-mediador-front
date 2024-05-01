@@ -180,7 +180,7 @@ const NovoCadastro = styled.div`
   h4 {
     font-weight: 600;
     margin-top: 0px;
-    font-size: 1.4em;
+    font-size: 1.6em;
   }
 
   @media only screen and (max-width: 768px) {
@@ -256,7 +256,7 @@ export default function Home() {
       }
 
       await api
-        .get(url)
+        .post(url)
         .then((response) => {
           setSearchResult(response.data);
           router.push({

@@ -17,18 +17,18 @@ import PropertiesCard from "components/PropertiesCard";
 import { ApiService } from "@/services/ApiService";
 import PartnershipCard from "components/realtor-profile-page/PartnershipCard";
 import AboutCard from "components/realtor-profile-page/AboutCard";
-import DenunciaMoldal from "components/DenunciaModal";
 import locales from "locales";
 import InfoFooter from "components/InfoFooter";
 import TrashButton from "components/DeleteButton";
-import Modal from "../../../../components/ModalLogout";
+import ModalLogout from "../../../../components/ModalLogout";
 import IconAlert from "../../../../public/icons-atencao.png";
 import { signOut as singOutGoogle } from "next-auth/react";
 import api from "@/services/api";
 import { toast } from "react-toastify";
+import { Modal, ModalReport } from "components";
 
-interface Realtor{
-  sessionProfile:boolean
+interface Realtor {
+  sessionProfile: boolean;
 }
 
 const Container = styled.div<Realtor>`
@@ -77,8 +77,7 @@ const Container = styled.div<Realtor>`
 
     @media (max-width: 768px) {
       max-height: 20%;
-      position:static;
-
+      position: static;
     }
   }
   .divButtonConfirm {
@@ -144,6 +143,7 @@ export default function Profile() {
   const [lastExp, setLastExp] = useState<LastExp>();
 
   const [sessionProfile, setSessionProfile] = useState(false);
+  // const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
 
   const { user, setUser } = useContext(UserContext) as UserContextType;
 
@@ -159,6 +159,11 @@ export default function Profile() {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [childSize, setChildSize] = useState({ width: "auto", height: "auto" });
+  const [childSizeReport, setChildSizeReport] = useState({
+    width: "80%",
+    height: "auto",
+    radius: 10,
+  });
 
   const router = useRouter();
   const { id } = router.query;
@@ -184,9 +189,9 @@ export default function Profile() {
     const fetchData = async () => {
       if (id) {
         setLoadingOpen(true);
-        console.log("Aqui")
+        console.log("Aqui");
         const data = await apiService.getRealtorInformation(id as string);
-        console.log(data, "PEdrooooo")
+        console.log(data, "PEdrooooo");
         setRealtor(data);
 
         const responsePartnerships = await apiService.getRealtorPartnership(
@@ -284,15 +289,17 @@ export default function Profile() {
         onClick={() => setShowModalDenuncia(true)}
         dangerouslySetInnerHTML={{ __html: t.reportDialog.label }}
       ></a>
-      {showModalDenuncia ? (
-        <DenunciaMoldal
+      <Modal
+        isOpen={showModalDenuncia}
+        onClose={() => setShowModalDenuncia(false)}
+        childSize={childSizeReport}
+      >
+        <ModalReport
           close={() => setShowModalDenuncia(false)}
           idProfile={localId}
           nameUser={user.id?.toString() ?? "anônimo"}
         />
-      ) : (
-        <></>
-      )}
+      </Modal>
       <AwardsCard
         localId={localId}
         accType={accType}
@@ -316,7 +323,7 @@ export default function Profile() {
         userSigned={realtor as RealtorProfile}
       />
       <InfoFooter />
-      <Modal
+      <ModalLogout
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         setChildSize={setChildSize}
@@ -333,7 +340,7 @@ export default function Profile() {
             </button>
           </div>
         </div>
-      </Modal>
+      </ModalLogout>
     </Container>
   );
 }

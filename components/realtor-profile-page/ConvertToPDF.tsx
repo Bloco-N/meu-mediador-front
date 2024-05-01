@@ -96,7 +96,7 @@ export default function ConvertToPDF({localId, accType, sessionProfile=true}:Con
   return (
     <>
       {sessionProfile && (
-        <Container onClick={handleConvertToPDF}>{t.convertToPdf.button}</Container>
+        <Container className="button" onClick={handleConvertToPDF}>{t.convertToPdf.button}</Container>
       )}
     </>
   ) 

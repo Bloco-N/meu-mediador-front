@@ -10,6 +10,11 @@ import MainInfoProfileEditModal from '@components/ProfileEditModelRealtor'
 import ServiceModal from '@components/ModalService'
 import ModalAbout from '@components/ModalAbout'
 import ModalProperty from '@components/ModalProperty'
+import ModalAward from '@components/ModalAward'
+import ModalCourse from '@components/ModalCourse'
+import ModalPartneship from '@components/ModalPartneship'
+import ModalReport from "@components/ModalReport";
+
 export {
     RenderConditional,
     Navbar,
@@ -20,5 +25,9 @@ export {
     MainInfoProfileEditModal,
     ServiceModal,
     ModalAbout,
-    ModalProperty
+    ModalProperty,
+    ModalAward,
+    ModalCourse,
+    ModalPartneship,
+    ModalReport
 }

@@ -80,7 +80,7 @@ const pt = {
     verify: "Conferir Imóvel",
   },
   addPropertiesModal: {
-    deleteProperty: "excluir",
+    deleteProperty: "Excluir",
     uploadPropertie: "Adicionar Imóvel",
     updatePropertie: "Atualizar Imóvel",
     title: "Título",

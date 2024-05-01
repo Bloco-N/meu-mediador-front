@@ -46,7 +46,7 @@ export const Card = styled.form`
     opacity: 1;
     font-weight: 600;
     height: 60px; 
-    background-color: #fff;
+    background-color: #EFF4F0;
 
     @media (max-width: 768px) {
       height: 50px;

@@ -11,7 +11,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   form {
-    background-color: #BABABA;
+    background-color: #bababa;
     position: relative;
     height: auto;
     width: 75%;
@@ -50,15 +50,14 @@ export const Container = styled.div`
           flex-direction: column;
           gap: 2rem;
           width: 50%;
-         
         }
         select {
-            width: 100%;
-            height: 65px;
-            @media (max-width: 768px) {
-              height: 45px;
-            }
+          width: 100%;
+          height: 65px;
+          @media (max-width: 768px) {
+            height: 45px;
           }
+        }
       }
       .image-place {
         position: relative;
@@ -88,7 +87,7 @@ export const Container = styled.div`
         }
         label {
           position: absolute;
-          top: 5rem;
+          top: 9rem;
           right: 0.5rem;
           @media (max-width: 1200px) {
             top: 1rem;
@@ -107,7 +106,14 @@ export const Container = styled.div`
       width: auto;
       gap: 2rem;
       .buttondelete {
-        background-color: #c24343;
+        background: #c24343;
+        color: white;
+        font-size: 2rem;
+        text-align: center;
+        border-radius: 1rem;
+        cursor: pointer;
+        padding: 1.5rem;
+        min-width: 10rem;
       }
     }
   }

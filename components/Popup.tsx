@@ -138,7 +138,6 @@ const Button = styled.b`
   position: relative;
   text-decoration: none;
   display: inline-block;
-  margin-right: 3px;
   border: 1px solid toamto;
 
   &:after {

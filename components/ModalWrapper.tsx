@@ -14,11 +14,11 @@ import { PictureModalData } from '@/types/PictureModalData';
 import { User } from '@/types/User';
 import { RealtorList } from '@/types/RealtorList';
 import { RealtorProfile } from '@/types/RealtorProfile';
-import AddAwardModal from './AddAwardModal';
+import AddAwardModal from './ModalAward';
 import AddAwardModalContext from 'context/AddAwardModalContext';
-import AddPartnershipModal from './AddPartnershipModal';
+import AddPartnershipModal from './ModalPartneship';
 import AddPartnershipModalContext from 'context/AddPartnershipModalContext';
-import AddCourseModal from './AddCourseModal';
+import AddCourseModal from './ModalCourse';
 import AddCourseModalContext from 'context/AddCourseModalContext';
 import AboutEditModal from './ModalAbout';
 import AboutEditModalContext from 'context/AboutEditModalContext';
@@ -135,10 +135,10 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
                                           {/* <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal} /> */}
                                           {/* <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal} /> */}
                                           {/* <AddServiceModal open={openAddServiceModal} setOpen={setOpenAddServiceModal} /> */}
-                                          <AddAwardModal open={openAwardModal} setOpen={setOpenAwardModal} />
-                                          <AddCourseModal open={openCourseModal} setOpen={setOpenCourseModal} />
+                                          {/* <AddAwardModal open={openAwardModal} setOpen={setOpenAwardModal} /> */}
+                                          {/* <AddCourseModal open={openCourseModal} setOpen={setOpenCourseModal} /> */}
                                           {/* <AboutEditModal open={openAboutEditModal} setOpen={setOpenAboutEditModal} /> */}
-                                          <AddPartnershipModal open={openPartnershipModal} setOpen={setOpenPartnershipModal} />
+                                          {/* <AddPartnershipModal open={openPartnershipModal} setOpen={setOpenPartnershipModal} /> */}
                                           <AddCityModal open={openAddCityModal} setOpen={setOpenAddCityModal} />
                                           <CoverPicAdjustModal open={openCoverPicAdjustModal} setOpen={setOpenCoverPicAdjustModal} srcImg={coverPicSrcImg} setSrcImg={setCoverPicSrcImg}/>
                                           <AddLanguageModal open={openAddLanguageModal} setOpen={setOpenAddLanguageModal} />

@@ -30,9 +30,10 @@ import { toast } from "react-toastify";
 type AddPropertyModalProps = {
   open?: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  propertyToUpdate?: any
 };
 
-const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
+const AddPropertyModal = ({ open, setOpen, propertyToUpdate }: AddPropertyModalProps) => {
   const apiService = new ApiService();
 
   const { setOpen: setLoadingOpen } = useContext(
@@ -40,7 +41,7 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
   ) as ModalOpenContextType;
 
   const {
-    propertyToUpdate: propertyToUpdate,
+    // propertyToUpdate: propertyToUpdate,
     setPropertyToUpdate: setPropertyToUpdate,
   } = useContext(AddPropertyModalContext) as ModalPropertyOpenContextType;
 
@@ -178,16 +179,18 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
             : t.addPropertiesModal.uploadPropertie}
         </h3>
         <div className="input-titulo">
-          <input
+         
+        </div>
+        <div className="all-infos">
+          <div className="infos">
+            <div className="inputs">
+               <input
             required
             {...register("title", { required: true })}
             type="text"
             placeholder={t.addPropertiesModal.title}
           />
-        </div>
-        <div className="all-infos">
-          <div className="infos">
-            <div className="inputs">
+        
               <input
                 required
                 {...register("link", { required: true })}
@@ -227,6 +230,7 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
               </select>
             </div>
             <div className="selections">
+            <input type="text" placeholder="Referencia do Imóvel" />
               <select
                 {...register("propertyType")}
                 name="propertyType"
@@ -286,7 +290,9 @@ const AddPropertyModal = ({ open, setOpen }: AddPropertyModalProps) => {
               id="property-pic"
               type="file"
             />
+      
           </div>
+
         </div>
         <p
           onClick={() => {

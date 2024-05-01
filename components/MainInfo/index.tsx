@@ -20,13 +20,15 @@ import { useRouter } from "next/router";
 import { LastExp } from "@/types/LastExp";
 import locales from "locales";
 import "tippy.js/dist/tippy.css";
-import CoverPicAdjustModalContext, { CoverPicAdjustModalContextType } from "context/CoverPicAdjustModalContext";
-import * as C from './styles'
+import CoverPicAdjustModalContext, {
+  CoverPicAdjustModalContextType,
+} from "context/CoverPicAdjustModalContext";
+import * as C from "./styles";
 import SimplePopup from "../Popup";
 import PopupClose from "../PopupAviso";
 import RenderConditional from "../RenderConditional";
-import {Modal , MainInfoProfileEditModal} from "../../components";
-import {IModalProps} from '../../src/types/Modal'
+import { Modal, MainInfoProfileEditModal } from "../../components";
+import { IModalProps } from "../../src/types/Modal";
 
 type MainInfoProps = {
   userSigned: any;
@@ -59,12 +61,15 @@ const MainInfo = ({
     srcImg: coverPicSrcImage,
   } = useContext(CoverPicAdjustModalContext) as CoverPicAdjustModalContextType;
 
-
   const [sessionProfile, setSessionProfile] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
 
   const [fullProfilePic, setFullProfilePic] = useState("");
-  const [childSizeModal, setChildSize] = useState({ width: "90rem", height: "100%", radius: 10 });
+  const [childSizeModal, setChildSize] = useState({
+    width: "90rem",
+    height: "100%",
+    radius: 10,
+  });
 
   const router = useRouter();
 
@@ -116,7 +121,7 @@ const MainInfo = ({
 
   function printCities() {
     const cities = userCitis?.map((city: any) => city.City.name);
-    if (typeof window !== 'undefined'){
+    if (typeof window !== "undefined") {
       if (window.innerWidth < 768) {
         return cities?.length > 0 ? ` ${cities[0]}` : "-";
       } else {
@@ -132,7 +137,7 @@ const MainInfo = ({
 
   function printLanguage() {
     const cities = userLanguage?.map((city: any) => city.Language.name);
-    if (typeof window !== 'undefined'){
+    if (typeof window !== "undefined") {
       if (window.innerWidth < 768) {
         return cities?.length > 0 ? ` ${cities[0]}` : "-";
       } else {
@@ -146,7 +151,6 @@ const MainInfo = ({
     }
   }
 
-
   function tooltipShow(e: React.MouseEvent<HTMLButtonElement>) {
     setTooltip({ show: true, posX: e.clientX, posY: e.clientY });
   }
@@ -159,12 +163,10 @@ const MainInfo = ({
     setTooltip({ ...tooltip, show: false });
   }
 
-  function goAgency() {
-  }
+  function goAgency() {}
 
   useEffect(() => {
     const handleScroll = () => {
-      // Oculta o ToolTipContainer quando a página é rolada
       setTooltip({ ...tooltip, show: false });
     };
 
@@ -181,42 +183,42 @@ const MainInfo = ({
       ? lastExp?.name.slice(0, maxLength) + "..."
       : lastExp?.name
     : "";
-    
+
   return (
     <C.Container isProfile={isProfile}>
       <div className="main-info border">
         <RenderConditional isTrue={isProfile}>
-            <div className="top">
+          <div className="top">
+            <>
+              <Image
+                height={1000}
+                width={1000}
+                src={
+                  userSigned?.coverPicture ? userSigned.coverPicture : greyImage
+                }
+                alt="cover image"
+                className="cover-photo"
+              />
+              {sessionProfile && !pdfPage && (
                 <>
-                  <Image
-                    height={1000}
-                    width={1000}
-                    src={
-                      userSigned?.coverPicture ? userSigned.coverPicture : greyImage
-                    }
-                    alt="cover image"
-                    className="cover-photo"
-                  />
-                  {sessionProfile && !pdfPage && (
-                    <>
-                      <div className="label-back">
-                        <label htmlFor="cover-pic">
-                          <Image
-                            className="edit-main"
-                            src={editIcon}
-                            alt="edit icon"
-                          />
-                        </label>
-                      </div>
-                      <input
-                        onChange={(e) => handleChangeCover(e)}
-                        id="cover-pic"
-                        type="file"
+                  <div className="label-back">
+                    <label htmlFor="cover-pic">
+                      <Image
+                        className="edit-main"
+                        src={editIcon}
+                        alt="edit icon"
                       />
-                    </>
-                  )}
+                    </label>
+                  </div>
+                  <input
+                    onChange={(e) => handleChangeCover(e)}
+                    id="cover-pic"
+                    type="file"
+                  />
                 </>
-              </div>
+              )}
+            </>
+          </div>
         </RenderConditional>
         <Image
           width={100}
@@ -255,28 +257,29 @@ const MainInfo = ({
                 {Math.floor(userSigned?.rating)})
               </h3>
             </RenderConditional>
-
           </div>
           <div className="about-2">
-              <>
-                <div className="tt"></div>
-                <div className="cities">
-                  <b style={{ marginRight: "5px" }}>{t.mainInfo.workArea}</b>
+            <>
+              <div className="tt"></div>
+              <div className="cities">
+                <b style={{ marginRight: "5px" }}>{t.mainInfo.workArea}</b>
 
-                  <span>{printCities()}</span>
-                  <RenderConditional isTrue={userCitis?.length > 3}>
-                    <>
+                <span>{printCities()}</span>
+                <RenderConditional isTrue={userCitis?.length > 3}>
+                  <>
                     <span>{t.mainInfo.cityPopup.joinText}</span>
-                      <SimplePopup
-                        textPopupList={t.mainInfo.cityPopup.textPopupList}
-                        qtdeCitys={userCitis?.length - 2}
-                        cities={userCitis}
-                      />
-                      <span>{t.mainInfo.cityPopup.restText}</span>
-                    </>
-                  </RenderConditional>
-                </div>
-              </>
+                    {/* <span> </span> */}
+                    <SimplePopup
+                      textPopupList={t.mainInfo.cityPopup.textPopupList}
+                      qtdeCitys={userCitis?.length - 2}
+                      cities={userCitis}
+                    />
+                    <span> </span>
+                    <span>{t.mainInfo.cityPopup.restText}</span>
+                  </>
+                </RenderConditional>
+              </div>
+            </>
             <p>
               <b>{t.mainInfo.experience}</b>{" "}
               {userSigned?.expTime ? userSigned?.expTime : ""}{" "}
@@ -286,26 +289,30 @@ const MainInfo = ({
               <b>{t.mainInfo.languages}</b>
               {printLanguage()}
               <RenderConditional isTrue={userLanguage?.length > 3}>
-                    <>
-                    <span>{t.mainInfo.languagePopup.joinText}</span>
-                      <SimplePopup
-                        textPopupList={t.mainInfo.languagePopup.textPopupList}
-                        qtdeCitys={userLanguage?.length - 2}
-                        cities={userLanguage}
-                      />
-                      <span>{t.mainInfo.languagePopup.restText}</span>
-                    </>
-                </RenderConditional>
+                <>
+                  <span>{t.mainInfo.languagePopup.joinText}</span>
+                  <span> </span>
+                  <SimplePopup
+                    textPopupList={t.mainInfo.languagePopup.textPopupList}
+                    qtdeCitys={userLanguage?.length - 2}
+                    cities={userLanguage}
+                  />
+                  <span> </span>
+                  <span>{t.mainInfo.languagePopup.restText}</span>
+                </>
+              </RenderConditional>
             </p>
             <p>{userSigned?.email}</p>
             <p>{userSigned?.phone}</p>
           </div>
-          <RenderConditional isTrue={userSigned?.sold > 0 || userSigned?.bought > 0}>
-          <div className="about-3">
+          <RenderConditional
+            isTrue={userSigned?.sold > 0 || userSigned?.bought > 0}
+          >
+            <div className="about-3">
               <RenderConditional isTrue={userSigned?.sold > 0}>
-                  <p>
-                    <b>{t.mainInfo.propertiesSold}</b> {userSigned?.sold}
-                  </p>
+                <p>
+                  <b>{t.mainInfo.propertiesSold}</b> {userSigned?.sold}
+                </p>
               </RenderConditional>
               <RenderConditional isTrue={userSigned?.accompaniedBuyers > 0}>
                 <p>
@@ -321,17 +328,17 @@ const MainInfo = ({
           <div className="icon-agency">
             <RenderConditional isTrue={userSigned?.RealtorCities}>
               <Link href={"/profile/agency/" + lastExp?.agencyId}>
-                  <div className="current-agency border" onClick={goAgency}>
-                    {truncatedName}
-                    <Image
-                      width={10}
-                      height={10}
-                      className="agency"
-                      src={lastExp?.pic ? lastExp.pic : agencyIcon}
-                      alt="agency icon"
-                    />
-                  </div>
-                </Link>
+                <div className="current-agency border" onClick={goAgency}>
+                  {truncatedName}
+                  <Image
+                    width={10}
+                    height={10}
+                    className="agency"
+                    src={lastExp?.pic ? lastExp.pic : agencyIcon}
+                    alt="agency icon"
+                  />
+                </div>
+              </Link>
             </RenderConditional>
           </div>
         </div>
@@ -339,62 +346,66 @@ const MainInfo = ({
         <RenderConditional isTrue={isProfile}>
           <div className="contact">
             <RenderConditional isTrue={!!userSigned?.email}>
-                  <Link href={"mailto: " + userSigned?.email} target="_blank">
-                    <Image className="icon" src={mailIcon} alt="mail icon" />
-                  </Link>
+              <Link href={"mailto: " + userSigned?.email} target="_blank">
+                <Image className="icon" src={mailIcon} alt="mail icon" />
+              </Link>
             </RenderConditional>
 
             <RenderConditional isTrue={!!userSigned?.website}>
-                <Link href={userSigned?.website} target="_blank">
-                  <Image className="icon" src={webIcon} alt="web icon" />
-                </Link>
+              <Link href={userSigned?.website} target="_blank">
+                <Image className="icon" src={webIcon} alt="web icon" />
+              </Link>
             </RenderConditional>
-            
+
             <RenderConditional isTrue={!!userSigned?.whatsapp}>
-                <Link
-                  href={
-                    "https://wa.me/" +
-                    userSigned?.whatsapp?.split(" ").join("") +
-                    `${
-                      userSigned?.wppText
-                        ? "?text=" + encodeURI(userSigned?.wppText)
-                        : ""
-                    }`
-                  }
-                  target="_blank"
-                >
-                  <Image
-                    className="icon"
-                    src={whatsappIcon}
-                    alt="whatsapp icon"
-                  />
-                </Link>
-          </RenderConditional>
+              <Link
+                href={
+                  "https://wa.me/" +
+                  userSigned?.whatsapp?.split(" ").join("") +
+                  `${
+                    userSigned?.wppText
+                      ? "?text=" + encodeURI(userSigned?.wppText)
+                      : ""
+                  }`
+                }
+                target="_blank"
+              >
+                <Image
+                  className="icon"
+                  src={whatsappIcon}
+                  alt="whatsapp icon"
+                />
+              </Link>
+            </RenderConditional>
 
-          <RenderConditional isTrue={!!userSigned?.instagram}>
-                <Link href={userSigned?.instagram} target="_blank">
-                  <Image
-                    className="icon"
-                    src={instagramIcon}
-                    alt="instagram icon"
-                  />
-                </Link>
-          </RenderConditional>
+            <RenderConditional isTrue={!!userSigned?.instagram}>
+              <Link href={userSigned?.instagram} target="_blank">
+                <Image
+                  className="icon"
+                  src={instagramIcon}
+                  alt="instagram icon"
+                />
+              </Link>
+            </RenderConditional>
 
-          <RenderConditional isTrue={!!userSigned?.facebook}>
-                <Link href={userSigned?.facebook} target="_blank">
-                  <Image
-                    className="icon-facebook"
-                    src={facebookIcon}
-                    alt="facebook icon"
-                  />
-                </Link>
-          </RenderConditional>
-            </div>
+            <RenderConditional isTrue={!!userSigned?.facebook}>
+              <Link href={userSigned?.facebook} target="_blank">
+                <Image
+                  className="icon-facebook"
+                  src={facebookIcon}
+                  alt="facebook icon"
+                />
+              </Link>
+            </RenderConditional>
+          </div>
         </RenderConditional>
       </div>
-      <Modal isOpen={openModalEdit} onClose={() => setOpenModalEdit(false)} childSize={childSizeModal}>
-      <MainInfoProfileEditModal setOpen={setOpenModalEdit}/>
+      <Modal
+        isOpen={openModalEdit}
+        onClose={() => setOpenModalEdit(false)}
+        childSize={childSizeModal}
+      >
+        <MainInfoProfileEditModal setOpen={setOpenModalEdit} />
       </Modal>
     </C.Container>
   );

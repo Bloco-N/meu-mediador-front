@@ -52,7 +52,7 @@ a {
 
 textarea {
   font-family: "Quicksand";
-  background-color: var(--base);
+  background-color: #EFF4F0;
   resize: none;
   padding: 2rem;
   font-size: 2rem;
@@ -124,7 +124,7 @@ input[type="number"] {
   all: unset;
   box-sizing: border-box;
   font-size: 2rem;
-  background: var(--base);
+  background: #EFF4F0;
   border: solid 0.1rem var(--border-color);
   text-align: left;
   padding: 1rem;
@@ -138,14 +138,14 @@ input::placeholder {
   color: var(--surface-2);
 }
 
-/* input[type="checkbox"] {
+input[type="checkbox"] {
   all: unset;
   height: 2rem;
   width: 2rem;
   background-color: white;
   cursor: pointer;
   border-radius: 50%;
-} */
+}
 
 input:checked {
   background-color: var(--highlight);
