@@ -6,7 +6,8 @@ import MainInfo from "@components/MainInfo";
 import {SignIn} from "@components/SignIn"
 export { FormSignIn } from '@components/FormSignIn'
 export { Checkbox } from '@components/Checkbox'
-
+import MainInfoProfileEditModal from '@components/ProfileEditModelRealtor'
+import ServiceModal from '@components/ModalService'
 
 export {
     RenderConditional,
@@ -14,5 +15,7 @@ export {
     Modal,
     MainInfo,
     MainInfoClient,
-    SignIn
+    SignIn,
+    MainInfoProfileEditModal,
+    ServiceModal
 }

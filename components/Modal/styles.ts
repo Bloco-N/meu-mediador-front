@@ -42,7 +42,7 @@ export const ModalWrapper = styled.div<IModalContentProps>`
 
 export const ModalContent = styled.div<IModalContentProps>`
   z-index: 10;
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   display: flex;
   align-items: center;
   justify-content: center;
