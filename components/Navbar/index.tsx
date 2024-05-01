@@ -19,8 +19,6 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import api from "@/services/api";
 import * as C from './styles'
 import { RenderConditional } from '@components/index'
-import Modal, { IModalProps } from "@components/Modal";
-import { MdCloseFullscreen } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { isMobileDevice } from "@/utils";
 import InfoFooter from "@components/InfoFooter";
@@ -251,6 +249,7 @@ const Navbar:React.FC<any> = ({ children }) => {
   }
 
   const onSubmit = async (data: SearchForm) => {
+    window.localStorage.setItem('@lastSearchResult',JSON.stringify(data))
     const fetchData = async () => {
       let url = data.idSearch == 1 ? "/realtor?" : "/agency?";
       if (data.search) {

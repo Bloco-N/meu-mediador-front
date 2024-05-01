@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as Popover from '@radix-ui/react-popover';
 
-const PopoverDemo:React.FC<any> = ({ triggerNode,children,align,autoClose = true }) => {
+const PopoverBase:React.FC<any> = ({ triggerNode,children,align,autoClose = true }) => {
   const [open,setOpen] = useState(false)
 
   function closeOnTime(){
@@ -27,4 +27,4 @@ const PopoverDemo:React.FC<any> = ({ triggerNode,children,align,autoClose = true
   </Popover.Root>
 )};
 
-export default PopoverDemo;
+export default PopoverBase;
