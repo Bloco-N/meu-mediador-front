@@ -19,6 +19,7 @@ const Container = styled.div`
   width: 100%;
   padding: 2rem;
   gap: 2rem;
+  background-color: red;
 
   .plus {
     cursor: pointer;

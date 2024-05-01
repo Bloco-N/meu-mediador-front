@@ -85,9 +85,9 @@ export default function SearchResult(){
   const options = [
     "Melhores avaliações",
     "Quantidades de avaliações",
-    "Número de imóveis vendidos (mais imóveis vendidos)",
-    "Número de compradores acompanhados (mais compradores acompanhados)",
-    "Número de negócios (mais negócios feitos)"
+    "Mais imóveis vendidos",
+    "Mais compradores acompanhados",
+    "Mais negócios feitos"
   ];
 
   const onSubmit = async () => {
