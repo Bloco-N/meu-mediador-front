@@ -12,6 +12,7 @@ import { RealtorService } from "@/types/RealtorService"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales, { servicesLocales } from "locales"
+import { Modal , ServiceModal } from "../"
 
 const Container = styled.div`
   .services{
@@ -54,10 +55,12 @@ interface ServicesCardProps{
 export default function ServicesCard({localId, accType, sessionProfile}:ServicesCardProps){
 
   const [services, setServices] = useState<RealtorService []>()
+  const [openModalService, setOpenModalService] = useState(false)
+  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
 
-  const { setOpen: addServiceSetOpen } = useContext(AddServiceModalContext) as ModalOpenContextType
+  // const { setOpen: addServiceSetOpen } = useContext(AddServiceModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -116,9 +119,12 @@ export default function ServicesCard({localId, accType, sessionProfile}:Services
           )}
 
           { sessionProfile ? (
-            <Image onClick={() => addServiceSetOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
+            <Image onClick={() => setOpenModalService(true)} className='edit-main' src={editIcon} alt='edit icon'/>
           ): ''}
       </div>
+      <Modal isOpen={openModalService} onClose={() => setOpenModalService(false)} childSize={childSizeModal}>
+        <ServiceModal setOpen={setOpenModalService}/>
+      </Modal>
     </Container>
   ) 
 }

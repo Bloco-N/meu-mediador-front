@@ -7,9 +7,9 @@ import SearchResultContext from 'context/SearchResultContext';
 import UserContext from 'context/UserContext';
 import React, { useEffect, useState } from 'react';
 import ProfilePictureModal from './ProfilePictureModal';
-import MainInfoProfileEditModal from './MainInfoProfileEditModal';
+import MainInfoProfileEditModal from './ProfileEditModelRealtor';
 import AddPropertyModal from './AddPropertyModal';
-import AddServiceModal from './AddServiceModal';
+import AddServiceModal from './ModalService';
 import { PictureModalData } from '@/types/PictureModalData';
 import { User } from '@/types/User';
 import { RealtorList } from '@/types/RealtorList';
@@ -132,9 +132,9 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
                                           <AddReplyModal state={openAddReplyModal} setOpen={setOpenAddReplyModal} />
                                           <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal} />
                                           <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal} />
-                                          <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal} />
+                                          {/* <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal} /> */}
                                           <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal} />
-                                          <AddServiceModal open={openAddServiceModal} setOpen={setOpenAddServiceModal} />
+                                          {/* <AddServiceModal open={openAddServiceModal} setOpen={setOpenAddServiceModal} /> */}
                                           <AddAwardModal open={openAwardModal} setOpen={setOpenAwardModal} />
                                           <AddCourseModal open={openCourseModal} setOpen={setOpenCourseModal} />
                                           <AboutEditModal open={openAboutEditModal} setOpen={setOpenAboutEditModal} />
@@ -142,7 +142,7 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
                                           <AddCityModal open={openAddCityModal} setOpen={setOpenAddCityModal} />
                                           <CoverPicAdjustModal open={openCoverPicAdjustModal} setOpen={setOpenCoverPicAdjustModal} srcImg={coverPicSrcImg} setSrcImg={setCoverPicSrcImg}/>
                                           <AddLanguageModal open={openAddLanguageModal} setOpen={setOpenAddLanguageModal} />
-                                          <MainInfoProfileEditModal open={openMainInfoAgencyModal} setOpen={setOpenMainInfoAgencyModal} />
+                                          {/* <MainInfoProfileEditModal open={openMainInfoAgencyModal} setOpen={setOpenMainInfoAgencyModal} /> */}
                                           <Loading open={loadingOpen} setOpen={setLoadingOpen} />
                                           {children}
                                         </AddReplyModalContext.Provider>
