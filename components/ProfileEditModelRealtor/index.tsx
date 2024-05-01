@@ -214,10 +214,10 @@ const MainInfoProfileEditModal = ({setOpen}:MainInfoProfileEditModalProps) => {
         )}
         <textarea {...register('wppText')} defaultValue={ userSigned?.wppText ? userSigned.wppText : ''} placeholder={t.mainInfoEditModal.welcomeMessage}></textarea>
         <div className="input-group">
-          <button onClick={handleAddCity}>{t.mainInfoEditModal.addWorkArea}</button>
-          <button onClick={handleAddLanguage}>{t.mainInfoEditModal.addLanguage}</button>
+          <button className='button' onClick={handleAddCity}>{t.mainInfoEditModal.addWorkArea}</button>
+          <button className='button' onClick={handleAddLanguage}>{t.mainInfoEditModal.addLanguage}</button>
         </div>
-          <button>{t.mainInfoEditModal.save}</button>
+          <button className='button'>{t.mainInfoEditModal.save}</button>
         <p onClick={() => setOpen(false)}>X</p>
       </form>
     </S.Container>

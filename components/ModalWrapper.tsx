@@ -8,7 +8,7 @@ import UserContext from 'context/UserContext';
 import React, { useEffect, useState } from 'react';
 import ProfilePictureModal from './ProfilePictureModal';
 import MainInfoProfileEditModal from './ProfileEditModelRealtor';
-import AddPropertyModal from './AddPropertyModal';
+import AddPropertyModal from './ModalProperty';
 import AddServiceModal from './ModalService';
 import { PictureModalData } from '@/types/PictureModalData';
 import { User } from '@/types/User';
@@ -20,7 +20,7 @@ import AddPartnershipModal from './AddPartnershipModal';
 import AddPartnershipModalContext from 'context/AddPartnershipModalContext';
 import AddCourseModal from './AddCourseModal';
 import AddCourseModalContext from 'context/AddCourseModalContext';
-import AboutEditModal from './AboutEditModal';
+import AboutEditModal from './ModalAbout';
 import AboutEditModalContext from 'context/AboutEditModalContext';
 import AddCommentModal from './AddCommentModal';
 import AddCommentModalContext from 'context/AddCommentModalContext';
@@ -133,11 +133,11 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
                                           <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal} />
                                           <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal} />
                                           {/* <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal} /> */}
-                                          <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal} />
+                                          {/* <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal} /> */}
                                           {/* <AddServiceModal open={openAddServiceModal} setOpen={setOpenAddServiceModal} /> */}
                                           <AddAwardModal open={openAwardModal} setOpen={setOpenAwardModal} />
                                           <AddCourseModal open={openCourseModal} setOpen={setOpenCourseModal} />
-                                          <AboutEditModal open={openAboutEditModal} setOpen={setOpenAboutEditModal} />
+                                          {/* <AboutEditModal open={openAboutEditModal} setOpen={setOpenAboutEditModal} /> */}
                                           <AddPartnershipModal open={openPartnershipModal} setOpen={setOpenPartnershipModal} />
                                           <AddCityModal open={openAddCityModal} setOpen={setOpenAddCityModal} />
                                           <CoverPicAdjustModal open={openCoverPicAdjustModal} setOpen={setOpenCoverPicAdjustModal} srcImg={coverPicSrcImg} setSrcImg={setCoverPicSrcImg}/>

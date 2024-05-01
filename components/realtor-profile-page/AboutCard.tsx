@@ -11,6 +11,7 @@ import AboutEditModalContext from "context/AboutEditModalContext"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
+import { Modal, ModalAbout } from ".."
 
 const Container = styled.div`
   .introduction{
@@ -52,10 +53,12 @@ export default function AboutCard({localId, accType, sessionProfile, pdfPage=fal
   const [elip, setElip] = useState(true)
 
   const [ realtor, setRealtor ] = useState<RealtorProfile>()
+  const [openModal, setOpen] = useState(false)
+  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
   
-  const { setOpen: aboutEditOpen } = useContext(AboutEditModalContext) as ModalOpenContextType
+  // const { setOpen: aboutEditOpen } = useContext(AboutEditModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -98,9 +101,12 @@ export default function AboutCard({localId, accType, sessionProfile, pdfPage=fal
           <p className="elipses-button" onClick={() => setElip(true)}>{t.about.showLess}</p>
         )}
         { sessionProfile ? (
-            <Image onClick={() => aboutEditOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
+            <Image onClick={() => setOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
           ): ''}
       </div> 
+      <Modal isOpen={openModal} onClose={() => setOpen(false)} childSize={childSizeModal}>
+        <ModalAbout setOpen={setOpen}/>
+      </Modal>
     </Container>
   ) 
 }

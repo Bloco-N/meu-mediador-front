@@ -41,7 +41,7 @@ const Modal = forwardRef<HTMLDivElement, IModalProps>(
     }, [ref, setChildSize]);
 
     return (
-      <C.ModalWrapper onClick={onClose} isOpen={isOpen} ref={ref} {...rest}>
+      <C.ModalWrapper isOpen={isOpen} ref={ref} {...rest}>
         <C.ModalContent isOpen={isOpen} childSize={childSize}>
           {children}
         </C.ModalContent>

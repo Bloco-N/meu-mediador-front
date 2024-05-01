@@ -25,6 +25,8 @@ import { TEnergyEfficienceColor } from "@/types/EnergyEfficienceColor"
 import IconEnergy from "./IconEnergy"
 
 import editIcon from '../public/edit.svg'
+import Modal from "./Modal"
+import { ModalProperty } from "."
 
 
 const Container = styled.div`
@@ -140,13 +142,15 @@ interface PropertiesCardProps{
 export default function PropertiesCard({localId, accType, sessionProfile, pdfPage=false}:PropertiesCardProps){
 
   const [properties, setProperties ] = useState<Property []>()
+  const [open, setOpen ] = useState(false)
+  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
 
-  const { 
-    setOpen: addPropertySetOpen,
-    setPropertyToUpdate: setPropertyToUpdate
-   } = useContext(AddPropertyModalContext) as ModalPropertyOpenContextType
+  // const { 
+  //   setOpen: addPropertySetOpen,
+  //   setPropertyToUpdate: setPropertyToUpdate
+  //  } = useContext(AddPropertyModalContext) as ModalPropertyOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -180,9 +184,9 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
     const { id } = target
 
     const property = properties?.find(property => property.id === parseInt(id))
-    setPropertyToUpdate(property)
+    // setPropertyToUpdate(property)
 
-    addPropertySetOpen(true)
+    // addPropertySetOpen(true)
 
   }
   
@@ -248,12 +252,15 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
           ))}
           { sessionProfile ? (
           <Image onClick={() => {
-            addPropertySetOpen(true)
-            setPropertyToUpdate(undefined)
+            setOpen(true)
+            // setPropertyToUpdate(undefined)
           }} className='plus' src={plusIcon} alt='edit icon'/>
       ): ''}
         </div>
       </div>
+      <Modal isOpen={open} onClose={() => setOpen(false)} childSize={childSizeModal}>
+        <ModalProperty setOpen={setOpen}/>
+      </Modal>
     </Container>
   ) 
 }

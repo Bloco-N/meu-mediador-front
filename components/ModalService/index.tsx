@@ -153,7 +153,7 @@ const AddServiceModal = ({ open, setOpen }: AddServiceModalProps) => {
                   </option>
                 ))}
             </select>
-            <button type="submit">{t.addServices.create}</button>
+            <button className="button" type="submit">{t.addServices.create}</button>
           </>
         )}
         <p onClick={() => setOpen(false)}>X</p>

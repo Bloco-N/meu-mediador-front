@@ -7,7 +7,8 @@ import {SignIn} from "@components/SignIn"
 export { FormSignIn } from '@components/FormSignIn'
 import MainInfoProfileEditModal from '@components/ProfileEditModelRealtor'
 import ServiceModal from '@components/ModalService'
-
+import ModalAbout from '@components/ModalAbout'
+import ModalProperty from '@components/ModalProperty'
 export {
     RenderConditional,
     Navbar,
@@ -16,5 +17,7 @@ export {
     MainInfoClient,
     SignIn,
     MainInfoProfileEditModal,
-    ServiceModal
+    ServiceModal,
+    ModalAbout,
+    ModalProperty
 }
