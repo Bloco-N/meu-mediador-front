@@ -138,14 +138,14 @@ input::placeholder {
   color: var(--surface-2);
 }
 
-input[type="checkbox"] {
+/* input[type="checkbox"] {
   all: unset;
   height: 2rem;
   width: 2rem;
   background-color: white;
   cursor: pointer;
   border-radius: 50%;
-}
+} */
 
 input:checked {
   background-color: var(--highlight);

@@ -5,6 +5,7 @@ import MainInfoClient from "@components/MainInfoClient";
 import MainInfo from "@components/MainInfo";
 import {SignIn} from "@components/SignIn"
 export { FormSignIn } from '@components/FormSignIn'
+export { Checkbox } from '@components/Checkbox'
 import MainInfoProfileEditModal from '@components/ProfileEditModelRealtor'
 import ServiceModal from '@components/ModalService'
 import ModalAbout from '@components/ModalAbout'

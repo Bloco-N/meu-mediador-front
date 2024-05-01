@@ -15,17 +15,13 @@ import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import { decode } from "jsonwebtoken";
 import { toast } from "react-toastify";
 import api from "@/services/api";
-import { AgencyProfile } from "@/types/AgencyProfile";
-import { error } from "console";
 import locales from "locales";
 
 export default function Cadastro() {
   const matches = useMediaQuery("(min-width: 1400px)");
   const matchesTablet = useMediaQuery("(max-width: 1180px)");
 
-  const [type, setType] = useState<"consultor" | "cliente" | "agência">(
-    "consultor"
-  );
+  const [type, setType] = useState<"consultor" | "cliente" | "agência">("consultor");
   const [name, setName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
