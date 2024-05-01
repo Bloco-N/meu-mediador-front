@@ -15,116 +15,13 @@ import {
 } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import styled from "styled-components";
-
-const Container = styled.div`
-  position: fixed;
-  z-index: 3;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  form {
-    position: relative;
-    height: auto;
-    width: 60%;
-    padding: 4rem 0;
-    border-radius: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 2rem;
-    h3 {
-      margin-bottom: 4rem;
-    }
-    div {
-      display: flex;
-      gap: 2rem;
-      width: 80%;
-      justify-content: center;
-      align-items: center;
-    }
-    .dates-inputs {
-      flex-wrap: wrap;
-      justify-content: center;
-
-      .dates-input-group {
-        gap: 2rem;
-        width: auto;
-        @media (max-width: 800px) {
-          width: 100%;
-        }
-      }
-
-      p.label-text-inputs {
-        cursor: pointer;
-        display: block;
-        height: auto;
-        width: auto;
-        position: initial;
-        background-color: transparent;
-        color: var(--surface2);
-        font-weight: bold;
-        @media (max-width: 800px) {
-          width: 80px;
-          font-size: 14px;
-        }
-      }
-    }
-
-    input[type="text"] {
-      width: 80%;
-    }
-
-    @media (max-width: 800px) {
-      width: 80%;
-    }
-    @media (max-width: 500px) {
-      height: 58rem;
-    }
-    .dates-inputs {
-      /* width: 100%; */
-      /* display: flex;
-      flex-direction: row;
-      justify-content: flex-start; */
-      @media (max-width: 500px) {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        width: 80%;
-        input {
-          width: 150px;
-          height: 30px;
-        }
-      }
-    }
-  }
-  p {
-    cursor: pointer;
-    position: absolute;
-    top: 3rem;
-    right: 3rem;
-    height: 3rem;
-    width: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--surface-2);
-    color: var(--surface);
-    border-radius: 1rem;
-    font-weight: bold;
-  }
-`;
+import * as S from './styles'
 
 type AddServiceModalProps = {
-  open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const AddPartnershipModal = ({ open, setOpen }: AddServiceModalProps) => {
+const AddPartnershipModal = ({ setOpen }: AddServiceModalProps) => {
   const { setOpen: setLoadingOpen } = useContext(
     LoadingContext
   ) as ModalOpenContextType;
@@ -187,8 +84,8 @@ const AddPartnershipModal = ({ open, setOpen }: AddServiceModalProps) => {
       });
   };
 
-  return open ? (
-    <Container className="modal">
+  return (
+    <S.Container className="modal">
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>{t.addPartnership.addExperience}</h3>
         <input
@@ -228,15 +125,14 @@ const AddPartnershipModal = ({ open, setOpen }: AddServiceModalProps) => {
             onChange={() => setWorkHere(!workHere)}
             id="active"
             type="checkbox"
+            className="checkbox"
           />
         </div>
         <p onClick={() => setOpen(false)}>X</p>
-        <button type="submit"> {t.addPartnership.create} </button>
+        <button className="button" type="submit"> {t.addPartnership.create} </button>
       </form>
-    </Container>
-  ) : (
-    <></>
-  );
+    </S.Container>
+  )
 };
 
 export default AddPartnershipModal;

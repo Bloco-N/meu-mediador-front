@@ -13,6 +13,7 @@ import { Award } from "@/types/Award"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
+import { Modal, ModalAward } from ".."
 
 const Container = styled.div`
   .awards{
@@ -73,10 +74,12 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
   const [awards, setAwards] = useState<Award []>() 
 
   const [editAwards, setEditAwards] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
   
-  const { open, setOpen: addAwardSetOpen } = useContext(AddAwardModalContext) as ModalOpenContextType
+  // const { open, setOpen: addAwardSetOpen } = useContext(AddAwardModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -123,6 +126,7 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
 
   return (
     (awards?.length && awards?.length > 0 || sessionProfile) ?
+    <>
     <Container >
       <div className="card awards">
         <div className="awards-title">
@@ -130,7 +134,7 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
           { sessionProfile  ? (
             <div className="edit-icons">
               <Image onClick={() => setEditAwards(!editAwards)} className='plus' src={editIcon} alt='edit icon'/>
-              <Image onClick={() => addAwardSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+              <Image onClick={() => setOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
             </div>
           ): ''}
         </div>
@@ -150,6 +154,10 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
         </ul>
       </div>
     </Container>
+    <Modal isOpen={open} onClose={() => setOpen(false)} childSize={childSizeModal}>
+      <ModalAward setOpen={setOpen}/>
+    </Modal>
+    </>
     : <></>
   ) 
 }

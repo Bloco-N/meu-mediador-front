@@ -14,6 +14,7 @@ import { PartnershipList } from "@/types/PartnershipList"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
+import { Modal, ModalPartneship} from ".."
 
 const Container = styled.div`
   .expiriences{
@@ -112,12 +113,14 @@ interface PartnershipCardProps{
 export default function PartnershipCard({localId, accType, sessionProfile}:PartnershipCardProps){
   
   const [partnerships, setPartnerships] = useState<PartnershipList []>()
+  const [open, setOpen] = useState(false)
+  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
 
   const [indexPartnership, setIndexPartnership] = useState(-1)
 
   const { user } = useContext(UserContext) as UserContextType
 
-  const { setOpen: addPartnershipOpen } = useContext(AddPartnershipModalContext) as ModalOpenContextType
+  // const { setOpen: addPartnershipOpen } = useContext(AddPartnershipModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -170,11 +173,12 @@ export default function PartnershipCard({localId, accType, sessionProfile}:Partn
   }
 
   return (
+    <>
     <Container>
       <div className="card expiriences">
         <h2>{t.partnership.partnership}</h2>
         { sessionProfile ? (
-          <Image onClick={() => addPartnershipOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+          <Image onClick={() => setOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
         ): ''}
         <div className="list">
           {partnerships?.map((item, index) => (
@@ -204,5 +208,9 @@ export default function PartnershipCard({localId, accType, sessionProfile}:Partn
         </div>
       </div>
     </Container>
+     <Modal isOpen={open} onClose={() => setOpen(false)} childSize={childSizeModal}>
+      <ModalPartneship setOpen={setOpen}/>
+    </Modal>
+   </>
   ) 
 }

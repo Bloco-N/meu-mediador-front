@@ -248,6 +248,9 @@ export const Nav = styled.div<INavbar>`
     height: 35px;
     min-height: 35px;
     z-index: 8888;
+    select{
+      width: 5rem
+    }
   }
 
   .profile {
@@ -323,6 +326,7 @@ export const SearchRealtor = styled.div`
         font-size: 14px;
         padding: 0 1rem;
         width: 16rem;
+        background-color: #EFF4F0;
       }
 
       select {
@@ -349,17 +353,23 @@ export const SearchRealtor = styled.div`
   }
 `;
 
-export const Container = styled.div`
+export const Container = styled.div<INavbar>`
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
   height: 69px !important;
+  ${({ path }) => path === "/" && `margin-top: 3rem;`} 
+
+  @media (max-width: 1400px) {
+    margin-top: 0;
+  }
 
   @media (max-width: 727px) {
     max-width: 650px;
     width: 100%;
+    margin-top: 0;
   }
 
   .profile-container {
@@ -396,8 +406,12 @@ export const BoxSearch = styled.div<{ path?: string }>`
 
   .box-image {
     width: 20%;
-    ${({ path }) => path === "/" && `width:30%;`}
+    ${({ path }) => path === "/" && `width:26%;`}
     /* padding:2rem; */
+
+    @media only screen and (max-width: 1400px) {
+      ${({ path }) => path === "/" && `width:32%;`}
+    }
 
     @media only screen and (max-width: 768px) {
       ${({ path }) => path === "/" && `width:70%;`}

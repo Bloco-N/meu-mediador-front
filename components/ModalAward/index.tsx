@@ -7,53 +7,10 @@ import { useRouter } from "next/router";
 import { Dispatch, SetStateAction, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import styled from "styled-components";
-
-const Container = styled.div`
-  position: fixed;
-  z-index: 3;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  form{
-    position: relative;
-    height: 25rem;
-    width: 40%;
-    border-radius: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    input{
-      width: 80%;
-    }
-    @media (max-width: 700px) {
-      width: 80%;
-    }
-  }
-  p{
-    cursor: pointer;
-    position: absolute;
-    top: 3rem;
-    right: 3rem;
-    height: 3rem;
-    width: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--surface-2);
-    color: var(--surface);
-    border-radius: 1rem;
-    font-weight: bold;
-  }
-`
+import * as S from './styles'
 
 type AddAwardModalProps = {
-  open: boolean,
+  open?: boolean,
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
@@ -90,16 +47,14 @@ const AddAwardModal = ({open, setOpen}: AddAwardModalProps) => {
   }
 
   return (
-    open ?
-    <Container className='modal'>
+    <S.Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>{t.addAwards.createAward}</h3>
         <input  {...register('title', {required: true})}  placeholder={t.addAwards.title} type="text" />
         <p onClick={() => setOpen(false)}>X</p>
-        <button type="submit"> {t.addAwards.create} </button>
+        <button className="button" type="submit"> {t.addAwards.create} </button>
       </form>
-    </Container>
-    : <></>
+    </S.Container>
   );
 };
 

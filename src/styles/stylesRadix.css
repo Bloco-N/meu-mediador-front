@@ -10,7 +10,7 @@ input {
 }
 
 .iQuVyu{
-  background-color: var(--surface);
+  /* background-color: var(--surface); */
 
   border-top-left-radius: 3rem;
   border-top-right-radius: 3rem;
@@ -23,13 +23,12 @@ input {
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, opacity;
-  border-top-left-radius: 3rem !important;
-  border-top-right-radius: 3rem !important;
   z-index: 8888;
-}
-.PopoverContent:focus {
-  /* box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px,
-    0 0 0 2px var(--violet-7); */
+  outline: none;
+  margin-top: -10px;
+  @media only screen and (max-width: 768px) {
+    padding-right: 1.5rem;
+  }
 }
 .PopoverContent[data-state='open'][data-side='top'] {
   animation-name: slideDownAndFade;
@@ -46,6 +45,9 @@ input {
 
 .PopoverArrow {
   fill: var(--surface);
+  @media only screen and (max-width: 768px) {
+    margin-left: 15px
+  }
 }
 
 .PopoverClose {
@@ -167,4 +169,35 @@ input {
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+
+/* CHECKBOX */
+
+.CheckboxRoot {
+  background-color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px var(--black-a7);
+}
+.CheckboxRoot:hover {
+  background-color: var(--violet-3);
+}
+.CheckboxRoot:focus {
+  box-shadow: 0 0 0 2px black;
+}
+
+.CheckboxIndicator {
+  color: var(--violet-11);
+}
+
+.Label {
+  color: #333;
+  padding-left: 15px;
+  font-size: 15px;
+  line-height: 1;
 }

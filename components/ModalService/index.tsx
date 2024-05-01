@@ -1,4 +1,5 @@
 import api from "@/services/api";
+import * as S from "./styles"
 import { AddServiceForm } from "@/types/AddServiceForm";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import { RealtorService } from "@/types/RealtorService";
@@ -15,61 +16,10 @@ import React, {
 } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import styled from "styled-components";
 
-const Container = styled.div`
-  position: fixed;
-  z-index: 3;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  form {
-    position: relative;
-    height: 25rem;
-    width: 40%;
-    border-radius: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    select {
-      width: 80%;
-    }
-    @media (max-width: 800px) {
-      width: 80%;
-    }
-  }
-  p {
-    cursor: pointer;
-    position: absolute;
-    top: 3rem;
-    right: 3rem;
-    height: 3rem;
-    width: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--surface-2);
-    color: var(--surface);
-    border-radius: 1rem;
-    font-weight: bold;
-  }
-  h3 {
-    margin-bottom: 2rem;
-  }
-  h4 {
-    font-size: 2rem;
-    font-style: italic;
-    color: var(--surface-2);
-  }
-`;
 
 type AddServiceModalProps = {
-  open: boolean;
+  open?: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
@@ -160,8 +110,8 @@ const AddServiceModal = ({ open, setOpen }: AddServiceModalProps) => {
       });
   };
 
-  return open ? (
-    <Container className="modal">
+  return(
+    <S.Container className="modal">
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>{t.addServices.createService}</h3>
         {services?.length === 0 ? (
@@ -203,15 +153,13 @@ const AddServiceModal = ({ open, setOpen }: AddServiceModalProps) => {
                   </option>
                 ))}
             </select>
-            <button type="submit">{t.addServices.create}</button>
+            <button className="button" type="submit">{t.addServices.create}</button>
           </>
         )}
         <p onClick={() => setOpen(false)}>X</p>
       </form>
-    </Container>
-  ) : (
-    <></>
-  );
+    </S.Container>
+  )
 };
 
 export default AddServiceModal;

@@ -83,6 +83,7 @@ const SearchRealtor = styled.div<{ isMobile:boolean; }>`
     input {
       width: 25%;
       height: 60px;
+      background-color: #EFF4F1;
     }
 
     .selectWrapper {
@@ -100,10 +101,11 @@ const SearchRealtor = styled.div<{ isMobile:boolean; }>`
         padding-left: 10px;
         appearance: none;
         height: 60px;
+        background-color: #EFF4F1;
         @media (max-width: 768px) {
           width: 100%;
           height: 58px;
-          /* background-color: #fff; */
+          background-color: #fff;
           -webkit-appearance: none;
           padding-left: 18px;
         }
@@ -134,14 +136,14 @@ const SearchRealtor = styled.div<{ isMobile:boolean; }>`
       input {
       }
       input,
-      /* .searchButton {
+      .searchButton {
         background: #fff;
-      } */
+      }
       .searchButton,
-      /* h4 {
+      h4 {
         color: #3a2e2c;
         opacity: 1;
-      } */
+      }
     }
   }
   .novo-botao {
@@ -178,7 +180,7 @@ const NovoCadastro = styled.div`
   h4 {
     font-weight: 600;
     margin-top: 0px;
-    font-size: 1.4em;
+    font-size: 1.6em;
   }
 
   @media only screen and (max-width: 768px) {
@@ -254,7 +256,7 @@ export default function Home() {
       }
 
       await api
-        .get(url)
+        .post(url)
         .then((response) => {
           setSearchResult(response.data);
           router.push({

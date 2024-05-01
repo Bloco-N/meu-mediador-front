@@ -13,6 +13,7 @@ import { Course } from "@/types/Course"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
+import { Modal, ModalCourse } from ".."
 
 
 const Container = styled.div`
@@ -81,10 +82,10 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
   const [courses, setCourses] = useState<Course []>()
 
   const [editCourses, setEditCourses] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
-
-  const { open, setOpen: addCourseSetOpen } = useContext(AddCourseModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
 
@@ -129,6 +130,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
 
   return (
     (courses?.length && courses.length > 0 || sessionProfile) ?
+    <>
     <Container>
       <div className="card awards">
         <div className="awards-title">
@@ -136,7 +138,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
           { sessionProfile ? (
             <div className="edit-icons">
               <Image onClick={() => setEditCourses(!editCourses)} className='plus' src={editIcon} alt='edit icon'/>
-              <Image onClick={() => addCourseSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+              <Image onClick={() => setOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
             </div>
           ): ''}
         </div>
@@ -156,6 +158,10 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
         </ul>
       </div>
     </Container>
+    <Modal isOpen={open} onClose={() => setOpen(false)} childSize={childSizeModal}>
+      <ModalCourse setOpen={setOpen}/>
+    </Modal>
+    </>
     : <></>
   ) 
 }

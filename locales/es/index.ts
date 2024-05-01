@@ -36,7 +36,7 @@ const es = {
     },
     languagePopup:{
       textPopupList:"idiomas:",
-      restText:'idioma',
+      restText:'idiomas',
       joinText:"y otra"
     },
   },

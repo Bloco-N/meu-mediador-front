@@ -7,20 +7,20 @@ import SearchResultContext from 'context/SearchResultContext';
 import UserContext from 'context/UserContext';
 import React, { useEffect, useState } from 'react';
 import ProfilePictureModal from './ProfilePictureModal';
-import MainInfoProfileEditModal from './MainInfoProfileEditModal';
-import AddPropertyModal from './AddPropertyModal';
-import AddServiceModal from './AddServiceModal';
+import MainInfoProfileEditModal from './ProfileEditModelRealtor';
+import AddPropertyModal from './ModalProperty';
+import AddServiceModal from './ModalService';
 import { PictureModalData } from '@/types/PictureModalData';
 import { User } from '@/types/User';
 import { RealtorList } from '@/types/RealtorList';
 import { RealtorProfile } from '@/types/RealtorProfile';
-import AddAwardModal from './AddAwardModal';
+import AddAwardModal from './ModalAward';
 import AddAwardModalContext from 'context/AddAwardModalContext';
-import AddPartnershipModal from './AddPartnershipModal';
+import AddPartnershipModal from './ModalPartneship';
 import AddPartnershipModalContext from 'context/AddPartnershipModalContext';
-import AddCourseModal from './AddCourseModal';
+import AddCourseModal from './ModalCourse';
 import AddCourseModalContext from 'context/AddCourseModalContext';
-import AboutEditModal from './AboutEditModal';
+import AboutEditModal from './ModalAbout';
 import AboutEditModalContext from 'context/AboutEditModalContext';
 import AddCommentModal from './AddCommentModal';
 import AddCommentModalContext from 'context/AddCommentModalContext';
@@ -132,17 +132,17 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
                                           <AddReplyModal state={openAddReplyModal} setOpen={setOpenAddReplyModal} />
                                           <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal} />
                                           <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal} />
-                                          <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal} />
-                                          <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal} />
-                                          <AddServiceModal open={openAddServiceModal} setOpen={setOpenAddServiceModal} />
-                                          <AddAwardModal open={openAwardModal} setOpen={setOpenAwardModal} />
-                                          <AddCourseModal open={openCourseModal} setOpen={setOpenCourseModal} />
-                                          <AboutEditModal open={openAboutEditModal} setOpen={setOpenAboutEditModal} />
-                                          <AddPartnershipModal open={openPartnershipModal} setOpen={setOpenPartnershipModal} />
+                                          {/* <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal} /> */}
+                                          {/* <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal} /> */}
+                                          {/* <AddServiceModal open={openAddServiceModal} setOpen={setOpenAddServiceModal} /> */}
+                                          {/* <AddAwardModal open={openAwardModal} setOpen={setOpenAwardModal} /> */}
+                                          {/* <AddCourseModal open={openCourseModal} setOpen={setOpenCourseModal} /> */}
+                                          {/* <AboutEditModal open={openAboutEditModal} setOpen={setOpenAboutEditModal} /> */}
+                                          {/* <AddPartnershipModal open={openPartnershipModal} setOpen={setOpenPartnershipModal} /> */}
                                           <AddCityModal open={openAddCityModal} setOpen={setOpenAddCityModal} />
                                           <CoverPicAdjustModal open={openCoverPicAdjustModal} setOpen={setOpenCoverPicAdjustModal} srcImg={coverPicSrcImg} setSrcImg={setCoverPicSrcImg}/>
                                           <AddLanguageModal open={openAddLanguageModal} setOpen={setOpenAddLanguageModal} />
-                                          <MainInfoProfileEditModal open={openMainInfoAgencyModal} setOpen={setOpenMainInfoAgencyModal} />
+                                          {/* <MainInfoProfileEditModal open={openMainInfoAgencyModal} setOpen={setOpenMainInfoAgencyModal} /> */}
                                           <Loading open={loadingOpen} setOpen={setLoadingOpen} />
                                           {children}
                                         </AddReplyModalContext.Provider>
