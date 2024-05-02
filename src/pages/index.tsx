@@ -181,6 +181,9 @@ const NovoCadastro = styled.div`
     font-weight: 600;
     margin-top: 0px;
     font-size: 1.6em;
+    @media only screen and (max-width: 768px) {
+      font-size: 1.5em;
+    }
   }
 
   @media only screen and (max-width: 768px) {

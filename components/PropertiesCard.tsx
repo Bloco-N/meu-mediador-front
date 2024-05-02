@@ -142,7 +142,7 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
 
   const [properties, setProperties ] = useState<Property []>()
   const [open, setOpen ] = useState(false)
-  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
+  const [childSizeModal, setChildSize] = useState({ width: "95%", height: "100%", radius: 10 });
   const [property, setPropertyToUpdate] = useState({});
 
   const { user } = useContext(UserContext) as UserContextType
