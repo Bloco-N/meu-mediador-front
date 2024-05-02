@@ -395,7 +395,7 @@ export const BoxSearch = styled.div<{ path?: string }>`
   ${({ path }) =>
     path === "/" &&
     `
-    position: absolute;
+    // position: absolute;
     justify-content: center !important;
     padding-top:10px;
     z-index:0;
@@ -416,7 +416,7 @@ export const BoxSearch = styled.div<{ path?: string }>`
     }
 
     @media only screen and (max-width: 768px) {
-      ${({ path }) => path === "/" && `width:70%;`}
+      ${({ path }) => path === "/" && `width:95%;`}
     }
 
     .mobile-logo {
