@@ -16,6 +16,8 @@ import ModalPartneship from '@components/ModalPartneship'
 import ModalReport from "@components/ModalReport";
 import ModalCity from "@components/ModalCity"
 import ModalLanguage from "@components/ModalLanguage"
+import SimplePopup from "@components/Popup"
+import PopupClose from "@components/PopupAviso"
 
 export {
     RenderConditional,
@@ -33,5 +35,7 @@ export {
     ModalPartneship,
     ModalReport,
     ModalCity,
-    ModalLanguage
+    ModalLanguage,
+    SimplePopup,
+    PopupClose
 }

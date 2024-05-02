@@ -1,31 +1,31 @@
 import { RealtorProfile } from "@/types/RealtorProfile";
 import { UserContextType } from "@/types/UserContextType";
-import MainInfo from "components/MainInfo";
-import UserContext from "context/UserContext";
+import MainInfo from "@components/MainInfo";
+import UserContext from "../../../../context/UserContext";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import { LastExp } from "@/types/LastExp";
 import LoadingContext from "context/LoadingContext";
-import ConvertToPDF from "components/realtor-profile-page/ConvertToPDF";
-import ServicesCard from "components/realtor-profile-page/ServicesCard";
-import AwardsCard from "components/realtor-profile-page/AwardsCard";
-import CoursesCard from "components/realtor-profile-page/CoursesCard";
-import CommentsCard from "components/realtor-profile-page/CommentsCard";
-import PropertiesCard from "components/PropertiesCard";
+import ConvertToPDF from "@components/realtor-profile-page/ConvertToPDF";
+import ServicesCard from "@components/realtor-profile-page/ServicesCard";
+import AwardsCard from "@components/realtor-profile-page/AwardsCard";
+import CoursesCard from "@components/realtor-profile-page/CoursesCard";
+import CommentsCard from "@components/realtor-profile-page/CommentsCard";
+import PropertiesCard from "@components/PropertiesCard";
 import { ApiService } from "@/services/ApiService";
-import PartnershipCard from "components/realtor-profile-page/PartnershipCard";
-import AboutCard from "components/realtor-profile-page/AboutCard";
+import PartnershipCard from "@components/realtor-profile-page/PartnershipCard";
+import AboutCard from "@components/realtor-profile-page/AboutCard";
 import locales from "locales";
-import InfoFooter from "components/InfoFooter";
-import TrashButton from "components/DeleteButton";
+import InfoFooter from "@components/InfoFooter";
+import TrashButton from "@components/DeleteButton";
 import ModalLogout from "../../../../components/ModalLogout";
 import IconAlert from "../../../../public/icons-atencao.png";
 import { signOut as singOutGoogle } from "next-auth/react";
 import api from "@/services/api";
 import { toast } from "react-toastify";
-import { Modal, ModalReport } from "components";
+import { Modal, ModalReport } from "@components/index";
 
 interface Realtor {
   sessionProfile: boolean;
@@ -241,6 +241,7 @@ export default function Profile() {
         return error;
       });
   }
+
   return (
     <Container sessionProfile={sessionProfile}>
       {accType == "realtor" && sessionProfile ? (
