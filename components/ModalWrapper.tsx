@@ -25,9 +25,9 @@ import AboutEditModalContext from 'context/AboutEditModalContext';
 import AddCommentModal from './AddCommentModal';
 import AddCommentModalContext from 'context/AddCommentModalContext';
 import AddCityModalContext from 'context/AddCityModalContext';
-import AddCityModal from './AddCityModal';
+import AddCityModal from './ModalCity';
 import AddLanguageModalContext from 'context/AddLanguageModalContext';
-import AddLanguageModal from './AddLanguageModal';
+import AddLanguageModal from './ModalLanguage';
 import MainInfoAgencyEditModalContext from 'context/MainInfoAgencyEditModal';
 import LoadingContext from 'context/LoadingContext';
 import Loading from './Loading';
@@ -139,9 +139,9 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
                                           {/* <AddCourseModal open={openCourseModal} setOpen={setOpenCourseModal} /> */}
                                           {/* <AboutEditModal open={openAboutEditModal} setOpen={setOpenAboutEditModal} /> */}
                                           {/* <AddPartnershipModal open={openPartnershipModal} setOpen={setOpenPartnershipModal} /> */}
-                                          <AddCityModal open={openAddCityModal} setOpen={setOpenAddCityModal} />
+                                          {/* <AddCityModal open={openAddCityModal} setOpen={setOpenAddCityModal} /> */}
                                           <CoverPicAdjustModal open={openCoverPicAdjustModal} setOpen={setOpenCoverPicAdjustModal} srcImg={coverPicSrcImg} setSrcImg={setCoverPicSrcImg}/>
-                                          <AddLanguageModal open={openAddLanguageModal} setOpen={setOpenAddLanguageModal} />
+                                          {/* <AddLanguageModal open={openAddLanguageModal} setOpen={setOpenAddLanguageModal} /> */}
                                           {/* <MainInfoProfileEditModal open={openMainInfoAgencyModal} setOpen={setOpenMainInfoAgencyModal} /> */}
                                           <Loading open={loadingOpen} setOpen={setLoadingOpen} />
                                           {children}

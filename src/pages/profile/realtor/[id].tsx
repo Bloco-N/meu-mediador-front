@@ -35,13 +35,13 @@ const Container = styled.div<Realtor>`
   display: flex;
   flex-direction: column;
   height: fit-content;
-
   width: 100%;
   padding: 0px 32px 32px 32px;
-  margin-top: ${(props) => (props.sessionProfile ? "0" : "60px")};
+  margin-top: ${(props) => (props.sessionProfile ? "-60px" : "60px")};
   gap: 2rem;
   @media only screen and (max-width: 768px) {
     padding: 0 32px;
+    margin-top: 20px
   }
   .plus {
     cursor: pointer;

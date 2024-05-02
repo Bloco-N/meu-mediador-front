@@ -252,7 +252,7 @@ export default function CommentsCard({
           : !sessionProfile &&
             !pdfPage &&
             (pdfPage || (
-              <button onClick={() => addCommentSetOpen(true)}>
+              <button className="button" onClick={() => addCommentSetOpen(true)}>
                 {t.comments.addComment}
               </button>
             ))}

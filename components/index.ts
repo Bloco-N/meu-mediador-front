@@ -14,6 +14,8 @@ import ModalAward from '@components/ModalAward'
 import ModalCourse from '@components/ModalCourse'
 import ModalPartneship from '@components/ModalPartneship'
 import ModalReport from "@components/ModalReport";
+import ModalCity from "@components/ModalCity"
+import ModalLanguage from "@components/ModalLanguage"
 
 export {
     RenderConditional,
@@ -29,5 +31,7 @@ export {
     ModalAward,
     ModalCourse,
     ModalPartneship,
-    ModalReport
+    ModalReport,
+    ModalCity,
+    ModalLanguage
 }

@@ -41,6 +41,7 @@ export const Nav = styled.div<INavbar>`
   max-height: 69px !important;
   height: 100%;
   z-index: 1;
+  padding: 4rem 3rem 4rem 1.5rem;
  
   ${({ path }) =>
     path === "/" &&
@@ -52,6 +53,7 @@ export const Nav = styled.div<INavbar>`
   @media (max-width:727px) {
     align-items: center !important;
     justify-content: center !important;
+    padding: 0
   }
 
   @media (max-width: 768px) {

@@ -94,12 +94,11 @@ const Container = styled.div`
           color: var(--surface-2);
         }
         .property-img{
-          /*margin-top: 3rem;*/
           object-fit: cover;
           opacity: 1;
           border-radius: 3rem;
           width: 100%;
-          height: 100%;
+          height: 500px;
           max-height: 25rem;
         }
         .close{
