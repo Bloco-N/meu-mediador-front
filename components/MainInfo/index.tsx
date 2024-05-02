@@ -19,21 +19,18 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { LastExp } from "@/types/LastExp";
 import locales from "locales";
-import "tippy.js/dist/tippy.css";
-import CoverPicAdjustModalContext, {
-  CoverPicAdjustModalContextType,
-} from "context/CoverPicAdjustModalContext";
+import CoverPicAdjustModalContext, { CoverPicAdjustModalContextType } from "context/CoverPicAdjustModalContext";
 import * as C from "./styles";
-import SimplePopup from "../Popup";
-import PopupClose from "../PopupAviso";
-import RenderConditional from "../RenderConditional";
 import {
   Modal,
   MainInfoProfileEditModal,
   ModalCity,
   ModalLanguage,
-} from "../../components";
-import { IModalProps } from "../../src/types/Modal";
+  RenderConditional,
+  PopupClose,
+  SimplePopup
+} from "@components/index";
+import "tippy.js/dist/tippy.css";
 
 type MainInfoProps = {
   userSigned: any;
@@ -185,6 +182,8 @@ const MainInfo = ({
       : lastExp?.name
     : "";
 
+
+    // return null
   return (
     <C.Container isProfile={isProfile}>
       <div className="main-info border">
@@ -335,7 +334,7 @@ const MainInfo = ({
                     width={10}
                     height={10}
                     className="agency"
-                    src={lastExp?.pic ? lastExp.pic : agencyIcon}
+                    src={lastExp?.pic ? lastExp?.pic : agencyIcon}
                     alt="agency icon"
                   />
                 </div>

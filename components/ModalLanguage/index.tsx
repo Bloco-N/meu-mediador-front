@@ -1,23 +1,20 @@
-import { AddLanguageForm } from '@/types/AddLanguageForm';
+import { AddLanguageForm } from '../../src/types/AddLanguageForm';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as S from './styles'
 import closeIcon from '../../public/close.svg'
-import { ModalOpenContextType } from '@/types/ModalOpenContextType';
-import LoadingContext from 'context/LoadingContext';
+import { ModalOpenContextType } from '../../src/types/ModalOpenContextType';
+import LoadingContext from '../../context/LoadingContext';
 import locales from 'locales';
-import api from '@/services/api';
+import api from '../../src/services/api';
 import { toast } from 'react-toastify';
 
-
-
-type AddLanguageModalProps = {
-  setOpen: Dispatch<SetStateAction<boolean>>
-}
+type AddLanguageModalProps = { setOpen: Dispatch<SetStateAction<boolean>> }
 
 const AddLanguageModal = ({setOpen}: AddLanguageModalProps) => {
+  
 
   const {setOpen:setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
 
@@ -59,8 +56,9 @@ const AddLanguageModal = ({setOpen}: AddLanguageModalProps) => {
     }
 
     fetchData()
-  }, [open])
+  }, [])
 
+  return null
   function reload() {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
@@ -118,6 +116,7 @@ const AddLanguageModal = ({setOpen}: AddLanguageModalProps) => {
     })
   }
 
+
   return (
     <S.Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
@@ -161,4 +160,4 @@ const AddLanguageModal = ({setOpen}: AddLanguageModalProps) => {
   );
 };
 
-export default AddLanguageModal;
+export default AddLanguageModal

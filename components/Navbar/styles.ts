@@ -438,7 +438,8 @@ export const LogoImage = styled.img<LogoProps>`
   object-fit: cover;
   background-position: center;
   min-width: 110px;
-
+  border: 1px solid tomato;
+  
   @media (max-width: 640px) {
     min-width: 70px;
   }
