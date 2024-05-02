@@ -29,6 +29,7 @@ const Container = styled.div`
   justify-content: center;
 
   form {
+    background-color: #bababa;
     position: relative;
     height: 65rem;
     width: 40%;

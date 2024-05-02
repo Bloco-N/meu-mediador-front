@@ -1,109 +1,23 @@
 import { AddCityForm } from '@/types/AddCityForm';
-import { RealtorProfile } from '@/types/RealtorProfile';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import styled from 'styled-components';
-import closeIcon from '../public/close.svg'
+import closeIcon from '../../public/close.svg'
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
 import LoadingContext from 'context/LoadingContext';
 import locales from 'locales';
 import api from '@/services/api';
 import { toast } from 'react-toastify';
+import * as S from './styles'
 
-const Container = styled.div`
-  position: absolute;
-  z-index: 3;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  
-  form{
-    position: relative;
-    min-height: 50rem;
-    width: 40%;
-    border-radius: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    select{
-      width: 50%;
-    }
-    @media (max-width: 600px) {
-      width: 80%;
-    }
-  }
-  .close-icon{
-    height: 2rem;
-    width: 2rem;
-    cursor: pointer;
-  }
-  .close{
-    cursor: pointer;
-    position: absolute;
-    top: 1em;
-    right: 1em;
-    height: 3rem;
-    width: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--surface-2);
-    color: var(--surface);
-    border-radius: 1rem;
-    font-weight: bold;
-  }
-  .list{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 80%;
-    gap: 1rem;
-    p{
-      background-color: var(--surface);
-      color: var(--surface-2);
-      padding: 1rem;
-      border-radius: 3rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-  }
-  h3{
-    margin-top: 1em;
-    margin-bottom: 2rem;
-  }
-  h4{
-    font-size: 2rem;
-    font-style: italic;
-    color: var(--surface-2);
-  }
-  .divButton{
-    display: flex;
-    width: 100%;
-    justify-content: center;
-    margin-bottom: 1em;
-    gap:100px;
 
-    @media (max-width: 600px) {
-      width: 80%;
-      gap:50px
-    }
-  }
-`
 
 type AddCityModalProps = {
-  open: boolean,
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
+const AddCityModal = ({setOpen}: AddCityModalProps) => {
 
   const { register, handleSubmit } = useForm<AddCityForm>()
 
@@ -145,7 +59,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
     }
 
     fetchData()
-  }, [open])
+  }, [])
 
   function reload() {
     const fetchData = async () => {
@@ -205,8 +119,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
   }
 
   return (
-    open ?
-    <Container className='modal'>
+    <S.Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>{t.addCity.addCity}</h3>
         <h4>{t.addCity.placeWhere}</h4>
@@ -233,9 +146,9 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
                 <option key={index} value={item}>{item}</option>
               ))}
             </select>
-            <div className='divButton'>
-              <button type='submit'>{t.addCity.add}</button>
-              <button onClick={() => {
+            <div className='divBtn'>
+              <button className='button' type='submit'>{t.addCity.add}</button>
+              <button className='button' onClick={() => {
                 setOpen(false) 
                 toast.success(t.toast.addCity)}}>
                   {t.addCity.save}
@@ -245,8 +158,7 @@ const AddCityModal = ({open, setOpen}: AddCityModalProps) => {
         )}
         <p className='close' onClick={() => setOpen(false)}>X</p>
       </form>
-    </Container>
-    : <></>
+    </S.Container>
   );
 };
 

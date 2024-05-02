@@ -27,7 +27,12 @@ import * as C from "./styles";
 import SimplePopup from "../Popup";
 import PopupClose from "../PopupAviso";
 import RenderConditional from "../RenderConditional";
-import { Modal, MainInfoProfileEditModal } from "../../components";
+import {
+  Modal,
+  MainInfoProfileEditModal,
+  ModalCity,
+  ModalLanguage,
+} from "../../components";
 import { IModalProps } from "../../src/types/Modal";
 
 type MainInfoProps = {
@@ -67,6 +72,14 @@ const MainInfo = ({
   const [fullProfilePic, setFullProfilePic] = useState("");
   const [childSizeModal, setChildSize] = useState({
     width: "90rem",
+    height: "100%",
+    radius: 10,
+  });
+
+  const [openModalCity, setCityModalOpen] = useState(false);
+  const [openModalLanguage, setLanguageModalOpen] = useState(false);
+  const [childSizeModalCity, setChildSizeCity] = useState({
+    width: "100%",
     height: "100%",
     radius: 10,
   });
@@ -149,18 +162,6 @@ const MainInfo = ({
         return "-";
       }
     }
-  }
-
-  function tooltipShow(e: React.MouseEvent<HTMLButtonElement>) {
-    setTooltip({ show: true, posX: e.clientX, posY: e.clientY });
-  }
-
-  function tooltipStill() {
-    setTooltip({ ...tooltip, show: true });
-  }
-
-  function tooltipHide() {
-    setTooltip({ ...tooltip, show: false });
   }
 
   function goAgency() {}
@@ -405,7 +406,27 @@ const MainInfo = ({
         onClose={() => setOpenModalEdit(false)}
         childSize={childSizeModal}
       >
-        <MainInfoProfileEditModal setOpen={setOpenModalEdit} />
+        <MainInfoProfileEditModal
+          setOpen={setOpenModalEdit}
+          setOpenCity={setCityModalOpen}
+          setOpenLanguage={setLanguageModalOpen}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={openModalCity}
+        onClose={() => setCityModalOpen(false)}
+        childSize={childSizeModalCity}
+      >
+        <ModalCity setOpen={setCityModalOpen} />
+      </Modal>
+
+      <Modal
+        isOpen={openModalLanguage}
+        onClose={() => setLanguageModalOpen(false)}
+        childSize={childSizeModalCity}
+      >
+        <ModalLanguage setOpen={setLanguageModalOpen} />
       </Modal>
     </C.Container>
   );

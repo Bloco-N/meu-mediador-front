@@ -18,6 +18,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   form{
+    background-color: #bababa;
     position: relative;
     height: 65rem;
     width: 40%;
@@ -100,7 +101,7 @@ export default function AddReplyModal({state, setOpen}:AddReplyModalProps){
         <h3>{t.review.addReply}</h3>
         <textarea defaultValue={state.reply ? state.reply : ''} placeholder={t.review.writeYourReplyHere} {...register('reply', {required: true})}/>
         <p className="close" onClick={() => setOpen({open: false, commentId: 0, reply:''})}>X</p>
-        <button type="submit"> {t.addCity.add} </button>
+        <button className="button" type="submit"> {t.addCity.add} </button>
       </form>
     </Container>
 

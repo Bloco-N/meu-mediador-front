@@ -14,21 +14,22 @@ import LoadingContext from 'context/LoadingContext';
 import locales from 'locales';
 import api from '@/services/api';
 import { toast } from 'react-toastify';
+import { Modal, ModalCity } from '..';
 
 
 type MainInfoProfileEditModalProps = {
   open?: boolean,
   setOpen: Dispatch<SetStateAction<boolean>>
+  setOpenCity: Dispatch<SetStateAction<boolean>>
+  setOpenLanguage: Dispatch<SetStateAction<boolean>>
 }
 
 
-const MainInfoProfileEditModal = ({setOpen}:MainInfoProfileEditModalProps) => {
+const MainInfoProfileEditModal = ({setOpen, setOpenCity, setOpenLanguage}:MainInfoProfileEditModalProps) => {
 
   const { register, handleSubmit } = useForm<MainEditForm>()
   const { user } = useContext(UserContext) as UserContextType
 
-  const { setOpen: setCityModalOpen } = useContext(AddCityModalContext) as ModalOpenContextType
-  const { setOpen: setLanguageModalOpen } = useContext(AddLanguageModalContext) as ModalOpenContextType
   const {setOpen: setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
 
   const [accType, setAccType] = useState('')
@@ -38,6 +39,7 @@ const MainInfoProfileEditModal = ({setOpen}:MainInfoProfileEditModalProps) => {
   const [wppMask, setWppMask] = useState('+55 99 9 9999 9999')
   const [phoneMask, setPhoneMask] = useState('+55 99 9 9999 9999')
 
+
   const router = useRouter()
 
   const locale = router.locale
@@ -45,13 +47,13 @@ const MainInfoProfileEditModal = ({setOpen}:MainInfoProfileEditModalProps) => {
   const t = locales[locale as keyof typeof locales]
 
   const handleAddCity = () => {
-    setCityModalOpen(true)
-    // setOpen(false)
+    setOpen(false)
+    setOpenCity(true)
   }
 
   const handleAddLanguage = () => {
-    setLanguageModalOpen(true)
-    // setOpen(false)
+    setOpen(false)
+    setOpenLanguage(true)
   }
 
   useEffect(() => {
@@ -142,6 +144,7 @@ const MainInfoProfileEditModal = ({setOpen}:MainInfoProfileEditModalProps) => {
     setWppMask(selectedMask);
   };
   return (
+    <>
     <S.Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>Editar Perfil</h3>
@@ -221,6 +224,8 @@ const MainInfoProfileEditModal = ({setOpen}:MainInfoProfileEditModalProps) => {
         <p onClick={() => setOpen(false)}>X</p>
       </form>
     </S.Container>
+ 
+    </>
   );
 };
 
