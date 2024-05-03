@@ -125,7 +125,7 @@ export default function SearchResult(){
     <C.Container>
       <div className="list">
         <div className="actions-bar">
-          <PopoverBase showArrow autoClose={false} triggerNode={<VscSettings style={{ fontSize:30}}/>} align='end'>
+          <PopoverBase showArrow autoClose={false} triggerNode={<VscSettings style={{ fontSize:30, cursor: "pointer"}}/>} align='end'>
             <C.BaseFilterPopover>
               <C.HeaderBaseFilterPopover>
                 <C.TextHeader>Filtrar por:</C.TextHeader>

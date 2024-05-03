@@ -6,7 +6,7 @@ import SearchContext from 'context/SearchContext';
 import SearchResultContext from 'context/SearchResultContext';
 import UserContext from 'context/UserContext';
 import React, { useEffect, useState } from 'react';
-import ProfilePictureModal from './ProfilePictureModal';
+import ProfilePictureModal from './ModalProfilePicture';
 import MainInfoProfileEditModal from './ProfileEditModelRealtor';
 import AddPropertyModal from './ModalProperty';
 import AddServiceModal from './ModalService';
@@ -131,7 +131,7 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
 
                                           <AddReplyModal state={openAddReplyModal} setOpen={setOpenAddReplyModal} />
                                           <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal} />
-                                          <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal} />
+                                          {/* <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal} /> */}
                                           {/* <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal} /> */}
                                           {/* <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal} /> */}
                                           {/* <AddServiceModal open={openAddServiceModal} setOpen={setOpenAddServiceModal} /> */}

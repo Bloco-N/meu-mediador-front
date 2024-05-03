@@ -34,6 +34,7 @@ const ModalContainer = styled.div`
   justify-content: center;
   background-color: white;
   border-radius: 20px;
+  width: 1000px;
 
   @media (max-width: 768px) {
     width: 80%;

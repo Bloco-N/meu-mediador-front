@@ -5,8 +5,8 @@ import IconTrash from '../public/icons-trash.png';
 const DivButton = styled.div`
     border-radius: 100%;
     overflow: hidden;
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     background: #c14341;
     display: flex;
     align-items: center;

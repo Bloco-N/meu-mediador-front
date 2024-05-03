@@ -105,7 +105,7 @@ const SearchRealtor = styled.div<{ isMobile:boolean; }>`
         @media (max-width: 768px) {
           width: 100%;
           height: 58px;
-          background-color: #fff;
+          background-color: #EFF4F0;
           -webkit-appearance: none;
           padding-left: 18px;
         }
@@ -137,7 +137,7 @@ const SearchRealtor = styled.div<{ isMobile:boolean; }>`
       }
       input,
       .searchButton {
-        background: #fff;
+        background: #EFF4F0;
       }
       .searchButton,
       h4 {
@@ -322,7 +322,7 @@ export default function Home() {
               ))}
             </datalist>
 
-            <button className="searchButton">{t.home.searchButton}</button>
+            <button className="button">{t.home.searchButton}</button>
           </div>
           <h4>{t.home.welcome}</h4>
         </form>
