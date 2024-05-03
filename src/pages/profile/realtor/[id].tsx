@@ -41,7 +41,7 @@ const Container = styled.div<Realtor>`
   gap: 2rem;
   @media only screen and (max-width: 768px) {
     padding: 0 32px;
-    margin-top: 20px
+    margin-top: 20px;
   }
   .plus {
     cursor: pointer;
@@ -67,8 +67,8 @@ const Container = styled.div<Realtor>`
   .divButton {
     display: flex;
     position: relative;
-    right: 120px;
-    top: 90px;
+    right: 90px;
+    top: 80px;
     align-items: center;
     max-height: 75px;
     height: 100%;
@@ -110,8 +110,10 @@ const Container = styled.div<Realtor>`
     border: 50px solid rgb(245, 197, 199);
     box-sizing: border-box;
     border-radius: 20px;
+    font-size: 2em;
 
     @media (max-width: 768px) {
+      font-size: 2em;
       border: 20px solid rgb(245, 197, 199);
       width: 100%;
     }
@@ -122,19 +124,18 @@ const Container = styled.div<Realtor>`
       }
     }
 
-    butto {
+    button {
       @media (max-width: 768px) {
-        font-size: 14px;
+        font-size: 15px;
+        padding: 0.5rem;
+        min-width: 8rem;
+        height: 30px;
       }
     }
   }
 
   .buttonNo {
     background-color: #c14341;
-
-    @media (max-width: 768px) {
-      font-size: 14px;
-    }
   }
 `;
 
@@ -336,8 +337,13 @@ export default function Profile() {
           <img className="icon" src={IconAlert.src} alt="" />
 
           <div className="divButtonConfirm">
-            <button onClick={() => deleteClient()}>{t.signOut.yes}</button>
-            <button className="buttonNo" onClick={() => setModalOpen(false)}>
+            <button className="button" onClick={() => deleteClient()}>
+              {t.signOut.yes}
+            </button>
+            <button
+              className="buttonNo button"
+              onClick={() => setModalOpen(false)}
+            >
               {t.signOut.no}
             </button>
           </div>

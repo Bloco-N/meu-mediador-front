@@ -172,7 +172,7 @@ export default function CommentsCard({
         const commentData = await apiService.getRealtorComments(id as string);
         setLoadingOpen(false);
 
-        let reverseComments = commentData.reverse();
+        let reverseComments = commentData?.reverse();
         if (pdfPage) {
           reverseComments = reverseComments.filter(
             (comment: any, index: number) => {
@@ -301,7 +301,7 @@ export default function CommentsCard({
             </div>
           ))}
           {comments && comments.length > visibleComments && (
-            <button className="button-view-more" onClick={handleLoadMore}>
+            <button className="button" onClick={handleLoadMore}>
               Ver Mais
             </button>
           )}

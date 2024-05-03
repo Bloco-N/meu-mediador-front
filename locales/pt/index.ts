@@ -212,7 +212,7 @@ const pt = {
     send: "Enviar",
     description: "Descreva o erro encontrado",
     title: "Diz-nos qual foi o erro que viste",
-    advertisement: "Anúncio Errado",
+    advertisement: "Titulo",
     label:
       "<b>Vês algum erro?</b> Informe o Meoagent para que possamos fazer as correções necessárias. <b>Clique&nbspaqui</b>&nbspe&nbspnos&nbspconte&nbspos&nbsperros que viste!",
     warning: "Sua denúncia foi registrada. Obrigado!",

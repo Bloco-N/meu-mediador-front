@@ -32,8 +32,11 @@ export const Container = styled.div`
       align-items: center;
     }
     .dates-inputs {
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       justify-content: center;
+      @media (max-width: 800px) {
+        flex-wrap: wrap;
+      }
 
       .dates-input-group {
         gap: 2rem;
@@ -60,7 +63,10 @@ export const Container = styled.div`
     }
 
     input[type="text"] {
-      width: 80%;
+      width: 70%;
+      @media (max-width: 1400px) {
+        width: 80%;
+      }
     }
 
     @media (max-width: 800px) {

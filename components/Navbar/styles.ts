@@ -42,7 +42,7 @@ export const Nav = styled.div<INavbar>`
   height: 100%;
   z-index: 1;
   padding: 4rem 3rem 4rem 1.5rem;
- 
+
   ${({ path }) =>
     path === "/" &&
     `
@@ -53,7 +53,7 @@ export const Nav = styled.div<INavbar>`
   @media (max-width:727px) {
     align-items: center !important;
     justify-content: center !important;
-    padding: 0
+    padding: 0;
   }
 
   @media (max-width: 768px) {
@@ -250,8 +250,8 @@ export const Nav = styled.div<INavbar>`
     height: 35px;
     min-height: 35px;
     z-index: 8888;
-    select{
-      width: 5rem
+    select {
+      width: 5rem;
     }
   }
 
@@ -328,7 +328,7 @@ export const SearchRealtor = styled.div`
         font-size: 14px;
         padding: 0 1rem;
         width: 16rem;
-        background-color: #EFF4F0;
+        background-color: #eff4f0;
       }
 
       select {
@@ -362,7 +362,7 @@ export const Container = styled.div<INavbar>`
   align-items: center;
   flex-direction: row;
   height: 69px !important;
-  ${({ path }) => path === "/" && `margin-top: 3rem;`} 
+  ${({ path }) => path === "/" && `margin-top: 3rem;`}
 
   @media (max-width: 1400px) {
     margin-top: 0;
@@ -389,7 +389,7 @@ export const BoxSearch = styled.div<{ path?: string }>`
   flex-direction: row;
   justify-content: flex-start;
   height: 69px !important;
-  padding-left:1.3rem;
+  padding-left: 1.3rem;
   ${({ path }) => path === "/" && `margin-top: 30px;`}
 
   ${({ path }) =>
@@ -409,8 +409,8 @@ export const BoxSearch = styled.div<{ path?: string }>`
   .box-image {
     width: 20%;
     ${({ path }) => path === "/" && `width:26%;`}
-    /* padding:2rem; */
-
+    ${({ path }) => path === "/" && `margin-left:20rem;`}
+    
     @media only screen and (max-width: 1400px) {
       ${({ path }) => path === "/" && `width:32%;`}
     }
@@ -420,16 +420,21 @@ export const BoxSearch = styled.div<{ path?: string }>`
     }
 
     .mobile-logo {
-      max-width: 80px; /* Define a largura máxima da logo em dispositivos móveis */
+      max-width: 80px;
     }
 
     .desktop-logo {
-      max-width: 250px; /* Define a largura máxima da logo em dispositivos desktop */
+      max-width: 250px;
+    }
+
+    @media only screen and (max-width: 768px) {
+      margin-left: 0;
     }
   }
 
   @media only screen and (max-width: 768px) {
     width: 100%;
+    margin-left: none;
   }
 `;
 
@@ -438,13 +443,12 @@ export const LogoImage = styled.img<LogoProps>`
   object-fit: cover;
   background-position: center;
   min-width: 110px;
-  border: 1px solid tomato;
-  
+
   @media (max-width: 640px) {
     min-width: 70px;
   }
 
-  ${({ isMobileDevice }) =>!isMobileDevice && `width: 100%;`}
+  ${({ isMobileDevice }) => !isMobileDevice && `width: 100%;`}
 
   ${({ path }) =>
     path === "/" &&

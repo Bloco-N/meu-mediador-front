@@ -87,7 +87,8 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     gap: 1rem;
     width: 100%;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: ${(props) => (props.isProfile ? "" : "space-between")};
+    /* justify-content: space-between; */
 
     @media only screen and (max-width: 900px) {
       flex-direction: column;

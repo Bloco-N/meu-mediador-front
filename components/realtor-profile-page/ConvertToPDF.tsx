@@ -19,9 +19,9 @@ import locales from "locales"
 import { PdfService } from "@/services/PdfService"
 
 const Container = styled.button`
-    width: 10%;
+    width: 8%;
     margin-left: auto;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     z-index: 1;
     height: 20px;
     display: flex;

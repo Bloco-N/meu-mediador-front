@@ -18,6 +18,7 @@ import ModalCity from "@components/ModalCity"
 import ModalLanguage from "@components/ModalLanguage"
 import SimplePopup from "@components/Popup"
 import PopupClose from "@components/PopupAviso"
+import ModalProfilePicture from '@components/ModalProfilePicture'
 
 export {
     RenderConditional,
@@ -37,5 +38,6 @@ export {
     ModalCity,
     ModalLanguage,
     SimplePopup,
-    PopupClose
+    PopupClose,
+    ModalProfilePicture
 }

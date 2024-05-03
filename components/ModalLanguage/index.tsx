@@ -58,7 +58,6 @@ const AddLanguageModal = ({setOpen}: AddLanguageModalProps) => {
     fetchData()
   }, [])
 
-  return null
   function reload() {
     const fetchData = async () => {
       const localId = localStorage.getItem('id')
