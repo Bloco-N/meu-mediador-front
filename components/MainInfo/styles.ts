@@ -9,6 +9,8 @@ position: relative;
 height: 100%;
 display: flex;
 justify-content: center;
+z-index:1;
+background-color: #d3d2d2 !important;
 
 min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
 @media only screen and (max-width: 900px) {
@@ -50,6 +52,41 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
         position: unset;
       }
     }
+
+  .deletAccount-back{
+        background-color: #c14341;
+        border-radius: 50%;
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        top: 1rem;
+        right: 7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img{
+          position: unset;
+        }
+      }
+  }
+
+  .pdf-back{
+          background-color: var(--surface);
+          border-radius: 50%;
+          height: 4rem;
+          width: 4rem;
+          position: absolute;
+          top: 1rem;
+          right: 17rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          img{
+            position: unset;
+          }
+        }
   }
 
   .cover-photo {
@@ -296,7 +333,6 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
   }
 
   background: #fff;
-}
 
 .about-3 {
   gap: 0.5rem;
@@ -367,4 +403,10 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     justify-content: center;
   }
 }
+`;
+
+  
+export const ResponsiveImage = styled.img`
+width: 100%;
+cursor:pointer;
 `;

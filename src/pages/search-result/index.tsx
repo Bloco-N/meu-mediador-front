@@ -121,6 +121,11 @@ export default function SearchResult(){
     setData(ordenarPorInformacoesPreenchidas(searchResult.list))
   },[])
 
+  function selectedCard(item:IItemList){
+    if (document.getElementById('simple-popper')) return
+    router.push(`/profile/${Number(idSearch) == 1 ? `realtor/` : "agency/"}${item.id}`)
+  }
+
   return (
     <C.Container>
       <div className="list">
@@ -144,8 +149,13 @@ export default function SearchResult(){
           </PopoverBase>
         </div>
         {data?.map((item:IItemList) => (
-          <div className="teste" onClick={() => router.push(`/profile/${Number(idSearch) == 1 ? "realtor/" : "agency/"}${item.id}`)} key={item.id}>
-            <MainInfo lastExp={{
+          <div 
+            className="teste"
+            key={item.id}
+            onClick={() => selectedCard(item)}
+            >
+            <MainInfo
+            lastExp={{
               name: item.agencyName,
               pic: item.agencyPic,
               agencyId: item.agencyName

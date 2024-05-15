@@ -117,6 +117,7 @@ const AddCityModal = ({setOpen}: AddCityModalProps) => {
       toast.error(t.toast.errorRemoveCity)
     })
   }
+  
 
   return (
     <S.Container className='modal'>

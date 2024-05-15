@@ -4,7 +4,6 @@ import MainInfo from "@components/MainInfo";
 import UserContext from "../../../../context/UserContext";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import styled from "styled-components";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import { LastExp } from "@/types/LastExp";
 import LoadingContext from "context/LoadingContext";
@@ -26,118 +25,8 @@ import { signOut as singOutGoogle } from "next-auth/react";
 import api from "@/services/api";
 import { toast } from "react-toastify";
 import { Modal, ModalReport } from "@components/index";
+import * as C from './styles'
 
-interface Realtor {
-  sessionProfile: boolean;
-}
-
-const Container = styled.div<Realtor>`
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
-  width: 100%;
-  padding: 0px 32px 32px 32px;
-  margin-top: ${(props) => (props.sessionProfile ? "-60px" : "60px")};
-  gap: 2rem;
-  @media only screen and (max-width: 768px) {
-    padding: 0 32px;
-    margin-top: 20px;
-  }
-  .plus {
-    cursor: pointer;
-    height: 3rem;
-    width: 3rem;
-    position: absolute;
-    top: 3rem;
-    right: 3rem;
-  }
-  .hide-profile {
-    background-color: #d3d2d2;
-    width: 65%;
-    height: 140px;
-    max-width: calc(100% - 270px);
-    position: fixed;
-    z-index: 5;
-    top: 0;
-    right: 0;
-  }
-  .labelDialogReport {
-    text-align: center;
-  }
-  .divButton {
-    display: flex;
-    position: relative;
-    right: 90px;
-    top: 80px;
-    align-items: center;
-    max-height: 75px;
-    height: 100%;
-    padding: 5px;
-    width: 100%;
-    box-sizing: border-box;
-
-    @media (max-width: 768px) {
-      max-height: 20%;
-      position: static;
-    }
-  }
-  .divButtonConfirm {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-
-    @media (max-width: 768px) {
-      flex-direction: row;
-    }
-  }
-
-  .icon {
-    width: 10%;
-    margin-top: 1em;
-    max-width: 100%;
-    max-height: 100%;
-
-    @media (max-width: 768px) {
-      width: 18%;
-    }
-  }
-
-  .divMain {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(245, 197, 199);
-    border: 50px solid rgb(245, 197, 199);
-    box-sizing: border-box;
-    border-radius: 20px;
-    font-size: 2em;
-
-    @media (max-width: 768px) {
-      font-size: 2em;
-      border: 20px solid rgb(245, 197, 199);
-      width: 100%;
-    }
-
-    h1 {
-      @media (max-width: 768px) {
-        font-size: 12px;
-      }
-    }
-
-    button {
-      @media (max-width: 768px) {
-        font-size: 15px;
-        padding: 0.5rem;
-        min-width: 8rem;
-        height: 30px;
-      }
-    }
-  }
-
-  .buttonNo {
-    background-color: #c14341;
-  }
-`;
 
 export default function Profile() {
   const [realtor, setRealtor] = useState<RealtorProfile>();
@@ -244,31 +133,20 @@ export default function Profile() {
   }
 
   return (
-    <Container sessionProfile={sessionProfile}>
-      {accType == "realtor" && sessionProfile ? (
-        <div className="divButton">
-          {!pdfPage && (
-            <ConvertToPDF
-              localId={localId}
-              accType={accType}
-              sessionProfile={sessionProfile}
-            />
-          )}
-          <TrashButton
-            onClick={() => {
-              setModalOpen(true);
-            }}
-          />
-        </div>
-      ) : (
-        <></>
-      )}
+    <C.Container sessionProfile={sessionProfile}>
       <MainInfo
         isRealtor={true}
         lastExp={lastExp as LastExp}
         userSigned={realtor as RealtorProfile}
         isProfile={true}
         pdfPage={pdfPage}
+        onTrash={() => setModalOpen(true)}
+        renderActions={accType == "realtor" && sessionProfile}
+        PdfRender={<ConvertToPDF
+          localId={localId}
+          accType={accType}
+          sessionProfile={sessionProfile}
+        />}
       />
       <ServicesCard
         localId={localId}
@@ -341,7 +219,7 @@ export default function Profile() {
               {t.signOut.yes}
             </button>
             <button
-              className="buttonNo button"
+              className="button buttonNo"
               onClick={() => setModalOpen(false)}
             >
               {t.signOut.no}
@@ -349,6 +227,6 @@ export default function Profile() {
           </div>
         </div>
       </ModalLogout>
-    </Container>
+    </C.Container>
   );
 }

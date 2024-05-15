@@ -21,6 +21,8 @@ import { LastExp } from "@/types/LastExp";
 import locales from "locales";
 import CoverPicAdjustModalContext, { CoverPicAdjustModalContextType } from "context/CoverPicAdjustModalContext";
 import * as C from "./styles";
+import IconTrash from '../../public/icons-trash.png';
+
 import {
   Modal,
   MainInfoProfileEditModal,
@@ -38,6 +40,9 @@ type MainInfoProps = {
   lastExp?: LastExp;
   isRealtor: boolean;
   pdfPage: boolean;
+  onTrash:() => void;
+  renderActions: boolean;
+  PdfRender:any;
 };
 
 const MainInfo = ({
@@ -46,6 +51,9 @@ const MainInfo = ({
   lastExp,
   isRealtor,
   pdfPage,
+  onTrash,
+  renderActions,
+  PdfRender
 }: MainInfoProps) => {
   const { setData } = useContext(
     PictureModalContext
@@ -183,7 +191,6 @@ const MainInfo = ({
     : "";
 
 
-    // return null
   return (
     <C.Container isProfile={isProfile}>
       <div className="main-info border">
@@ -201,6 +208,20 @@ const MainInfo = ({
               />
               {sessionProfile && !pdfPage && (
                 <>
+                <RenderConditional isTrue={renderActions}>
+                  <RenderConditional isTrue={!pdfPage}>
+                    <div className='pdf-back'>
+                      <span>
+                       {PdfRender}
+                      </span>
+                    </div>
+                  </RenderConditional>
+                <div className='deletAccount-back'>
+                  <span onClick={onTrash}>
+                  <C.ResponsiveImage src={IconTrash.src} alt="Trash Icon" color='#b5b3b3' />
+                  </span>
+                </div>
+                </RenderConditional>
                   <div className="label-back">
                     <label htmlFor="cover-pic">
                       <Image

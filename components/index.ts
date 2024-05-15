@@ -19,6 +19,8 @@ import ModalLanguage from "@components/ModalLanguage"
 import SimplePopup from "@components/Popup"
 import PopupClose from "@components/PopupAviso"
 import ModalProfilePicture from '@components/ModalProfilePicture'
+import MainInfoAgency from '@components/MainInfoAgency'
+
 
 export {
     RenderConditional,
@@ -39,5 +41,6 @@ export {
     ModalLanguage,
     SimplePopup,
     PopupClose,
-    ModalProfilePicture
+    ModalProfilePicture,
+    MainInfoAgency
 }
