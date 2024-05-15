@@ -102,8 +102,8 @@ export default function Profile() {
           <img className="icon-img" src={IconAlert.src} alt="" />
 
           <div className="divButtonConfirm">
-            <button onClick={() => deleteClient()}>{t.signOut.yes}</button>
-            <button className="buttonNo" onClick={() => setModalOpen(false)}>
+            <button className="button" onClick={() => deleteClient()}>{t.signOut.yes}</button>
+            <button className="button buttonNo" onClick={() => setModalOpen(false)}>
               {t.signOut.no}
             </button>
           </div>
