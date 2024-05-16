@@ -11,8 +11,6 @@ import webIcon from "../../public/web.svg";
 import instagramIcon from "../../public/instagram.svg";
 import facebookIcon from "../../public/facebook.svg";
 import greyImage from "../../public/grey.png";
-import UserContext from "context/UserContext";
-import { UserContextType } from "@/types/UserContextType";
 import MainInfoProfileEditModalContext from "context/MainInfoProfileEditModalContext";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import Link from "next/link";
@@ -33,6 +31,7 @@ import {
   SimplePopup
 } from "@components/index";
 import "tippy.js/dist/tippy.css";
+import { getQueryParam } from "@/utils";
 
 type MainInfoProps = {
   userSigned: any;
@@ -40,77 +39,70 @@ type MainInfoProps = {
   lastExp?: LastExp;
   isRealtor: boolean;
   pdfPage: boolean;
-  onTrash:() => void;
-  renderActions: boolean;
-  PdfRender:any;
+  onTrash?:() => void;
+  renderActions?: boolean;
+  PdfRender?:any;
 };
 
-const MainInfo = ({
-  userSigned,
-  isProfile,
-  lastExp,
-  isRealtor,
-  pdfPage,
-  onTrash,
-  renderActions,
-  PdfRender
-}: MainInfoProps) => {
-  const { setData } = useContext(
-    PictureModalContext
-  ) as PictureModalContextType;
 
-  const { user, setUser } = useContext(UserContext) as UserContextType;
-
-  const { setOpen: mainInfoSetOpen } = useContext(
-    MainInfoProfileEditModalContext
-  ) as ModalOpenContextType;
-
-  const {
-    setOpen: coverPicAdjustModalSetOpen,
-    setSrcImg: setCoverPicSrcImage,
-    srcImg: coverPicSrcImage,
-  } = useContext(CoverPicAdjustModalContext) as CoverPicAdjustModalContextType;
+const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,PdfRender }: MainInfoProps) => {
+  const { setData } = useContext(PictureModalContext) as PictureModalContextType;
+  const { setOpen: coverPicAdjustModalSetOpen,setSrcImg: setCoverPicSrcImage } = useContext(CoverPicAdjustModalContext) as CoverPicAdjustModalContextType;
+  const router = useRouter();
 
   const [sessionProfile, setSessionProfile] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
-
-  const [fullProfilePic, setFullProfilePic] = useState("");
-  const [childSizeModal, setChildSize] = useState({
-    width: "90rem",
-    height: "100%",
-    radius: 10,
-  });
+  const [typeAccountPage, setTypeAccountPage] = useState("realtors");
 
   const [openModalCity, setCityModalOpen] = useState(false);
   const [openModalLanguage, setLanguageModalOpen] = useState(false);
-  const [childSizeModalCity, setChildSizeCity] = useState({
-    width: "100%",
-    height: "100%",
-    radius: 10,
-  });
-
-  const router = useRouter();
+  const [openModalEditPictures, setOpenModalEditPictures] = useState(false);
 
   const [tooltip, setTooltip] = useState({ show: false, posX: 0, posY: 0 });
 
   const locale = router.locale;
-
   const t = locales[locale as keyof typeof locales];
+  const userCitis = userSigned?.RealtorCities ? userSigned?.RealtorCities : userSigned?.AgencyCities;
+  const userLanguage = userSigned?.RealtorLanguages ? userSigned?.RealtorLanguages : userSigned?.AgencyLanguages;
+  const maxLength = 15;
+  const truncatedName = lastExp?.name ? lastExp.name?.length > maxLength ? lastExp?.name.slice(0, maxLength) + "..." : lastExp?.name: "";
+  const basePathStorage = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${typeAccountPage}/${userSigned?.id}`
 
-  const userCitis = userSigned?.RealtorCities
-    ? userSigned?.RealtorCities
-    : userSigned?.AgencyCities;
-  const userLanguage = userSigned?.RealtorLanguages
-    ? userSigned?.RealtorLanguages
-    : userSigned?.AgencyLanguages;
+  const childSizeModal = {
+    width: "90rem",
+    height: "100%",
+    radius: 10,
+  };
+
+  const childSizeModalCity = {
+    width: "100%",
+    height: "100%",
+    radius: 10,
+  };
+
   useEffect(() => {
-    const localId = localStorage.getItem("id");
     const accounType = localStorage.getItem("accountType");
+    const localId = localStorage.getItem("id");
+
+    changeTypeAccount()
+
     if (Number(localId) === userSigned?.id && accounType === "realtor") {
       setSessionProfile(true);
     }
-  }, [user.id, userSigned?.id]);
 
+    const handleScroll = () => {
+      setTooltip({ ...tooltip, show: false });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+  }, [userSigned?.id]);
+
+  
   const handleChangeCover = (e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
 
@@ -126,7 +118,6 @@ const MainInfo = ({
 
         img.src = fr.result as string;
 
-        setFullProfilePic(img.src);
         setCoverPicSrcImage(img.src);
         coverPicAdjustModalSetOpen(true);
       };
@@ -136,7 +127,7 @@ const MainInfo = ({
       fr.readAsDataURL(file);
     }
   };
-
+  
   function printCities() {
     const cities = userCitis?.map((city: any) => city.City.name);
     if (typeof window !== "undefined") {
@@ -171,25 +162,13 @@ const MainInfo = ({
 
   function goAgency() {}
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setTooltip({ ...tooltip, show: false });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const maxLength = 15;
-  const truncatedName = lastExp?.name
-    ? lastExp.name?.length > maxLength
-      ? lastExp?.name.slice(0, maxLength) + "..."
-      : lastExp?.name
-    : "";
-
+  function changeTypeAccount(){
+    if(getQueryParam('idSearch') == '1' || window.location.href?.includes('realtor')){
+      setTypeAccountPage("realtors")
+    }else if(getQueryParam('idSearch') == '2' || window.location.href?.includes('agency')){
+      setTypeAccountPage("agencies")
+    }
+  }
 
   return (
     <C.Container isProfile={isProfile}>
@@ -200,59 +179,51 @@ const MainInfo = ({
               <Image
                 height={1000}
                 width={1000}
-                src={
-                  userSigned?.coverPicture ? userSigned.coverPicture : greyImage
-                }
+                src={!!userSigned?.coverPicture ? `${basePathStorage}/${userSigned?.coverPicture}` : greyImage}
                 alt="cover image"
                 className="cover-photo"
               />
-              {sessionProfile && !pdfPage && (
-                <>
-                <RenderConditional isTrue={renderActions}>
-                  <RenderConditional isTrue={!pdfPage}>
-                    <div className='pdf-back'>
-                      <span>
-                       {PdfRender}
-                      </span>
-                    </div>
-                  </RenderConditional>
-                <div className='deletAccount-back'>
-                  <span onClick={onTrash}>
-                  <C.ResponsiveImage src={IconTrash.src} alt="Trash Icon" color='#b5b3b3' />
-                  </span>
-                </div>
-                </RenderConditional>
-                  <div className="label-back">
-                    <label htmlFor="cover-pic">
-                      <Image
-                        className="edit-main"
-                        src={editIcon}
-                        alt="edit icon"
-                      />
-                    </label>
-                  </div>
-                  <input
-                    onChange={(e) => handleChangeCover(e)}
-                    id="cover-pic"
-                    type="file"
-                  />
-                </>
-              )}
+
+              <RenderConditional isTrue={sessionProfile && !pdfPage}>
+                  <>
+                    <RenderConditional isTrue={!!renderActions}>
+                      <RenderConditional isTrue={!pdfPage}>
+                        <div className='pdf-back'>
+                          <span>
+                          {PdfRender}
+                          </span>
+                        </div>
+                      </RenderConditional>
+                      <div className='deletAccount-back'>
+                        <span onClick={onTrash}>
+                        <C.ResponsiveImage src={IconTrash.src} alt="Trash Icon" color='#b5b3b3' />
+                        </span>
+                      </div>
+                    </RenderConditional>
+                      <div className="label-back">
+                        <label htmlFor="cover-pic" onClick={() => setOpenModalEditPictures(true)}>
+                          <Image
+                            className="edit-main"
+                            src={editIcon}
+                            alt="edit icon"
+                          />
+                        </label>
+                      </div>
+                      {/* <input onChange={(e) => alert(e)} id="cover-pic" type="file"/> */}
+                    </>
+              </RenderConditional>
             </>
           </div>
         </RenderConditional>
-        <Image
-          width={100}
-          height={100}
-          onClick={
-            isProfile ? () => setData({ open: true, userSigned }) : () => {}
-          }
-          className={isProfile ? "profile profile-pointer" : "profile"}
-          src={
-            userSigned?.profilePicture ? userSigned.profilePicture : profileIcon
-          }
-          alt="profile icon"
-        />
+
+          <Image
+            width={100}
+            height={100}
+            onClick={ isProfile ? () => setData({ open: true, userSigned }) : () => {}}
+            className={isProfile ? "profile profile-pointer" : "profile"}
+            src={!!userSigned?.profilePicture ? `${basePathStorage}/${userSigned?.profilePicture}` : profileIcon}
+            alt="profile icon"
+          />
 
         <RenderConditional isTrue={isProfile && sessionProfile && !pdfPage}>
           <Image
@@ -265,13 +236,16 @@ const MainInfo = ({
 
         <div className="sub-content">
           <div className="about">
-            {userSigned?.firstName && (
+
+            <RenderConditional isTrue={!!userSigned?.firstName}>
               <h1 className="name">
                 {userSigned?.firstName} {userSigned?.lastName}{" "}
               </h1>
-            )}
+            </RenderConditional>
 
-            {userSigned?.name && <h1>{userSigned.name}</h1>}
+            <RenderConditional isTrue={!!userSigned?.name}>
+              <h1>{userSigned?.name}</h1>
+            </RenderConditional>
             <RenderConditional isTrue={userSigned?.rating > 0}>
               <h3>
                 {"★".repeat(Math.floor(userSigned?.rating))} (
@@ -289,7 +263,6 @@ const MainInfo = ({
                 <RenderConditional isTrue={userCitis?.length > 3}>
                   <>
                     <span>{t.mainInfo.cityPopup.joinText}</span>
-                    {/* <span> </span> */}
                     <SimplePopup
                       textPopupList={t.mainInfo.cityPopup.textPopupList}
                       qtdeCitys={userCitis?.length - 2}
@@ -355,7 +328,7 @@ const MainInfo = ({
                     width={10}
                     height={10}
                     className="agency"
-                    src={lastExp?.pic ? lastExp?.pic : agencyIcon}
+                    src={!!lastExp?.pic ? `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/agencies/${lastExp?.agencyId}/${lastExp?.pic}` : agencyIcon}
                     alt="agency icon"
                   />
                 </div>
@@ -448,8 +421,123 @@ const MainInfo = ({
       >
         <ModalLanguage setOpen={setLanguageModalOpen} />
       </Modal>
+
+      <Modal
+        isOpen={openModalEditPictures}
+        onClose={() => setOpenModalEditPictures(false)}
+        childSize={{height:'100%',width:'100%',radius:10}}
+      >
+        <ModalChangePictures  setOpen={setLanguageModalOpen}/>
+      </Modal>
     </C.Container>
   );
 };
 
 export default MainInfo;
+
+
+interface ModalChangePicturesProps {
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({ setOpen }) => {
+  const [selectedFile1, setSelectedFile1] = useState<File | null>(null);
+  const [selectedFile2, setSelectedFile2] = useState<File | null>(null);
+  const [progress1, setProgress1] = useState<number>(0);
+  const [progress2, setProgress2] = useState<number>(0);
+
+  const handleFileChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile1(e.target.files[0]);
+    }
+  };
+
+  const handleFileChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile2(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = (file: File | null, setProgress: React.Dispatch<React.SetStateAction<number>>) => {
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Mock upload progress
+    const fakeUpload = () => {
+      setProgress((prevProgress) => {
+        if (prevProgress >= 100) {
+          return 100;
+        }
+        const nextProgress = prevProgress + 10;
+        setTimeout(fakeUpload, 200);
+        return nextProgress;
+      });
+    };
+
+    fakeUpload();
+
+    // axios.post('/upload', formData, {
+    //   onUploadProgress: (progressEvent) => {
+    //     const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+    //     setProgress(progress);
+    //   }
+    // });
+  };
+
+  const handleUpload1 = () => handleUpload(selectedFile1, setProgress1);
+  const handleUpload2 = () => handleUpload(selectedFile2, setProgress2);
+
+  return (
+    <C.Modal>
+      <C.ModalContent>
+        <C.HeaderChangePictures>
+            <button onClick={() => setOpen(false)}>X</button>
+        </C.HeaderChangePictures>
+
+        <C.FileInputContainer>
+          <label htmlFor="inputFile1">
+            Alterar Foto de Perfil 
+            <Image
+              src={editIcon}
+              alt="edit icon"
+            />
+          </label>
+          <input id="inputFile1" type="file" onChange={handleFileChange1} />
+          {selectedFile1 && (
+            <div>
+              <C.SelectedImage src={URL.createObjectURL(selectedFile1)} alt="Selected" />
+              <button onClick={handleUpload1}>Upload1</button>
+              <C.ProgressBar>
+                <C.Progress width={progress1}>{progress1}%</C.Progress>
+                
+              </C.ProgressBar>
+            </div>
+          )}
+        </C.FileInputContainer>
+
+        <C.FileInputContainer>
+          <label htmlFor="inputFile2">
+            Alterar Foto de Capa
+            <Image
+              src={editIcon}
+              alt="edit icon"
+            />
+          </label>
+          <input id="inputFile2" type="file" onChange={handleFileChange2} />
+          {selectedFile2 && (
+            <div>
+              <C.SelectedImage src={URL.createObjectURL(selectedFile2)} alt="Selected" />
+              <button onClick={handleUpload2}>Upload</button>
+              <C.ProgressBar>
+                <C.Progress width={progress2}>{progress2}%</C.Progress>
+                
+              </C.ProgressBar>
+            </div>
+          )}
+        </C.FileInputContainer>
+      </C.ModalContent>
+    </C.Modal>
+  );
+};

@@ -175,7 +175,7 @@ export default function RealtorAgencyCard({
                     className={
                       isProfile ? "profile profile-pointer" : "profile"
                     }
-                    src={item?.pic ? item?.pic : profileIcon}
+                    src={!!item?.pic ? `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/realtors/${item?.id}/${item?.pic}` : profileIcon}
                     alt="profile icon"
                   />
                   <h3> {item?.nameRealtor} </h3>

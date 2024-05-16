@@ -405,6 +405,80 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
 }
 `;
 
+// Upload images
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalContent = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  text-align: center;
+`;
+
+export const FileInputContainer = styled.div`
+  margin-bottom: 20px;
+
+  label{
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+
+    img {
+        height: 2rem;
+  width: 2rem;
+  bottom: 2rem;
+  right: 2rem;
+  cursor: pointer;
+    }
+  }
+`;
+
+export const SelectedImage = styled.img`
+  max-width: 100px;
+  max-height: 100px;
+  display: block;
+  margin: 10px auto;
+`;
+
+export const ProgressBar = styled.div`
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+`;
+
+export const HeaderChangePictures = styled.div`
+  display: flex;
+  width: 100%;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: end;
+  overflow: hidden;
+  margin-top: 10px;
+`;
+
+export const Progress = styled.div<{ width: number }>`
+  padding: .02em;
+  background-color: #4caf50;
+  width: ${({ width }) => width}%;
+`;
+
+
   
 export const ResponsiveImage = styled.img`
 width: 100%;

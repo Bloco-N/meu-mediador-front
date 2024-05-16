@@ -132,6 +132,7 @@ export default function Profile() {
       });
   }
 
+
   return (
     <C.Container sessionProfile={sessionProfile}>
       <MainInfo
@@ -191,11 +192,11 @@ export default function Profile() {
         accType={accType}
         sessionProfile={pdfPage ? false : sessionProfile}
       />
-      <PartnershipCard
+      {/* <PartnershipCard
         localId={localId}
         accType={accType}
         sessionProfile={pdfPage ? false : sessionProfile}
-      />
+      /> */}
       <CommentsCard
         localId={localId}
         accType={accType}

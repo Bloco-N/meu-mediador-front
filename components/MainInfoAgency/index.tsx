@@ -24,6 +24,7 @@ import locales from 'locales';
 import SimplePopup from '../Popup';
 import IconTrash from '../../public/icons-trash.png';
 import * as C from './styles'
+import { getQueryParam } from '@/utils';
 
 
 type MainInfoAgencyProps = {
@@ -49,7 +50,7 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
   const t = locales[locale as keyof typeof locales]
 
   useEffect(() => {
-    const localId = localStorage.getItem('id')
+     const localId = localStorage.getItem('id')
     const accounType = localStorage.getItem('accountType')
     if(Number(localId) === userSigned?.id && accounType === 'agency'){
       setSessionProfile(true)
@@ -125,6 +126,9 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
     }
   }
 
+
+  const basePathStorage = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${getQueryParam('idSearch') == '1' ? 'realtors' : 'agencies'}/${userSigned?.id}`
+
   return (
 
   <C.Container isProfile={isProfile}>
@@ -132,7 +136,9 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
       <div className='top'>
         {isProfile && (
           <>
-            <Image height={1000} width={1000} src={userSigned?.coverPicture ? userSigned.coverPicture : greyImage} alt='cover image' className='cover-photo'/>
+            <Image height={1000} width={1000} 
+            src={!!userSigned?.coverPicture ? `${basePathStorage}/${userSigned?.coverPicture}` : greyImage}
+             alt='cover image' className='cover-photo'/>
 
             {sessionProfile && (
               <>
@@ -152,7 +158,14 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
           </>
         )}
       </div>
-      <Image width={100} height={100} onClick={isProfile ? () => setData({open: true, userSigned}) : () => {}} className= {isProfile ? "profile profile-pointer" : 'profile' } src={ userSigned?.profilePicture ? userSigned.profilePicture : profileIcon} alt='profile icon'/>
+      <Image 
+        width={100}
+        height={100}
+        onClick={isProfile ? () => setData({open: true, userSigned}) : () => {}}
+        className= {isProfile ? "profile profile-pointer" : 'profile' }
+        src={!!userSigned?.profilePicture ? `${basePathStorage}/${userSigned?.profilePicture}` : greyImage}
+        alt='profile icon'
+         />
       { isProfile && sessionProfile ? (
           <Image onClick={() => mainInfoSetOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
       ): ''}
