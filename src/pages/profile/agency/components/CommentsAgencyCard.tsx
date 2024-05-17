@@ -1,6 +1,6 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -147,7 +147,7 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
               <div key={ comment.id } className="comment">
                 
                 {accType === 'client' && Number(localId) === comment.clientId ? (
-                  <Image onClick={e => handleDeleteComment(e)} id={String(comment.id)} className="close" src={closeIcon} alt="close icon"/>
+                  <Img onClick={e => handleDeleteComment(e)} id={String(comment.id)} className="close" file={closeIcon} alt="close icon"/>
                 ): ''}
                 <div className="title">
                   <h4>

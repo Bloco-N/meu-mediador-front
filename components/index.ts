@@ -20,7 +20,7 @@ import SimplePopup from "@components/Popup"
 import PopupClose from "@components/PopupAviso"
 import ModalProfilePicture from '@components/ModalProfilePicture'
 import MainInfoAgency from '@components/MainInfoAgency'
-
+export { Img } from '@components/Img'
 
 export {
     RenderConditional,

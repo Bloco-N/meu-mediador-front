@@ -1,6 +1,6 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -163,9 +163,15 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
           {properties?.map(item => (
             <div key={item.id} className="propertie">
                 { sessionProfile && (
-                  <Image onClick={ e => handleDeleteProperty(e)} id={String(item.id)} className="close" src={closeIcon} alt='close icon'/>
+                  <Img onClick={ e => handleDeleteProperty(e)} id={String(item.id)} className="close" file={closeIcon} alt='close icon'/>
                 )}
-                <Image className="property-img" src={item.profilePicture} width={200} height={100} alt="profile picture"/>
+                <Img 
+                  className="property-img"
+                  validateURL={!!item.profilePicture}
+                  url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${item.profilePicture}`}
+                  width={200}
+                  height={100}
+                  alt="profile picture"/>
                 <h2>{item.price}</h2>
                 <h3>{item.title}</h3>
                 <p className="sub-text">
@@ -183,7 +189,7 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
 
           ))}
           { sessionProfile ? (
-          <Image onClick={() => addPropertySetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+          <Img onClick={() => addPropertySetOpen(true)} className='plus' file={plusIcon} alt='edit icon'/>
       ): ''}
         </div>
       </div>

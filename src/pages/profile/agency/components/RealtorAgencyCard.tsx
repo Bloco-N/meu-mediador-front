@@ -1,12 +1,10 @@
 import { UserContextType } from "@/types/UserContextType";
 import UserContext from "context/UserContext";
-import Image from "next/image";
+import { Img } from '@components/index';
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import closeIcon from "@/../public/close.svg";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
-import { Comment } from "@/types/Comment";
 import AddCommentModalContext from "context/AddCommentModalContext";
 import LoadingContext from "context/LoadingContext";
 import locales from "locales";
@@ -169,13 +167,13 @@ export default function RealtorAgencyCard({
             return (
               <div key={item?.idRealtor}onClick={() => router.push(`/profile/realtor/${item?.idRealtor}`)} className="comment">
                 <div className="divImage">
-                  <Image
+                  <Img
                     width={100}
                     height={100}
-                    className={
-                      isProfile ? "profile profile-pointer" : "profile"
-                    }
-                    src={!!item?.pic ? `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/realtors/${item?.id}/${item?.pic}` : profileIcon}
+                    className={ isProfile ? "profile profile-pointer" : "profile" }
+                    validateURL={!!item?.pic}
+                    url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${item?.pic}`}
+                    file={profileIcon}
                     alt="profile icon"
                   />
                   <h3> {item?.nameRealtor} </h3>

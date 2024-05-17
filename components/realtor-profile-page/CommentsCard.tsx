@@ -1,9 +1,8 @@
 import { UserContextType } from "@/types/UserContextType";
 import UserContext from "context/UserContext";
-import Image from "next/image";
+import { Img } from '@components/index';
 import { useRouter } from "next/router";
 import React, {
-  ButtonHTMLAttributes,
   useContext,
   useEffect,
   useState,
@@ -261,11 +260,11 @@ export default function CommentsCard({
           {comments?.slice(0, visibleComments).map((comment, index) => (
             <div key={comment.id} className="comment">
               {accType === "client" && Number(localId) === comment.clientId ? (
-                <Image
+                <Img
                   onClick={(e) => handleDeleteComment(e)}
                   id={String(comment.id)}
                   className="close"
-                  src={closeIcon}
+                  file={closeIcon}
                   alt="close icon"
                 />
               ) : (
@@ -281,11 +280,11 @@ export default function CommentsCard({
                   <p className="reply-title">Resposta:</p>
                   <div>
                     <p className="reply">{comment.reply}</p>
-                    <Image
+                    <Img
                       onClick={(e) => handleEdit(e)}
                       id={String(comment.id)}
                       className="edit"
-                      src={editIcon}
+                      file={editIcon}
                       height={20}
                       width={20}
                       alt="edit icon"

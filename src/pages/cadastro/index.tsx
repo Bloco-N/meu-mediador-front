@@ -1,5 +1,5 @@
 import styles from "../../../src/styles/lp.module.css";
-import Image from "next/image";
+import { Img } from '@components/index';
 
 import man from "../../../public/man-form.webp";
 import finalMan from "../../../public/man-final.webp";
@@ -334,7 +334,7 @@ export default function Cadastro() {
             </div>
             <div id="cadastro" className={styles.formDiv}>
               <div className={styles.divImage}>
-                <Image src={man} alt="man pointing" />
+                <Img file={man} alt="man pointing" />
                 <p>Preencha o formulário abaixo e crie seu cadastro!</p>
               </div>
               <div className={styles.form}>
@@ -461,7 +461,7 @@ export default function Cadastro() {
             </ul>
           </div>
           <div className={styles.finalImage}>
-            <Image src={finalMan} alt="man with a laptop" />
+            <Img file={finalMan} alt="man with a laptop" />
             <a href="#cadastro">Quero me cadastrar no Meoagent agora!</a>
           </div>
         </div>

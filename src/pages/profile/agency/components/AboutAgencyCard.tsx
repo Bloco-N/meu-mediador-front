@@ -1,7 +1,7 @@
 import { AgencyProfile } from "@/types/AgencyProfile"
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -92,7 +92,7 @@ export default function AboutAgencyCard({localId, accType}:AboutCardProps){
           <p className="elipses-button" onClick={() => setElip(true)}>{t.about.showLess}</p>
         )}
         { sessionProfile ? (
-            <Image onClick={() => aboutEditOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
+            <Img onClick={() => aboutEditOpen(true)} className='edit-main' file={editIcon} alt='edit icon'/>
           ): ''}
       </div> 
     </Container>

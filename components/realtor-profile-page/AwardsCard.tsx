@@ -1,6 +1,6 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -133,8 +133,8 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
           <h2>{t.awards.awards}</h2>
           { sessionProfile  ? (
             <div className="edit-icons">
-              <Image onClick={() => setEditAwards(!editAwards)} className='plus' src={editIcon} alt='edit icon'/>
-              <Image onClick={() => setOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+              <Img onClick={() => setEditAwards(!editAwards)} className='plus' file={editIcon} alt='edit icon'/>
+              <Img onClick={() => setOpen(true)} className='plus' file={plusIcon} alt='edit icon'/>
             </div>
           ): ''}
         </div>
@@ -144,7 +144,7 @@ export default function AwardsCard({localId, accType, sessionProfile}:AwardsCard
               <li key={item.id}>
                 <div className="awards-items">
                   {sessionProfile && editAwards ? (
-                    <Image onClick={e => handleDeleteAward(e)} id={String(item.id)} className="close" src={closeIcon} alt="close icon"/>
+                    <Img onClick={e => handleDeleteAward(e)} id={String(item.id)} className="close" file={closeIcon} alt="close icon"/>
                   ): ''}
                   {item.title}
                 </div>

@@ -1,9 +1,7 @@
-import Image from "next/image";
+import { Img } from '@components/index';
 import { useContext, useEffect, useRef, useState } from "react";
 import LoginMoldal from "../LoginMoldal";
-import UserContext from "context/UserContext";
 import ProfileMoldal from "../ProfileMoldal";
-import { UserContextType } from "@/types/UserContextType";
 import profileIcon from "../../public/userLoged.svg";
 import iconIsLogad from "../../public/user.svg";
 import { useRouter } from "next/router";
@@ -23,6 +21,8 @@ import { FaSearch } from "react-icons/fa";
 import { isMobileDevice } from "@/utils";
 import InfoFooter from "@components/InfoFooter";
 import  Popover  from "@components/Popover";
+import UserContext from 'context/UserContext';
+import { UserContextType } from '@/types/UserContextType';
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState<any>({
@@ -376,9 +376,9 @@ const Navbar:React.FC<any> = ({ children }) => {
 
                 <RenderConditional isTrue={width >= 820}>
                     <div className="locale-area selection border">
-                      <Image
+                      <Img
                         alt="select-language"
-                        src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
+                        url={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
                         width={20}
                         height={20}
                       />
@@ -399,9 +399,11 @@ const Navbar:React.FC<any> = ({ children }) => {
 
                 <RenderConditional isTrue={!!user.token}>
                   <div className="profile-container">
-                  <Popover showArrow triggerNode={<Image
+                  <Popover showArrow triggerNode={<Img
                         className="profile"
-                        src={pic ? pic : perfilImage}
+                        url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${pic}`}
+                        validateURL={!!pic}
+                        file={perfilImage}
                         alt={"Profile"}
                         width={60}
                         height={60}
@@ -414,9 +416,11 @@ const Navbar:React.FC<any> = ({ children }) => {
 
                 <RenderConditional isTrue={!user.token && width <= 768}>
 
-                  <Popover showArrow triggerNode={<Image
+                  <Popover showArrow triggerNode={<Img
                         className="profile"
-                        src={pic ? pic : perfilImage}
+                        url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${pic}`}
+                        validateURL={!!pic}
+                        file={perfilImage}
                         alt={"Profile"}
                         width={60}
                         height={60}

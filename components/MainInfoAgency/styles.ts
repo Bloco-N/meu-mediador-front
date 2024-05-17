@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Img } from "@components/index";
 
 type ContainerProps = {
     isProfile: boolean
@@ -205,7 +206,3 @@ type ContainerProps = {
     }
   `
   
-  export const ResponsiveImage = styled.img`
-    width: 100%;
-    cursor:pointer;
-  `;

@@ -11,8 +11,6 @@ import webIcon from "../../public/web.svg";
 import instagramIcon from "../../public/instagram.svg";
 import facebookIcon from "../../public/facebook.svg";
 import greyImage from "../../public/grey.png";
-import MainInfoProfileEditModalContext from "context/MainInfoProfileEditModalContext";
-import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { LastExp } from "@/types/LastExp";
@@ -28,7 +26,8 @@ import {
   ModalLanguage,
   RenderConditional,
   PopupClose,
-  SimplePopup
+  SimplePopup,
+  Img
 } from "@components/index";
 import "tippy.js/dist/tippy.css";
 import { getQueryParam } from "@/utils";
@@ -176,10 +175,12 @@ const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,P
         <RenderConditional isTrue={isProfile}>
           <div className="top">
             <>
-              <Image
+              <Img
                 height={1000}
                 width={1000}
-                src={!!userSigned?.coverPicture ? `${basePathStorage}/${userSigned?.coverPicture}` : greyImage}
+                url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${userSigned?.coverPicture}`}
+                validateURL={!!userSigned?.coverPicture}
+                file={greyImage}
                 alt="cover image"
                 className="cover-photo"
               />
@@ -202,9 +203,9 @@ const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,P
                     </RenderConditional>
                       <div className="label-back">
                         <label htmlFor="cover-pic" onClick={() => setOpenModalEditPictures(true)}>
-                          <Image
+                          <Img
                             className="edit-main"
-                            src={editIcon}
+                            file={editIcon}
                             alt="edit icon"
                           />
                         </label>
@@ -216,20 +217,22 @@ const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,P
           </div>
         </RenderConditional>
 
-          <Image
+          <Img
             width={100}
             height={100}
+            url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${userSigned?.profilePicture}`}
+            file={profileIcon}
+            validateURL={!!userSigned?.profilePicture}
             onClick={ isProfile ? () => setData({ open: true, userSigned }) : () => {}}
             className={isProfile ? "profile profile-pointer" : "profile"}
-            src={!!userSigned?.profilePicture ? `${basePathStorage}/${userSigned?.profilePicture}` : profileIcon}
             alt="profile icon"
           />
 
         <RenderConditional isTrue={isProfile && sessionProfile && !pdfPage}>
-          <Image
+          <Img
             onClick={() => setOpenModalEdit(true)}
             className="edit-main"
-            src={editIcon}
+            file={editIcon}
             alt="edit icon"
           />
         </RenderConditional>
@@ -324,11 +327,13 @@ const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,P
               <Link href={"/profile/agency/" + lastExp?.agencyId}>
                 <div className="current-agency border" onClick={goAgency}>
                   {truncatedName}
-                  <Image
+                  <Img
                     width={10}
                     height={10}
                     className="agency"
-                    src={!!lastExp?.pic ? `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/agencies/${lastExp?.agencyId}/${lastExp?.pic}` : agencyIcon}
+                    url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${lastExp?.pic}`}
+                    validateURL={!!lastExp?.pic}
+                    file={agencyIcon}
                     alt="agency icon"
                   />
                 </div>
@@ -341,13 +346,13 @@ const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,P
           <div className="contact">
             <RenderConditional isTrue={!!userSigned?.email}>
               <Link href={"mailto: " + userSigned?.email} target="_blank">
-                <Image className="icon" src={mailIcon} alt="mail icon" />
+                <Img className="icon" file={mailIcon} alt="mail icon" />
               </Link>
             </RenderConditional>
 
             <RenderConditional isTrue={!!userSigned?.website}>
               <Link href={userSigned?.website} target="_blank">
-                <Image className="icon" src={webIcon} alt="web icon" />
+                <Img className="icon" file={webIcon} alt="web icon" />
               </Link>
             </RenderConditional>
 
@@ -364,9 +369,9 @@ const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,P
                 }
                 target="_blank"
               >
-                <Image
+                <Img
                   className="icon"
-                  src={whatsappIcon}
+                  file={whatsappIcon}
                   alt="whatsapp icon"
                 />
               </Link>
@@ -374,9 +379,9 @@ const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,P
 
             <RenderConditional isTrue={!!userSigned?.instagram}>
               <Link href={userSigned?.instagram} target="_blank">
-                <Image
+                <Img
                   className="icon"
-                  src={instagramIcon}
+                  file={instagramIcon}
                   alt="instagram icon"
                 />
               </Link>
@@ -384,9 +389,9 @@ const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,P
 
             <RenderConditional isTrue={!!userSigned?.facebook}>
               <Link href={userSigned?.facebook} target="_blank">
-                <Image
+                <Img
                   className="icon-facebook"
-                  src={facebookIcon}
+                  file={facebookIcon}
                   alt="facebook icon"
                 />
               </Link>
@@ -499,8 +504,8 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({ setOpen }) =>
         <C.FileInputContainer>
           <label htmlFor="inputFile1">
             Alterar Foto de Perfil 
-            <Image
-              src={editIcon}
+            <Img
+              file={editIcon}
               alt="edit icon"
             />
           </label>
@@ -520,8 +525,8 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({ setOpen }) =>
         <C.FileInputContainer>
           <label htmlFor="inputFile2">
             Alterar Foto de Capa
-            <Image
-              src={editIcon}
+            <Img
+              file={editIcon}
               alt="edit icon"
             />
           </label>

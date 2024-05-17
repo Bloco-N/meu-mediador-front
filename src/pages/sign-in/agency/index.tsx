@@ -51,7 +51,7 @@ const SignInRealtor = () => {
           const agencyResponse = await api.get(`/agency/${user.id}`);
           const agencyData = agencyResponse.data;
 
-          localStorage.setItem("pic", JSON.stringify(agencyData?.profilePicture));
+          localStorage.setItem("pic", agencyData?.profilePicture);
           localStorage.setItem("accountType", "agency");
 
           setUser({

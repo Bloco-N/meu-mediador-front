@@ -1,6 +1,6 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -118,13 +118,13 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
                 <p className="service" key={item.id}>
                   {item.service.title}
                   { sessionProfile && (
-                  <Image onClick={ e => handleDeleteService(e)} id={String(item.id)} className="close" src={closeIcon} alt='close icon'/>
+                  <Img onClick={ e => handleDeleteService(e)} id={String(item.id)} className="close" file={closeIcon} alt='close icon'/>
                 )}
                 </p> 
           )}
 
           { sessionProfile ? (
-            <Image onClick={() => addServiceSetOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
+            <Img onClick={() => addServiceSetOpen(true)} className='edit-main' file={editIcon} alt='edit icon'/>
           ): ''}
       </div>
     </Container>
