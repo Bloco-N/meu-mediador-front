@@ -16,192 +16,16 @@ import {
 import { useForm } from "react-hook-form";
 import { Rating } from "react-simple-star-rating";
 import { toast } from "react-toastify";
-import styled from "styled-components";
+import * as S from './styles'
 
-const Container = styled.div`
-  position: fixed;
-  z-index: 3;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  form {
-    background-color: #bababa;
-    position: relative;
-    height: 65rem;
-    width: 40%;
-    border-radius: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 2rem;
-    padding-top: 4rem;
-    @media (max-width: 1000px) {
-      width: 60%;
-      height: 70rem;
-    }
-    @media (max-width: 654px) {
-      width: 80%;
-      gap: 1rem;
-      height: 65rem;
-    }
-    @media (max-width: 376px) {
-      gap: 0.1rem;
-      gap: 1.5rem;
-      padding-top: 2.5rem;
-
-      @media (max-width: 600px) {
-        width: 80%;
-        height: auto;
-        padding-top: 2rem;
-      }
-    }
-
-    textarea {
-      min-height: 10rem;
-      @media (max-width: 600px) {
-        width: 85%;
-        min-height: 20rem;
-      }
-    }
-  }
-
-  div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    width: 80%;
-
-    p {
-      font-weight: bold;
-    }
-    @media (max-width: 376px) {
-      height: 8rem;
-    }
-  }
-
-  .desableForm {
-    height: 20rem;
-  }
-  .redirect {
-    position: absolute;
-    top: 50%;
-    font-weight: bold;
-    text-align: center;
-    a{
-      text-decoration: underline;
-      color: #000;
-    }
-  }
-
-  .close {
-    cursor: pointer;
-    position: absolute;
-    top: 2.5rem;
-    right: 3rem;
-    height: 3rem;
-    width: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--surface-2);
-    color: var(--surface);
-    border-radius: 1rem;
-    font-weight: bold;
-
-    @media (max-width: 600px) {
-      top: 2.5%;
-    }
-  }
-
-  .star-svg {
-    @media (max-width: 900px) {
-      width: 3.5rem !important;
-    }
-    @media (max-width: 400px) {
-      width: 3.5rem !important;
-    }
-  }
-  select {
-    width: 26%;
-    height: 3.5rem;
-    padding: 0.5rem;
-    font-size: 16px;
-    text-align: center;
-    overflow: auto;
-
-    @media (max-width: 600px) {
-      width: 40%;
-      font-size: 12px;
-    }
-  }
-
-  input {
-    width: 26%;
-    height: 3.5rem;
-    text-align: left;
-    font-size: 10px;
-
-    @media (max-width: 600px) {
-      width: 27%;
-      font-size: 10px;
-    }
-  }
-
-  button {
-    margin-bottom: 8em;
-
-    @media (max-width: 600px) {
-      margin-bottom: 2em;
-    }
-  }
-
-  .redirectContainer {
-    position: absolute;
-    top: 40%;
-    font-weight: bold;
-    font-size: 18px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 50%;
-
-    @media (max-width: 600px) {
-      font-size: 10px;
-    }
-
-    .styledLink {
-      margin-left: 5px;
-      margin-right: 0;
-    }
-
-    .redirectMessage {
-      display: inline;
-    }
-    .divLabel {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-    .link {
-      text-decoration: underline;
-    }
-  }
-`;
 
 type AddCommentModalProps = {
-  open: boolean;
+  open?: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  setChildSize: any
 };
 
-const AddCommentModal = ({ open, setOpen }: AddCommentModalProps) => {
+const AddCommentModal = ({ setOpen, setChildSize }: AddCommentModalProps) => {
   const [marketExpertiseRating, setMarketExpertiseRating] = useState(0);
   const [responsivenessRating, setResponsivenessRating] = useState(0);
   const [negotiationSkillsRating, setNegotiationSkillsRating] = useState(0);
@@ -317,8 +141,9 @@ const AddCommentModal = ({ open, setOpen }: AddCommentModalProps) => {
       setValidateClient(false);
     } else {
       setValidateClient(true);
+      setChildSize({ width: "100%", height: "20%", radius: 10 })
     }
-  }, [open]);
+  }, []);
 
   const hasWindow = typeof window !== "undefined";
 
@@ -344,10 +169,10 @@ const AddCommentModal = ({ open, setOpen }: AddCommentModalProps) => {
     }
   }, [hasWindow]);
 
-  return open ? (
-    <Container className="modal">
-      <form onSubmit={handleSubmit(onSubmit)} action="">
-        {accType === "client" ? (
+  return(
+    <S.Container className="modal">
+      <form className="border" onSubmit={handleSubmit(onSubmit)} action="">
+        {/* {accType === "client" ? ( */}
           <>
             <h3>{t.review.createAReview}</h3>
             <div>
@@ -391,9 +216,9 @@ const AddCommentModal = ({ open, setOpen }: AddCommentModalProps) => {
             <p className="close" onClick={() => setOpen(false)}>
               X
             </p>
-            <button type="submit"> {t.addCity.add} </button>
+            <button className="button" type="submit"> {t.addCity.add} </button>
           </>
-        ) : (
+        {/* ) : (
           <>
             <p className="close" onClick={() => setOpen(false)}>
               X
@@ -425,11 +250,9 @@ const AddCommentModal = ({ open, setOpen }: AddCommentModalProps) => {
               </div>
             )}
           </>
-        )}
+        )} */}
       </form>
-    </Container>
-  ) : (
-    <></>
+    </S.Container>
   );
 };
 

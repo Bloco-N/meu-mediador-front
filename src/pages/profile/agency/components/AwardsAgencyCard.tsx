@@ -1,6 +1,6 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -120,15 +120,15 @@ export default function AwardsAgencyCard({localId, accType}:AwardsAgencyCardProp
         <h2>Prêmios e distinções</h2>
         { sessionProfile ? (
           <div className="edit-icons">
-            <Image onClick={() => setEditAwards(!editAwards)} className='plus' src={editIcon} alt='edit icon'/>
-            <Image onClick={() => addAwardSetOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+            <Img onClick={() => setEditAwards(!editAwards)} className='plus' file={editIcon} alt='edit icon'/>
+            <Img onClick={() => addAwardSetOpen(true)} className='plus' file={plusIcon} alt='edit icon'/>
           </div>
         ): ''}
         <ul>
           {awards?.map(item => (
               <li key={item.id}>
                 {sessionProfile && editAwards ? (
-                  <Image onClick={e => handleDeleteAward(e)} id={String(item.id)} className="close" src={closeIcon} alt="close icon"/>
+                  <Img onClick={e => handleDeleteAward(e)} id={String(item.id)} className="close" file={closeIcon} alt="close icon"/>
                 ): ''}
                 {item.title}
               </li>

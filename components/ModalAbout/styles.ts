@@ -9,8 +9,10 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  form{
-    background-color: #BABABA;
+  form {
+    background-color: #bababac7;
+    backdrop-filter: blur(0.3rem);
+    -webkit-backdrop-filter: blur(0.3rem);
     position: relative;
     height: 80%;
     width: 50%;
@@ -20,15 +22,15 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    padding-top: 5rem;
-    textarea{
+    padding: 5rem 2rem ;
+    textarea {
       height: 70%;
     }
     @media (max-width: 1000px) {
       width: 90%;
     }
   }
-  p{
+  p {
     cursor: pointer;
     position: absolute;
     top: 3rem;
@@ -43,4 +45,4 @@ export const Container = styled.div`
     border-radius: 1rem;
     font-weight: bold;
   }
-`
+`;

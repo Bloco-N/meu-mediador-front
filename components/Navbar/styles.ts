@@ -507,7 +507,7 @@ export const ContainerInputs = styled.div`
   input,
   select {
     flex: 1;
-    height: 25px;
+    height: 45px;
     border-radius: 1rem;
     border: 1px solid #3a2e2c5a;
     font-size: 14px;
@@ -531,6 +531,7 @@ export const FooterActionsModal = styled.div`
     border-radius: 1rem;
     cursor: pointer;
     padding: 0.5rem;
-    min-width: 10rem;
+    min-width: 12rem;
+    height: 35px;
   }
 `;

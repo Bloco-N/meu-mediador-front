@@ -1,21 +1,18 @@
 import { UserContextType } from "@/types/UserContextType";
 import UserContext from "context/UserContext";
-import Image from "next/image";
+import { Img } from '@components/index';
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import plusIcon from "@/../public/plus.svg";
-import closeIcon from "@/../public/close.svg";
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import AddPropertyModalContext from "context/AddPropertyModalContext";
-import { Property } from "@/types/Property";
 import Link from "next/link";
 import PropertyTypes, { TPropertyTypes } from "@/types/PropertyTypes";
 import Rooms, { TRooms } from "@/types/Rooms";
 import Preservations, { TPreservations } from "@/types/Preservations";
 import { timeSince } from "@/utils/timeSince";
 import LoadingContext from "context/LoadingContext";
-import { AgencyProfile } from "@/types/AgencyProfile";
 import housePaceholder from "../../../../../public/placeholder.jpg";
 import locales from "locales";
 import EnergyEfficience, { TEnergyEfficience } from "@/types/EnergyEfficience";
@@ -185,9 +182,11 @@ export default function AgencyRealtorsPropertiesCard({ agency }: any) {
                   </a>
                 </div>
                 <div className="image-container">
-                  <Image
+                  <Img
                     className="property-img"
-                    src={item[0].profilePicture || housePaceholder}
+                    file={housePaceholder}
+                    url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${item[0].profilePicture}`}
+                    validateURL={!!item[0].profilePicture}
                     width={200}
                     height={100}
                     alt="profile picture"
@@ -294,9 +293,11 @@ export default function AgencyRealtorsPropertiesCard({ agency }: any) {
                       {`${item[1].realtorName} ${item[1].realtorLastName}`}
                     </a>
                   </div>
-                  <Image
+                  <Img
                     className="property-img"
-                    src={item[1].profilePicture || housePaceholder}
+                    src={item[1].profilePicture}
+                    validateURL={!!item[1].profilePicture}
+                    file={housePaceholder}
                     width={200}
                     height={100}
                     alt="profile picture"
@@ -335,10 +336,10 @@ export default function AgencyRealtorsPropertiesCard({ agency }: any) {
             </div>
           ))}
           {sessionProfile ? (
-            <Image
+            <Img
               onClick={() => addPropertySetOpen(true)}
               className="plus"
-              src={plusIcon}
+              file={plusIcon}
               alt="edit icon"
             />
           ) : (

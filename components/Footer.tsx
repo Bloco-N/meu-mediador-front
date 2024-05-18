@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "context/UserContext";
 import { UserContextType } from "@/types/UserContextType";
 import { useRouter } from "next/router";
+import { Img } from "@components/index";
 
 const FooterStyle = styled.div`
     display: none;
@@ -115,9 +116,9 @@ const Footer = () => {
       <>
         <FooterStyle>
             <div className="selection border">
-                  <Image
+                  <Img
                     alt="United States"
-                    src={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
+                    url={`http://purecatamphetamine.github.io/country-flag-icons/3x2/${flag}.svg`}
                     width={20}
                     height={20}
                   />

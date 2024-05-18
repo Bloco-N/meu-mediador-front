@@ -50,7 +50,7 @@ export default function SimplePopup({ qtdeCitys, cities,textPopupList }: IPopup)
           onMouseLeave={handleMouseLeave}
         >
           <PopupBody>
-            <div className="close">
+            <div className="close" onClick={() => setOpen(false)}>
               <b>{textPopupList}</b>
               <CloseButton onClick={handleClose}>X</CloseButton>
             </div>
@@ -96,7 +96,7 @@ const PopupBody = styled.div`
   border-radius: 5px;
   background-color: #d3d2d2;
   font-size: 0.875rem;
-  z-index: 5;
+  z-index: 9999;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   list-style-type: none;
   gap: 3px;
@@ -121,8 +121,9 @@ const PopupBody = styled.div`
   }
 
   .close {
-    width: 100%;
     display: flex;
+    flex-direction:row;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
     
@@ -144,14 +145,14 @@ const Button = styled.b`
     content: '';
     position: absolute;
     left: 0;
-    bottom: -3px; /* Ajuste conforme necessário */
+    bottom: -3px;
     width: 100%;
     height: 1px;
-    background-color: black; /* Cor da linha */
+    background-color: black;
   }
 
   &:hover:after {
-    background-color: black /* Cor da linha quando passar o mouse */
+    background-color: black;
   }
 
   &:hover {
@@ -170,7 +171,8 @@ const CloseButton = styled.div`
   border: none;
   background: none;
   font-size: 14px;
-  margin-top: 5px;
+  margin-top: 2px;
+  margin-left:5px;
   color: #333;
   &:hover {
     color: #000;

@@ -1,10 +1,8 @@
-import Image from "next/image";
 import React, { useContext, useEffect, useState } from "react";
 import profileIcon from "@/../public/profile.svg";
 import styled from "styled-components";
 import mailIcon from "../../public/mail.svg";
-import UserContext from "context/UserContext";
-import { UserContextType } from "@/types/UserContextType";
+import { Img } from '@components/index';
 import { ModalOpenContextType } from "@/types/ModalOpenContextType";
 import Link from "next/link";
 import { ApiService } from "@/services/ApiService";
@@ -375,9 +373,9 @@ const MainInfoClient = ({
   return (
     <Container isProfile={isProfile} editing={editing} locale={String(locale)}>
       <div className="main-info border">
-        <Image
+        <Img
           className={isProfile ? "profile profile-pointer" : "profile"}
-          src={profileIcon}
+          file={profileIcon}
           alt="profile icon"
         />
         <div className="sub-content">
@@ -391,7 +389,7 @@ const MainInfoClient = ({
 
                 <RenderConditional isTrue={!!userSigned?.email}>
                   <Link href={"mailto: " + userSigned.email} target="_blank">
-                      <Image className="icon" src={mailIcon} alt="mail icon" />
+                      <Img className="icon" file={mailIcon} alt="mail icon" />
                   </Link>
                 </RenderConditional>
 

@@ -1,5 +1,5 @@
 import { AddLanguageForm } from '../../src/types/AddLanguageForm';
-import Image from 'next/image';
+import { Img } from '@components/index';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -125,13 +125,13 @@ const AddLanguageModal = ({setOpen}: AddLanguageModalProps) => {
           {user?.RealtorLanguages?.map((item: any )=> (
             <p key={item.id} >
               {item.Language.name}
-              <Image onClick={e => handleDeleteLanguage(e)} id={String(item.id)} className="close-icon" src={closeIcon} alt="close icon"/>
+              <Img onClick={e => handleDeleteLanguage(e)} id={String(item.id)} className="close-icon" file={closeIcon} alt="close icon"/>
             </p>
           ))}
           {user?.AgencyLanguages?.map((item: any ) => (
             <p key={item.id} >
               {item.Language.name}
-              <Image onClick={e => handleDeleteLanguage(e)} id={String(item.id)} className="close-icon" src={closeIcon} alt="close icon"/>
+              <Img onClick={e => handleDeleteLanguage(e)} id={String(item.id)} className="close-icon" file={closeIcon} alt="close icon"/>
             </p>
           ))}
         </div>

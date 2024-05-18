@@ -8,6 +8,7 @@ import clientIcon from "../public/profile.svg";
 import locales from "locales";
 import { useRouter } from "next/router";
 import RenderConditional from "./RenderConditional";
+import { Img } from "@components/index";
 
 const Container = styled.div`
   display: flex;
@@ -79,17 +80,17 @@ const LoginMoldal = ({ open, setOpen = () => {},notModal }: LoginMoldalProps) =>
       <Container>
           <Link href={"/sign-in/client"}>
             <h2 onClick={handleClick}>{t.loginModal.client}</h2>
-            <Image src={clientIcon} alt="realtor icon" />
+            <Img file={clientIcon} alt="realtor icon" />
           </Link>
           <Line/>
           <Link href={"/sign-in/realtor"}>
             <h2 onClick={handleClick}>{t.loginModal.realtor}</h2>
-            <Image src={realtorIcon} alt="realtor icon" />
+            <Img file={realtorIcon} alt="realtor icon" />
           </Link>
           <Line/>
           <Link href={"/sign-in/agency"}>
             <h2 onClick={handleClick}>{t.loginModal.agency}</h2>
-            <Image src={agencyIcon} alt="realtor icon" />
+            <Img file={agencyIcon} alt="realtor icon" />
           </Link>
         </Container>
     )
@@ -101,15 +102,15 @@ const LoginMoldal = ({ open, setOpen = () => {},notModal }: LoginMoldalProps) =>
     <Container onMouseEnter={() => setOpen(true)}>
         <Link href={"/sign-in/client"}>
           <h2 onClick={handleClick}>{t.loginModal.client}</h2>
-          <Image src={clientIcon} alt="realtor icon" />
+          <Img file={clientIcon} alt="realtor icon" />
         </Link>
         <Link href={"/sign-in/realtor"}>
           <h2 onClick={handleClick}>{t.loginModal.realtor}</h2>
-          <Image src={realtorIcon} alt="realtor icon" />
+          <Img file={realtorIcon} alt="realtor icon" />
         </Link>
         <Link href={"/sign-in/agency"}>
           <h2 onClick={handleClick}>{t.loginModal.agency}</h2>
-          <Image src={agencyIcon} alt="realtor icon" />
+          <Img file={agencyIcon} alt="realtor icon" />
         </Link>
     </Container>
     </RenderConditional>

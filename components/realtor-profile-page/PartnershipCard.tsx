@@ -1,6 +1,6 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -9,7 +9,6 @@ import plusIcon from '@/../public/plus.svg'
 import closeIcon from '@/../public/close.svg'
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
 import agencyIcon from '@/../public/agency.svg'
-import AddPartnershipModalContext from "context/AddPartnershipModalContext"
 import { PartnershipList } from "@/types/PartnershipList"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
@@ -114,7 +113,7 @@ export default function PartnershipCard({localId, accType, sessionProfile}:Partn
   
   const [partnerships, setPartnerships] = useState<PartnershipList []>()
   const [open, setOpen] = useState(false)
-  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
+  const [childSizeModal, setChildSize] = useState({ width: "95%", height: "100%", radius: 10 });
 
   const [indexPartnership, setIndexPartnership] = useState(-1)
 
@@ -178,22 +177,22 @@ export default function PartnershipCard({localId, accType, sessionProfile}:Partn
       <div className="card expiriences">
         <h2>{t.partnership.partnership}</h2>
         { sessionProfile ? (
-          <Image onClick={() => setOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+          <Img onClick={() => setOpen(true)} className='plus' file={plusIcon} alt='edit icon'/>
         ): ''}
         <div className="list">
           {partnerships?.map((item, index) => (
             <div key={index} className="card work">
             { sessionProfile ? (
-            <Image onClick={() => handleEditPartnership(index)} className='plus' src={editIcon} alt='edit icon'/>
+            <Img onClick={() => handleEditPartnership(index)} className='plus' file={editIcon} alt='edit icon'/>
           ): ''}
               <div className="header">
-                <Image width={10} height={10} className="agency-img" src={item.pic ? item.pic : agencyIcon} alt="" />
+                <Img width={10} height={10} className="agency-img" file={item.pic ? item.pic : agencyIcon} alt="" />
                 <div className="infos">
                 {item.list.map((partnership) => (
                     <div key={partnership.id} className="position">
                       <div>
                         {sessionProfile && index === indexPartnership ?(
-                            <Image onClick={e => handleDeletePartnership(e)} id={String(partnership.id)} className="close" src={closeIcon} alt="close icon"/>
+                            <Img onClick={e => handleDeletePartnership(e)} id={String(partnership.id)} className="close" file={closeIcon} alt="close icon"/>
                             ): ''}
                         <h3>{partnership.title}</h3>
                       </div>

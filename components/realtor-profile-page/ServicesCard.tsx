@@ -1,13 +1,12 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import editIcon from '@/../public/edit.svg'
 import closeIcon from '@/../public/close.svg'
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
-import AddServiceModalContext from "context/AddServiceModalContext"
 import { RealtorService } from "@/types/RealtorService"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
@@ -40,7 +39,7 @@ const Container = styled.div`
       position: relative;
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
       .close{
         position: relative;
       }
@@ -56,7 +55,7 @@ export default function ServicesCard({localId, accType, sessionProfile}:Services
 
   const [services, setServices] = useState<RealtorService []>()
   const [openModalService, setOpenModalService] = useState(false)
-  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
+  const [childSizeModal, setChildSize] = useState({ width: "95%", height: "100%", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -113,13 +112,13 @@ export default function ServicesCard({localId, accType, sessionProfile}:Services
                   {locale === 'pt' && servicesLocales.pt[item.service.title as keyof typeof servicesLocales.pt]}
                   {locale === 'es' && servicesLocales.es[item.service.title as keyof typeof servicesLocales.es]}
                   { sessionProfile && (
-                  <Image onClick={ e => handleDeleteService(e)} id={String(item.id)} className="close" src={closeIcon} alt='close icon'/>
+                  <Img onClick={ e => handleDeleteService(e)} id={String(item.id)} className="close" file={closeIcon} alt='close icon'/>
                 )}
                 </p> 
           )}
 
           { sessionProfile ? (
-            <Image onClick={() => setOpenModalService(true)} className='edit-main' src={editIcon} alt='edit icon'/>
+            <Img onClick={() => setOpenModalService(true)} className='edit-main' file={editIcon} alt='edit icon'/>
           ): ''}
       </div>
       <Modal isOpen={openModalService} onClose={() => setOpenModalService(false)} childSize={childSizeModal}>

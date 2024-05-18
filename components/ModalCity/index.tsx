@@ -1,5 +1,5 @@
 import { AddCityForm } from '@/types/AddCityForm';
-import Image from 'next/image';
+import { Img } from '@components/index';
 import { useRouter } from 'next/router';
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -117,6 +117,7 @@ const AddCityModal = ({setOpen}: AddCityModalProps) => {
       toast.error(t.toast.errorRemoveCity)
     })
   }
+  
 
   return (
     <S.Container className='modal'>
@@ -127,13 +128,13 @@ const AddCityModal = ({setOpen}: AddCityModalProps) => {
           {user?.RealtorCities?.map((item:any) => (
             <p key={item.id} >
               {item.City.name}
-              <Image onClick={e => handleDeleteCity(e)} id={String(item.id)} className="close-icon" src={closeIcon} alt="close icon"/>
+              <Img onClick={e => handleDeleteCity(e)} id={String(item.id)} className="close-icon" file={closeIcon} alt="close icon"/>
             </p>
           ))}
           {user?.AgencyCities?.map((item:any) => (
             <p key={item.id} >
               {item.City.name}
-              <Image onClick={e => handleDeleteCity(e)} id={String(item.id)} className="close-icon" src={closeIcon} alt="close icon"/>
+              <Img onClick={e => handleDeleteCity(e)} id={String(item.id)} className="close-icon" file={closeIcon} alt="close icon"/>
             </p>
           ))}
         </div>

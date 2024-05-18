@@ -1,7 +1,7 @@
 import { RealtorProfile } from "@/types/RealtorProfile"
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -54,7 +54,7 @@ export default function AboutCard({localId, accType, sessionProfile, pdfPage=fal
 
   const [ realtor, setRealtor ] = useState<RealtorProfile>()
   const [openModal, setOpen] = useState(false)
-  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
+  const [childSizeModal, setChildSize] = useState({ width: "950%", height: "100%", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
   
@@ -101,7 +101,7 @@ export default function AboutCard({localId, accType, sessionProfile, pdfPage=fal
           <p className="elipses-button" onClick={() => setElip(true)}>{t.about.showLess}</p>
         )}
         { sessionProfile ? (
-            <Image onClick={() => setOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
+            <Img onClick={() => setOpen(true)} className='edit-main' file={editIcon} alt='edit icon'/>
           ): ''}
       </div> 
       <Modal isOpen={openModal} onClose={() => setOpen(false)} childSize={childSizeModal}>

@@ -162,7 +162,7 @@ const MainInfoProfileEditModal = ({setOpen, setOpenCity, setOpenLanguage}:MainIn
         <div className="input-group options">
             <select
               {...register('phoneCountry', { required: true })}
-              value={userSigned?.phoneCountry || "+55 99 9 9999 9999"}
+              value={phoneMask || "+55 99 9 9999 9999"}
               onChange={handlePhoneCountryChange}
             >
               <option value="+55 99 9 9999 9999">Brasil</option>
@@ -171,7 +171,7 @@ const MainInfoProfileEditModal = ({setOpen, setOpenCity, setOpenLanguage}:MainIn
             </select>
             <select
               {...register('wppCountry', { required: true })}
-              value={userSigned?.wppCountry || "+55 99 9 9999 9999"}
+              value={wppMask || "+55 99 9 9999 9999"}
               onChange={handleWppCountryChange}
             >
               <option value="+55 99 9 9999 9999">Brasil</option>

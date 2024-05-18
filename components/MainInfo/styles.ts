@@ -1,47 +1,82 @@
 import styled from "styled-components";
 
 type ContainerProps = {
-    isProfile: boolean;
-  };
+  isProfile: boolean;
+};
 
 export const Container = styled.div<ContainerProps>`
-position: relative;
-height: 100%;
-display: flex;
-justify-content: center;
-
-min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
-@media only screen and (max-width: 900px) {
-  min-height: ${(props) => (props.isProfile ? "60rem" : "40rem")};
-  height: 100%;
-}
-
-.main-info {
-  width: 100%;
+  position: relative;
   height: 100%;
   display: flex;
-  align-items: center;
-  background-color: var(--surface);
-  padding: 3rem;
-  height: 100%;
-  gap: 1rem;
-  border-radius: 30px;
+  justify-content: center;
+  background-color: #d3d2d2 !important;
+  min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
+  @media only screen and (max-width: 900px) {
+    min-height: ${(props) => (props.isProfile ? "60rem" : "40rem")};
+    height: 100%;
+  }
 
-  .top {
-    position: absolute;
+  .main-info {
     width: 100%;
-    height: 22rem;
-    top: 0;
-    left: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: var(--surface);
+    padding: 3rem;
+    height: 100%;
+    gap: 1rem;
+    border-radius: 30px;
 
-    .label-back {
+    .top {
+      position: absolute;
+      width: 100%;
+      height: 22rem;
+      top: 0;
+      left: 0;
+
+      .label-back {
+        background-color: var(--surface);
+        border-radius: 50%;
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        top: 1rem;
+        right: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          position: unset;
+        }
+      }
+
+      .deletAccount-back {
+        background-color: #c14341;
+        border-radius: 50%;
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        top: 1rem;
+        right: 7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          position: unset;
+        }
+      }
+    }
+
+    .pdf-back {
       background-color: var(--surface);
       border-radius: 50%;
       height: 4rem;
       width: 4rem;
       position: absolute;
       top: 1rem;
-      right: 2rem;
+      right: 17rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -49,6 +84,10 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
       img {
         position: unset;
       }
+    }
+
+    @media only screen and (max-width: 900px) {
+      flex-direction: column;
     }
   }
 
@@ -77,7 +116,6 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
 
   @media only screen and (max-width: 900px) {
     flex-direction: column;
-    
   }
 
   .sub-content {
@@ -88,7 +126,10 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     width: 100%;
     flex-wrap: wrap;
     justify-content: ${(props) => (props.isProfile ? "" : "space-between")};
-    /* justify-content: space-between; */
+
+    @media only screen and (max-width: 1400px) {
+      justify-content: flex-start;
+    }
 
     @media only screen and (max-width: 900px) {
       flex-direction: column;
@@ -132,12 +173,14 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     max-width: 300px;
     width: 100%;
     align-items: flex-start;
-    
-    p{
+    font-size: 10px;
+
+    p {
       display: flex;
-      gap:2px;
+      gap: 2px;
       white-space: nowrap !important;
       flex-wrap: wrap;
+      font-size: 16px;
     }
 
     @media only screen and (max-width: 900px) {
@@ -151,8 +194,6 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     flex-direction: column;
     justify-content: flex-end;
     gap: 0.5rem;
-
-
 
     .bottom {
       display: flex;
@@ -178,20 +219,21 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
       font-size: 16px;
     }
 
-    p {
-      font-size: 16px;
-    }
-
     .cities {
       width: 100%;
       display: flex;
-      font-size: 14px;
-      flex-wrap: wrap;
+      /* flex-wrap: wrap; */
+      white-space: nowrap;
+
+      @media only screen and (max-width: 1400px) {
+        flex-wrap: wrap;
+        white-space: wrap;
+      }
 
       span {
         margin-right: 5px;
         margin-left: 1px;
-        font-size: 15px;
+        font-size: 16px;
       }
 
       @media only screen and (max-width: 900px) {
@@ -200,7 +242,7 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
         justify-content: center;
 
         b {
-          font-size: 15px;
+          font-size: 16px;
         }
 
         p {
@@ -218,32 +260,30 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     gap: 2rem;
     align-items: end;
 
-
-    @media(max-width:768px) {
+    @media (max-width: 768px) {
       position: static;
     }
 
-    @media(max-width:1280px) {
+    @media (max-width: 1280px) {
       right: 59%;
     }
 
-    @media(max-width:1097.14px) {
+    @media (max-width: 1097.14px) {
       right: 52%;
     }
 
-    @media(max-width:960px) {
+    @media (max-width: 960px) {
       right: 56%;
     }
 
-
-
-    ${(props) => (props.isProfile && `
+    ${(props) =>
+      props.isProfile &&
+      `
       justify-content: center;
       position:absolute;
       bottom:50px;
       right:10px;
-    `)}
-
+    `}
 
     .icon {
       height: 3rem;
@@ -271,8 +311,6 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     }
   }
 
-
-
   .profile-pointer {
     cursor: pointer;
   }
@@ -296,36 +334,41 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
   }
 
   background: #fff;
-}
 
-.about-3 {
-  gap: 0.5rem;
-  margin-top: 0.3em;
-  width: fit-content;
-  min-width: 240px;
+  .about-3 {
+    gap: 0.5rem;
+    margin-top: 0.3em;
+    width: fit-content;
+    min-width: 180px;
 
-  p {
-    margin-bottom: 0.5rem;
-    font-size: 16px;
-  }
-
-  @media only screen and (max-width: 900px) {
-    align-items: center;
-    text-align: center;
-    min-width: 100%;
-  }
-
-  .popup {
-    position: unset;
-    z-index: 40;
-  }
-
-  @media only screen and (max-width: 900px) {
     p {
-      font-size: 15px;
+      margin-bottom: 0.5rem;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    @media only screen and (max-width: 1400px) {
+      font-size: 16px;
+      width: 10%;
+    }
+
+    @media only screen and (max-width: 900px) {
+      align-items: center;
+      text-align: center;
+      min-width: 100%;
+    }
+
+    .popup {
+      position: unset;
+      z-index: 40;
+    }
+
+    @media only screen and (max-width: 900px) {
+      p {
+        font-size: 16px;
+      }
     }
   }
-}
 
   .current-agency {
     background: #fff;
@@ -336,13 +379,14 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     padding: 1rem;
     border-radius: 1rem;
     min-width: 180px;
-    
-    ${(props) => (props.isProfile && `
+
+    ${(props) =>
+      props.isProfile &&
+      `
         position: absolute;
         bottom:52%;
         right:20px;
-    `)}
-    
+    `}
 
     @media only screen and (max-width: 900px) {
       position: unset;
@@ -356,15 +400,189 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
     }
   }
 
-.icon-agency {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-  justify-content: center;
-
-  a {
+  .icon-agency {
     display: flex;
+    align-items: center;
+    white-space: nowrap;
     justify-content: center;
+
+    a {
+      display: flex;
+      justify-content: center;
+    }
   }
-}
+`;
+
+// Upload images
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalContent = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 800px;
+`;
+
+export const Divider = styled.div`
+  border-top: 2px dashed #ccc;
+  margin: 2rem 0;
+  width: 100%;
+`;
+
+export const FileInputContainer = styled.div`
+  label {
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    gap: 1rem;
+
+    img {
+      height: 2rem;
+      width: 2rem;
+      bottom: 2rem;
+      right: 2rem;
+      cursor: pointer;
+    }
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 2rem;
+  }
+
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+export const SelectedImage = styled.img<{ profileRadius?: boolean }>`
+  max-height: 200px;
+  display: block;
+  margin: 10px auto;
+  border-radius: ${({ profileRadius }) => (profileRadius ? "50%" : "10px")};
+  object-fit: cover;
+  position: relative;
+`;
+
+export const HeaderChangePictures = styled.div`
+  display: flex;
+  width: 100%;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: end;
+  overflow: hidden;
+  margin-top: 10px;
+`;
+
+export const ProgressBar = styled.div`
+  position: relative;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  background-color: #f3f3f3;
+  overflow: hidden;
+  border-radius: 10px;
+`;
+
+export const Progress = styled.div<{ width: number }>`
+  padding: 0.05em;
+  background-color: #4caf50;
+  text-align: end;
+  width: ${({ width }) => width}%;
+  height: 20px;
+
+  p {
+    position: absolute;
+    right: 0;
+    font-weight: bold;
+    padding-right: 5px;
+  }
+`;
+
+export const ResponsiveImage = styled.img`
+  width: 100%;
+  cursor: pointer;
+`;
+
+export const ButtonUpload = styled.button`
+  all: unset;
+  color: #fff;
+  font-size: 14px;
+  background: var(--surface-2);
+  text-align: center;
+  border-radius: 1rem;
+  cursor: pointer;
+  padding: 0.8rem;
+  width: 25%;
+  margin: 1rem;
+`;
+
+export const PreviewCardProfile = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  background-color: var(--surface);
+`;
+
+export const PreviewCardProfileTop = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  height: 200px;
+`;
+
+export const PreviewCardProfileBottom = styled.div`
+  position: relative;
+  display: flex;
+  width: 90%;
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  justify-content: end;
+  align-items: center;
+  gap: 5rem;
+`;
+
+export const PreviewProfileImage = styled.img`
+  position: absolute;
+  width: 15rem;
+  height: 15rem;
+  border-radius: 50%;
+  object-fit: cover;
+  bottom: -50px;
+  left: 20px;
+  z-index: 1;
+`;
+
+export const PreviewProfileCoverImage = styled.img`
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  object-fit: cover;
 `;

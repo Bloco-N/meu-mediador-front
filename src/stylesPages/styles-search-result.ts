@@ -23,6 +23,9 @@ export const Container = styled.div`
     .teste{
       width: 95%;
       cursor: pointer;
+      @media only screen and (max-width: 768px) {
+        width: 85%;
+      }
       .card{
         height: 100%;
         width: 100%;
@@ -72,7 +75,7 @@ export const Divider =  styled.div`
 export const TextHeader =  styled.h4`
   font-weight: bold;
   font-size: 16px;
-  color: #757575;
+  color: black;
 `
 
 export const TextList =  styled.p`
@@ -99,4 +102,19 @@ export const FooterBaseFilterPopover =  styled.div`
     min-width: 10rem;
   }
 
+`
+export const ButtonFilter = styled.div`
+  padding: 0.3em 1.5em;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #E8E8E8;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  border: 1px solid #B5B3B3;
+
+  h3{
+    font-size: 18px;
+  }
 `

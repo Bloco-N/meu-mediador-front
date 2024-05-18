@@ -32,7 +32,7 @@ export const ModalWrapper = styled.div<IModalContentProps>`
   height: 100%;
   display: flex;
   backdrop-filter: blur(2px);
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.5);
   align-items: center;
   justify-content: center;
   transition: opacity 0.3s;
