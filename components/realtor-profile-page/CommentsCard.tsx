@@ -1,12 +1,8 @@
 import { UserContextType } from "@/types/UserContextType";
 import UserContext from "context/UserContext";
-import { Img } from '@components/index';
+import { Img, Modal, ModalComment } from "@components/index";
 import { useRouter } from "next/router";
-import React, {
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import closeIcon from "@/../public/close.svg";
 import editIcon from "@/../public/edit.svg";
@@ -144,9 +140,12 @@ export default function CommentsCard({
 
   const { user } = useContext(UserContext) as UserContextType;
 
-  const { setOpen: addCommentSetOpen } = useContext(
-    AddCommentModalContext
-  ) as ModalOpenContextType;
+  // const { setOpen: addCommentSetOpen } = useContext(
+  //   AddCommentModalContext
+  // ) as ModalOpenContextType;
+
+  const [openModal, setOpen] = useState(false)
+  const [childSizeModal, setChildSize] = useState({ width: "100%", height: "auto", radius: 10 });
 
   const { setOpen: addReplySetOpen } = useContext(
     AddReplyModalContext
@@ -251,7 +250,10 @@ export default function CommentsCard({
           : !sessionProfile &&
             !pdfPage &&
             (pdfPage || (
-              <button className="button" onClick={() => addCommentSetOpen(true)}>
+              <button
+                className="button"
+                onClick={() => setOpen(true)}
+              >
                 {t.comments.addComment}
               </button>
             ))}
@@ -306,6 +308,13 @@ export default function CommentsCard({
           )}
         </div>
       </div>
+      <Modal
+        isOpen={openModal}
+        onClose={() => setOpen(false)}
+        childSize={childSizeModal}
+      >
+        <ModalComment setOpen={setOpen} setChildSize={setChildSize} />
+      </Modal>
     </Container>
   );
 }

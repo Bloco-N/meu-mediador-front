@@ -13,4 +13,5 @@ export type Property = {
   realtorId: number | null
   agencyId: number | null
   createdAt: string
+  certificate:string
 }

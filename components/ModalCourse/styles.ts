@@ -9,8 +9,10 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  form{
-    background-color: #bababa;
+  form {
+    background-color: #bababac7;
+    backdrop-filter: blur(0.3rem);
+    -webkit-backdrop-filter: blur(0.3rem);
     position: relative;
     height: 25rem;
     width: 40%;
@@ -20,14 +22,14 @@ export const Container = styled.div`
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    input{
+    input {
       width: 80%;
     }
     @media (max-width: 700px) {
       width: 80%;
     }
   }
-  p{
+  p {
     cursor: pointer;
     position: absolute;
     top: 1.5rem;
@@ -42,4 +44,4 @@ export const Container = styled.div`
     border-radius: 1rem;
     font-weight: bold;
   }
-`
+`;

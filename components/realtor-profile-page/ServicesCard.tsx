@@ -39,7 +39,7 @@ const Container = styled.div`
       position: relative;
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 1rem;
       .close{
         position: relative;
       }
@@ -55,7 +55,7 @@ export default function ServicesCard({localId, accType, sessionProfile}:Services
 
   const [services, setServices] = useState<RealtorService []>()
   const [openModalService, setOpenModalService] = useState(false)
-  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
+  const [childSizeModal, setChildSize] = useState({ width: "95%", height: "100%", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
 

@@ -2,7 +2,7 @@ import { AddPropertyForm } from "@/types/AddPropertyForm";
 import Preservations from "@/types/Preservations";
 import PropertyTypes from "@/types/PropertyTypes";
 import Rooms from "@/types/Rooms";
-import { Img } from '@components/index';
+import { Img } from "@components/index";
 import { useRouter } from "next/router";
 import React, {
   Dispatch,
@@ -30,10 +30,14 @@ import { toast } from "react-toastify";
 type AddPropertyModalProps = {
   open?: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  propertyToUpdate?: any
+  propertyToUpdate?: any;
 };
 
-const AddPropertyModal = ({ open, setOpen, propertyToUpdate }: AddPropertyModalProps) => {
+const AddPropertyModal = ({
+  open,
+  setOpen,
+  propertyToUpdate,
+}: AddPropertyModalProps) => {
   const apiService = new ApiService();
 
   const { setOpen: setLoadingOpen } = useContext(
@@ -85,6 +89,8 @@ const AddPropertyModal = ({ open, setOpen, propertyToUpdate }: AddPropertyModalP
     if (pic == "") {
       return toast.info("Adicione uma imagem para salvar!");
     }
+
+    console.log(data);
 
     const localId = localStorage.getItem("id");
     const accountType = localStorage.getItem("accountType");
@@ -178,19 +184,17 @@ const AddPropertyModal = ({ open, setOpen, propertyToUpdate }: AddPropertyModalP
             ? t.addPropertiesModal.updatePropertie
             : t.addPropertiesModal.uploadPropertie}
         </h3>
-        <div className="input-titulo">
-         
-        </div>
+        <div className="input-titulo"></div>
         <div className="all-infos">
           <div className="infos">
             <div className="inputs">
-               <input
-            required
-            {...register("title", { required: true })}
-            type="text"
-            placeholder={t.addPropertiesModal.title}
-          />
-        
+              <input
+                required
+                {...register("title", { required: true })}
+                type="text"
+                placeholder={t.addPropertiesModal.title}
+              />
+
               <input
                 required
                 {...register("link", { required: true })}
@@ -230,7 +234,13 @@ const AddPropertyModal = ({ open, setOpen, propertyToUpdate }: AddPropertyModalP
               </select>
             </div>
             <div className="selections">
-            <input type="text" placeholder="Referencia do Imóvel" />
+              <input
+                type="text"
+                {...register("certificate")}
+                name="certificate"
+                id="certificate"
+                placeholder="Ref. do Imóvel"
+              />
               <select
                 {...register("propertyType")}
                 name="propertyType"
@@ -292,9 +302,7 @@ const AddPropertyModal = ({ open, setOpen, propertyToUpdate }: AddPropertyModalP
               id="property-pic"
               type="file"
             />
-      
           </div>
-
         </div>
         <p
           onClick={() => {

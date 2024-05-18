@@ -31,7 +31,7 @@ export const Indicator = styled.div`
   height: 1.2em;
   background: #e6e6e6;
   position: absolute;
-  top: 0em;
+  top: 2px;
   left: -1.6em;
   border: 1px solid #757575;
   border-radius: 0.2em;

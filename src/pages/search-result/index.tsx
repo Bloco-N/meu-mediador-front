@@ -135,7 +135,11 @@ interface ActionsBarProps {
 const ActionsBar: React.FC<ActionsBarProps> = ({ onSubmit, options, filter, setFilter }) => {
   return (
     <div className="actions-bar">
-      <PopoverBase showArrow autoClose={false} triggerNode={<VscSettings style={{ fontSize: 30, cursor: "pointer" }} />} align='end'>
+      <PopoverBase showArrow autoClose={false} triggerNode={
+      <C.ButtonFilter>
+        <h3>Filter</h3>    
+      </C.ButtonFilter>
+    } align='end'>
         <C.BaseFilterPopover>
           <C.HeaderBaseFilterPopover>
             <C.TextHeader>Filtrar por:</C.TextHeader>
@@ -164,7 +168,7 @@ const FormFilterResult: React.FC<FormFilterResultProps> = ({ options, values, on
   };
 
   return (
-    <div style={{ padding: '.2em 1rem 1rem 2rem' }}>
+    <div style={{ padding: '.2em 1rem 1rem 2rem', }}>
       {options.map((option, index) => (
         <div key={index} style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
           <Checkbox

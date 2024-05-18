@@ -54,7 +54,7 @@ export default function AboutCard({localId, accType, sessionProfile, pdfPage=fal
 
   const [ realtor, setRealtor ] = useState<RealtorProfile>()
   const [openModal, setOpen] = useState(false)
-  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
+  const [childSizeModal, setChildSize] = useState({ width: "950%", height: "100%", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
   

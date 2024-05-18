@@ -11,7 +11,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   form {
-    background-color: #bababa;
+    background-color: #bababac7;
+  backdrop-filter: blur(0.3rem);
+  -webkit-backdrop-filter: blur(0.3rem);
+
     position: relative;
     height: auto;
     width: 75%;

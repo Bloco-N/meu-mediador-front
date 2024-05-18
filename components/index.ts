@@ -22,6 +22,7 @@ import ModalProfilePicture from '@components/ModalProfilePicture'
 import MainInfoAgency from '@components/MainInfoAgency'
 export { Img } from '@components/Img'
 export { CropImage } from '@components/CropImage'
+import ModalComment from './ModalComment'
 
 
 export {
@@ -44,5 +45,6 @@ export {
     SimplePopup,
     PopupClose,
     ModalProfilePicture,
-    MainInfoAgency
+    MainInfoAgency,
+    ModalComment
 }

@@ -113,7 +113,7 @@ export default function PartnershipCard({localId, accType, sessionProfile}:Partn
   
   const [partnerships, setPartnerships] = useState<PartnershipList []>()
   const [open, setOpen] = useState(false)
-  const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
+  const [childSizeModal, setChildSize] = useState({ width: "95%", height: "100%", radius: 10 });
 
   const [indexPartnership, setIndexPartnership] = useState(-1)
 

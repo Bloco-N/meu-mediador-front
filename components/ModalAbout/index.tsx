@@ -70,7 +70,7 @@ const AboutEditModal = ({open, setOpen}: AboutEditModalProps) => {
   }
 
   return (
-    <S.Container className='modal'>
+    <S.Container>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h2>{t.aboutEditModal.whoIsYou}</h2>
         <textarea {...register('introduction')} defaultValue={introduction ? introduction : ''} placeholder={t.aboutEditModal.putYourDescriptionHere}/>

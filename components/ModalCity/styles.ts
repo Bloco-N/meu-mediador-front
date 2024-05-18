@@ -11,8 +11,9 @@ export const Container = styled.div`
 
   
   form{
-
-    background-color: #bababa;
+    background-color: #bababac7;
+    backdrop-filter: blur(0.3rem);
+    -webkit-backdrop-filter: blur(0.3rem);
     position: relative;
     min-height: 50rem;
     width: 40%;

@@ -6,4 +6,5 @@ export type AddPropertyForm = {
   rooms: string
   preservation: string
   energyefficience: string
+  certificate: string
 }

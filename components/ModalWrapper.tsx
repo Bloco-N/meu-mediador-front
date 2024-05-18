@@ -22,7 +22,7 @@ import AddCourseModal from './ModalCourse';
 import AddCourseModalContext from 'context/AddCourseModalContext';
 import AboutEditModal from './ModalAbout';
 import AboutEditModalContext from 'context/AboutEditModalContext';
-import AddCommentModal from './AddCommentModal';
+import AddCommentModal from './ModalComment';
 import AddCommentModalContext from 'context/AddCommentModalContext';
 import AddCityModalContext from 'context/AddCityModalContext';
 import AddCityModal from './ModalCity';
@@ -130,7 +130,7 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
                                         <AddReplyModalContext.Provider value={{ state: openAddReplyModal, setOpen: setOpenAddReplyModal }}>
 
                                           <AddReplyModal state={openAddReplyModal} setOpen={setOpenAddReplyModal} />
-                                          <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal} />
+                                          {/* <AddCommentModal open={openAddCommentModal} setOpen={setOpenAddCommentModal} /> */}
                                           {/* <ProfilePictureModal data={dataPictureModal} setData={setDataPictureModal} /> */}
                                           {/* <MainInfoProfileEditModal open={openMainInfoModal} setOpen={setOpenMainInfoModal} /> */}
                                           {/* <AddPropertyModal open={openAddPropertyModal} setOpen={setOpenAddPropertyModal} /> */}
