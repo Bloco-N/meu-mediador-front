@@ -1,13 +1,11 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
 import plusIcon from '@/../public/plus.svg'
-import closeIcon from '@/../public/close.svg'
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
-import AddPropertyModalContext, { ModalPropertyOpenContextType } from "context/AddPropertyModalContext"
 import { Property } from "@/types/Property"
 import Link from "next/link"
 import PropertyTypes, { TPropertyTypes } from "@/types/PropertyTypes"
@@ -18,11 +16,6 @@ import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
 import EnergyEfficience, { TEnergyEfficience } from "@/types/EnergyEfficience"
-import Home from "@/pages"
-import { relative } from "path"
-import { TEnergyEfficienceColor } from "@/types/EnergyEfficienceColor"
-
-import IconEnergy from "./IconEnergy"
 
 import editIcon from '../public/edit.svg'
 import Modal from "./Modal"
@@ -208,10 +201,10 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
           {properties?.map(item => (
             <div key={item.id} className="propertie">
                 { sessionProfile && (
-                  <Image onClick={ e => handleViewProperty(e)} id={String(item.id)} className="close" src={editIcon} alt='edit icon'/>
+                  <Img onClick={ e => handleViewProperty(e)} id={String(item.id)} className="close" file={editIcon} alt='edit icon'/>
                 )}
                 <div className="watermark">
-                <Image className="property-img" src={item.profilePicture ? item.profilePicture : "/placeholder.jpg" } width={200} height={100} alt="profile picture"/>
+                <Img className="property-img" url={item.profilePicture ? item.profilePicture : "/placeholder.jpg" } width={200} height={100} alt="profile picture"/>
                 </div>
                 <h2>{item.price}</h2>
                 <h3>{item.title}</h3>
@@ -224,12 +217,6 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
                    :
                    <>
                   <a className="gg-home-alt" style={{color: EnergyColors[item.energyefficience as keyof TEnergyEfficience], display:"inline-flex",height:"10px",marginBottom:"10px",marginLeft:"2px"}}><span style={{color:"white",marginTop:"-2px",zIndex:"1",position:"relative",marginLeft:"auto",marginRight:"auto",fontSize:"10px"}}>{EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}</span></a>
-                  {/* <IconEnergy
-                  cor = {EnergyColors[item.energyefficience as keyof TEnergyEfficience]}
-                  cor_fonte="#000"
-                  tamanho_casa="18px"
-                  texto={EnergyEfficience[locale as keyof typeof EnergyEfficience][item.energyefficience as keyof TEnergyEfficience]}
-                  /> */}
                   </> 
                   }
                   .
@@ -250,10 +237,10 @@ export default function PropertiesCard({localId, accType, sessionProfile, pdfPag
 
           ))}
           { sessionProfile ? (
-          <Image onClick={() => {
+          <Img onClick={() => {
             setPropertyToUpdate({})
             setOpen(true)
-          }} className='plus' src={plusIcon} alt='edit icon'/>
+          }} className='plus' file={plusIcon} alt='edit icon'/>
       ): ''}
         </div>
       </div>

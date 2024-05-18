@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { Img } from '@components/index';
 import styled from "styled-components";
 
 import { useRouter } from "next/router";
@@ -95,9 +95,9 @@ const InfoFooter = (props: InfoProps) => {
             target="_blank"
             style={{ marginTop: "2px" }}
           >
-            <Image
+            <Img
               priority
-              src={instragramIcon}
+              file={instragramIcon}
               height={30}
               width={30}
               alt="Follow us on Instagram"

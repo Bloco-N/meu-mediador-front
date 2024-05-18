@@ -1,5 +1,5 @@
 export type LastExp = {
   name:string | null,
   pic: string | null,
-  agencyId: string | null
+  agencyId: number | null
 }

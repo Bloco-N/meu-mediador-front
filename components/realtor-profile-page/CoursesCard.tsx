@@ -1,6 +1,6 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import Image from "next/image"
+import { Img } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -8,7 +8,6 @@ import editIcon from '@/../public/edit.svg'
 import plusIcon from '@/../public/plus.svg'
 import closeIcon from '@/../public/close.svg'
 import { ModalOpenContextType } from "@/types/ModalOpenContextType"
-import AddCourseModalContext from "context/AddCourseModalContext"
 import { Course } from "@/types/Course"
 import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
@@ -137,8 +136,8 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
           <h2>{t.study.study}</h2>
           { sessionProfile ? (
             <div className="edit-icons">
-              <Image onClick={() => setEditCourses(!editCourses)} className='plus' src={editIcon} alt='edit icon'/>
-              <Image onClick={() => setOpen(true)} className='plus' src={plusIcon} alt='edit icon'/>
+              <Img onClick={() => setEditCourses(!editCourses)} className='plus' file={editIcon} alt='edit icon'/>
+              <Img onClick={() => setOpen(true)} className='plus' file={plusIcon} alt='edit icon'/>
             </div>
           ): ''}
         </div>
@@ -148,7 +147,7 @@ export default function CoursesCard({localId, accType, sessionProfile}:CoursesCa
               <li key={item.id}>
                 <div className="awards-items">
                   {sessionProfile && editCourses ? (
-                    <Image onClick={e => handleDeleteCourse(e)} id={String(item.id)} className="close" src={closeIcon} alt="close icon"/>
+                    <Img onClick={e => handleDeleteCourse(e)} id={String(item.id)} className="close" file={closeIcon} alt="close icon"/>
                   ): ''}
                   {item.name}
                 </div>

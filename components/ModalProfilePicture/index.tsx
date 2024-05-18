@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useContext, useEffect, useState } from 'react';
-import Image from 'next/image';
+import { Img } from '@components/index';
 import profileIcon from '../../public/profile.svg'
 import { PictureModalData } from '@/types/PictureModalData';
 import UserContext from 'context/UserContext';
@@ -74,7 +74,7 @@ const ProfilePictureModal = ({data, setData}:PictureProfileModalProps) => {
 
   return (
     <S.Container className='modal'>
-      <Image height={200} width={200} id='profile-pic-modal' className='profile-pic' src={pic ? pic : profileIcon} alt='profile picture'/>
+      <Img height={200} width={200} id='profile-pic-modal' className='profile-pic' validateURL={!!pic} url={pic} file={profileIcon} alt='profile picture'/>
       <p onClick={() => setData({
         open:false,
         userSigned: data.userSigned

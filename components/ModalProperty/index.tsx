@@ -2,7 +2,7 @@ import { AddPropertyForm } from "@/types/AddPropertyForm";
 import Preservations from "@/types/Preservations";
 import PropertyTypes from "@/types/PropertyTypes";
 import Rooms from "@/types/Rooms";
-import Image from "next/image";
+import { Img } from '@components/index';
 import { useRouter } from "next/router";
 import React, {
   Dispatch,
@@ -276,14 +276,16 @@ const AddPropertyModal = ({ open, setOpen, propertyToUpdate }: AddPropertyModalP
             </div>
           </div>
           <div className="image-place">
-            <Image
+            <Img
               id="property-img"
               height={400}
               width={400}
               className="property-img"
-              src={pic ? pic : placeholderImg}
+              url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${pic}`}
+              validateURL={!!pic}
+              file={placeholderImg}
               alt="property image"
-            ></Image>
+            ></Img>
             <label htmlFor="property-pic">{t.addPropertiesModal.edit}</label>
             <input
               onChange={(e) => handleChange(e)}

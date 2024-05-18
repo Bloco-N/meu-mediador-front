@@ -1,4 +1,4 @@
-import { useEffect, forwardRef, ForwardedRef, MutableRefObject, RefObject } from "react";
+import { useEffect, forwardRef, ForwardedRef } from "react";
 import styled from "styled-components";
 
 interface IModalProps {

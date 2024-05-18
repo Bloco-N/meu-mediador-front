@@ -405,8 +405,178 @@ min-height: ${(props) => (props.isProfile ? "40rem" : "20rem")};
 }
 `;
 
-  
+// Upload images
+export const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalContent = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 800px;
+
+`;
+
+export const Divider = styled.div`
+  border-top: 2px dashed #ccc;
+  margin: 2rem 0;
+  width: 100%;
+`;
+
+export const FileInputContainer = styled.div`
+  label{
+    display: flex;
+    font-weight: bold;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    gap: 1rem;
+
+    img {
+      height: 2rem;
+      width: 2rem;
+      bottom: 2rem;
+      right: 2rem;
+      cursor: pointer;
+    }
+  }
+
+  div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 2rem;
+  }
+
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+export const SelectedImage = styled.img<{profileRadius?:boolean;}>`
+  max-height: 200px;
+  display: block;
+  margin: 10px auto;
+  border-radius: ${({ profileRadius }) => profileRadius ? '50%' : '10px'};
+  object-fit: cover;
+  position: relative;  
+
+`;
+
+export const HeaderChangePictures = styled.div`
+  display: flex;
+  width: 100%;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: end;
+  overflow: hidden;
+  margin-top: 10px;
+`;
+
+export const ProgressBar = styled.div`
+  position: relative;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  background-color: #f3f3f3;  
+  overflow: hidden;
+  border-radius: 10px;
+`;
+
+export const Progress = styled.div<{ width: number }>`
+  padding: .05em;
+  background-color: #4caf50;
+  text-align: end;
+  width: ${({ width }) => width}%;
+  height: 20px;
+
+  p{
+    position: absolute;
+    right: 0;
+    font-weight: bold;
+    padding-right: 5px;
+    
+  }
+`;
+
 export const ResponsiveImage = styled.img`
 width: 100%;
 cursor:pointer;
 `;
+
+export const ButtonUpload =  styled.button`
+  all: unset;
+  color: #fff;
+  font-size: 14px;
+  background: var(--surface-2);
+  text-align: center;
+  border-radius: 1rem;
+  cursor: pointer;
+  padding: .8rem;
+  width: 25%;
+  margin: 1rem;
+`
+
+export const PreviewCardProfile =  styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  background-color: var(--surface);
+`
+
+export const PreviewCardProfileTop =  styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  height: 200px;
+`
+
+export const PreviewCardProfileBottom =  styled.div`
+position: relative;
+  display: flex;
+  width: 90%;
+  border-bottom-left-radius: 3rem;
+  border-bottom-right-radius: 3rem;
+  justify-content: end;
+  align-items: center;
+  gap:5rem;
+`
+
+export const PreviewProfileImage =  styled.img`
+    position: absolute;
+    width: 15rem;
+    height: 15rem;
+    border-radius: 50%;
+    object-fit: cover;
+    bottom: -50px;
+    left: 20px;
+    z-index: 1;
+`
+
+export const PreviewProfileCoverImage =  styled.img`
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-top-left-radius: 3rem;
+  border-top-right-radius: 3rem;
+  object-fit: cover;`

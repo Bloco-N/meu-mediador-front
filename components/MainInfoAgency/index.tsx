@@ -24,6 +24,8 @@ import locales from 'locales';
 import SimplePopup from '../Popup';
 import IconTrash from '../../public/icons-trash.png';
 import * as C from './styles'
+import { getQueryParam } from '@/utils';
+import { Img } from '@components/index';
 
 
 type MainInfoAgencyProps = {
@@ -49,7 +51,7 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
   const t = locales[locale as keyof typeof locales]
 
   useEffect(() => {
-    const localId = localStorage.getItem('id')
+     const localId = localStorage.getItem('id')
     const accounType = localStorage.getItem('accountType')
     if(Number(localId) === userSigned?.id && accounType === 'agency'){
       setSessionProfile(true)
@@ -124,7 +126,6 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
       }
     }
   }
-
   return (
 
   <C.Container isProfile={isProfile}>
@@ -132,18 +133,18 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
       <div className='top'>
         {isProfile && (
           <>
-            <Image height={1000} width={1000} src={userSigned?.coverPicture ? userSigned.coverPicture : greyImage} alt='cover image' className='cover-photo'/>
+            <Img height={1000} width={1000} file={greyImage} url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${userSigned?.coverPicture}`} validateURL={!!userSigned?.coverPicture} alt='cover image' className='cover-photo'/>
 
             {sessionProfile && (
               <>
                 <div className='deletAccount-back'>
                   <span onClick={onTrash}>
-                  <C.ResponsiveImage src={IconTrash.src} alt="Trash Icon" color='#b5b3b3' />
+                  <Img file={IconTrash} alt="Trash Icon" color='#b5b3b3' />
                   </span>
                 </div>
                 <div className='label-back'>
                   <label htmlFor="cover-pic">
-                    <Image className='edit-main' src={editIcon} alt='edit icon'/>
+                    <Img className='edit-main' file={editIcon} alt='edit icon'/>
                   </label>
                 </div>
                 <input onChange={e => handleChangeCover(e)} id="cover-pic" type="file" />
@@ -152,9 +153,18 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
           </>
         )}
       </div>
-      <Image width={100} height={100} onClick={isProfile ? () => setData({open: true, userSigned}) : () => {}} className= {isProfile ? "profile profile-pointer" : 'profile' } src={ userSigned?.profilePicture ? userSigned.profilePicture : profileIcon} alt='profile icon'/>
+
+      <Img 
+        width={100}
+        height={100}
+        file={profileIcon}
+        url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${userSigned?.profilePicture}`}
+        onClick={isProfile ? () => setData({open: true, userSigned}) : () => {}}
+        className= {isProfile ? "profile profile-pointer" : 'profile' }
+        alt='profile icon'
+         />
       { isProfile && sessionProfile ? (
-          <Image onClick={() => mainInfoSetOpen(true)} className='edit-main' src={editIcon} alt='edit icon'/>
+          <Img onClick={() => mainInfoSetOpen(true)} className='edit-main' file={editIcon} alt='edit icon'/>
       ): ''}
 
       <div className="sub-content">
@@ -208,27 +218,27 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
         <div className="contact">
           {userSigned?.email ? (
             <Link href={'mailto: ' + userSigned.email} target='_blank'>
-              <Image className='icon' src={mailIcon} alt='mail icon'/>
+              <Img className='icon' file={mailIcon} alt='mail icon'/>
             </Link>
           ) : '' }
           {userSigned?.website ? (
             <Link href={userSigned.website} target='_blank'>
-              <Image className='icon' src={webIcon} alt='web icon'/>
+              <Img className='icon' file={webIcon} alt='web icon'/>
             </Link>
           ) : '' }
           {userSigned?.whatsapp ? (
             <Link href={'https://wa.me/' + userSigned.whatsapp.split(' ').join('') + `${userSigned.wppText ? '?text=' + encodeURI(userSigned.wppText) :''}` } target='_blank'>
-              <Image className='icon' src={whatsappIcon} alt='whatsapp icon'/>
+              <Img className='icon' file={whatsappIcon} alt='whatsapp icon'/>
             </Link>
           ) : '' }
           {userSigned?.instagram ? (
             <Link href={userSigned.instagram} target='_blank'>
-              <Image className='icon' src={instagramIcon} alt='instagram icon'/>
+              <Img className='icon' file={instagramIcon} alt='instagram icon'/>
             </Link>
           ) : '' }
           {userSigned?.facebook ? (
             <Link href={userSigned.facebook} target='_blank'>
-              <Image className='icon' src={facebookIcon} alt='facebook icon'/>
+              <Img className='icon' file={facebookIcon} alt='facebook icon'/>
             </Link>
           ) : '' }
         </div>

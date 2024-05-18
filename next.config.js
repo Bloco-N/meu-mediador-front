@@ -1,5 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'storage-production-7c83.up.railway.app',
+          port: '',
+          pathname: '/wwwroot/uploads/**',
+        },
+      ],
+    },
   reactStrictMode: true,
   compiler: {
     styledComponents: true
