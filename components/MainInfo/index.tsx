@@ -1,5 +1,4 @@
-import Image from "next/image";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import profileIcon from "@/../../public/profile.svg";
 import agencyIcon from "@/../../public/agency.svg";
 import PictureModalContext from "context/PictureModalContext";
@@ -19,6 +18,8 @@ import CoverPicAdjustModalContext, { CoverPicAdjustModalContextType } from "cont
 import * as C from "./styles";
 import IconTrash from '../../public/icons-trash.png';
 
+import { X } from 'lucide-react'
+
 import {
   Modal,
   MainInfoProfileEditModal,
@@ -27,10 +28,13 @@ import {
   RenderConditional,
   PopupClose,
   SimplePopup,
-  Img
+  Img,
+  CropImage
 } from "@components/index";
 import "tippy.js/dist/tippy.css";
 import { getQueryParam } from "@/utils";
+import axios from "axios";
+import api from "@/services/api";
 
 type MainInfoProps = {
   userSigned: any;
@@ -432,7 +436,10 @@ const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,P
         onClose={() => setOpenModalEditPictures(false)}
         childSize={{height:'100%',width:'100%',radius:10}}
       >
-        <ModalChangePictures  setOpen={setLanguageModalOpen}/>
+        <ModalChangePictures
+          profile={userSigned}
+          open={openModalEditPictures}
+         setOpen={setOpenModalEditPictures}/>
       </Modal>
     </C.Container>
   );
@@ -440,109 +447,187 @@ const MainInfo = ({ userSigned,isProfile,lastExp,pdfPage,onTrash,renderActions,P
 
 export default MainInfo;
 
-
 interface ModalChangePicturesProps {
+  profile: any;
+  open:boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({ setOpen }) => {
+const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({ profile, open,setOpen }) => {
   const [selectedFile1, setSelectedFile1] = useState<File | null>(null);
   const [selectedFile2, setSelectedFile2] = useState<File | null>(null);
+  
   const [progress1, setProgress1] = useState<number>(0);
   const [progress2, setProgress2] = useState<number>(0);
+
+  const profileImageRef = useRef<HTMLImageElement>(null);
+  const coverImageRef = useRef<HTMLImageElement>(null);
+
+  const cropImageRef1 = useRef<any>(null);
+  const cropImageRef2 = useRef<any>(null);
+
+  useEffect(() => {
+    handlePreviewImagesDefault()
+  }, [profile,open]);
+
+  const handlePreviewImagesDefault = () => {
+    if (profile?.profilePicture) {
+      if (profileImageRef.current) {
+        profileImageRef.current.src = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${profile.profilePicture}`;
+      }
+    }
+    if (profile?.coverPicture) {
+      if (coverImageRef.current) {
+        coverImageRef.current.src = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${profile.coverPicture}`;
+      }
+    }
+  }
 
   const handleFileChange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setSelectedFile1(e.target.files[0]);
+      cropImageRef1.current?.open()
     }
   };
 
   const handleFileChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setSelectedFile2(e.target.files[0]);
+      cropImageRef2.current?.open()
     }
   };
 
-  const handleUpload = (file: File | null, setProgress: React.Dispatch<React.SetStateAction<number>>) => {
+  const handleUpload = async (file: File | null, setProgress: React.Dispatch<React.SetStateAction<number>>,nameFile:string) => {
     if (!file) return;
+    setProgress(0)
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', file,`${nameFile}.png`);
+    formData.set('profilePicture',`${nameFile}${file.type?.replace('image/','.')}`)
 
-    // Mock upload progress
     const fakeUpload = () => {
       setProgress((prevProgress) => {
         if (prevProgress >= 100) {
           return 100;
         }
         const nextProgress = prevProgress + 10;
-        setTimeout(fakeUpload, 200);
+        setTimeout(fakeUpload, 2000);
         return nextProgress;
       });
     };
 
     fakeUpload();
-
-    // axios.post('/upload', formData, {
-    //   onUploadProgress: (progressEvent) => {
-    //     const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-    //     setProgress(progress);
-    //   }
-    // });
+    await api.put('realtor/picture',formData)
+    .then(() => {
+      setProgress(100)
+    })
+    .catch(() => setProgress(0))
   };
 
-  const handleUpload1 = () => handleUpload(selectedFile1, setProgress1);
-  const handleUpload2 = () => handleUpload(selectedFile2, setProgress2);
+  const handleUpload1 = () => handleUpload(selectedFile1, setProgress1,`R${profile?.id}-profilePicture`);
+  const handleUpload2 = () => handleUpload(selectedFile2, setProgress2,`R${profile?.id}-coverPicture`);
+
+  const handleClose = () => {
+    setSelectedFile1(null)
+    setSelectedFile2(null)
+    setProgress1(0)
+    setProgress2(0)
+    setOpen(false)
+  }
 
   return (
     <C.Modal>
       <C.ModalContent>
         <C.HeaderChangePictures>
-            <button onClick={() => setOpen(false)}>X</button>
+          <button onClick={handleClose}><X /></button>
         </C.HeaderChangePictures>
 
-        <C.FileInputContainer>
-          <label htmlFor="inputFile1">
-            Alterar Foto de Perfil 
-            <Img
-              file={editIcon}
-              alt="edit icon"
-            />
-          </label>
-          <input id="inputFile1" type="file" onChange={handleFileChange1} />
+        <C.PreviewCardProfile>
+          <C.PreviewCardProfileTop>
           {selectedFile1 && (
-            <div>
-              <C.SelectedImage src={URL.createObjectURL(selectedFile1)} alt="Selected" />
-              <button onClick={handleUpload1}>Upload1</button>
-              <C.ProgressBar>
-                <C.Progress width={progress1}>{progress1}%</C.Progress>
-                
-              </C.ProgressBar>
-            </div>
-          )}
-        </C.FileInputContainer>
+              <>
+                <C.PreviewProfileImage src={URL.createObjectURL(selectedFile1)} alt="Selected" />
+              </>
+            )}
+            {!selectedFile1 && (
+              <C.PreviewProfileImage ref={profileImageRef} alt="Selected" />
+            )}
 
-        <C.FileInputContainer>
-          <label htmlFor="inputFile2">
-            Alterar Foto de Capa
-            <Img
-              file={editIcon}
-              alt="edit icon"
-            />
-          </label>
-          <input id="inputFile2" type="file" onChange={handleFileChange2} />
-          {selectedFile2 && (
-            <div>
-              <C.SelectedImage src={URL.createObjectURL(selectedFile2)} alt="Selected" />
-              <button onClick={handleUpload2}>Upload</button>
-              <C.ProgressBar>
-                <C.Progress width={progress2}>{progress2}%</C.Progress>
-                
-              </C.ProgressBar>
-            </div>
-          )}
-        </C.FileInputContainer>
+            {selectedFile2 && (
+                <>
+                  <C.PreviewProfileCoverImage src={URL.createObjectURL(selectedFile2)} alt="Selected" />
+                </>
+            )}
+
+            {!selectedFile2 && (
+                <C.PreviewProfileCoverImage ref={coverImageRef} alt="Selected" />
+            )}
+          </C.PreviewCardProfileTop>
+
+          <C.PreviewCardProfileBottom>
+
+            <C.FileInputContainer>
+              <label htmlFor="inputFile1">
+                <span/>
+                <p>Alterar Foto de Perfil</p>
+                <Img
+                width={40}
+                  file={editIcon}
+                  alt="edit icon"
+                />
+              </label>
+              <input id="inputFile1" type="file" onChange={handleFileChange1} />
+              {selectedFile1 && (
+                <>
+                  <C.ProgressBar>
+                    <C.Progress width={progress1}>
+                      <p>{progress1}%</p>
+                    </C.Progress>
+                  </C.ProgressBar>
+                  <C.ButtonUpload onClick={handleUpload1}>Salvar</C.ButtonUpload>
+                </>
+              )}
+            </C.FileInputContainer>     
+
+            <C.FileInputContainer>
+              <label htmlFor="inputFile2">
+                <span/>
+                <p>Alterar Foto de capa</p>
+                <Img
+                  width={40}
+                  file={editIcon}
+                  alt="edit icon"
+                />
+              </label>
+              <input id="inputFile2" type="file" onChange={handleFileChange2} />
+              {selectedFile2 && (
+                <>
+                  <C.ProgressBar>
+                    <C.Progress width={progress2}>
+                      <p>{progress2}%</p>
+                    </C.Progress>
+                  </C.ProgressBar>
+                  <C.ButtonUpload onClick={handleUpload2}>Salvar</C.ButtonUpload>
+                </>
+              )}
+            </C.FileInputContainer>     
+
+          </C.PreviewCardProfileBottom>
+        </C.PreviewCardProfile>
+
+        <CropImage
+        ref={cropImageRef1}
+        src={selectedFile1}
+        onCrop={setSelectedFile1}
+        />
+      <CropImage
+        ref={cropImageRef2}
+        src={selectedFile2}
+        onCrop={setSelectedFile2}
+      />
       </C.ModalContent>
+
     </C.Modal>
   );
 };
+
