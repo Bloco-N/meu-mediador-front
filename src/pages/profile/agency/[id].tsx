@@ -19,7 +19,7 @@ import TrashButton from "components/DeleteButton";
 import locales from "locales";
 import api from "@/services/api";
 import { toast } from "react-toastify";
-import * as C from './styles'
+import * as C from '../../../stylesPages/stylesAgency'
 
 export default function Profile() {
   const { user, setUser } = useContext(UserContext) as UserContextType;

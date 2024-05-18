@@ -31,7 +31,7 @@ import { Img } from '@components/index';
 type MainInfoAgencyProps = {
   userSigned: AgencyProfile
   isProfile: boolean
-  onTrash:() => void
+  onTrash?:() => void
 }
 
 const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps) => {

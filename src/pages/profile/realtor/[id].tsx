@@ -25,7 +25,7 @@ import { signOut as singOutGoogle } from "next-auth/react";
 import api from "@/services/api";
 import { toast } from "react-toastify";
 import { Modal, ModalReport } from "@components/index";
-import * as C from './styles'
+import * as C from '../../../stylesPages/stylesRealtor'
 
 
 export default function Profile() {

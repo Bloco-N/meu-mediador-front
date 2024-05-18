@@ -10,7 +10,7 @@ import { signOut as singOutGoogle } from "next-auth/react";
 import IconAlert from "../../../../public/icons-atencao.png";
 import api from "@/services/api";
 import { toast } from "react-toastify";
-import * as C from './styles'
+import * as C from '../../../stylesPages/stylesClient'
 
 
 export default function Profile() {
