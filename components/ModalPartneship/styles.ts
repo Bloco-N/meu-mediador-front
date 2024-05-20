@@ -87,9 +87,9 @@ export const Container = styled.div`
         justify-content: space-between;
         flex-direction: column;
         width: 80%;
-        input {
-          width: 150px;
-          height: 30px;
+        input{
+          width: 100%;
+          height: 50%;
         }
       }
     }

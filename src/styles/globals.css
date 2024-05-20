@@ -153,7 +153,7 @@ input:checked {
 
 input[type="date"] {
   border-radius: 1rem;
-  padding: 2rem;
+  padding: 1rem;
   border: none;
   background-color: var(--base);
 }
