@@ -88,7 +88,7 @@ export default function Profile() {
   return (
     <C.Container>
       <RenderConditional isTrue={!!client}>
-        <MainInfoClient userSigned={client as ClientProfile} isProfile={true} setModalOpen={setModalOpen} />
+        <MainInfoClient userSigned={client as ClientProfile} isProfile={true} setModalOpen={setModalOpen} onTrash={() => setModalOpen(true)} />
       </RenderConditional>
 
       <Modal

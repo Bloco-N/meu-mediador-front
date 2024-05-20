@@ -12,7 +12,7 @@ interface IImageProps extends Omit<ImageProps, 'src'> {
 }
 
 export const Img: React.FC<IImageProps> = ({ file, url,validateURL = true, src, ...props }) => {
-    const [source, setSource] = useState<string | StaticImport>(file);
+    const [source, setSource] = useState<string | undefined>(file);
 
     useEffect(() => {
 
@@ -20,11 +20,10 @@ export const Img: React.FC<IImageProps> = ({ file, url,validateURL = true, src, 
             setSource('')
         }else if(url && validateURL){
             setSource(url)
-            console.log(url)
         }else{
-            setSource(file)
+            setSource(file.src)
         }
     }, [file, url]);
 
-    return <NextImage {...props} src={source} />;
+    return <img {...props} src={source} />;
 }

@@ -9,7 +9,6 @@ export const ContainerForm = styled.div`
   width: 100% !important;
   height: auto;
 
-
   .full-name {
       width: 100%;
       display: flex;
@@ -17,7 +16,7 @@ export const ContainerForm = styled.div`
     }
 
     input {
-      height: 60px;
+      height: 50px;
     }
 
     input {
@@ -72,7 +71,7 @@ export const ContainerBaseCardSignUp = styled.div<{ isMobileDevice?:boolean}>`
   max-width: 580px;
   width: 80%;
   height: auto;
-  padding: 3.5rem;
+  padding: 2.5rem;
   margin: 2rem;  
 
   input {

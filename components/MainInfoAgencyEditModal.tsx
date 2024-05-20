@@ -161,7 +161,6 @@ const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps)
   }
 
   return (
-    open ?
     <Container className='modal'>
       <form onSubmit={handleSubmit(onSubmit)} action="">
         <h3>Editar Perfil</h3>
@@ -205,7 +204,6 @@ const MainInfoAgencyEditModal = ({open, setOpen}: MainInfoProfileEditModalProps)
         <p onClick={() => setOpen(false)}>X</p>
       </form>
     </Container>
-    : <></>
   );
 };
 

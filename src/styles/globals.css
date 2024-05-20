@@ -144,7 +144,7 @@ input[type="checkbox"] {
   width: 2rem;
   background-color: white;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: 100%;
 }
 
 input:checked {
@@ -157,6 +157,13 @@ input[type="date"] {
   border: none;
   background-color: var(--base);
 }
+
+input[type="radio"] {
+  -webkit-appearance: radio;
+  -moz-appearance: radio;
+  appearance: radio;
+}
+
 
 button {
   all: unset;

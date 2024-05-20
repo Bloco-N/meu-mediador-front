@@ -172,7 +172,7 @@ const AddCommentModal = ({ setOpen, setChildSize }: AddCommentModalProps) => {
   return(
     <S.Container className="modal">
       <form className="border" onSubmit={handleSubmit(onSubmit)} action="">
-        {/* {accType === "client" ? ( */}
+        {accType === "client" ? (
           <>
             <h3>{t.review.createAReview}</h3>
             <div>
@@ -218,7 +218,7 @@ const AddCommentModal = ({ setOpen, setChildSize }: AddCommentModalProps) => {
             </p>
             <button className="button" type="submit"> {t.addCity.add} </button>
           </>
-        {/* ) : (
+        ) : (
           <>
             <p className="close" onClick={() => setOpen(false)}>
               X
@@ -250,7 +250,7 @@ const AddCommentModal = ({ setOpen, setChildSize }: AddCommentModalProps) => {
               </div>
             )}
           </>
-        )} */}
+        )}
       </form>
     </S.Container>
   );

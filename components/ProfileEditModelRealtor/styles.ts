@@ -28,9 +28,10 @@ export const Container = styled.div`
     overflow-y: scroll;
     textarea {
       min-height: 20rem;
-      @media (max-width: 650px) {
+      @media (max-width: 768px) {
         min-height: 15rem;
         width: 90%;
+        overflow-y: scroll;
       }
     }
     input {
@@ -45,6 +46,9 @@ export const Container = styled.div`
       margin-bottom: 2rem;
       color: black;
       font-size: 25px;
+      @media (max-width: 768px) {
+        font-size: 20px;
+      }
     }
     .input-group {
       display: flex;

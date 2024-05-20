@@ -12,9 +12,8 @@ export const Container = styled.div`
   justify-content: center;
   form {
     background-color: #bababac7;
-  backdrop-filter: blur(0.3rem);
-  -webkit-backdrop-filter: blur(0.3rem);
-
+    backdrop-filter: blur(0.3rem);
+    -webkit-backdrop-filter: blur(0.3rem);
     position: relative;
     height: auto;
     width: 75%;
@@ -29,8 +28,9 @@ export const Container = styled.div`
     @media (max-width: 1200px) {
       width: 75%;
     }
-    @media (max-width: 500px) {
+    @media (max-width: 768px) {
       width: 90%;
+      overflow-y: scroll;
     }
     .all-infos {
       display: flex;
@@ -117,6 +117,12 @@ export const Container = styled.div`
         cursor: pointer;
         padding: 1.5rem;
         min-width: 10rem;
+      }
+    }
+    h3{
+      font-size: 25px;
+      @media (max-width: 768px) {
+        font-size: 20px;
       }
     }
   }

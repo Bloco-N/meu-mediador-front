@@ -7,14 +7,11 @@ import { RealtorProfile } from '@/types/RealtorProfile';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { MainEditForm} from '@/types/MainEditForm';
-import AddCityModalContext from 'context/AddCityModalContext';
 import { ModalOpenContextType } from '@/types/ModalOpenContextType';
-import AddLanguageModalContext from 'context/AddLanguageModalContext';
 import LoadingContext from 'context/LoadingContext';
 import locales from 'locales';
 import api from '@/services/api';
 import { toast } from 'react-toastify';
-import { Modal, ModalCity } from '..';
 
 
 type MainInfoProfileEditModalProps = {
@@ -27,7 +24,7 @@ type MainInfoProfileEditModalProps = {
 
 const MainInfoProfileEditModal = ({setOpen, setOpenCity, setOpenLanguage}:MainInfoProfileEditModalProps) => {
 
-  const { register, handleSubmit } = useForm<MainEditForm>()
+  const { register, handleSubmit, setValue } = useForm<MainEditForm>()
   const { user } = useContext(UserContext) as UserContextType
 
   const {setOpen: setLoadingOpen} = useContext(LoadingContext) as ModalOpenContextType
@@ -84,18 +81,41 @@ const MainInfoProfileEditModal = ({setOpen, setOpenCity, setOpenLanguage}:MainIn
     fetchData()
   }, [user.id, setLoadingOpen])
 
+  useEffect(() => {
+    if (userSigned?.firstName) {
+      setValue('firstName', userSigned.firstName);
+      setValue('lastName', userSigned.lastName);
+      setValue('email', userSigned.email);
+      setValue('instagram', userSigned.instagram);
+      setValue('facebook', userSigned.facebook);
+      setValue('website', userSigned.website);
+      setValue('expTime', userSigned.expTime);
+      setValue('wppText', userSigned.wppText);
+      setValue('address', userSigned.address);
+      setValue('name', userSigned.name);
+    }
+  }, [userSigned, setValue]);
+
   const onSubmit = async (data: MainEditForm) => {
+    console.log(data)
     if(data.website && !data.website.startsWith('https://')){
       data.website = 'https://' + data.website
     }
+    if(data.instagram && !data.instagram.startsWith('https://')){
+      data.instagram = 'https://' + data.instagram
+    }
+    if(data.facebook && !data.facebook.startsWith('https://')){
+      data.facebook = 'https://' + data.facebook
+    }
     if(accType === 'realtor'){
       setLoadingOpen(true)
-      const { expTime, ...payload} = data
+      const { expTime,instagram, ...payload} = data
       await api.put('/realtor/',{
           ...payload,
           expTime: Number(expTime),
           whatsapp,
-          phone
+          phone,
+          instagram:String(instagram)
       })
         .then((response) => {
           toast.success(t.toast.dataSuccess)
@@ -207,7 +227,7 @@ const MainInfoProfileEditModal = ({setOpen, setOpenCity, setOpenLanguage}:MainIn
         </div>
         {accType === 'realtor' && (          
           <div className="input-group">
-            <input {...register('expTime')} defaultValue={userSigned?.expTime ? userSigned?.expTime : 0} type="number" placeholder={t.mainInfoEditModal.whenYouStarted}/>
+            <input {...register('expTime')} defaultValue={userSigned?.expTime ? userSigned?.expTime : ""} type="number" placeholder={t.mainInfoEditModal.whenYouStarted}/>
           </div>
         )}
         {accType === 'agency' && (          
@@ -220,7 +240,7 @@ const MainInfoProfileEditModal = ({setOpen, setOpenCity, setOpenLanguage}:MainIn
           <button className='button' onClick={handleAddCity}>{t.mainInfoEditModal.addWorkArea}</button>
           <button className='button' onClick={handleAddLanguage}>{t.mainInfoEditModal.addLanguage}</button>
         </div>
-          <button className='button'>{t.mainInfoEditModal.save}</button>
+          <button type="submit" className='button'>{t.mainInfoEditModal.save}</button>
         <p onClick={() => setOpen(false)}>X</p>
       </form>
     </S.Container>
