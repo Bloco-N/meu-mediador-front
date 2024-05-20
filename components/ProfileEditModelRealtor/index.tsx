@@ -166,7 +166,7 @@ const MainInfoProfileEditModal = ({setOpen, setOpenCity, setOpenLanguage}:MainIn
   return (
     <>
     <S.Container className='modal'>
-      <form onSubmit={handleSubmit(onSubmit)} action="">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h3>Editar Perfil</h3>
         <div className="input-group">
           {accType === 'realtor' && (
@@ -237,8 +237,8 @@ const MainInfoProfileEditModal = ({setOpen, setOpenCity, setOpenLanguage}:MainIn
         )}
         <textarea {...register('wppText')} defaultValue={ userSigned?.wppText ? userSigned.wppText : ''} placeholder={t.mainInfoEditModal.welcomeMessage}></textarea>
         <div className="input-group">
-          <button className='button' onClick={handleAddCity}>{t.mainInfoEditModal.addWorkArea}</button>
-          <button className='button' onClick={handleAddLanguage}>{t.mainInfoEditModal.addLanguage}</button>
+          <button type='button' className='button' onClick={handleAddCity}>{t.mainInfoEditModal.addWorkArea}</button>
+          <button type='button' className='button' onClick={handleAddLanguage}>{t.mainInfoEditModal.addLanguage}</button>
         </div>
           <button type="submit" className='button'>{t.mainInfoEditModal.save}</button>
         <p onClick={() => setOpen(false)}>X</p>
