@@ -14,6 +14,7 @@ import LoadingContext from "context/LoadingContext"
 import { ApiService } from "@/services/ApiService"
 import locales from "locales"
 import { Modal, ModalPartneship} from ".."
+import { useIsMobile } from "hooks";
 
 const Container = styled.div`
   .expiriences{
@@ -110,10 +111,12 @@ interface PartnershipCardProps{
 }
 
 export default function PartnershipCard({localId, accType, sessionProfile}:PartnershipCardProps){
-  
+
+  const isMobile = useIsMobile()
   const [partnerships, setPartnerships] = useState<PartnershipList []>()
   const [open, setOpen] = useState(false)
-  const [childSizeModal, setChildSize] = useState({ width: "95%", height: "100%", radius: 10 });
+
+  const childSizeModal = { width: "95%", height:isMobile ?  "20%" : "100%", radius: 10 }
 
   const [indexPartnership, setIndexPartnership] = useState(-1)
 
