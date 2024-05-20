@@ -90,8 +90,6 @@ const AddPropertyModal = ({
       return toast.info("Adicione uma imagem para salvar!");
     }
 
-    console.log(data);
-
     const localId = localStorage.getItem("id");
     const accountType = localStorage.getItem("accountType");
     const realtorBody = {
@@ -149,6 +147,7 @@ const AddPropertyModal = ({
     setLoadingOpen(false);
     const response = dataResponse;
     if (response === "created" || response === "updated") router.reload();
+    if (response === "exists") toast.info("Imovel ja cadastrado!");
   };
 
   const handleChange = (e: React.ChangeEvent) => {

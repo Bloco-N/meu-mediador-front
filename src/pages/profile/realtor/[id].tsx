@@ -18,7 +18,6 @@ import PartnershipCard from "@components/realtor-profile-page/PartnershipCard";
 import AboutCard from "@components/realtor-profile-page/AboutCard";
 import locales from "locales";
 import InfoFooter from "@components/InfoFooter";
-import TrashButton from "@components/DeleteButton";
 import ModalLogout from "../../../../components/ModalLogout";
 import IconAlert from "../../../../public/icons-atencao.png";
 import { signOut as singOutGoogle } from "next-auth/react";
@@ -80,9 +79,7 @@ export default function Profile() {
     const fetchData = async () => {
       if (id) {
         setLoadingOpen(true);
-        console.log("Aqui");
         const data = await apiService.getRealtorInformation(id as string);
-        console.log(data, "PEdrooooo");
         setRealtor(data);
 
         const responsePartnerships = await apiService.getRealtorPartnership(

@@ -103,8 +103,6 @@ const Footer = () => {
 
     }
 
-    useEffect(() => { console.log(defaultLocale)}, [defaultLocale])
-
     useEffect(() => {
       const profilePicture = localStorage.getItem('pic')
       if(profilePicture === "undefined") return

@@ -14,6 +14,7 @@ import api from "@/services/api";
 import { toast } from "react-toastify";
 import TrashButton from "../DeleteButton";
 import { RenderConditional } from "..";
+import IconTrash from "../../public/icons-trash.png";
 
 type ContainerProps = {
   isProfile: boolean;
@@ -79,6 +80,31 @@ const Container = styled.div<ContainerProps>`
     .sub-content {
       width: 100%;
 
+      .responsive_image{
+        width: 100%;
+      }
+
+      .deletAccount-back {
+        background-color: #c14341;
+        border-radius: 50%;
+        height: 4rem;
+        width: 4rem;
+        position: absolute;
+        top: 2rem;
+        right: 7rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        img {
+          position: unset;
+          margin-top: 3px;
+        }
+        @media only screen and (max-width: 768px) {
+          right: 2rem;
+        }
+      }
+
       @media only screen and (max-width: 900px) {
         flex-direction: column;
         gap: 2rem;
@@ -133,6 +159,8 @@ const Container = styled.div<ContainerProps>`
           padding: 0;
           border-radius: 5px;
           padding-left: 10px;
+          background-color:#EFF4F0 ;
+          border: 1px solid #B5B3B3;
         }
 
         button {
@@ -201,9 +229,10 @@ const Container = styled.div<ContainerProps>`
               width: 15px !important;
             }
 
-            .input-nfi {
+            .input-nfi{
               height: 40px !important;
               width: 180px !important;
+              
             }
           }
 
@@ -253,12 +282,14 @@ type MainInfoClientProps = {
   userSigned: ClientProfile;
   isProfile: boolean;
   setModalOpen: any;
+  onTrash: () => void
 };
 
 const MainInfoClient = ({
   userSigned,
   isProfile,
   setModalOpen,
+  onTrash
 }: MainInfoClientProps) => {
 
   const [editing, setEditing] = useState(false);
@@ -272,6 +303,7 @@ const MainInfoClient = ({
   const [nif_passport, setNifPassport] = useState(userSigned?.nif_passport);
   const [choiceNif, setChoiceNif] = useState(userSigned?.choiceNif);
   const [nifInvalido, setNifInvalido] = useState(false);
+  const [sessionProfile, setSessionProfile] = useState(false);
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType;
 
   const router = useRouter();
@@ -284,7 +316,6 @@ const MainInfoClient = ({
     setLoadingOpen(true);
     var nifValidado: boolean | null = true;
     setNifInvalido(false);
-    console.log("nif valido " + validateNIF(nif_passport));
     if (choiceNif) {
       nifValidado = validateNIF(nif_passport);
       if (nifValidado != null) {
@@ -321,6 +352,16 @@ const MainInfoClient = ({
       setEditing(false);
     }
   }
+
+  useEffect(() => {
+    const accounType = localStorage.getItem("accountType");
+    const localId = localStorage.getItem("id");
+
+    if (Number(localId) === userSigned?.id && accounType === "client") {
+      setSessionProfile(true);
+    }
+  }, [userSigned?.id]);
+
 
   function startEditing(e: any) {
     e.preventDefault();
@@ -387,19 +428,25 @@ const MainInfoClient = ({
               <div className="contact">
                 <h3>{userSigned?.email}</h3>
 
+                <RenderConditional isTrue={sessionProfile}>
+                <>
+                    <div className="deletAccount-back">
+                      <span onClick={onTrash}>
+                        <img className="responsive_image"
+                          src={IconTrash.src}
+                          alt="Trash Icon"
+                          color="#b5b3b3"
+                        />
+                      </span>
+                    </div>
+                </>
+              </RenderConditional>
+
                 <RenderConditional isTrue={!!userSigned?.email}>
                   <Link href={"mailto: " + userSigned.email} target="_blank">
                       <Img className="icon" file={mailIcon} alt="mail icon" />
                   </Link>
                 </RenderConditional>
-
-                <div className="divButton">
-                  <TrashButton
-                    onClick={() => {
-                      setModalOpen(true);
-                    }}
-                  />
-                </div>
               </div>
             </li>
             <li>

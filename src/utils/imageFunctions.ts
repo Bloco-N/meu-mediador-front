@@ -81,7 +81,6 @@ export function getBase64ImageSize(base64: string) {
   
     fr.onload = () => {
       // Processa o arquivo carregado
-      console.log('Arquivo lido:', fr.result);
     };
   
     fr.onerror = () => {

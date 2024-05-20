@@ -37,6 +37,7 @@ import "tippy.js/dist/tippy.css";
 import { getQueryParam } from "@/utils";
 import axios from "axios";
 import api from "@/services/api";
+import { useIsMobile } from "hooks";
 
 type MainInfoProps = {
   userSigned: any;
@@ -75,6 +76,8 @@ const MainInfo = ({
   const [openModalLanguage, setLanguageModalOpen] = useState(false);
   const [openModalEditPictures, setOpenModalEditPictures] = useState(false);
 
+  const isMobile = useIsMobile()
+
   const [tooltip, setTooltip] = useState({ show: false, posX: 0, posY: 0 });
 
   const locale = router.locale;
@@ -95,7 +98,7 @@ const MainInfo = ({
 
   const childSizeModal = {
     width: "90rem",
-    height: "100%",
+    height:isMobile? "98%": "100%",
     radius: 10,
   };
 
@@ -198,7 +201,7 @@ const MainInfo = ({
       setTypeAccountPage("agencies");
     }
   }
-
+  console.log(userSigned?.instagram, "userSigned?.instagram")
   return (
     <C.Container isProfile={isProfile}>
       <div className="main-info border">
@@ -245,7 +248,6 @@ const MainInfo = ({
                       />
                     </label>
                   </div>
-                  {/* <input onChange={(e) => alert(e)} id="cover-pic" type="file"/> */}
                 </>
               </RenderConditional>
             </>
@@ -286,7 +288,7 @@ const MainInfo = ({
               <h1>{userSigned?.name}</h1>
             </RenderConditional>
             <RenderConditional isTrue={userSigned?.rating > 0}>
-              <h3>
+              <h3 className="stars">
                 {"★".repeat(Math.floor(userSigned?.rating))} (
                 {Math.floor(userSigned?.rating)})
               </h3>

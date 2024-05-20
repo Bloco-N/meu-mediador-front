@@ -27,6 +27,12 @@ export const Container = styled.div<ContainerProps>`
     gap: 1rem;
     border-radius: 30px;
 
+    .facebook_icon{
+      display: flex;
+      border: 1px solid tomato;
+      /* margin-top: 1em; */
+    }
+
     .top {
       position: absolute;
       width: 100%;
@@ -40,7 +46,7 @@ export const Container = styled.div<ContainerProps>`
         height: 4rem;
         width: 4rem;
         position: absolute;
-        top: 1rem;
+        top: 2rem;
         right: 2rem;
         display: flex;
         align-items: center;
@@ -57,14 +63,15 @@ export const Container = styled.div<ContainerProps>`
         height: 4rem;
         width: 4rem;
         position: absolute;
-        top: 1rem;
+        top: 2rem;
         right: 7rem;
         display: flex;
         align-items: center;
         justify-content: center;
-
+        cursor: pointer;
         img {
           position: unset;
+          margin-top: 3px;
         }
       }
     }
@@ -75,7 +82,7 @@ export const Container = styled.div<ContainerProps>`
       height: 4rem;
       width: 4rem;
       position: absolute;
-      top: 1rem;
+      top: 2rem;
       right: 17rem;
       display: flex;
       align-items: center;
@@ -108,8 +115,10 @@ export const Container = styled.div<ContainerProps>`
     border-radius: 50%;
     object-fit: cover;
     position: relative;
+    
 
     @media only screen and (max-width: 900px) {
+      margin-top: 4em;
       margin-bottom: unset;
     }
   }
@@ -164,6 +173,10 @@ export const Container = styled.div<ContainerProps>`
       h1 {
         font-size: 28px;
       }
+    }
+    
+    .stars{
+      color: var(--star);
     }
   }
 
@@ -231,8 +244,7 @@ export const Container = styled.div<ContainerProps>`
       }
 
       span {
-        margin-right: 5px;
-        margin-left: 1px;
+        margin-right: 4px;
         font-size: 16px;
       }
 
@@ -250,6 +262,7 @@ export const Container = styled.div<ContainerProps>`
         }
       }
     }
+   
   }
 
   .contact {
@@ -298,12 +311,12 @@ export const Container = styled.div<ContainerProps>`
     }
 
     .icon-facebook {
-      height: 3.5rem;
-      width: 3.5rem;
+      height: 3.3rem;
+      width: 3.3rem;
       cursor: pointer;
       opacity: 0.7;
       transition: all 0.5s;
-      margin-top: 1em;
+      margin-top: 1.5rem;
 
       :hover {
         opacity: 1;
@@ -317,10 +330,6 @@ export const Container = styled.div<ContainerProps>`
 
   h1 {
     font-weight: normal;
-  }
-
-  h3 {
-    color: var(--star);
   }
 
   p {
@@ -368,6 +377,8 @@ export const Container = styled.div<ContainerProps>`
         font-size: 16px;
       }
     }
+
+    
   }
 
   .current-agency {
@@ -517,7 +528,6 @@ export const Progress = styled.div<{ width: number }>`
 
 export const ResponsiveImage = styled.img`
   width: 100%;
-  cursor: pointer;
 `;
 
 export const ButtonUpload = styled.button`

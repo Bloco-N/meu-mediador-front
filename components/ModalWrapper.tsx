@@ -96,8 +96,6 @@ const ModalWrapper = ({ children }: ModalWrapperProps) => {
     totalOfPages: 0
   })
 
-  useEffect(() => { console.log(openMainInfoAgencyModal) }, [openMainInfoAgencyModal])
-
   useEffect(() => {
     setUser({
       token: localStorage.getItem('token') as string,

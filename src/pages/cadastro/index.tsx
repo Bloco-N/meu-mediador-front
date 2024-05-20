@@ -71,7 +71,6 @@ export default function Cadastro() {
         loginAgency();
       })
       .catch((error) => {
-        console.log(error);
         toast.error(t.toast.errorRegistration);
       });
   };

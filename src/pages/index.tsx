@@ -189,11 +189,12 @@ const NovoCadastro = styled.div`
   @media only screen and (max-width: 768px) {
     margin-top: 0px;
     border: solid 0.1rem var(--border-color);
-    width: 90%;
+    width: 88%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    font-size: 11px;
   }
 
   .novo-botao {

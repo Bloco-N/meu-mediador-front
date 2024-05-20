@@ -20,6 +20,7 @@ import EnergyEfficience, { TEnergyEfficience } from "@/types/EnergyEfficience";
 import editIcon from "../public/edit.svg";
 import Modal from "./Modal";
 import { ModalProperty } from ".";
+import { useIsMobile } from "hooks";
 
 const Container = styled.div`
   .properties {
@@ -48,16 +49,7 @@ const Container = styled.div`
       .propertie {
         text-align: left;
         @media only screen and (max-width: 510px) {
-          width: 280px;
-        }
-        @media only screen and (max-width: 470px) {
-          width: 256px;
-        }
-        @media only screen and (max-width: 420px) {
-          width: 200px;
-        }
-        @media only screen and (max-width: 390px) {
-          width: 180px;
+          width: 240px;
         }
         flex-shrink: 0;
         scroll-snap-align: start;
@@ -147,13 +139,17 @@ export default function PropertiesCard({
   sessionProfile,
   pdfPage = false,
 }: PropertiesCardProps) {
+ 
+  const isMobile =  useIsMobile()
   const [properties, setProperties] = useState<Property[]>();
   const [open, setOpen] = useState(false);
-  const [childSizeModal, setChildSize] = useState({
+
+  const childSizeModal = {
     width: "95%",
-    height: "100%",
+    height: isMobile ? "98%" : "100%",
     radius: 10,
-  });
+  }
+
   const [property, setPropertyToUpdate] = useState({});
 
   const { user } = useContext(UserContext) as UserContextType;

@@ -15,7 +15,7 @@ form {
     justify-content: center;
     gap: 2rem;
     min-height: 32rem;
-    min-width: 42rem;
+    min-width: 40rem;
     width: 100%;
 
   h4 {
@@ -29,7 +29,7 @@ form {
 `;
 
 export const Container = styled.div`
-width: 100%;
+width: 98%;
 height: 60%;
 display: flex;
 align-items: center;
