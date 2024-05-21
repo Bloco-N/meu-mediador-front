@@ -33,7 +33,6 @@ export default function Profile() {
   const [lastExp, setLastExp] = useState<LastExp>();
 
   const [sessionProfile, setSessionProfile] = useState(false);
-  // const [childSizeModal, setChildSize] = useState({ width: "80%", height: "100%", radius: 10 });
 
   const { user, setUser } = useContext(UserContext) as UserContextType;
 
