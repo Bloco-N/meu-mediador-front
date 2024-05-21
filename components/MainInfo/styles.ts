@@ -435,6 +435,7 @@ export const Modal = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 2rem;
 `;
 
 export const ModalContent = styled.div`
@@ -442,7 +443,8 @@ export const ModalContent = styled.div`
   padding: 20px;
   border-radius: 8px;
   text-align: center;
-  min-width: 800px;
+  max-width: 800px;
+  width: 100%;
 `;
 
 export const Divider = styled.div`
@@ -459,6 +461,7 @@ export const FileInputContainer = styled.div`
     justify-content: space-between;
     text-align: center;
     gap: 1rem;
+    min-height: 40px;
 
     img {
       height: 2rem;
@@ -466,6 +469,12 @@ export const FileInputContainer = styled.div`
       bottom: 2rem;
       right: 2rem;
       cursor: pointer;
+    }
+
+    span {
+      b {
+        color:green;
+      }
     }
   }
 
@@ -480,6 +489,8 @@ export const FileInputContainer = styled.div`
   border-radius: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
+  padding:1rem;
+
 `;
 
 export const SelectedImage = styled.img<{ profileRadius?: boolean }>`
@@ -491,7 +502,7 @@ export const SelectedImage = styled.img<{ profileRadius?: boolean }>`
   position: relative;
 `;
 
-export const HeaderChangePictures = styled.div`
+export const FooterChangePictures = styled.div`
   display: flex;
   width: 100%;
   border-radius: 8px;
@@ -499,6 +510,29 @@ export const HeaderChangePictures = styled.div`
   justify-content: end;
   overflow: hidden;
   margin-top: 10px;
+  gap:1rem;
+  flex-wrap: wrap;
+
+
+  button{
+        all: unset;
+        color: #fff;
+        font-size: 1.5rem;
+        background: var(--surface-2);
+        text-align: center;
+        border-radius: 1rem;
+        cursor: pointer;
+        padding: 1rem;
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+  }
+
+  @media screen and (max-width: 900px) {
+    justify-content: center;
+  }
+  
 `;
 
 export const ProgressBar = styled.div`
@@ -523,6 +557,7 @@ export const Progress = styled.div<{ width: number }>`
     right: 0;
     font-weight: bold;
     padding-right: 5px;
+    font-size: 14px;
   }
 `;
 
@@ -561,38 +596,53 @@ export const PreviewCardProfileTop = styled.div`
   width: 100%;
   border-top-left-radius: 3rem;
   border-top-right-radius: 3rem;
-  height: 200px;
+  height: 10rem;
 `;
 
 export const PreviewCardProfileBottom = styled.div`
   position: relative;
   display: flex;
-  width: 90%;
+  width: 100%;
   border-bottom-left-radius: 3rem;
   border-bottom-right-radius: 3rem;
   justify-content: end;
   align-items: center;
-  gap: 5rem;
+  gap: 2rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  
+
+  @media screen and (max-width: 900px) {
+    height: 100px;
+    padding-top: 5rem;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const PreviewProfileImage = styled.img`
   position: absolute;
-  width: 15rem;
-  height: 15rem;
+  width: 10rem;
+  height: 10rem;
   border-radius: 50%;
   object-fit: cover;
-  bottom: -50px;
-  left: 20px;
+  bottom: -45px;
+  left: 10px;
   z-index: 1;
+
+  @media screen and (max-width: 900px) {
+    left: 0;
+    right: 0;
+  }
 `;
 
 export const PreviewProfileCoverImage = styled.img`
-  position: absolute;
-  height: 100%;
-  top: 0;
-  left: 0;
-  width: 100%;
-  border-top-left-radius: 3rem;
-  border-top-right-radius: 3rem;
-  object-fit: cover;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+    object-fit: cover;
 `;

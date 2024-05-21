@@ -31,6 +31,7 @@ const pt = {
     accompaniedBuyers: "Compradores acompanhados: ",
     cityPopup:{
       textPopupList:"Cidades onde opera:",
+      textPopupListLanguage:"idiomas:",
       restText:'cidades',
       joinText:"e outras"
     },

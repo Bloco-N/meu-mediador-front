@@ -32,6 +32,7 @@ import {
   SimplePopup,
   Img,
   CropImage,
+  Spinner,
 } from "@components/index";
 import "tippy.js/dist/tippy.css";
 import { getQueryParam } from "@/utils";
@@ -59,18 +60,12 @@ const MainInfo = ({
   renderActions,
   PdfRender,
 }: MainInfoProps) => {
-  const { setData } = useContext(
-    PictureModalContext
-  ) as PictureModalContextType;
-  const {
-    setOpen: coverPicAdjustModalSetOpen,
-    setSrcImg: setCoverPicSrcImage,
-  } = useContext(CoverPicAdjustModalContext) as CoverPicAdjustModalContextType;
+  const { setData } = useContext(PictureModalContext) as PictureModalContextType;
+  const { setOpen: coverPicAdjustModalSetOpen, setSrcImg: setCoverPicSrcImage } = useContext(CoverPicAdjustModalContext) as CoverPicAdjustModalContextType;
   const router = useRouter();
 
   const [sessionProfile, setSessionProfile] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
-  const [typeAccountPage, setTypeAccountPage] = useState("realtors");
 
   const [openModalCity, setCityModalOpen] = useState(false);
   const [openModalLanguage, setLanguageModalOpen] = useState(false);
@@ -94,7 +89,6 @@ const MainInfo = ({
       ? lastExp?.name.slice(0, maxLength) + "..."
       : lastExp?.name
     : "";
-  const basePathStorage = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${typeAccountPage}/${userSigned?.id}`;
 
   const childSizeModal = {
     width: "90rem",
@@ -112,7 +106,6 @@ const MainInfo = ({
     const accounType = localStorage.getItem("accountType");
     const localId = localStorage.getItem("id");
 
-    changeTypeAccount();
 
     if (Number(localId) === userSigned?.id && accounType === "realtor") {
       setSessionProfile(true);
@@ -129,30 +122,7 @@ const MainInfo = ({
     };
   }, [userSigned?.id]);
 
-  const handleChangeCover = (e: React.ChangeEvent) => {
-    const target = e.target as HTMLInputElement;
 
-    const files = target.files as FileList;
-
-    const file = files[0];
-
-    if (FileReader && file) {
-      const fr = new FileReader();
-
-      const onload = async () => {
-        const img = document.getElementById("cover-pic") as HTMLImageElement;
-
-        img.src = fr.result as string;
-
-        setCoverPicSrcImage(img.src);
-        coverPicAdjustModalSetOpen(true);
-      };
-
-      fr.onload = onload;
-
-      fr.readAsDataURL(file);
-    }
-  };
 
   function printCities() {
     const cities = userCitis?.map((city: any) => city.City.name);
@@ -188,20 +158,6 @@ const MainInfo = ({
 
   function goAgency() {}
 
-  function changeTypeAccount() {
-    if (
-      getQueryParam("idSearch") == "1" ||
-      window.location.href?.includes("realtor")
-    ) {
-      setTypeAccountPage("realtors");
-    } else if (
-      getQueryParam("idSearch") == "2" ||
-      window.location.href?.includes("agency")
-    ) {
-      setTypeAccountPage("agencies");
-    }
-  }
-  console.log(userSigned?.instagram, "userSigned?.instagram")
   return (
     <C.Container isProfile={isProfile}>
       <div className="main-info border">
@@ -215,6 +171,7 @@ const MainInfo = ({
                 validateURL={!!userSigned?.coverPicture}
                 file={greyImage}
                 alt="cover image"
+                id="coverPicture"
                 className="cover-photo"
               />
 
@@ -253,7 +210,7 @@ const MainInfo = ({
             </>
           </div>
         </RenderConditional>
-
+        
         <Img
           width={100}
           height={100}
@@ -265,6 +222,7 @@ const MainInfo = ({
           }
           className={isProfile ? "profile profile-pointer" : "profile"}
           alt="profile icon"
+          id="profilePicture"
         />
 
         <RenderConditional isTrue={isProfile && sessionProfile && !pdfPage}>
@@ -495,6 +453,12 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({
 
   const [progress1, setProgress1] = useState<number>(0);
   const [progress2, setProgress2] = useState<number>(0);
+  const [countUploads, setCountUploads] = useState<number>(0);
+
+  const [isUploadComplete1, setIsUploadComplete1] = useState<boolean>(false);
+  const [isUploadComplete2, setIsUploadComplete2] = useState<boolean>(false);
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const profileImageRef = useRef<HTMLImageElement>(null);
   const coverImageRef = useRef<HTMLImageElement>(null);
@@ -505,6 +469,7 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({
   useEffect(() => {
     handlePreviewImagesDefault();
   }, [profile, open]);
+
 
   const handlePreviewImagesDefault = () => {
     if (profile?.profilePicture) {
@@ -523,6 +488,8 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({
     if (e.target.files && e.target.files[0]) {
       setSelectedFile1(e.target.files[0]);
       cropImageRef1.current?.open();
+      setIsUploadComplete1(false)
+      setProgress1(0)
     }
   };
 
@@ -530,89 +497,129 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({
     if (e.target.files && e.target.files[0]) {
       setSelectedFile2(e.target.files[0]);
       cropImageRef2.current?.open();
+      setIsUploadComplete2(false)
+      setProgress2(0)
+    }
+  };
+
+  const handleChangeCover = (file: File | null, idImage: string) => {
+    if (FileReader && file) {
+      const fr = new FileReader();
+      const onload = async () => {
+        const img = document.getElementById(idImage) as HTMLImageElement;
+        img.src = fr.result as string;
+      };
+      fr.onload = onload;
+      fr.readAsDataURL(file);
     }
   };
 
   const handleUpload = async (
     file: File | null,
     setProgress: React.Dispatch<React.SetStateAction<number>>,
+    setIsUploadComplete: React.Dispatch<React.SetStateAction<boolean>>,
     nameFile: string
   ) => {
     if (!file) return;
     setProgress(0);
+    setIsUploadComplete(false);
+
+    const fileName = `${nameFile}${file.type?.replace("image/", ".")}`;
 
     const formData = new FormData();
-    formData.append("file", file, `${nameFile}.png`);
-    formData.set(
-      "profilePicture",
-      `${nameFile}${file.type?.replace("image/", ".")}`
-    );
+    formData.append("file", file, fileName);
 
-    const fakeUpload = () => {
-      setProgress((prevProgress) => {
-        if (prevProgress >= 100) {
-          return 100;
-        }
-        const nextProgress = prevProgress + 10;
-        setTimeout(fakeUpload, 2000);
-        return nextProgress;
-      });
-    };
+    await axios
+    .post("https://storage-production-7c83.up.railway.app/api/save?projectName=uploads&projectScope", formData, {
+      onUploadProgress: (progressEvent:any) => {
+        let progress: number = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
 
-    fakeUpload();
-    await api
-      .put("realtor/picture", formData)
-      .then(() => {
-        setProgress(100);
-      })
-      .catch(() => setProgress(0));
+        setProgress(progress)
+        console.log(`A imagem ${file.name} está ${progress}% carregada... `);
+      },
+    })
+    .then(async(response) => {
+      console.log(`A imagem ${file.name} já foi enviada para o servidor!`);
+    })
+    .catch((err) => {
+      console.error(`Houve um problema ao fazer upload da imagem ${file.name} no servidor`);
+      console.log(err);
+    });
+
+    await api.put("realtor/picture", {[nameFile?.split("-")[1]]:fileName})
+    .then(() => {
+      setIsUploadComplete(true)
+      setProgress(0)
+      setCountUploads(value => value++)
+    })
+    .catch(err => console.log(err.message))
   };
 
-  const handleUpload1 = () =>
-    handleUpload(selectedFile1, setProgress1, `R${profile?.id}-profilePicture`);
-  const handleUpload2 = () =>
-    handleUpload(selectedFile2, setProgress2, `R${profile?.id}-coverPicture`);
+  const handleSave = async() => {
+
+    if(!selectedFile1 && !selectedFile2) return 
+
+    setIsLoading(true)
+
+    if(selectedFile1){
+      await handleUpload1()
+    }
+
+    if(selectedFile2){
+      await handleUpload2()
+    }
+    handleClose()
+  };
+
+  const handleUpload1 = async() => {
+    await handleUpload(selectedFile1, setProgress1, setIsUploadComplete1, `R${profile?.id}-profilePicture`);
+    handleChangeCover(selectedFile1, 'profilePicture');
+    handleChangeCover(selectedFile1, 'profilePictureNav');
+    localStorage.setItem("pic",`R${profile?.id}-profilePicture${selectedFile1?.type?.replace("image/", ".")}`)
+
+  }
+
+
+  const handleUpload2 = async() => {
+    await handleUpload(selectedFile2, setProgress2, setIsUploadComplete2, `R${profile?.id}-coverPicture`);
+    handleChangeCover(selectedFile2, 'coverPicture');
+  }
+
 
   const handleClose = () => {
     setSelectedFile1(null);
     setSelectedFile2(null);
     setProgress1(0);
     setProgress2(0);
+    setIsUploadComplete1(false);
+    setIsUploadComplete2(false);
     setOpen(false);
+    setIsLoading(false)
   };
 
   return (
     <C.Modal>
       <C.ModalContent>
-        <C.HeaderChangePictures>
-          <button onClick={handleClose}>
-            <X />
-          </button>
-        </C.HeaderChangePictures>
-
         <C.PreviewCardProfile>
           <C.PreviewCardProfileTop>
             {selectedFile1 && (
-              <>
-                <C.PreviewProfileImage
-                  src={URL.createObjectURL(selectedFile1)}
-                  alt="Selected"
-                />
-              </>
+              <C.PreviewProfileImage
+                src={URL.createObjectURL(selectedFile1)}
+                alt="Selected"
+              />
             )}
             {!selectedFile1 && (
               <C.PreviewProfileImage ref={profileImageRef} alt="Selected" />
             )}
 
             {selectedFile2 && (
-              <>
-                <C.PreviewProfileCoverImage
-                  src={URL.createObjectURL(selectedFile2)}
-                  alt="Selected"
-                />
-              </>
+              <C.PreviewProfileCoverImage
+                src={URL.createObjectURL(selectedFile2)}
+                alt="Selected"
+              />
             )}
-
             {!selectedFile2 && (
               <C.PreviewProfileCoverImage ref={coverImageRef} alt="Selected" />
             )}
@@ -626,16 +633,16 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({
                 <Img width={40} file={editIcon} alt="edit icon" />
               </label>
               <input id="inputFile1" type="file" onChange={handleFileChange1} />
-              {selectedFile1 && (
+              <RenderConditional isTrue={isUploadComplete1}>
+                <span><b>Upload Concluido!</b></span>
+              </RenderConditional>
+              {(selectedFile1 && !isUploadComplete1) &&(
                 <>
                   <C.ProgressBar>
                     <C.Progress width={progress1}>
                       <p>{progress1}%</p>
                     </C.Progress>
-                  </C.ProgressBar>
-                  <C.ButtonUpload onClick={handleUpload1}>
-                    Salvar
-                  </C.ButtonUpload>
+                  </C.ProgressBar>                                                                                                                      
                 </>
               )}
             </C.FileInputContainer>
@@ -647,16 +654,18 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({
                 <Img width={40} file={editIcon} alt="edit icon" />
               </label>
               <input id="inputFile2" type="file" onChange={handleFileChange2} />
-              {selectedFile2 && (
+
+              <RenderConditional isTrue={isUploadComplete2}>
+                  <span><b>Upload Concluido!</b></span>
+              </RenderConditional>
+
+              {(selectedFile2 && !isUploadComplete2) && (
                 <>
                   <C.ProgressBar>
                     <C.Progress width={progress2}>
                       <p>{progress2}%</p>
                     </C.Progress>
                   </C.ProgressBar>
-                  <C.ButtonUpload onClick={handleUpload2}>
-                    Salvar
-                  </C.ButtonUpload>
                 </>
               )}
             </C.FileInputContainer>
@@ -673,6 +682,28 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({
           src={selectedFile2}
           onCrop={setSelectedFile2}
         />
+
+        <C.FooterChangePictures>
+          <button onClick={handleClose}>
+            Fechar
+          </button>
+
+          <button
+            disabled={isLoading}
+            onClick={handleSave}
+            style={{
+              backgroundColor: 'green'
+            }}
+          >
+            <RenderConditional isTrue={isLoading}>
+                Aplicando as alteraçoes... <Spinner/>
+            </RenderConditional>
+            
+            <RenderConditional isTrue={!isLoading}>
+              Aplicar alterações
+            </RenderConditional>
+          </button>
+        </C.FooterChangePictures>
       </C.ModalContent>
     </C.Modal>
   );

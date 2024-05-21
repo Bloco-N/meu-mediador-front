@@ -1,7 +1,7 @@
 import { AgencyProfile } from "@/types/AgencyProfile"
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import { Img } from '@components/index';
+import { Img, Modal, ModalAbout } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -44,6 +44,8 @@ export default function AboutAgencyCard({localId, accType}:AboutCardProps){
   const [ agency, setAgency ] = useState<AgencyProfile>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
+  const [openModal, setOpen] = useState(false)
+  const [childSizeModal, setChildSize] = useState({ width: "100%", height: "100%", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
   
@@ -92,9 +94,12 @@ export default function AboutAgencyCard({localId, accType}:AboutCardProps){
           <p className="elipses-button" onClick={() => setElip(true)}>{t.about.showLess}</p>
         )}
         { sessionProfile ? (
-            <Img onClick={() => aboutEditOpen(true)} className='edit-main' file={editIcon} alt='edit icon'/>
+            <Img onClick={() => setOpen(true)} className='edit-main' file={editIcon} alt='edit icon'/>
           ): ''}
       </div> 
+      <Modal isOpen={openModal} onClose={() => setOpen(false)} childSize={childSizeModal}>
+        <ModalAbout setOpen={setOpen}/>
+      </Modal>
     </Container>
   ) 
 }

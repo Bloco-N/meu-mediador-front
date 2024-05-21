@@ -23,7 +23,7 @@ import MainInfoAgency from '@components/MainInfoAgency'
 export { Img } from '@components/Img'
 export { CropImage } from '@components/CropImage'
 import ModalComment from './ModalComment'
-
+export { Spinner } from '@components/Spinner'
 
 export {
     RenderConditional,

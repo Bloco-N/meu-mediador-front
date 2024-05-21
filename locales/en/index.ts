@@ -26,6 +26,7 @@ const en = {
     workArea: 'Work Area: ',
     cityPopup:{
       textPopupList:"Cities it operates:",
+      textPopupListLanguage:"language:",
       restText:'cities',
       joinText:"and others"
     },

@@ -407,6 +407,7 @@ const Navbar:React.FC<any> = ({ children }) => {
                         alt={"Profile"}
                         width={60}
                         height={60}
+                        id='profilePictureNav'
                       />} align='end'>
                     <ProfileMoldal notModal={true} />
                 </Popover>
