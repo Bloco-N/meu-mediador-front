@@ -1,6 +1,6 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import { Img } from '@components/index';
+import { Img, Modal, ServiceModal } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -58,6 +58,9 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
   const { setOpen: addServiceSetOpen } = useContext(AddServiceModalContext) as ModalOpenContextType
 
   const { setOpen: setLoadingOpen } = useContext(LoadingContext) as ModalOpenContextType
+
+  const [openModalService, setOpenModalService] = useState(false)
+  const [childSizeModal, setChildSize] = useState({ width: "95%", height: "100%", radius: 10 });
 
   const router = useRouter()
   const { id } = router.query
@@ -124,9 +127,12 @@ export default function ServicesAgencyCard({localId, accType}:ServicesCardProps)
           )}
 
           { sessionProfile ? (
-            <Img onClick={() => addServiceSetOpen(true)} className='edit-main' file={editIcon} alt='edit icon'/>
+            <Img onClick={() => setOpenModalService(true)} className='edit-main' file={editIcon} alt='edit icon'/>
           ): ''}
       </div>
+      <Modal isOpen={openModalService} onClose={() => setOpenModalService(false)} childSize={childSizeModal}>
+        <ServiceModal setOpen={setOpenModalService}/>
+      </Modal>
     </Container>
   ) 
 }

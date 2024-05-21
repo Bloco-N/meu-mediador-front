@@ -1,6 +1,6 @@
 import { UserContextType } from "@/types/UserContextType"
 import UserContext from "context/UserContext"
-import { Img } from '@components/index';
+import { Img, Modal, ModalComment } from '@components/index';
 import { useRouter } from "next/router"
 import { useContext, useEffect, useState } from "react"
 import styled from "styled-components"
@@ -63,6 +63,9 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
   const [comments, setComments] = useState<Comment []>()
 
   const [sessionProfile, setSessionProfile] = useState(false)
+
+  const [openModal, setOpen] = useState(false)
+  const [childSizeModal, setChildSize] = useState({ width: "100%", height: "auto", radius: 10 });
 
   const { user } = useContext(UserContext) as UserContextType
 
@@ -137,7 +140,7 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
         <h2>{t.comments.comments}</h2>
         {
           comments?.map(comment => comment.clientId).includes(Number(localId)) ? '': !sessionProfile &&  (
-            <button onClick={() => addCommentSetOpen(true)}>{t.comments.addComment}</button>
+            <button className="button" onClick={() => setOpen(true)}>{t.comments.addComment}</button>
           )
         }
         <div className="list">
@@ -162,6 +165,13 @@ export default function CommentsAgencyCard({localId, accType}:CommentsCardProps)
             ))}            
         </div>
       </div>
+      <Modal
+        isOpen={openModal}
+        onClose={() => setOpen(false)}
+        childSize={childSizeModal}
+      >
+        <ModalComment setOpen={setOpen} setChildSize={setChildSize} />
+      </Modal>
     </Container>
   ) 
 }
