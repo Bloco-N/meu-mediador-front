@@ -131,12 +131,18 @@ type ContainerProps = {
           font-size:15px;
           overflow-wrap: break-word;
         }
+        .idomas{
+          display: flex;
+          white-space: nowrap;
+          gap: 5px;
+        }
   
         .cities{
           width: 100%;
           display: flex;
           font-size: 14px;
           flex-wrap: wrap;
+          white-space: nowrap;
           span{
             margin-right: 5px;
             margin-left: 5px;
@@ -150,6 +156,7 @@ type ContainerProps = {
           position: unset;
           bottom: 8rem;
           justify-content: center;
+          white-space: wrap;
         }
         }
       }

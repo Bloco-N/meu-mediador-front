@@ -21,9 +21,10 @@ import locales from 'locales';
 import SimplePopup from '../Popup';
 import IconTrash from '../../public/icons-trash.png';
 import * as C from './styles'
-import { CropImage, Img, Modal, RenderConditional, Spinner } from '@components/index';
+import { CropImage, Img, MainInfoProfileEditModal, Modal, ModalCity, ModalLanguage, RenderConditional, Spinner } from '@components/index';
 import axios from 'axios';
 import api from '@/services/api';
+import { useIsMobile } from 'hooks';
 
 
 type MainInfoAgencyProps = {
@@ -37,12 +38,27 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
   const { setData } = useContext(PictureModalContext) as PictureModalContextType
 
   const { user, setUser } = useContext(UserContext) as UserContextType
+  const isMobile = useIsMobile()
 
   const { setOpen: mainInfoSetOpen } = useContext(MainInfoAgencyEditModalContext) as ModalOpenContextType
 
   const [openModalEditPictures, setOpenModalEditPictures] = useState(false);
-
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [openModalCity, setCityModalOpen] = useState(false);
+  const [openModalLanguage, setLanguageModalOpen] = useState(false);
   const [sessionProfile, setSessionProfile] = useState(false)
+
+  const childSizeModal = {
+    width: "90rem",
+    height:isMobile? "98%": "100%",
+    radius: 10,
+  };
+
+  const childSizeModalCity = {
+    width: "100%",
+    height: "100%",
+    radius: 10,
+  };
 
   const router = useRouter()
 
@@ -128,7 +144,7 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
         id="profilePicture"
          />
       { isProfile && sessionProfile ? (
-          <Img onClick={() => mainInfoSetOpen(true)} className='edit-main' file={editIcon} alt='edit icon'/>
+          <Img onClick={() => setOpenModalEdit(true)} className='edit-main' file={editIcon} alt='edit icon'/>
       ): ''}
 
       <div className="sub-content">
@@ -145,7 +161,7 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
                   {userSigned.AgencyCities.length > 3 ? (
                       <>
                       <span> e outras </span>
-                      <SimplePopup qtdeCitys={userSigned.AgencyCities.length - 2} cities={userSigned.AgencyCities}/>
+                      <SimplePopup textPopupList={t.mainInfo.cityPopup.textPopupList} qtdeCitys={userSigned.AgencyCities.length - 2} cities={userSigned.AgencyCities}/>
                       <span>cidades</span>
                       </>
                   ) : (
@@ -154,7 +170,8 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
                 </div>
             </p>
         )}
-        <p>
+        <p> 
+        <div className='idomas'>
             <b>
             {t.mainInfo.languages}
             </b>
@@ -162,7 +179,7 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
             {userSigned?.AgencyLanguages?.length > 3 ? (
                       <>
                       <span> e outras </span>
-                      <SimplePopup qtdeCitys={userSigned?.AgencyLanguages?.length - 2} cities={userSigned?.AgencyLanguages}/>
+                      <SimplePopup textPopupList={t.mainInfo.cityPopup.textPopupListLanguage} qtdeCitys={userSigned?.AgencyLanguages?.length - 2} cities={userSigned?.AgencyLanguages}/>
                       <span>cidades</span>
                       </>
                   ) : (
@@ -171,6 +188,7 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
             {/* {userSigned?.AgencyLanguages?.map((language, index) => (
               ` ${language.Language.name} ${index < userSigned.AgencyLanguages.length -1 ? ',': ''} `
               ))} */}
+              </div>
           </p>
           <p><b>{"Email: "}</b>{userSigned?.email}</p>
           <p><b>{"Telefone: "}</b>{userSigned?.phone}</p>
@@ -220,6 +238,34 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
           open={openModalEditPictures}
           setOpen={setOpenModalEditPictures}
         />
+      </Modal>
+
+      <Modal
+        isOpen={openModalEdit}
+        onClose={() => setOpenModalEdit(false)}
+        childSize={childSizeModal}
+      >
+        <MainInfoProfileEditModal
+          setOpen={setOpenModalEdit}
+          setOpenCity={setCityModalOpen}
+          setOpenLanguage={setLanguageModalOpen}
+        />
+      </Modal>
+
+      <Modal
+        isOpen={openModalCity}
+        onClose={() => setCityModalOpen(false)}
+        childSize={childSizeModalCity}
+      >
+        <ModalCity setOpen={setCityModalOpen} />
+      </Modal>
+
+      <Modal
+        isOpen={openModalLanguage}
+        onClose={() => setLanguageModalOpen(false)}
+        childSize={childSizeModalCity}
+      >
+        <ModalLanguage setOpen={setLanguageModalOpen} />
       </Modal>
   </C.Container>
 

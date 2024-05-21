@@ -51,3 +51,4 @@ function createAndDownloadBlobFile(body:ArrayBuffer, filename:string, extension 
 // pdfshift('your_api_key', { source: 'https://www.example.com' }).then(response => {
 //   fs.writeFileSync('example.com.pdf', response.data, "binary", function () {})
 // })
+

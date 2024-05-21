@@ -90,7 +90,6 @@ const blue = {
 
 const PopupBody = styled.div`
   width: max-content;
-  /* min-width: 200px; */
   height: auto;
   padding: 10px;
   border-radius: 5px;

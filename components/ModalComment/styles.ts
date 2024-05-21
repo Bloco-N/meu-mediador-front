@@ -12,9 +12,8 @@ export const Container = styled.div`
 
   form {
     background-color: #bababac7;
-  backdrop-filter: blur(0.3rem);
-  -webkit-backdrop-filter: blur(0.3rem);
-
+    backdrop-filter: blur(0.3rem);
+    -webkit-backdrop-filter: blur(0.3rem);
     position: relative;
     width: 40%;
     border-radius: 3rem;
@@ -54,7 +53,7 @@ export const Container = styled.div`
     }
 
     button {
-       @media (max-width: 600px) {
+      @media (max-width: 600px) {
         margin-bottom: 2em;
       }
     }
