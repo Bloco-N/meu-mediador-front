@@ -18,7 +18,7 @@ export const Img: React.FC<IImageProps> = ({ file, url, validateURL = true, src,
         } else if (url && validateURL) {
             setSource(url);
         } else {
-            setSource(file.src);
+            setSource(file?.src);
         }
     }, [file, url]);
 

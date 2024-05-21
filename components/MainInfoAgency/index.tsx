@@ -97,7 +97,7 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
       <div className='top'>
         {isProfile && (
           <>
-            <Img id="coverPicture" height={1000} width={1000} file={greyImage} url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${userSigned?.coverPicture}`} validateURL={!!userSigned?.coverPicture} alt='cover image' className='cover-photo'/>
+            <Img id="coverPicture" height={1000} width={1000} file={greyImage} url={`https://storage-production-7c83.up.railway.app/wwwroot/uploads/${userSigned?.coverPicture}`} validateURL={!!userSigned?.coverPicture} alt='cover image' className='cover-photo'/>
 
             {sessionProfile && (
               <>
@@ -121,7 +121,7 @@ const MainInfoAgency = ({ userSigned , isProfile, onTrash}: MainInfoAgencyProps)
         width={100}
         height={100}
         file={profileIcon}
-        url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${userSigned?.profilePicture}`}
+        url={`https://storage-production-7c83.up.railway.app/wwwroot/uploads/${userSigned?.profilePicture}`}
         onClick={isProfile ? () => setData({open: true, userSigned}) : () => {}}
         className= {isProfile ? "profile profile-pointer" : 'profile' }
         alt='profile icon'
@@ -265,12 +265,12 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({
   const handlePreviewImagesDefault = () => {
     if (profile?.profilePicture) {
       if (profileImageRef.current) {
-        profileImageRef.current.src = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${profile.profilePicture}`;
+        profileImageRef.current.src = `https://storage-production-7c83.up.railway.app/wwwroot/uploads/${profile.profilePicture}`;
       }
     }
     if (profile?.coverPicture) {
       if (coverImageRef.current) {
-        coverImageRef.current.src = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${profile.coverPicture}`;
+        coverImageRef.current.src = `https://storage-production-7c83.up.railway.app/wwwroot/uploads/${profile.coverPicture}`;
       }
     }
   };
