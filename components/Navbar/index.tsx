@@ -401,7 +401,7 @@ const Navbar:React.FC<any> = ({ children }) => {
                   <div className="profile-container">
                   <Popover showArrow triggerNode={<Img
                         className="profile"
-                        url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${pic}`}
+                        url={`https://storage-production-7c83.up.railway.app/wwwroot/uploads/${pic}`}
                         validateURL={!!pic}
                         file={perfilImage}
                         alt={"Profile"}
@@ -419,7 +419,7 @@ const Navbar:React.FC<any> = ({ children }) => {
 
                   <Popover showArrow triggerNode={<Img
                         className="profile"
-                        url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${pic}`}
+                        url={`https://storage-production-7c83.up.railway.app/wwwroot/uploads/${pic}`}
                         validateURL={!!pic}
                         file={perfilImage}
                         alt={"Profile"}
