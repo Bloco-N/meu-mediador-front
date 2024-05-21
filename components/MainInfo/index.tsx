@@ -577,6 +577,8 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({
     await handleUpload(selectedFile1, setProgress1, setIsUploadComplete1, `R${profile?.id}-profilePicture`);
     handleChangeCover(selectedFile1, 'profilePicture');
     handleChangeCover(selectedFile1, 'profilePictureNav');
+    localStorage.setItem("pic",`R${profile?.id}-profilePicture${selectedFile1?.type?.replace("image/", ".")}`)
+
   }
 
 
