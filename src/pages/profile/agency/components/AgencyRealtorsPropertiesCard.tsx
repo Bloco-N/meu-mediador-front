@@ -186,8 +186,7 @@ export default function AgencyRealtorsPropertiesCard({ agency }: any) {
                   <Img
                     className="property-img"
                     file={housePaceholder}
-                    url={`${"../public/placeholder.jpg"}`}
-                    // url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${item[0].profilePicture}`}
+                    url={`https://storage-production-7c83.up.railway.app/wwwroot/uploads/${item[0].profilePicture}`}
                     validateURL={!!item[0].profilePicture}
                     width={200}
                     height={100}
@@ -297,8 +296,7 @@ export default function AgencyRealtorsPropertiesCard({ agency }: any) {
                   </div>
                   <Img
                     className="property-img"
-                    // src={item[1].profilePicture}
-                    src="../public/placeholder.jpg"
+                    url={`https://storage-production-7c83.up.railway.app/wwwroot/uploads/${item[0].profilePicture}`} 
                     validateURL={!!item[1].profilePicture}
                     file={housePaceholder}
                     width={200}
