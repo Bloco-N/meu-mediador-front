@@ -58,47 +58,48 @@ const Container = styled.div`
         top: 3rem;
         right: 3rem;
       }
-      .propertie {
+       .propertie {
+        text-align: left;
+        @media only screen and (max-width: 510px) {
+          width: 240px;
+        }
         flex-shrink: 0;
         scroll-snap-align: start;
         display: flex;
         flex-direction: column;
         gap: 1rem;
         background-color: var(--base);
-        padding: 1rem;
-        border-radius: 1rem;
-        width: 30rem;
+        padding: 1.5rem;
+        border-radius: 3rem;
+        width: 40rem;
         position: relative;
-        min-height: 400px;
-        max-height: 600px;
         .footer {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          width: 100%;
           display: flex;
           justify-content: space-between;
-          padding: 12px;
-          margin .sub-text {
+          a {
+            width: 50%;
+          }
+          .sub-text {
             font-style: italic;
           }
         }
         h2 {
-          margin-top: -5px;
           color: var(--surface-2);
         }
         h3 {
-          margin-top: -5px;
-          margin-bottom: -8px;
           color: var(--surface-2);
         }
         .property-img {
-          object-fit: fill;
+          object-fit: cover;
           opacity: 1;
-          border-radius: 1rem;
+          border-radius: 3rem;
           width: 100%;
-          height: 100%;
-          max-height: 14rem;
+          height: 500px;
+          max-height: 25rem;
+        }
+        .close {
+          position: absolute;
+          right: 1rem;
         }
         .special-link {
           width: 12rem;
@@ -185,7 +186,8 @@ export default function AgencyRealtorsPropertiesCard({ agency }: any) {
                   <Img
                     className="property-img"
                     file={housePaceholder}
-                    url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${item[0].profilePicture}`}
+                    url={`${"../public/placeholder.jpg"}`}
+                    // url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${item[0].profilePicture}`}
                     validateURL={!!item[0].profilePicture}
                     width={200}
                     height={100}
@@ -295,7 +297,8 @@ export default function AgencyRealtorsPropertiesCard({ agency }: any) {
                   </div>
                   <Img
                     className="property-img"
-                    src={item[1].profilePicture}
+                    // src={item[1].profilePicture}
+                    src="../public/placeholder.jpg"
                     validateURL={!!item[1].profilePicture}
                     file={housePaceholder}
                     width={200}
