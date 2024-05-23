@@ -167,7 +167,7 @@ const MainInfo = ({
               <Img
                 height={1000}
                 width={1000}
-                url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/wwwroot/uploads/${userSigned?.coverPicture}`}
+                url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${userSigned?.coverPicture}`}
                 validateURL={!!userSigned?.coverPicture}
                 file={greyImage}
                 alt="cover image"
@@ -214,7 +214,7 @@ const MainInfo = ({
         <Img
           width={100}
           height={100}
-          url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/wwwroot/uploads/${userSigned?.profilePicture}`}
+          url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${userSigned?.profilePicture}`}
           file={profileIcon}
           validateURL={!!userSigned?.profilePicture}
           onClick={
@@ -328,7 +328,7 @@ const MainInfo = ({
                     width={10}
                     height={10}
                     className="agency"
-                    url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/wwwroot/uploads/${lastExp?.pic}`}
+                    url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${lastExp?.pic}`}
                     validateURL={!!lastExp?.pic}
                     file={agencyIcon}
                     alt="agency icon"
@@ -474,12 +474,12 @@ const ModalChangePictures: React.FC<ModalChangePicturesProps> = ({
   const handlePreviewImagesDefault = () => {
     if (profile?.profilePicture) {
       if (profileImageRef.current) {
-        profileImageRef.current.src = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/wwwroot/uploads/${profile.profilePicture}`;
+        profileImageRef.current.src = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${profile.profilePicture}`;
       }
     }
     if (profile?.coverPicture) {
       if (coverImageRef.current) {
-        coverImageRef.current.src = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/wwwroot/uploads/${profile.coverPicture}`;
+        coverImageRef.current.src = `${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${profile.coverPicture}`;
       }
     }
   };
