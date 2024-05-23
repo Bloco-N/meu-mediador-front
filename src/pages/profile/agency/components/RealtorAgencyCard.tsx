@@ -172,7 +172,7 @@ export default function RealtorAgencyCard({
                     height={100}
                     className={ isProfile ? "profile profile-pointer" : "profile" }
                     validateURL={!!item?.pic}
-                    url={`https://storage-production-7c83.up.railway.app/wwwroot/uploads/${item?.pic}`}
+                    url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/wwwroot/uploads/${item?.pic}`}
                     file={profileIcon}
                     alt="profile icon"
                   />

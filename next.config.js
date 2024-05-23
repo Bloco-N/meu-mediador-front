@@ -4,7 +4,7 @@ const nextConfig = {
       remotePatterns: [
         {
           protocol: 'https',
-          hostname: 'storage-production-7c83.up.railway.app',
+          hostname: 'files.meoagent.com',
           port: '',
           pathname: '/wwwroot/uploads/**',
         },
