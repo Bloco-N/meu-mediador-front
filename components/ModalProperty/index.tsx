@@ -158,8 +158,8 @@ const AddPropertyModal = ({
     const file = files[0];
 
     if (FileReader && file) {
+      alert(file.name)
       const fr = new FileReader();
-      const token = localStorage.getItem("token");
 
       const onload = async () => {
         const img = document.getElementById("property-img") as HTMLImageElement;
@@ -290,11 +290,11 @@ const AddPropertyModal = ({
               height={400}
               width={400}
               className="property-img"
-              url={`https://storage-production-7c83.up.railway.app/wwwroot/uploads/${pic}`}
+              url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/wwwroot/uploads/${pic}`}
               validateURL={!!pic}
               file={placeholderImg}
               alt="property image"
-            ></Img>
+            />
             <label htmlFor="property-pic">{t.addPropertiesModal.edit}</label>
             <input
               onChange={(e) => handleChange(e)}

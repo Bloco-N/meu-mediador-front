@@ -231,7 +231,7 @@ export default function PropertiesCard({
               <div className="watermark">
                 
                 <Img
-                  url={`https://storage-production-7c83.up.railway.app/wwwroot/uploads/${item?.profilePicture}`}
+                  url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/wwwroot/uploads/${item?.profilePicture}`}
                   validateURL={!!item?.profilePicture}
                   className="property-img"
                   width={200}

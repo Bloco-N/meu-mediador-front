@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://realtor-production-06d6.up.railway.app",
+  baseURL: "https://api.meoagent.com",
+  // baseURL: "https://realtor-production-06d6.up.railway.app",
     // baseURL: "http://127.0.0.1:3001",
 });
 //teste
