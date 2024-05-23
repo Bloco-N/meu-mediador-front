@@ -168,7 +168,7 @@ export default function PropertiesAgencyCard({localId, accType}:PropertiesCardPr
                 <Img 
                   className="property-img"
                   validateURL={!!item.profilePicture}
-                  url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/wwwroot/uploads/${item.profilePicture}`}
+                  url={`${process.env.NEXT_PUBLIC_URL_STORAGE_UPLOADS}/${item.profilePicture}`}
                   width={200}
                   height={100}
                   alt="profile picture"/>
